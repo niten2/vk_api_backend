@@ -1,7 +1,7 @@
 VkontakteApi.configure do |config|
-  config.app_id       = Rails.configuration.vk.app_id
-  config.app_secret   = Rails.configuration.vk.app_secret
-  config.redirect_uri = Rails.configuration.vk.redirect_uri
+  config.app_id       = ENV['VK_APP_ID']
+  config.app_secret   = ENV['VK_APP_SECRET']
+  config.redirect_uri = ENV['VK_REDIRECT_URI']
 
   # Faraday adapter to make requests with:
   # config.adapter = :net_http

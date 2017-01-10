@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     arel (7.1.4)
     builder (3.2.2)
+    coderay (1.1.1)
     concurrent-ruby (1.0.4)
     debug_inspector (0.0.2)
     dotenv (2.1.1)
@@ -88,6 +89,12 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     oj (2.18.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (3.6.2)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -109,7 +116,6 @@ GEM
       nokogiri (~> 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-pry (0.0.1)
     railties (5.0.1)
       actionpack (= 5.0.1)
       activesupport (= 5.0.1)
@@ -120,6 +126,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    slop (3.6.0)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -158,11 +165,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  dotenv-rails (= 2.1.1)
+  dotenv-rails
   listen (~> 3.0.5)
+  pry-rails
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
-  rails-pry
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
