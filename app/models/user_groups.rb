@@ -1,6 +1,6 @@
-class User < ActiveRecord::Base
+# class User < ActiveRecord::Base
 
-  belongs_to :user
-  belongs_to :group
+#   belongs_to :user
+#   belongs_to :group
 
-end
+# end

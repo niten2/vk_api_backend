@@ -1,7 +1,13 @@
 class AuthController < ApplicationController
 
   def vk
-    @vk_url = VkontakteApi.authorization_url(scope: [:friends, :groups, :offline, :notify])
+    @vk_url = VkontakteApi.authorization_url(scope: [
+      :friends,
+      :groups,
+      :offline,
+      :notify
+    ])
+
     redirect_to @vk_url
   end
 

@@ -13,14 +13,25 @@
 ActiveRecord::Schema.define(version: 20170119163836) do
 
   create_table "groups", force: :cascade do |t|
+    t.string  "screen_name"
+    t.integer "gid"
     t.string  "name"
-    t.string  "link"
-    t.integer "count"
+    t.integer "members_count"
     t.string  "note"
+    t.string  "photo_50"
+    t.integer "status",        default: 0
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string  "uid"
+    t.string  "first_name"
+    t.string  "last_name"
+    t.integer "followers_count"
+    t.string  "sex"
+    t.integer "city"
+    t.string  "bdate"
+    t.string  "crop_photo_url"
+    t.integer "status",          default: 0
   end
 
 end

@@ -1,10 +1,17 @@
 class CreateGroups < ActiveRecord::Migration[5.0]
   def change
     create_table :groups do |t|
+      t.string :screen_name
+      t.integer :gid
+
       t.string :name
-      t.string :link
-      t.integer :count
+
+      t.integer :members_count
       t.string :note
+
+      t.string :photo_50
+
+      t.integer :status, default: 0
     end
   end
 end
