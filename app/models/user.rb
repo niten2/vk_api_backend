@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   validates :uid, presence: true, uniqueness: true
 
+  has_many :tag_joins, as: :target
+  has_many :tags, through: :tag_joins
+
   enum status: [:active, :inactive, :staging]
 
   scope :men, -> { where(sex: MEN) }
@@ -16,8 +19,15 @@ class User < ActiveRecord::Base
   scope :uids, -> { select(:uid).map(&:uid) }
 
   scope :valid_users, -> (limit = 9999999999) { active.where(sex: WOMEN).where(city: KRSK).where(followers_count: ValidFollowersCount).limit(limit) }
+  scope :with_tag, -> (tag = nil) { active.includes(:tags).where(tags: { name: tag }) }
+
+  # User.with_tag("winter")
+
+  # tag = "winter"
+  # User.active.includes(:tags).where(tags: { name: tag })
 
   # User.valid_users.map { |user| puts user.uid }
+  #
   # User.good_friends.count
   # User.valid_users.count
 

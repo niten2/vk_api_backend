@@ -12,6 +12,8 @@ class CreateGroups < ActiveRecord::Migration[5.0]
       t.string :photo_50
 
       t.integer :status, default: 0
+
+      t.timestamps null: false
     end
   end
 end

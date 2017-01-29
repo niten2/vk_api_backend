@@ -13,6 +13,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :crop_photo_url
 
       t.integer :status, default: 0
+
+      t.timestamps null: false
     end
   end
 end

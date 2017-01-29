@@ -10,28 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119163836) do
+ActiveRecord::Schema.define(version: 20170129145517) do
 
   create_table "groups", force: :cascade do |t|
-    t.string  "screen_name"
-    t.integer "gid"
-    t.string  "name"
-    t.integer "members_count"
-    t.string  "note"
-    t.string  "photo_50"
-    t.integer "status",        default: 0
+    t.string   "screen_name"
+    t.integer  "gid"
+    t.string   "name"
+    t.integer  "members_count"
+    t.string   "note"
+    t.string   "photo_50"
+    t.integer  "status",        default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_joins", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "uid"
-    t.string  "first_name"
-    t.string  "last_name"
-    t.integer "followers_count"
-    t.string  "sex"
-    t.integer "city"
-    t.string  "bdate"
-    t.string  "crop_photo_url"
-    t.integer "status",          default: 0
+    t.string   "uid"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "followers_count"
+    t.string   "sex"
+    t.integer  "city"
+    t.string   "bdate"
+    t.string   "crop_photo_url"
+    t.integer  "status",          default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

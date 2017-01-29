@@ -6,6 +6,11 @@ class Group < ActiveRecord::Base
 
   scope :screen_names, -> { select(:screen_name).map(&:screen_name) }
 
+  has_many :tag_joins, as: :target
+  has_many :tags, through: :tag_joins
+
+  scope :for_offers, -> { includes(:tags).where(tags: { name: "Для офферов" }) }
+
   # has_many :tags, :through => :tag_relation, :as => :target
   # has_many :user_groups, dependent: :destroy
   # has_many :users, through: :user_groups, dependent: :destroy
