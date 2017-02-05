@@ -11,7 +11,6 @@ class API::V1::Groups::SearchInfo
     parts = ids.each_slice(300).to_a
 
     parts.each do |part|
-
       groups = VkClient.groups.get_by_id(group_ids: part, fields: [
         :members_count,
         :photo_50,

@@ -1,60 +1,71 @@
 class API::V1::Users::SearchInfo
 
   include StandardService::Wrapper
-  attr_accessor :ids
+  attr_accessor :uids, :uid
+
+  FIELDS = [
+    :sex,
+    :bdate,
+    :city,
+    :followers_count,
+    :personal,
+    :status,
+    :crop_photo,
+  ]
+
+  COUNT_UIDS = 400
 
   service do
-    check_ids
-    search_info
+    search_info if uids.present?
+    search_uid if uid.present?
   end
 
   # add blacklisted
   def search_info
-
-    parts = @ids.each_slice(300).to_a
+    parts = uids.each_slice(COUNT_UIDS).to_a
 
     parts.each do |part|
 
-      users = VkClient.users.get(user_ids: part, fields: [
-        :sex,
-        :bdate,
-        :city,
-        :followers_count,
-        :personal,
-        :status,
-        :crop_photo,
-      ])
+      users = VkClient.users.get(user_ids: part, fields: FIELDS)
 
-      users.map do |user, index|
-        model = User.where(uid: user["uid"]).take
-        if model.present?
-          set_attributes_vk(model, user)
+      users.map do |response, index|
+
+        user = User.where(uid: response["uid"]).take
+
+        if user.present?
+          set_attributes_vk(user, response)
         else
-          puts "model not found #{user["uid"]}"
+          puts "user not found #{user["uid"]}"
         end
       end
 
     end
   end
 
-  def set_attributes_vk(model, user)
-    puts "User with uid update #{model.uid}"
+  def search_uid
+    user = User.find_by_uid(uid)
+    response = VkClient.users.get(user_id: uid, fields: FIELDS).first
+    set_attributes_vk(user, response)
+  end
 
-    model.update_attributes(
-      first_name: user['first_name'],
-      last_name: user['last_name'],
-      followers_count: user['followers_count'],
-      city: user['city'],
-      bdate: user['bdate'],
-      crop_photo_url: user.dig("crop_photo", "photo", "src"),
-      sex: user['sex'],
+  def set_attributes_vk(user, response)
+    puts "User with uid update #{user.uid}"
+
+    user.update_attributes(
+      first_name: response['first_name'],
+      last_name: response['last_name'],
+      followers_count: response['followers_count'],
+      city: response['city'],
+      bdate: response['bdate'],
+      crop_photo_url: response.dig("crop_photo", "photo", "src"),
+      sex: response['sex'],
     )
   end
 
-  def check_ids
-    if ids.instance_of? User::ActiveRecord_Relation
-      @ids = ids.map(&:uid)
-    end
-  end
+  # def check_uids
+  #   if uids.instance_of? User::ActiveRecord_Relation
+  #     @uids = uids.map(&:uid)
+  #   end
+  # end
 
 end

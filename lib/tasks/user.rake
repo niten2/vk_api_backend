@@ -3,9 +3,10 @@ namespace :user do
   # rake user:search_info
   desc "search info"
   task search_info: :environment do
+    user = User.with_tag("участники розыгрышей").uids
+
     begin
-      API::V1::Users::SearchInfo.call(ids: User.with_tag("winter"))
-      # API::V1::Users::SearchInfo.call(ids: User.uids)
+      API::V1::Users::SearchInfo.call(uids: user)
       puts "search info update correct"
     rescue
       puts "error!"
@@ -29,17 +30,15 @@ namespace :user do
   end
 
   # rake user:create_with["winter"]
-  # desc "create users by lib/ids/users.yml"
   task :create_with, [:tag] => :environment do |t, args|
+    file = "users_repost"
     tag_name = args[:tag]
     tag = Tag.find_or_create_by(name: tag_name)
 
-    users_posts = YAML.load_file('lib/ids/users_posts.yml').split(" ").uniq.compact
+    users = YAML.load_file("lib/ids/#{file}.yml").split(" ").uniq.compact
     fakes = YAML.load_file('lib/ids/fake.yml').split(" ").uniq.compact
 
-    correct_users = users_posts - fakes
-
-    correct_users.each do |id|
+    (users - fakes).each do |id|
       begin
         user = User.find_or_create_by!(uid: id)
         user.tags << tag if user.tags.where(name: tag.name).take.nil?
@@ -61,7 +60,8 @@ namespace :user do
   # rake user:write
   desc "write valid users"
   task write: :environment do
-    users = User.valid_users
+    users = User.valid_users.with_tag("участники розыгрышей")
+
     File.open("./valid_users.txt", "w+") do |file|
       users.each do |user|
         puts "User with write #{user.uid}"
