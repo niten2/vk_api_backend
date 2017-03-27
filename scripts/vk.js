@@ -1,16 +1,18 @@
 // node --require ../babelhook ./vk.js
+require('dotenv').config()
+
 // Setup
 var VK = require('vksdk')
 var vk = new VK({
-   'appId'     : 2807970,
-   'appSecret' : 'L14ZKpgQPalJdumI6vFK',
+   'appId'     : process.env.VK_APP_ID,
+   'appSecret' : process.env.VK_APP_SECRET,
    'language'  : 'ru'
 })
 
 // Setup server access token for server API methods
-vk.on('serverTokenReady', function(_o) {
-    // Here will be server access token
-    vk.setToken(_o.access_token)
+vk.on('serverTokenReady', function(o) {
+    console.log(o)
+    vk.setToken(o.access_token)
 })
 
 // Turn on requests with access tokens
