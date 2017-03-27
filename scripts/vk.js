@@ -1,32 +1,41 @@
-// node --require ../babelhook ./vk.js
-require('dotenv').config()
+// // node --require ./babelhook.js ./scripts/vk.js
+// require('dotenv').config()
 
-// Setup
-var VK = require('vksdk')
-var vk = new VK({
-   'appId'     : process.env.VK_APP_ID,
-   'appSecret' : process.env.VK_APP_SECRET,
-   'language'  : 'ru'
-})
+// // console.log(process.env.VK_APP_ID)
 
-// Setup server access token for server API methods
-vk.on('serverTokenReady', function(o) {
-    console.log(o)
-    vk.setToken(o.access_token)
-})
+// import VK from 'vksdk'
 
-// Turn on requests with access tokens
-vk.setSecureRequests(true)
+// var vk = new VK({
+//    'appId'     : process.env.VK_APP_ID,
+//    'appSecret' : process.env.VK_APP_SECRET,
+//    'language'  : 'ru'
+// })
 
-// Request server API method
-vk.request('secure.getSMSHistory', {}, function(_dd) {
-    console.log(_dd)
-})
+// vk.setToken(process.env.VK_TOKEN)
 
-// First you have to pass access_token from client side JS code
-vk.setToken(access_token)
+// vk.request('users.get', {'user_id' : 2333}, function(o) {
+//     console.log(o)
+// })
 
-// Request 'users.get' method
-vk.request('users.get', {'user_id' : 1}, function(_o) {
-    console.log(_o)
-})
+
+// // console.log(vk)
+
+// // // Setup server access token for server API methods
+// // vk.on('serverTokenReady', function(o) {
+// //     console.log(o)
+// //     vk.setToken(o.access_token)
+// // })
+
+// // // Turn on requests with access tokens
+// // vk.setSecureRequests(true)
+
+// // // Request server API method
+// // vk.request('secure.getSMSHistory', {}, function(_dd) {
+// //     console.log(_dd)
+// // })
+
+// // First you have to pass access_token from client side JS code
+
+// // vk.setToken(access_token)
+
+// // // Request 'users.get' method

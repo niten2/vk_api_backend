@@ -1,9 +1,9 @@
 import { pick } from 'lodash'
+import { groupUpload } from 'services/vk'
 
 const params = function(req) {
   return pick(req.body, [
   	'url',
-  	'screen_name',
   ])
 }
 
@@ -26,9 +26,16 @@ export default (context) => {
     },
 
     async create(req, res) {
+
       try {
-        const groups = await Group.create(params(req))
-        res.send(groups)
+        const group = await Group.create(params(req))
+
+        await groupUpload({
+          group: group,
+          url: req.body.url,
+        })
+
+        res.send(group)
       } catch(error) {
         res.status(422).json({"error": error })
       }

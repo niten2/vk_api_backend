@@ -1,7 +1,9 @@
+require('dotenv').config()
+
 import bunyan from 'bunyan'
 import express from 'express'
 import mongoose from 'mongoose'
-import favicon from 'serve-favicon'
+// import favicon from 'serve-favicon'
 import path from 'path'
 
 import config from './config'
@@ -10,6 +12,7 @@ import models from './models'
 import resourses from './resourses'
 import api from './api'
 import passportStrategy from 'lib/passport_strategy'
+
 
 export default class App {
 
@@ -74,8 +77,8 @@ export default class App {
     this.app.use(this.middlewares.reqLog)
     this.app.use(this.middlewares.accessLogger)
 
-    this.app.use(favicon(__dirname + '/public/favicon.ico'))
-    this.app.use(express.static(path.join(__dirname, 'public')))
+    // this.app.use(favicon(__dirname + '/public/favicon.ico'))
+    // this.app.use(express.static(path.join(__dirname, 'public')))
   }
 
   initResourses() {
