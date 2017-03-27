@@ -1,1 +1,0 @@
-rake db:seed:dump
