@@ -24,8 +24,8 @@ export default class App {
   init() {
     this.app = express()
     this.config = config
-    this.initMiddlewares()
     this.models = models
+    this.initMiddlewares()
     this.initResourses()
     this.initRoutes()
 
@@ -69,10 +69,11 @@ export default class App {
   initMiddlewares() {
     this.middlewares = middlewares(this)
 
+    this.app.use(this.middlewares.reqParser)
     this.app.use(this.middlewares.passport)
     this.app.use(this.middlewares.reqLog)
-    this.app.use(this.middlewares.reqParser)
     this.app.use(this.middlewares.accessLogger)
+
     this.app.use(favicon(__dirname + '/public/favicon.ico'))
     this.app.use(express.static(path.join(__dirname, 'public')))
   }

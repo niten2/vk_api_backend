@@ -14,6 +14,8 @@ export default (context) => {
 
     async index(req, res, next) {
       try {
+        console.log(req.body)
+
         const user = await User.findAll()
         res.json(user)
       } catch(error) {
@@ -25,6 +27,8 @@ export default (context) => {
     },
 
     async create(req, res) {
+      console.log(params(req))
+
       try {
         const user = await User.create(params(req))
         res.send(user)

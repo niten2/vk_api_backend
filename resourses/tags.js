@@ -3,6 +3,7 @@ import { pick } from 'lodash'
 const params = function(req) {
   return pick(req.body, [
   	'name',
+  	'kind',
   ])
 }
 
