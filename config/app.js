@@ -1,7 +1,6 @@
-import bunyan from 'bunyan'
 import express from 'express'
-import mongoose from 'mongoose'
-import path from 'path'
+import bunyan from 'bunyan'
+
 import settings from 'config/settings'
 import middlewares from 'api/middlewares'
 import models from 'api/models'
@@ -19,12 +18,10 @@ export default class App {
     this.app = express()
     this.settings = settings
     this.models = models
+    this.resourses = resourses(this)
+    this.middlewares = middlewares(this)
+    this.routes = routes(this)
 
-    this.initMiddlewares()
-    this.initResourses()
-    this.initRoutes()
-
-    // this.initPassportStrategy()
     if (settings.env != "test") {
       this.initLogSetup()
     }
@@ -55,16 +52,6 @@ export default class App {
     this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
   }
 
-  initMiddlewares() {
-    this.middlewares = middlewares(this)
-    this.app.use(this.middlewares.reqParser)
-    this.app.use(this.middlewares.passport)
-    this.app.use(this.middlewares.reqLog)
-    this.app.use(this.middlewares.accessLogger)
-    // this.app.use(favicon(__dirname + '/public/favicon.ico'))
-    // this.app.use(express.static(path.join(__dirname, 'public')))
-  }
-
   getLogger(params) {
     return bunyan.createLogger(Object.assign({
       name: 'app',
@@ -73,71 +60,8 @@ export default class App {
     }, params))
   }
 
-  initRoutes() {
-    this.app.use('/', routes(this))
-
-    // catch 404 and forward to error handler
-    this.app.use((req, res, next) => {
-      var err = new Error('Not Found')
-      err.status = 404
-      next(err)
-    })
-
-    // development error handler will print stacktrace
-    if (settings.env == 'development') {
-      this.app.use((err, req, res, next) => {
-        res.status(err.status || 500)
-        res.json({"error": err.message})
-      })
-    }
-
-    // production error handler no stacktraces leaked to user
-    this.app.use((err, req, res, next) => {
-      res.status(err.status || 500)
-      res.render('error', {
-        message: err.message,
-        error: err,
-      })
-    })
-  }
-
-  initResourses() {
-    this.resourses = resourses(this)
-  }
-
   this() {
     return this
   }
-
-  // initPassportStrategy() {
-  //   this.passport = passportStrategy(this)()
-  // }
-
-  // initModels() {
-  // }
-
-  // getDatabase() {
-  //   return {
-  //     run: () => {
-  //       new Promise((resolve) => {
-  //         mongoose.Promise = Promise
-  //         mongoose.connect(this.config.db.url)
-  //         resolve()
-  //       })
-  //     }
-  //   }
-  // }
-
-  // getDatabase() {
-  //   return {
-  //     run: () => {
-  //       new Promise((resolve) => {
-  //         mongoose.Promise = Promise
-  //         mongoose.connect(this.config.db.url)
-  //         resolve()
-  //       })
-  //     }
-  //   }
-  // }
 
 }

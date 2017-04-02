@@ -13,11 +13,6 @@ export default (context) => {
   const resource = {
 
     async index(req, res, next) {
-
-      console.log(1111111)
-      debugger
-
-
       try {
         const user = await User.findAll()
         res.json(user)
@@ -30,8 +25,6 @@ export default (context) => {
     },
 
     async create(req, res) {
-      console.log(params(req))
-
       try {
         const user = await User.create(params(req))
         res.send(user)

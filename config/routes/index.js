@@ -3,55 +3,39 @@ import Groups from './groups'
 import Users from './users'
 import Tags from './tags'
 
-export default (ctx) => {
+export default (context) => {
 	const api = AsyncRouter()
 
-  api.all('/', () => ({ version: 'current version v1' }) )
+  api.all('/', () => ({ version: 'current version /v1' }) )
 
-  api.use('/v1/users', Users(ctx))
-  api.use('/v1/tags', Tags(ctx))
-  api.use('/v1/groups', Groups(ctx))
+  api.use('/v1/users', Users(context))
+  api.use('/v1/tags', Tags(context))
+  api.use('/v1/groups', Groups(context))
 
-	return api
+  context.app.use('/', api)
+
+  // catch 404 and forward to error handler
+  context.app.use((req, res, next) => {
+    var err = new Error('Not Found')
+    err.status = 404
+    next(err)
+  })
+
+  // development error handler will print stacktrace
+  if (context.settings.env == 'development') {
+    context.app.use((err, req, res, next) => {
+      res.status(err.status || 500)
+      res.json({"error": err.message})
+    })
+  }
+
+  // production error handler no stacktraces leaked to user
+  context.app.use((err, req, res, next) => {
+    res.status(err.status || 500)
+    res.render('error', {
+      message: err.message,
+      error: err,
+    })
+  })
+
 }
-
-
-// import Posts from './posts'
-// import Comments from './comments'
-// import Passport from './passport'
-// api.use('/api/v1/posts', Posts(ctx))
-// api.use('/api/v1/comments', Comments(ctx))
-// api.use('/auth', Passport(ctx))
-
-
-// // api.get('/auth/google', ctx.passport.authenticate('google', { scope: 'profile email' }))
-
-// api.use(ctx.passport.authenticate('google', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     res.json({"ddd":"333"})
-//   }
-// );
-
-
-// api.get('/auth/google/callback', ctx.passport.authenticate(
-//   'google',
-
-//   { failureRedirect: '/login' },
-
-//   function(req, res) {
-//     // console.log(req, res)
-
-//     // req.send({"ttt": "333"})
-
-//     // console.log(2222)
-//     // console.log(req, res)
-//     // console.log(req)
-//     // console.log(111)
-//     // console.log(req, res)
-//     // return null
-//     // return user
-
-//     // res.send(user)
-//   }),
-// )
-

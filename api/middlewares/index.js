@@ -4,13 +4,9 @@ import reqParser from './reqParser'
 import accessLogger from './accessLogger'
 import passport from './passport'
 
-export default function () {
-  return {
-    jwt: jwt,
-    passport: passport(...arguments),
-    reqLog: reqLog(...arguments),
-    reqParser: reqParser(...arguments),
-    accessLogger: accessLogger(...arguments),
-    // accessLogger: require('./accessLogger')(),
-  }
+export default (context) => {
+  context.app.use(reqParser(context))
+  context.app.use(passport(context))
+  context.app.use(reqLog(context))
+  context.app.use(accessLogger(context))
 }
