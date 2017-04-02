@@ -34,7 +34,7 @@ export default class App {
   async run() {
     if (settings.env == "development") {
       return new Promise((resolve) => {
-        this.app.listen(this.settings.port, () => {
+        this.app.listen(settings.port, () => {
           resolve(this)
         })
       })

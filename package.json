@@ -2,7 +2,8 @@
   "name": "backend_blog_nodejs",
   "scripts": {
     "start": "nodemon --exec node --harmony --inspect --debug=7879 --require ./tools/babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
-    "seed": "node --require ./babelhook ./db/seed.js",
+    "seed": "node --require ./tools/babelhook ./db/seed.js",
+    "console": "node --require ./tools/babelhook ./tools/console.js",
     "test": "mocha test -R spec --ui bdd --require ./babelhook"
   },
   "dependencies": {
