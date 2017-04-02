@@ -13,9 +13,12 @@ export default (context) => {
   const resource = {
 
     async index(req, res, next) {
-      try {
-        console.log(req.body)
 
+      console.log(1111111)
+      debugger
+
+
+      try {
         const user = await User.findAll()
         res.json(user)
       } catch(error) {

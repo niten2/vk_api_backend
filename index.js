@@ -1,6 +1,5 @@
-import App from './app'
-const app = new App()
-app.run()
+import App from './config/app'
+new App().run()
 
 // import config from 'config/database'
 // import Models from './models'
@@ -12,4 +11,3 @@ app.run()
 //   server.on('listening', onListening);
 // });
 // const app = new App({ config })
-

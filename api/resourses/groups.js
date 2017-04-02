@@ -1,5 +1,5 @@
 import { pick } from 'lodash'
-import { groupUpload } from 'services/vk'
+// import { groupUpload } from 'services/vk'
 
 const params = function(req) {
   return pick(req.body, [
@@ -30,10 +30,10 @@ export default (context) => {
       try {
         const group = await Group.create(params(req))
 
-        await groupUpload({
-          group: group,
-          url: req.body.url,
-        })
+        // await groupUpload({
+        //   group: group,
+        //   url: req.body.url,
+        // })
 
         res.send(group)
       } catch(error) {

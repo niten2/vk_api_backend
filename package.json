@@ -1,7 +1,7 @@
 {
   "name": "backend_blog_nodejs",
   "scripts": {
-    "start": "nodemon --exec node --require ./babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "nodemon --exec node --harmony --inspect --debug=7879 --require ./tools/babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./babelhook ./db/seed.js",
     "test": "mocha test -R spec --ui bdd --require ./babelhook"
   },
@@ -57,6 +57,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "https://registry.npmjs.org/babel-register/-/babel-register-6.18.0.tgz",
     "babel-resolver": "^1.1.0",
+    "bunyan": "^1.8.9",
     "debug": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz"
   }
 }

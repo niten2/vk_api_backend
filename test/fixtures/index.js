@@ -20,7 +20,8 @@ export const valid_comment_params = {
 
 
 export const valid_user = {
-  email: "test@test.com",
-  password: "12345678",
-  name: "NAME USER",
+  first_name: "first_name",
+  // email: "test@test.com",
+  // password: "12345678",
+  // name: "NAME USER",
 }

@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize'
+import Settings from 'config/settings'
 
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: "sqlite",
@@ -9,8 +10,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     idle: 10000
   },
 
-  storage: './db/database.dev.sqlite'
+  storage: Settings.storage,
 })
 
 export default sequelize
-

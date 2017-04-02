@@ -1,4 +1,4 @@
 describe("Models", function() {
-  require('./post')
+  // require('./post')
   require('./user')
 })
