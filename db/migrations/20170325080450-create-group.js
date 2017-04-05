@@ -9,6 +9,7 @@ module.exports = {
           allowNull: false
         },
 
+        taggable_id: Sequelize.STRING,
         screen_name: Sequelize.STRING,
         gid: Sequelize.STRING,
         name: Sequelize.STRING,

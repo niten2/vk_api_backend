@@ -2,21 +2,14 @@
 
   "development": {
     "dialect": "sqlite",
-    "storage": "./db/database.dev.sqlite",
-    "seederStorage": "sequelize"
+    "storage": "db/database.dev.sqlite",
+    "seederStorage": "sequelize",
+    "autoMigrateOldSchema": true
   },
 
   "test": {
     "dialect": "sqlite",
     "storage": ":memory:"
-  },
-
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
   }
 
 }

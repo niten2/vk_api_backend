@@ -3,6 +3,8 @@ import Sequelize from 'sequelize'
 
 let User = db.define('users', {
 
+  // taggable_id: Sequelize.INTEGER,
+
   uid: {
     type: Sequelize.STRING,
   },
