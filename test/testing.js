@@ -1,5 +1,8 @@
 import context from "test/app.test"
 import chai, { expect } from 'chai'
+
+import parseUser from "api/lib/vk/parse_user"
+
 // import { valid_post } from "test/fixtures"
 // import SharedCrudModel from "test/shared/model/crud"
 
@@ -14,12 +17,24 @@ describe('Relation', () => {
   // })
 
   it('test', async () => {
-    let user  = await User.findById(1)
+    // console.log(await User.findAll())
+    // parseUser("https://vk.com/maks.petrov_krsk")
+
+  // User.findById(7).then( function(object) {
+
+  //   console.log(object)
+
+  // })
+
+    let test = await Tag.findById(1)
+      console.log(test)
 
 
+
+    // done()
 
     // console.log(user)
-    user.setVkAttributes("https://vk.com/maks.petrov_krsk")
+    // user.setVkAttributes("https://vk.com/maks.petrov_krsk")
 
   })
 

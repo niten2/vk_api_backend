@@ -2,7 +2,6 @@ import db from 'db'
 import Sequelize from 'sequelize'
 import Tag from 'api/models/tag'
 import ItemTag from 'api/models/item_tag'
-import { replace } from "lodash"
 
 let User = db.define('users', {
 
@@ -41,28 +40,42 @@ let User = db.define('users', {
 
 }, {
 
-  instanceMethods: {
-    setVkAttributes: function(url) {
+  // instanceMethods: {
+  //   setVkAttributes: function(url) {
+  //     let uid = replace(replace(url, "https://vk.com/", ""), "id", "")
+  //     console.log(uid)
 
-      console.log(url)
-      let uid = replace(replace(url, "https://vk.com/", ""), "id", "")
 
-      // let uid = replace(url, "https://vk.com/", "")
+  //     // let users = await User.findAll()
 
-      console.log(uid)
-      // vk.request('users.get', { 'user_id' : 11222}, function(req) {
+  //     // User.findAll().then(response => {
+  //     //   console.log(response)
+  //     //   console.log(111111111111111111111)
+  //     // })
 
-      //   console.log(req.response)
-      //   User
-      // })
 
-    }
-  },
 
+  //     // let user = await User.findOrCreate({
+  //     //   where: { uid: uid},
+  //     // })
+
+  //       // // console.log(response)
+
+  //     // })
+
+  //     // User.find
+
+
+  //     // vk.request('users.get', { 'user_id' : 11222}, function(req) {
+
+  //     //   console.log(req.response)
+  //     //   User
+  //     // })
+
+  //   }
+  // },
 
   freezeTableName: true,
-
-
 })
 
 User.addTag = async function(tag_id) {

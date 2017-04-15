@@ -1,4 +1,5 @@
 import { pick } from 'lodash'
+import parseUser from "api/lib/vk/parse_user"
 
 const params = function(req) {
   return pick(req.body, [
@@ -45,11 +46,18 @@ export default (context) => {
       }
     },
 
+    async show(req, res) {
+      try {
+        let user = await User.findById(req.params.id)
+        res.send(user)
+      } catch(error) {
+        res.status(422).json({"error": error })
+      }
+    },
+
     async create(req, res) {
       try {
-        let user = await User.create(params(req))
-        await user.addTag(req.body.tag_id)
-        await user.setVkAttributes(req.body.url)
+        let user = await parseUser(req.body.url)
 
         res.send(user)
       } catch(error) {
