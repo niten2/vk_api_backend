@@ -11,10 +11,9 @@ replServer.context.app = app
 replServer.context.models = app.models
 replServer.context.context = app.this()
 
-// models.User.findAll().then(response => {
-//   console.log(response)
-// })
-
+models.ItemTag.findAll().then(response => {
+  console.log(response)
+})
 
 // models.Tag.findAll().then(response => {
 //   console.log(response)

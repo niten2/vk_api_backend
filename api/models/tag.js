@@ -18,4 +18,3 @@ let Tag = db.define('tags', {
 })
 
 export default Tag
-

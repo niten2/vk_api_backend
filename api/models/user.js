@@ -1,24 +1,19 @@
 import db from 'db'
 import Sequelize from 'sequelize'
+import Tag from 'api/models/tag'
+import ItemTag from 'api/models/item_tag'
+import { replace } from "lodash"
 
 let User = db.define('users', {
 
-  // taggable_id: {
-  //   type: Sequelize.INTEGER,
-  // },
-
-  uid: {
-    type: Sequelize.STRING,
-  },
+  uid: Sequelize.STRING,
 
   first_name: {
     type: Sequelize.STRING,
     field: 'first_name',
   },
 
-  last_name: {
-    type: Sequelize.STRING
-  },
+  last_name: Sequelize.STRING,
 
   followers_count: {
     type: Sequelize.STRING
@@ -45,8 +40,51 @@ let User = db.define('users', {
   },
 
 }, {
-  freezeTableName: true
+
+  instanceMethods: {
+    setVkAttributes: function(url) {
+
+      console.log(url)
+      let uid = replace(replace(url, "https://vk.com/", ""), "id", "")
+
+      // let uid = replace(url, "https://vk.com/", "")
+
+      console.log(uid)
+      // vk.request('users.get', { 'user_id' : 11222}, function(req) {
+
+      //   console.log(req.response)
+      //   User
+      // })
+
+    }
+  },
+
+
+  freezeTableName: true,
+
+
 })
 
-export default User
+User.addTag = async function(tag_id) {
+  let tag = await Tag.findById(tag_id)
 
+  if (tag) {
+    tag.addUser(user, { taggable: "users" })
+  }
+}
+
+// User.setVkAttributes = async function(url) {
+//   console.log(this)
+//   console.log(1111)
+
+//   // vk.request('users.get', { 'user_id' : 11222}, function(req) {
+
+//   //   console.log(req.response)
+//   //   User
+
+
+//   // })
+
+// }
+
+export default User

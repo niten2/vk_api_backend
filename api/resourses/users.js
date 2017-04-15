@@ -19,7 +19,6 @@ export default (context) => {
       try {
         let users
         let tag_id = req.query.tag_id
-        console.log(tag_id)
 
         if (tag_id) {
           users = await User.findAll({
@@ -48,9 +47,9 @@ export default (context) => {
 
     async create(req, res) {
       try {
-        let tag = await Tag.findById(req.body.tag_id)
         let user = await User.create(params(req))
-        tag.addUser(user, { taggable: "users" })
+        await user.addTag(req.body.tag_id)
+        await user.setVkAttributes(req.body.url)
 
         res.send(user)
       } catch(error) {

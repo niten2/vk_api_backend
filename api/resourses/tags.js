@@ -39,7 +39,6 @@ export default (context) => {
           })
         }
 
-
         res.json(tags)
       } catch(error) {
         res.status(422)
