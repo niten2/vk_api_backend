@@ -9,15 +9,15 @@ module.exports = {
           allowNull: false
         },
 
-        // taggable_id: Sequelize.INTEGER,
-
         name: Sequelize.STRING,
-        status: Sequelize.STRING,
-        kind: Sequelize.STRING,
+        status: Sequelize.INTEGER,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
+        kind: Sequelize.ENUM('groups', 'users'),
+
+        // taggable_id: Sequelize.INTEGER,
+        // kind: Sequelize.STRING,
         // kind: Sequelize.INTEGER,
-        // kind: Sequelize.ENUM('openstreetmap', 'imagery', 'user', 'import'),
       })
   },
 

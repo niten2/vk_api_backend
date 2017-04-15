@@ -11,10 +11,7 @@ let Tag = db.define('tags', {
     type: Sequelize.STRING
   },
 
-  kind: {
-    type: Sequelize.ENUM,
-    values: ['active', 'pending', 'deleted'],
-  },
+  kind: Sequelize.ENUM('groups', 'users'),
 
 }, {
   freezeTableName: true

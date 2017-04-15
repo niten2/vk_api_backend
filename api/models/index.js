@@ -43,30 +43,28 @@ import ItemTag from './item_tag'
 
 
 User.belongsToMany(Tag, {
-  // as: "getTest",
   through: {
     model: ItemTag,
     unique: false,
     scope: {
-      taggable: 'user'
+      taggable: 'users'
     }
   },
   foreignKey: 'taggable_id',
-  constraints: false
-});
+  constraints: false,
+})
 
 Tag.belongsToMany(User, {
-  // as: 'pendingTags',
   through: {
     model: ItemTag,
     unique: false
   },
   foreignKey: 'tag_id',
-  constraints: false
-});
+  constraints: false,
+})
 
 
-console.log(Tag.prototype)
+// console.log(Tag.prototype)
 // Tag.prototype.getItem = () => {
 //   console.log(111)
 //   return "test"
@@ -78,4 +76,5 @@ export default {
   User: User,
   Group: Group,
   Tag: Tag,
+  ItemTag: ItemTag,
 }

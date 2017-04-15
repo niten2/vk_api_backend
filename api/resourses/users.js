@@ -3,19 +3,41 @@ import { pick } from 'lodash'
 const params = function(req) {
   return pick(req.body, [
   	'name',
+  	'url',
   ])
 }
 
 export default (context) => {
 
   const User = context.models.User
+  const Tag = context.models.Tag
+  const ItemTag = context.models.ItemTag
 
   const resource = {
 
     async index(req, res, next) {
       try {
-        const user = await User.findAll()
-        res.json(user)
+        let users
+        let tag_id = req.query.tag_id
+        console.log(tag_id)
+
+        if (tag_id) {
+          users = await User.findAll({
+            include: [{
+              model: Tag,
+              where: { id: tag_id },
+            }]
+          })
+        } else {
+          // users = await User.findAll()
+          users = await User.findAll({
+            include: [{
+              model: Tag,
+            }]
+          })
+        }
+
+        res.json(users)
       } catch(error) {
         res.status(422)
         res.json({
@@ -26,7 +48,10 @@ export default (context) => {
 
     async create(req, res) {
       try {
-        const user = await User.create(params(req))
+        let tag = await Tag.findById(req.body.tag_id)
+        let user = await User.create(params(req))
+        tag.addUser(user, { taggable: "users" })
+
         res.send(user)
       } catch(error) {
         res.status(422).json({"error": error })

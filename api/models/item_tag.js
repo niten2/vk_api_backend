@@ -21,7 +21,7 @@ let ItemTag = db.define('item_tags', {
   },
 
   taggable: {
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM('groups', 'users'),
     unique: 'item_tag_taggable'
   },
 

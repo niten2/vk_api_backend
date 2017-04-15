@@ -1,15 +1,15 @@
 {
   "name": "backend_blog_nodejs",
   "scripts": {
-    "start": "nodemon --exec node --harmony --inspect --debug=7879 --require ./tools/babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "nodemon --exec node --harmony --require ./tools/babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
     "console": "node --require ./tools/babelhook ./tools/console.js",
-    "test": "mocha test -R spec --ui bdd --require ./babelhook",
+    "test": "mocha test --inspect-brk --require tools/babelhook",
     "db:migrate": "node_modules/.bin/sequelize db:migrate --migrations-path=db/migrations",
     "db:migration": "node_modules/.bin/sequelize migration:create --migrations-path=db/migrations",
     "db:seed": "node_modules/.bin/sequelize db:seed:all --seeders-path=db/seeders",
     "db:drop": "rm -rf db/database.dev.sqlite",
-    "db:restart": "npm run db:drop; npm run db:migrate; npm run db:seed;",
+    "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "parse:test": "nodemon --exec node --require ./tools/babelhook api/lib/vk/parse_tests.js"
   },
   "dependencies": {

@@ -3,7 +3,7 @@ module.exports = {
 
     return queryInterface.bulkInsert('item_tags', [{
 
-      taggable: 'user',
+      taggable: 'users',
       tag_id: 1,
       taggable_id: 1,
 

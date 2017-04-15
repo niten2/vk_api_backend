@@ -1,4 +1,4 @@
 describe("Blog Backend", function() {
-  require('./resourses')
+  // require('./resourses')
   // require('./models')
 })
