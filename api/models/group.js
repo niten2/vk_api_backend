@@ -3,7 +3,9 @@ import Sequelize from 'sequelize'
 
 let Group = db.define('groups', {
 
-  // taggable_id: Sequelize.INTEGER,
+  // taggable_id: {
+  //   type: Sequelize.INTEGER,
+  // },
 
   screen_name: {
     type: Sequelize.STRING,

@@ -15,3 +15,7 @@ replServer.context.context = app.this()
 //   console.log(response)
 // })
 
+
+// models.Tag.findAll().then(response => {
+//   console.log(response)
+// })

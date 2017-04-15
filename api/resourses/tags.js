@@ -10,13 +10,23 @@ const params = function(req) {
 export default (context) => {
 
   const Tag = context.models.Tag
+  const User = context.models.User
 
   const resource = {
 
     async index(req, res, next) {
       try {
-        const tags = await Tag.findAll()
-        res.json(tags)
+        const tag = await Tag.findById(1)
+        let test = await tag.getTaggables()
+        // console.log(test)
+        // const tags = await Tag.findById(1)
+        // console.log(tags)
+        // const tags = await Tag.findAll({
+        //   include: [
+        //     { model: User },
+        //   ]
+        // })
+        res.json(test)
       } catch(error) {
         res.status(422)
         res.json({

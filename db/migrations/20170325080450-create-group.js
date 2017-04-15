@@ -9,7 +9,10 @@ module.exports = {
           allowNull: false
         },
 
-        taggable_id: Sequelize.STRING,
+        // tag_id: Sequelize.STRING,
+        // tag_id: Sequelize.INTEGER,
+        // taggable_id: Sequelize.INTEGER,
+
         screen_name: Sequelize.STRING,
         gid: Sequelize.STRING,
         name: Sequelize.STRING,

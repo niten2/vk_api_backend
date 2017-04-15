@@ -1,10 +1,12 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
 
-    return queryInterface.bulkInsert('tags', [{
-      name: 'name',
-      // kind: 1,
-      createdAt: new Date(),
+    return queryInterface.bulkInsert('item_tags', [{
+
+      taggable: 'user',
+      tag_id: 1,
+      taggable_id: 1,
+
     }], {})
   },
 
