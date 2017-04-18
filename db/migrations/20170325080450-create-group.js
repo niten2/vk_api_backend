@@ -9,17 +9,13 @@ module.exports = {
           allowNull: false
         },
 
-        // tag_id: Sequelize.STRING,
-        // tag_id: Sequelize.INTEGER,
-        // taggable_id: Sequelize.INTEGER,
-
         screen_name: Sequelize.STRING,
         gid: Sequelize.STRING,
         name: Sequelize.STRING,
         members_count: Sequelize.STRING,
         note: Sequelize.STRING,
         photo_50: Sequelize.STRING,
-        status: Sequelize.STRING,
+        status: Sequelize.ENUM('active', 'inactive'),
 
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,

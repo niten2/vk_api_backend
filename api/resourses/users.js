@@ -3,13 +3,31 @@ import parseUser from "api/lib/vk/parse_user"
 
 const params = function(req) {
   return pick(req.body, [
-  	'name',
   	'url',
+  	'status',
   ])
 }
 
-export default (context) => {
+const createQuery = function(req, Tag) {
+  let query = { include: [] }
+  let tag_id = req.query.tag_id || null
+  let filter = req.query.filter || []
 
+  if (tag_id) {
+    query.include.push({
+      model: Tag,
+      where: { id: tag_id },
+    })
+  }
+
+  filter.map(attr => {
+    query["where"] = { status: attr }
+  })
+
+  return query
+}
+
+export default (context) => {
   const User = context.models.User
   const Tag = context.models.Tag
   const ItemTag = context.models.ItemTag
@@ -18,25 +36,7 @@ export default (context) => {
 
     async index(req, res, next) {
       try {
-        let users
-        let tag_id = req.query.tag_id
-
-        if (tag_id) {
-          users = await User.findAll({
-            include: [{
-              model: Tag,
-              where: { id: tag_id },
-            }]
-          })
-        } else {
-          // users = await User.findAll()
-          users = await User.findAll({
-            include: [{
-              model: Tag,
-            }]
-          })
-        }
-
+        let users = await User.findAll(createQuery(req, Tag))
         res.json(users)
       } catch(error) {
         res.status(422)
@@ -58,6 +58,7 @@ export default (context) => {
     async create(req, res) {
       try {
         let user = await parseUser(req.body.url)
+        user.addTag(req.body.tag_id)
 
         res.send(user)
       } catch(error) {
@@ -67,7 +68,8 @@ export default (context) => {
 
     async update(req, res) {
       try {
-        const user = await User.create(params(req))
+        let user = await User.findById(req.params.id)
+        await user.update(params(req))
         res.send(user)
       } catch(error) {
         res.status(422)

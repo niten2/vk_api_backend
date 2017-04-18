@@ -18,7 +18,9 @@ describe('Relation', () => {
 
   it('test', async () => {
     // console.log(await User.findAll())
-    // parseUser("https://vk.com/maks.petrov_krsk")
+    // let user = await parseUser("https://vk.com/maks.petrov_krsk")
+    let user = await parseUser("https://vk.com/niten2")
+    console.log(user)
 
   // User.findById(7).then( function(object) {
 
@@ -26,8 +28,8 @@ describe('Relation', () => {
 
   // })
 
-    let test = await Tag.findById(1)
-      console.log(test)
+    // let test = await Tag.findById(1)
+      // console.log(test)
 
 
 

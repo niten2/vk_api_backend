@@ -48,6 +48,7 @@
     "sequelize-cli": "^2.5.1",
     "serve-favicon": "~2.2.1",
     "sqlite": "^2.3.0",
+    "vk-io": "^3.1.4",
     "vksdk": "^5.3.2"
   },
   "devDependencies": {

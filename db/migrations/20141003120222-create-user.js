@@ -9,9 +9,6 @@ module.exports = {
           allowNull: false
         },
 
-        // tag_id: Sequelize.INTEGER,
-        // taggable_id: Sequelize.INTEGER,
-
         username: Sequelize.STRING,
         uid: Sequelize.STRING,
         first_name: Sequelize.STRING,

@@ -5,45 +5,34 @@ import Models from "api/models"
 
 let { User } = Models
 
-// let test = async function (uid) {
+export default async (url) => {
 
-//   console.log(vk)
-//   console.log(222)
+  let uid = replace(replace(url, "https://vk.com/", ""), "id", "")
 
-//   return await Promise.new(names.map(async function(name) {
-//     var unicorn = await getUnicorn(name);
-//     return unicorn;
-//   }));
-
-
-// }
-
-
-export default (url) => {
-  console.log(11122222)
-
-  // let uid = replace(replace(url, "https://vk.com/", ""), "id", "")
-
-  // // let object = await User.findOrCreate({
-  // //   where: { uid: uid },
-  // // })
-
-  User.findById(7).then( object => {
-
-    console.log(object)
-
+  let objects = await User.findOrCreate({
+    where: { uid: uid },
   })
 
-  // await test(object.uid)
+  let object = objects[0]
 
-  // console.log(object.id)
-  // console.log(object.uid)
+  let users = await vk.api.users.get({
+    user_ids: uid,
+    fields: [
+      "sex",
+      "bdate",
+      "city",
+      "followers_count",
+      "personal",
+      "status",
+      "crop_photo",
+    ],
+  })
+  let user = users[0]
 
+  await object.update({
+    first_name: user.first_name,
+    last_name: user.last_name,
+  })
 
-  // console.log(111)
-  // vk.request('users.get', { 'user_id' : object.uid}, function(req) {
-  //   console.log(1111)
-  //   console.log(req.response)
-  // })
-
+  return object
 }
