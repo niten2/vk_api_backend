@@ -12,27 +12,34 @@ export default async (url) => {
   let objects = await User.findOrCreate({
     where: { uid: uid },
   })
-
   let object = objects[0]
 
-  let users = await vk.api.users.get({
+  let responses = await vk.api.users.get({
     user_ids: uid,
     fields: [
+      "followers_count",
       "sex",
       "bdate",
       "city",
-      "followers_count",
       "personal",
       "status",
       "crop_photo",
     ],
   })
-  let user = users[0]
+  let response = responses[0]
 
   await object.update({
-    first_name: user.first_name,
-    last_name: user.last_name,
+    first_name: response.first_name,
+    last_name: response.last_name,
+    followers_count: response.followers_count,
+    sex: response.sex,
+    city: response.city == 72 ? "krsk" : "not found",
+    bdate: response.bdate,
+    crop_photo_url: response.crop_photo.photo.photo_75,
+    status: "active",
   })
+
+  console.log(object)
 
   return object
 }
