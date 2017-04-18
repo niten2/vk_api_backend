@@ -39,7 +39,8 @@ let Group = db.define('groups', {
     addTagT: async function(tag_id) {
       let tag = await Tag.findById(tag_id)
 
-      console.log(tag)
+      return 111
+      // console.log(tag)
       // if (tag) {
       //   tag.addGroups(this, { taggable: "groups" })
       // }

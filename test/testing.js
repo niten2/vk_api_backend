@@ -3,29 +3,24 @@ import chai, { expect } from 'chai'
 
 // import { parseGroup } from "api/services/vk"
 
-// import { valid_post } from "test/fixtures"
-// import SharedCrudModel from "test/shared/model/crud"
+describe('Testing', () => {
 
-describe('Relation', () => {
+  let { Group, ItemTag, User, Tag } = context.models
 
-  let User = context.models.User
-  let Tag = context.models.Tag
-  let ItemTag = context.models.ItemTag
-  // let Group = context.models.Group
-  let { Group } = context.models
+  it('test', () => {
 
+    Group.findById(1).then(response => {
 
-  // beforeEach( async () => {
-  //   await Model.remove({})
-  // })
+      console.log(111)
 
-  it('test', async () => {
+      console.log(group)
 
-    let group = await Group.findById(1)
+    })
 
-    // console.log(group)
+    // console.log(JSON.stringify(group))
 
-    console.log(await group.addTagT(1))
+    // console.log(await group.addTagT(1))
+
     // let test = await ItemTag.findAll()
     // console.log(test)
 
@@ -34,9 +29,7 @@ describe('Relation', () => {
     // let user = await parseUser("https://vk.com/niten2")
     // let user = await parseUser("test")
     // console.log(user)
-
     // let t = await parseGroup("https://vk.com/slim_body_krsk")
-
   })
 
 
