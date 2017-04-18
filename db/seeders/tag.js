@@ -1,19 +1,36 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
 
-    return queryInterface.bulkInsert('tags', [{
-      name: 'name',
-      status: 0,
-      // taggable_id: 1,
+    return queryInterface.bulkInsert('tags', [
+      {
+        name: 'user-1',
+        status: "active",
+        kind: "users",
+        createdAt: new Date(),
+      },
+      {
+        name: 'user-2',
+        status: "active",
+        kind: "users",
+        createdAt: new Date(),
+      },
 
-      kind: "users",
-      createdAt: new Date(),
-    }], {})
+      {
+        name: 'group-1',
+        status: "active",
+        kind: "groups",
+        createdAt: new Date(),
+      },
+      {
+        name: 'group-2',
+        status: "active",
+        kind: "groups",
+        createdAt: new Date(),
+      },
+
+    ])
 
   },
 
-  down: function (queryInterface, Sequelize) {
-
-  }
-
+  // down: function (queryInterface, Sequelize) {}
 }

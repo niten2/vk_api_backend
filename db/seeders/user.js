@@ -13,7 +13,7 @@ module.exports = {
       city: 'city',
       bdate: 'bdate',
       crop_photo_url: 'crop_photo_url',
-      status: 'status',
+      status: 'active',
       createdAt: new Date(),
 
     }], {})

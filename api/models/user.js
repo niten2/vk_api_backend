@@ -1,7 +1,7 @@
 import db from 'db'
 import Sequelize from 'sequelize'
+
 import Tag from 'api/models/tag'
-import ItemTag from 'api/models/item_tag'
 
 let User = db.define('users', {
 

@@ -9,7 +9,7 @@ User.belongsToMany(Tag, {
     unique: false,
     scope: {
       taggable: 'users'
-    }
+    },
   },
   foreignKey: 'taggable_id',
   constraints: false,
@@ -18,7 +18,10 @@ User.belongsToMany(Tag, {
 Group.belongsToMany(Tag, {
   through: {
     model: ItemTag,
-    unique: false
+    unique: false,
+    scope: {
+      taggable: 'groups'
+    },
   },
   foreignKey: 'taggable_id',
   constraints: false,

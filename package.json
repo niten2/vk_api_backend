@@ -5,6 +5,7 @@
     "seed": "node --require ./tools/babelhook ./db/seed.js",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "test": "mocha test --inspect-brk --require tools/babelhook",
+    "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate --migrations-path=db/migrations",
     "db:migration": "node_modules/.bin/sequelize migration:create --migrations-path=db/migrations",
     "db:seed": "node_modules/.bin/sequelize db:seed:all --seeders-path=db/seeders",

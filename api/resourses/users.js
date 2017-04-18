@@ -1,5 +1,5 @@
 import { pick } from 'lodash'
-import parseUser from "api/lib/vk/parse_user"
+import { parseUser } from "api/services/vk"
 
 const params = function(req) {
   return pick(req.body, [
@@ -8,10 +8,11 @@ const params = function(req) {
   ])
 }
 
-const createQuery = function(req, Tag) {
+const createQuery = function(req, models = {}) {
   let query = { include: [] }
   let tag_id = req.query.tag_id || null
   let filter = req.query.filter || []
+  let Tag = models.tag
 
   if (tag_id) {
     query.include.push({
@@ -36,7 +37,7 @@ export default (context) => {
 
     async index(req, res, next) {
       try {
-        let users = await User.findAll(createQuery(req, Tag))
+        let users = await User.findAll(createQuery(req, { tag: Tag }))
         res.json(users)
       } catch(error) {
         res.status(422)
@@ -59,7 +60,6 @@ export default (context) => {
       try {
         let user = await parseUser(req.body.url)
         user.addTag(req.body.tag_id)
-
         res.send(user)
       } catch(error) {
         res.status(422).json({"error": error })

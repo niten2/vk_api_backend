@@ -10,14 +10,10 @@ module.exports = {
         },
 
         name: Sequelize.STRING,
-        status: Sequelize.INTEGER,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
+        status: Sequelize.ENUM('active', 'inactive'),
         kind: Sequelize.ENUM('groups', 'users'),
-
-        // taggable_id: Sequelize.INTEGER,
-        // kind: Sequelize.STRING,
-        // kind: Sequelize.INTEGER,
       })
   },
 

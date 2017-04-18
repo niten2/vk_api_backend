@@ -1,5 +1,5 @@
 import { pick } from 'lodash'
-// import { groupUpload } from 'services/vk'
+// import { parseGroup } from "api/services/vk"
 
 const params = function(req) {
   return pick(req.body, [
@@ -28,13 +28,8 @@ export default (context) => {
     async create(req, res) {
 
       try {
-        const group = await Group.create(params(req))
-
-        // await groupUpload({
-        //   group: group,
-        //   url: req.body.url,
-        // })
-
+        const group = await parseGroup(req.body.url)
+        group.addTag(req.body.tag_id)
         res.send(group)
       } catch(error) {
         res.status(422).json({"error": error })

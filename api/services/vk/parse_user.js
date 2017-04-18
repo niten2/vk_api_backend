@@ -1,4 +1,4 @@
-import vk from "api/lib/vk/vk"
+import vk from "config/initialize/vk"
 import { replace } from "lodash"
 
 import Models from "api/models"
@@ -6,13 +6,7 @@ import Models from "api/models"
 let { User } = Models
 
 export default async (url) => {
-
   let uid = replace(replace(url, "https://vk.com/", ""), "id", "")
-
-  let objects = await User.findOrCreate({
-    where: { uid: uid },
-  })
-  let object = objects[0]
 
   let responses = await vk.api.users.get({
     user_ids: uid,
@@ -28,6 +22,12 @@ export default async (url) => {
   })
   let response = responses[0]
 
+  let objects = await User.findOrCreate({
+    where: { uid: uid },
+  })
+
+  let object = objects[0]
+
   await object.update({
     first_name: response.first_name,
     last_name: response.last_name,
@@ -38,8 +38,6 @@ export default async (url) => {
     crop_photo_url: response.crop_photo.photo.photo_75,
     status: "active",
   })
-
-  console.log(object)
 
   return object
 }

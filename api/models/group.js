@@ -1,6 +1,8 @@
 import db from 'db'
 import Sequelize from 'sequelize'
 
+import Tag from 'api/models/tag'
+
 let Group = db.define('groups', {
 
   screen_name: {
@@ -32,7 +34,20 @@ let Group = db.define('groups', {
   },
 
 }, {
-  freezeTableName: true
+
+  instanceMethods: {
+    addTagT: async function(tag_id) {
+      let tag = await Tag.findById(tag_id)
+
+      console.log(tag)
+      // if (tag) {
+      //   tag.addGroups(this, { taggable: "groups" })
+      // }
+
+    }
+  },
+
+  freezeTableName: true,
 })
 
 export default Group
