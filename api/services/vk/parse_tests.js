@@ -1,34 +1,36 @@
 import fs  from "fs"
+import R from "ramda"
 
-const parseTest = (data) => {
-  let values = []
-
-  data.map((object) => {
-    let result = {}
-    let question = object["question"]
-    let answers = []
-
-    object["answers"].map(answer => {
-
-      if (answer["checked"] == true) {
-        answers.push(answer["body"])
-      }
-    })
-
-    result["question"] = question
-    result["answers"] = answers
-    values.push(result)
-  })
-
-  return values
-}
-
-let test = JSON.parse(fs.readFileSync(`db/data/test.txt`, 'utf8'))
-let result = parseTest(test)
-
-
-result.map(value => {
-  console.log(`${value["question"]} = ${value["answers"]}`)
+R.get = R.curry((name, obj) => {
+  return obj[name]
 })
 
-export default parseTest
+let getData = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(`db/data/test.txt`, 'utf8', function(err, data){
+       if (err) {
+         reject(err)
+       } else {
+         resolve(JSON.parse(data))
+       }
+    })
+  })
+}
+
+let getAnswer = R.pipe(
+  R.get("answers"),
+  R.filter( R.where({ checked: R.equals(true) }) ),
+  R.map(R.get("body"))
+)
+
+let putsValues = values => {
+  values.map(value => {
+    console.log(`${value["question"]} = ${getAnswer(value)}`)
+  })
+}
+
+getData().then(data => {
+  putsValues(data)
+})
+
+export default getData

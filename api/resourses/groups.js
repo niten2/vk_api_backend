@@ -1,5 +1,5 @@
 import { pick } from 'lodash'
-// import { parseGroup } from "api/services/vk"
+import { parseGroup } from "api/services/vk"
 
 const params = function(req) {
   return pick(req.body, [

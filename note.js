@@ -79,4 +79,21 @@
 
 
 
+(function(R) {
+    var incomplete = R.filter(R.where({complete: false}));
+    var sortByDate = R.sortBy(R.prop('dueDate'));
+    var sortByDateDescend = R.compose(R.reverse, sortByDate);
+    var importantFields = R.project(['title', 'dueDate']);
+    var groupByUser = R.partition(R.prop('username'));
+    var activeByUser = R.compose(groupByUser, incomplete);
+    var gloss = R.compose(importantFields, R.take(5), sortByDateDescend);
+    var topData = R.compose(gloss, incomplete);
+    var topDataAllUsers = R.compose(R.mapObj(gloss), activeByUser);
+    var byUser = R.use(R.filter).over(R.propEq("username"));
 
+    log("Gloss for Scott:");
+    log(topData(byUser("Scott", tasks)));
+    log("====================");
+    log("Gloss for everyone:");
+    log(topDataAllUsers(tasks));
+}(ramda));
