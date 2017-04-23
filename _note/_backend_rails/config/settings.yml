@@ -1,4 +1,0 @@
-default: &default
-  vk_app_id: <%= ENV['VK_APP_ID'] %>
-  vk_app_secret: <%= ENV['VK_APP_SECRET'] %>
-  vk_redirect_uri: <%= ENV['VK_REDIRECT_URI'] %>

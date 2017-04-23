@@ -1,5 +1,6 @@
 import { pick } from 'lodash'
 import { parseUser } from "api/services/vk"
+import { User, Tag, ItemTag } from "api/models"
 
 const params = function(req) {
   return pick(req.body, [
@@ -12,7 +13,7 @@ const createQuery = function(req, models = {}) {
   let query = { include: [] }
   let tag_id = req.query.tag_id || null
   let filter = req.query.filter || []
-  let Tag = models.tag
+  // let Tag = models.tag
 
   if (tag_id) {
     query.include.push({
@@ -25,13 +26,19 @@ const createQuery = function(req, models = {}) {
     query["where"] = { status: attr }
   })
 
+  if (req.query.include == "tag") {
+    query.include.push({
+      model: Tag,
+    })
+  }
+
   return query
 }
 
 export default (context) => {
-  const User = context.models.User
-  const Tag = context.models.Tag
-  const ItemTag = context.models.ItemTag
+  // const User = context.models.User
+  // const Tag = context.models.Tag
+  // const ItemTag = context.models.ItemTag
 
   const resource = {
 

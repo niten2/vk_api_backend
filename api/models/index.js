@@ -36,11 +36,18 @@ Tag.belongsToMany(User, {
   constraints: false,
 })
 
-export default {
-  User: User,
-  Group: Group,
-  Tag: Tag,
-  ItemTag: ItemTag,
+Tag.belongsToMany(Group, {
+  through: {
+    model: ItemTag,
+    unique: false
+  },
+  foreignKey: 'tag_id',
+  constraints: false,
+})
+
+export {
+  User,
+  Group,
+  Tag,
+  ItemTag,
 }
-
-

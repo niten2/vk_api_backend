@@ -1,9 +1,5 @@
 const path = require('path')
 
-
-// console.log("dsfsdfsdfds")
-// console.log(path.resolve(__dirname, '..'))
-
 require("babel-core/register")({
 
   sourceMaps: true,
@@ -12,7 +8,7 @@ require("babel-core/register")({
 
   plugins: [
     "babel-polyfill",
-    "babel-plugin-syntax-async-functions",
+    // "babel-plugin-syntax-async-functions",
   ],
 
   presets: [

@@ -40,23 +40,19 @@ let User = db.define('users', {
 
   instanceMethods: {
     addTag: async function(tag_id) {
-      let tag = await Tag.findById(tag_id)
-
-      if (tag) {
-        tag.addUser(user, { taggable: "users" })
-      }
+      Tag.create({ taggable_id: this.id, tag_id: tag_id, taggable: 'users' })
     }
   },
 
   freezeTableName: true,
 })
 
-User.addTag = async function(tag_id) {
-  let tag = await Tag.findById(tag_id)
+// User.addTag = async function(tag_id) {
+//   let tag = await Tag.findById(tag_id)
 
-  if (tag) {
-    tag.addUser(user, { taggable: "users" })
-  }
-}
+//   if (tag) {
+//     tag.addUser(user, { taggable: "users" })
+//   }
+// }
 
 export default User

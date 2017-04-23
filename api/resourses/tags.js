@@ -1,4 +1,5 @@
 import { pick } from 'lodash'
+import { User, Tag, ItemTag } from "api/models"
 
 const params = function(req) {
   return pick(req.body, [
@@ -8,10 +9,6 @@ const params = function(req) {
 }
 
 export default (context) => {
-
-  const Tag = context.models.Tag
-  const User = context.models.User
-  const ItemTag = context.models.ItemTag
 
   const resource = {
 

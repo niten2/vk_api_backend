@@ -1,2 +1,3 @@
-import App from './config/app'
+import App from "config/app"
+
 new App().run()

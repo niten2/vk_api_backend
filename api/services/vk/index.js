@@ -1,5 +1,5 @@
-import parseGroup from "./parse_group"
-import parseUser from "./parse_user"
+import parseGroup from "./parseGroup"
+import parseUser from "./parseUser"
 
 export {
   parseGroup,
