@@ -4,7 +4,7 @@ const createQuery = (req) => {
   let query = { include: [] }
   let tag_id = req.query.tag_id || null
   let filter = req.query.filter || []
-  let include = req.query.include
+  let include = req.query.include || []
 
   // if (tag_id) {
   //   query.include.push({

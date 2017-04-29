@@ -16,8 +16,6 @@ const parseGroup = async (url) => {
   try {
     let screenName = parseUrl(url)
 
-    console.log(screenName)
-
     let responses = await vk.api.groups.getById({
       group_id: screenName,
       fields: [

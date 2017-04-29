@@ -31,6 +31,7 @@ export default (context) => {
 
   // production error handler no stacktraces leaked to user
   context.app.use((err, req, res, next) => {
+    airbrake.notify(err)
     res.status(err.status || 500)
     res.render('error', {
       message: err.message,
