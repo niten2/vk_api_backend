@@ -25,16 +25,35 @@ export default (context) => {
 
         // })
 
-        ig.user_search('username', (err, users, remaining, limit) => {
+        // ig.user_self_feed( (err, medias, pagination, remaining, limit) => {
 
-          console.log(err, users, remaining, limit)
+        //   console.log(err, medias, pagination, remaining, limit)
+
+        // });
+
+
+        ig.user('1248877206', (err, result, remaining, limit) => {
+
+          console.log(err, result, remaining, limit)
+
         });
 
 
-        // let z = await Instagram.subscriptions.list()
+        // let zz = ig.user_search('niten2niten2', (err, users, remaining, limit) => {
+        //   return new Promise((resolve, reject) => {
+        //     if (!err) {
+        //       resolve(users, remaining, limit)
+        //     } else {
+        //       reject(err)
+        //     }
+        //   })
+        // })
 
-        // console.log(z)
+        // let ee = await zz
 
+        // console.log(ee)
+
+        // res.json(err, users).status(200)
 
         res.json({dsdsfsd: 3333})
 
