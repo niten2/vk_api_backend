@@ -1,0 +1,266 @@
+.pointer {
+  cursor: pointer;
+}
+
+.background-green {
+  background-color: #d2c566;
+}
+
+
+img.avatar {
+  width: 50px;
+  height: 50;
+  margin: 20px;
+}
+
+.down {
+  margin-top: 25px;
+}
+
+.user-border {
+  border: 1px solid
+}
+
+.color-red {
+  color: red;
+}
+
+// .parent {
+//   display: table;
+// }
+
+// .child {
+//   display: table-cell;
+//   vertical-align: middle;
+// }
+
+
+// // main
+// .main img {
+//   width: 470px;
+//   height: 590;
+// }
+
+// .main h1 {
+//   margin-top: 40px;
+// }
+
+// .main h3 {
+//   margin-top: 80px;
+// }
+
+// .main button {
+//   margin: auto;
+//   margin-top: 100px;
+//   display: block;
+//   text-align: center;
+//   display: block;
+//   background-position: 0% 0%;
+//   background-repeat: no-repeat;
+//   border-width: 1px;
+//   border-radius: 15px;
+//   font-size: 24;
+//   background-hover-color: #c46298;
+//   color: #ffffff;
+//   height: 72px;
+//   width: 224px;
+//   font-weight: lighter;
+//   background-color: #b62673;
+//   left: 9px;
+//   font-family: 'open sans', sans-serif;
+//   font-weight: lighter;
+//   text-align: center;
+//   text-decoration: none;
+//   cursor: pointer;
+//   width: 254px;
+//   height: 72px;
+//   line-height: 72px;
+//   color: #ffffff;
+//   font-size: 24px;
+// }
+
+// // reviews
+// .reviews h1 {
+//   text-align: center;
+//   margin-top: 50px;
+//   margin-bottom: 50px;
+// }
+
+// .review img {
+//   width: 359px;
+//   height: 633px;
+// }
+
+// .image-gallery {
+//   margin: auto;
+//   display: block;
+//   width: 359px;
+//   height: 633px;
+// }
+
+// // offers
+// .offers {
+//   background-color: #d2c566;
+// }
+
+// .offers img {
+//   margin-top: 25px;
+// }
+
+// .offers p {
+//   margin-top: 15px;
+//   margin-left: -10px;
+//   margin-right: -10px;
+//   color: white;
+// }
+
+// // services
+// .services {
+//   background-color: #f0e9ea;
+// }
+
+// .services h1 {
+//   text-align: center;
+//   margin-top: 50px;
+//   margin-bottom: 50px;
+// }
+
+// .services .block {
+//   margin: auto;
+//   padding: 20px;
+//   display: block;
+//   border-width: 1px;
+//   border-color: #cccccc;
+//   border-style: none;
+//   border-top: 1px solid #d1cad0;
+// }
+
+// .services .block img {
+//   margin: auto;
+//   display: block;
+//   width: 200px;
+//   height: 200px;
+//   border-radius: 20px;
+// }
+
+
+// // contacts
+// .contacts h1 {
+//   text-align: center;
+//   margin-top: 50px;
+//   margin-bottom: 50px;
+// }
+
+// .contacts p {
+//   text-align: center;
+// }
+
+// // footer
+// .footer {
+//   width: 400px;
+//   height: 350px;
+//   background-color: #f0e9ea;
+//   border-radius: 40px;
+//   margin: auto;
+//   margin-top: 20px;
+//   margin-bottom: 20px;
+//   display: block;
+//   text-align: center;
+//   padding: 20px;
+// }
+
+// .footer h3 {
+//   margin: 20px;
+//   display: block;
+//   text-align: center;
+// }
+
+// .footer input {
+//   margin-top: 20px;
+//   margin-bottom: 20px;
+// }
+
+// .footer button {
+//   margin: auto;
+//   margin-top: 20px;
+//   margin-bottom: 20px;
+//   display: block;
+//   text-align: center;
+//   display: block;
+//   background-position: 0% 0%;
+//   background-repeat: no-repeat;
+//   border-width: 1px;
+//   border-radius: 15px;
+//   font-size: 24;
+//   background-hover-color: #c46298;
+//   color: #ffffff;
+//   height: 72px;
+//   width: 224px;
+//   font-weight: lighter;
+//   background-color: #b62673;
+//   left: 9px;
+//   font-family: 'open sans', sans-serif;
+//   font-weight: lighter;
+//   text-align: center;
+//   text-decoration: none;
+//   cursor: pointer;
+//   width: 254px;
+//   height: 72px;
+//   line-height: 72px;
+//   color: #ffffff;
+//   font-size: 24px;
+// }
+
+// // modal-form
+// .modal-form input {
+//   margin-top: 10px;
+// }
+
+// .modal-form .modal-button {
+//   float: right;
+// }
+
+// .modal-form .error {
+//   color: red;
+//   text-align: center;
+//   margin: 20px;
+// }
+
+// .modal-footer button.ok {
+//   color: #ffffff;
+//   background-color: #b62673;
+// }
+
+// .modal-footer button.cancel {
+//   color: #ffffff;
+//   background-color: #b62673;
+// }
+
+
+// @media only screen and (max-device-width: 768px) {
+//   body {
+//     color: green;
+//     font-size: 26pt;
+//   }
+//   // .main {
+//   //   width: 10px;
+//   //   margin: 10px;
+//   //   background-color: green;
+//   // }
+// }
+
+// @media (max-width: 768px) {
+//   // .navbar-toggle {
+//   //     margin: 60px 0;
+//   // }
+//   // .main {
+//   //   width: 10px;
+//   //   margin: 10px;
+//   //   background-color: green;
+//   // }
+// }
+
+
+// // .reviews {
+// //   background-color: black;
+// // }
