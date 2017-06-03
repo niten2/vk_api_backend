@@ -1,4 +1,4 @@
-import leftPad from 'left-pad'
+// import leftPad from 'left-pad'
 
 function levelFn(data) {
   if (data.err || data.status >= 500 || data.duration > 10000) {
@@ -19,7 +19,8 @@ function logFinish(data) {
   const time = (data.duration || 0).toFixed(3)
   const length = data.length || 0
   // return `${leftPad(data.method, 4)} ${data.url} ${leftPad(data.status, 3)} ${leftPad(time, 7)}ms ${leftPad(length, 5)}b reqId=${data.reqId}`
-  return `${leftPad(data.method, 4)} ${data.url} ${leftPad(data.status, 3)} ${leftPad(time, 7)}ms ${leftPad(length, 5)}b`
+  // return `${leftPad(data.method, 4)} ${data.url} ${leftPad(data.status, 3)} ${leftPad(time, 7)}ms ${leftPad(length, 5)}b`
+  return `${data.method} ${data.url} ${data.status} ${time}ms ${length} b`
 }
 
 // export default ([

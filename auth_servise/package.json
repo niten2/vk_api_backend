@@ -1,7 +1,7 @@
 {
   "name": "backend_blog_nodejs",
   "scripts": {
-    "start": "nodemon --exec node --harmony --require ./tools/babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate --migrations-path=db/migrations",
@@ -19,7 +19,7 @@
     "cookie-parser": "~1.3.5",
     "cors": "^2.8.1",
     "dotenv": "^1.1.0",
-    "express": "~4.12.4",
+    "express": "^4.12.4",
     "express-async-router": "^0.1.12",
     "express-bunyan-logger": "^1.3.1",
     "express-jwt": "^5.1.0",
@@ -40,6 +40,7 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "babel-resolver": "^1.1.0"
+    "babel-resolver": "^1.1.0",
+    "bunyan": "^1.8.10"
   }
 }
