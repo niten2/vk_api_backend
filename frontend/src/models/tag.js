@@ -1,6 +1,6 @@
 import { API, BaseModel } from 'mobx-model'
 
-const ENDPOINT = "api/v1/tags"
+const ENDPOINT = "/v1/tags"
 
 class Tag extends BaseModel {
   static urlRoot = ENDPOINT

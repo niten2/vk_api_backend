@@ -5,14 +5,10 @@ const resource = {
 
   async index(req, res, next) {
     try {
-
       let clients = await Client.findAll(createQuery(req))
-
       res.json(clients)
     } catch(error) {
-      res.json({
-        "error": error,
-      }).status(422)
+      res.json({ "error": error }).status(422)
     }
   },
 

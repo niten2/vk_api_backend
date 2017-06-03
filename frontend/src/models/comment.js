@@ -4,7 +4,7 @@ import { userProfile } from 'stores'
 import { UIStore, SearchStore } from 'stores'
 import Notification from 'notification'
 
-const ENDPOINT = "/api/v1/comments"
+const ENDPOINT = "/v1/comments"
 
 class Comment extends BaseModel {
   static urlRoot = ENDPOINT

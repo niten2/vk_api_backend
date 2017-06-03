@@ -14,18 +14,10 @@ const resource = {
 
   async index(req, res, next) {
     try {
-
-      // console.log(1111)
-      // console.log(req)
-      // console.log(createQuery(req))
-      // console.log(1111)
-
-      const groups = await Group.findAll()
+      const groups = await Group.findAll(createQuery(req))
       res.json(groups)
     } catch(error) {
-      res.json({
-        "error": `${error}`
-      }).status(422)
+      res.json({ "error": error }).status(422)
     }
   },
 
@@ -36,7 +28,7 @@ const resource = {
       let groups = await Group.createByUrls(urls, req.body.tag_id)
       res.send(groups)
     } catch(error) {
-      res.status(422).json({"error": `${error.name}, ${error.message}` })
+      res.json({"error": `${error.name}, ${error.message}` }).status(422)
     }
   },
 
@@ -45,8 +37,7 @@ const resource = {
       const group = await Group.update(params(req))
       res.send(group)
     } catch(error) {
-      res.status(422)
-      res.json({"error": error })
+      res.json({"error": error }).status(422)
     }
   },
 
@@ -54,9 +45,9 @@ const resource = {
     try {
       const group = await Group.findById(req.params.id)
       await group.destroy()
-      res.status(204).json({ "message": "ok" })
+      res.json({ "message": "ok" }).status(204)
     } catch(error) {
-      res.status(422).json({"error": error })
+      res.json({"error": error }).status(422)
     }
   },
 
