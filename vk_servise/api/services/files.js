@@ -1,6 +1,5 @@
 import fs  from "fs"
 import csv from "babyparse"
-// `db/data/test.txt`
 
 export const getFile = (path) => {
   return new Promise((resolve, reject) => {

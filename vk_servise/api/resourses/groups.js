@@ -1,6 +1,6 @@
 import { pick } from 'lodash'
 import { parseGroup } from "api/services/vk"
-import { createQuery } from "api/services"
+import createQuery from "api/services/createQuery"
 
 import { Group } from "api/models"
 

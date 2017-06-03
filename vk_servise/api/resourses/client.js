@@ -1,17 +1,18 @@
 import { Client } from "api/models"
-import { createQuery } from "api/services"
+import createQuery from "api/services/createQuery"
 
 const resource = {
 
   async index(req, res, next) {
     try {
+
       let clients = await Client.findAll(createQuery(req))
+
       res.json(clients)
     } catch(error) {
-      res.status(422)
       res.json({
-        "error": `There was a problem adding the information to the database: ${error}`
-      })
+        "error": error,
+      }).status(422)
     }
   },
 

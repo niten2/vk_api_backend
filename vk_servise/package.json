@@ -17,8 +17,10 @@
   "dependencies": {
     "babyparse": "^0.4.6",
     "body-parser": "~1.12.4",
+    "bunyan": "^1.8.10",
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
+    "debug": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz",
     "dotenv": "^1.1.0",
     "express": "~4.12.4",
     "express-async-router": "^0.1.12",
@@ -28,12 +30,11 @@
     "mocha-babel": "^3.0.3",
     "nodemon": "^1.10.2",
     "ramda": "^0.23.0",
+    "ramda-fantasy": "^0.8.0",
     "sequelize": "^3.30.2",
     "sequelize-cli": "^2.5.1",
     "sqlite": "^2.3.0",
-    "vk-io": "^3.1.4",
-    "bunyan": "^1.8.10",
-    "debug": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz"
+    "vk-io": "^3.1.4"
   },
   "devDependencies": {
     "babel": "^6.23.0",
