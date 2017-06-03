@@ -1,7 +1,5 @@
-// import Users from './users'
+import Instagram from './instagram'
 
-export default function () {
-  return {
-    // Users: Users(...arguments),
-  }
+export {
+  Instagram,
 }

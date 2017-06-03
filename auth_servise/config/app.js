@@ -4,7 +4,7 @@ import bunyan from 'bunyan'
 import settings from 'config/settings'
 import middlewares from 'api/middlewares'
 import models from 'api/models'
-import resourses from 'api/resourses'
+// import resourses from 'api/resourses'
 import routes from 'config/routes'
 
 export default class App {
@@ -17,7 +17,7 @@ export default class App {
 
     this.app = express()
     this.settings = settings
-    this.resourses = resourses(this)
+    // this.resourses = resourses(this)
     this.middlewares = middlewares(this)
     this.routes = routes(this)
 
@@ -31,7 +31,6 @@ export default class App {
     if (settings.env == "development") {
       return new Promise((resolve) => {
         this.app.listen(settings.port, () => {
-          console.log(111)
           resolve(this)
         })
       })
@@ -42,9 +41,9 @@ export default class App {
     if (this.middlewares) {
       this.log.trace('middlewares', Object.keys(this.middlewares))
     }
-    if (this.resourses) {
-      this.log.trace('resourses', Object.keys(this.resourses))
-    }
+    // if (this.resourses) {
+    //   this.log.trace('resourses', Object.keys(this.resourses))
+    // }
 
     this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
   }

@@ -1,5 +1,5 @@
 import { AsyncRouter } from 'express-async-router'
-// import Groups from './groups'
+import Passport from './passport'
 // import Users from './users'
 // import Tags from './tags'
 // import Clients from './clients'
@@ -18,6 +18,7 @@ export default (context) => {
   // api.use('/v1/clients', Clients())
 
   context.app.use('/', api)
+  context.app.use('/auth', Passport())
 
   // // catch 404 and forward to error handler
   // context.app.use((req, res, next) => {
