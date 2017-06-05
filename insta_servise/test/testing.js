@@ -1,4 +1,7 @@
-import Instagram from "config/initialize/instagram"
+// import Instagram from "config/initialize/instagram"
+
+import test from "api/services/phantomjs"
+
 
 describe('Testing', async() => {
 

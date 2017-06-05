@@ -12,7 +12,8 @@
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "parse:test": "nodemon --exec node --require ./tools/babelhook api/services/vk/parse_tests.js",
     "test": "mocha test --inspect-brk --require ./tools/babelhook",
-    "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js"
+    "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js",
+    "phantom": "nodemon --exec phantomjs api/services/phantomjs/test.js"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -29,6 +30,7 @@
     "instagram-node-lib": "^0.1.1",
     "mocha": "^2.4.5",
     "mocha-babel": "^3.0.3",
+    "phantomjs": "^2.1.7",
     "ramda": "^0.23.0",
     "ramda-fantasy": "^0.8.0",
     "sequelize": "^3.30.2",

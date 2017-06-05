@@ -1,7 +1,7 @@
 {
   "name": "vk-servise",
   "scripts": {
-    "start": "nodemon --exec node --harmony --require ./tools/babelhook index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate --migrations-path=db/migrations",
@@ -12,7 +12,8 @@
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "parse:test": "nodemon --exec node --require ./tools/babelhook api/services/vk/parse_tests.js",
     "test": "mocha test --inspect-brk --require ./tools/babelhook",
-    "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js"
+    "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js",
+    "phantom": "nodemon --exec mocha test --inspect-brk --require tools/babelhook ./api/services/phantomjs/index.js"
   },
   "dependencies": {
     "babyparse": "^0.4.6",
@@ -29,11 +30,13 @@
     "mocha": "^2.4.5",
     "mocha-babel": "^3.0.3",
     "nodemon": "^1.10.2",
+    "phantom": "^4.0.3",
     "ramda": "^0.23.0",
     "ramda-fantasy": "^0.8.0",
     "sequelize": "^3.30.2",
     "sequelize-cli": "^2.5.1",
     "sqlite": "^2.3.0",
+    "vk-auth": "^1.0.6",
     "vk-io": "^3.1.4"
   },
   "devDependencies": {
