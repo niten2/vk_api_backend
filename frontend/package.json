@@ -43,6 +43,7 @@
     "react-stub-context": "^0.7.0",
     "s3-deploy-dotenv": "^0.1.4",
     "slick-carousel": "^1.6.0",
+    "styled-components": "^2.1.0",
     "superagent": "^3.1.0"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-console.log(111)
 var path = require('path')
 var childProcess = require('child_process')
 var phantomjs = require('phantomjs')
@@ -10,11 +9,12 @@ var childArgs = [
 ]
 
 childProcess.execFile(binPath, childArgs, function(err, stdout, stderr) {
+  console.log(1111)
   // handle results
 
   console.log(1222)
-console.log('Hello, world!');
-phantom.exit();
+  console.log('Hello, world!');
+  phantom.exit();
 
 })
 

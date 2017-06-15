@@ -39,6 +39,8 @@ export default (context) => {
   const resource = {
 
     async index(req, res, next) {
+
+
       try {
         let users = await User.findAll(createQuery(req, { tag: Tag }))
         res.json(users)

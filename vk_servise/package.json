@@ -1,5 +1,5 @@
 {
-  "name": "vk-servise",
+  "name": "insta-servise",
   "scripts": {
     "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
@@ -13,7 +13,7 @@
     "parse:test": "nodemon --exec node --require ./tools/babelhook api/services/vk/parse_tests.js",
     "test": "mocha test --inspect-brk --require ./tools/babelhook",
     "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js",
-    "phantom": "nodemon --exec mocha test --inspect-brk --require tools/babelhook ./api/services/phantomjs/index.js"
+    "phantom": "nodemon --exec mocha --timeout 15000 test --inspect-brk --require tools/babelhook ./api/services/phantomjs/index.js",
   },
   "dependencies": {
     "babyparse": "^0.4.6",
