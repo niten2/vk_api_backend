@@ -3,9 +3,12 @@ import {
   auth,
   followExplore,
   likeFollowers,
-} from "./functions"
+} from "./actions"
 
-let main = async (quit) => {
+const sleep_delay = 500
+
+export const main = async (options = {}) => {
+  let { quit } = options
 
   let browser = await initBrowser()
 
@@ -17,5 +20,10 @@ let main = async (quit) => {
 
   await browser.get(url)
 
-  if (quit == true) { await browser.quit() }
+  // console.log(quit)
+
+  if (quit == true) {
+    await browser.sleep(sleep_delay)
+    await browser.quit()
+  }
 }

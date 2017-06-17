@@ -1,4 +1,4 @@
-import WebDriver from "api/services/web_drives"
+import { main } from "api/services/web_drives"
 
 
 
@@ -8,9 +8,9 @@ const resource = {
 
   async follow_explore(req, res, next) {
     try {
-      let have_quit = req.body.quit == "true" ? true : false
+      let have_quit = req.query.quit == "true" ? true : false
 
-      WebDriver.main({ quit: have_quit })
+      main({ quit: have_quit })
 
       res.json({message: "run driver"})
     } catch(error) {

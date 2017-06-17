@@ -11,11 +11,8 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin')
 var LiveReloadPlugin = require('webpack-livereload-plugin')
 var autoprefixer = require('autoprefixer')
 
-var API_ROOT = process.env.API_ROOT || 'http://127.0.0.1:3000'
 var ASSETS_HOST = 'http://127.0.0.1:8080/'
-// var APP_TOKEN = process.env.APP_TOKEN || ""
-// var APPLICATION_ID = process.env.APPLICATION_ID || ""
-// var SECRET_KEY_ID = process.env.SECRET_KEY_ID || ""
+var API_ROOT = process.env.API_ROOT || 'http://127.0.0.1:3000'
 
 module.exports = {
 
@@ -82,9 +79,14 @@ module.exports = {
     new webpack.DefinePlugin({
       "API_ROOT": JSON.stringify(API_ROOT),
       "ASSETS_HOST": JSON.stringify(ASSETS_HOST),
+      "AUTH_SERVISE": JSON.stringify(process.env.AUTH_SERVISE),
+      "CRM_SERVISE": JSON.stringify(process.env.CRM_SERVISE),
+      "VK_SERVISE": JSON.stringify(process.env.VK_SERVISE),
+      "INSTA_SERVISE": JSON.stringify(process.env.INSTA_SERVISE),
+
       process: {
         env: {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         }
       }
     }),
@@ -179,7 +181,8 @@ module.exports = {
         ]
       },
 
-      { // SCSS styles
+      // SCSS styles
+      {
         test: /\.scss$/,
         loaders: [
           'style',
