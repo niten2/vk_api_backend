@@ -3,27 +3,23 @@ import {
   auth,
   followExplore,
   likeFollowers,
+  haveQuit,
+  sleep_delay,
+  likeLenta,
 } from "./actions"
 
-const sleep_delay = 500
-
-export const main = async (options = {}) => {
-  let { quit } = options
-
+export const runFollowExplore = async (options = {}) => {
+  console.log("run runFollowExplore")
   let browser = await initBrowser()
+  await auth(browser)
+  await followExplore(browser)
+  await haveQuit(browser, options)
+}
 
-  // await auth(browser)
-  // await followExplore(browser)
-  // await likeFollowers(browser)
-
-  let url = "http://google.com"
-
-  await browser.get(url)
-
-  // console.log(quit)
-
-  if (quit == true) {
-    await browser.sleep(sleep_delay)
-    await browser.quit()
-  }
+export const runlikeLenta = async (options = {}) => {
+  console.log("run runlikeLenta")
+  let browser = await initBrowser()
+  await auth(browser)
+  await likeLenta(browser)
+  await haveQuit(browser, options)
 }

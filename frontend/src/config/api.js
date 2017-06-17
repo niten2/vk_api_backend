@@ -3,13 +3,13 @@ import { API } from 'mobx-model'
 // import Notification from 'notification'
 
 API.config({
-  urlRoot: API_ROOT,
-  requestHeaders: {
+  // urlRoot: API_ROOT,
+  // requestHeaders: {
     // "Content-Type": "application/json",
     // "application-type": "REST",
     // "application-id": APPLICATION_ID,
     // "secret-key": SECRET_KEY_ID,
-  },
+  // },
 
   onRequestError(response) {
     Notification.error(`${response.statusCode}, ${response.body.error}`)

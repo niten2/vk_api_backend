@@ -5,6 +5,11 @@ vk_servise/.env
 vk_servise/db/database.dev.sqlite
 vk_servise/db/csv
 
+crm_servise/node_modules
+crm_servise/.env
+crm_servise/db/database.dev.sqlite
+crm_servise/db/csv
+
 frontend/node_modules
 frontend/.env
 

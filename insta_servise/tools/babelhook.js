@@ -8,6 +8,7 @@ require("babel-core/register")({
 
   plugins: [
     "babel-polyfill",
+    "transform-decorators-legacy"
   ],
 
   presets: [

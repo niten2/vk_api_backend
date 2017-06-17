@@ -1,16 +1,16 @@
 import { API, BaseModel } from 'mobx-model'
 import Notification from 'notification'
+// import authProvider from 'lib/auth'
 // import { UIStore, SearchStore } from 'stores'
 // import * as models from 'models'
-import authProvider from 'lib/auth'
 // import { Deserializer, Serializer } from 'lib/serializer'
 // import uniqueId from 'lodash/uniqueId'
 // import { snakeCase } from "lodash"
 // import pluralize from "pluralize"
 
-const HEADER_SESSION_TOKEN='Authorization'
+// const HEADER_SESSION_TOKEN='Authorization'
 
-BaseModel.getModel = (modelName) => { return models[modelName] }
+// BaseModel.getModel = (modelName) => { return models[modelName] }
 // BaseModel.getName = function() { pluralize(snakeCase(this.name)) }
 
 BaseModel.toJson = function() {
@@ -21,13 +21,22 @@ BaseModel.toJson = function() {
   return json
 }
 
+console.log(BaseModel)
+
+
+
 BaseModel.addClassAction('loadAll', function(attributes = {}) {
-  API.requestHeaders[HEADER_SESSION_TOKEN] = authProvider.fetchToken()
+  // console.log(11111)
+
+  // console.log(this.urlRoot)
+
+
   return API.request({
     data: attributes,
     endpoint: this.urlRoot,
     onSuccess: async (response) => {
       // console.log(response)
+
       let models = response.body
       models.forEach( modelJson => { this.set({ modelJson }) })
     }
@@ -35,53 +44,59 @@ BaseModel.addClassAction('loadAll', function(attributes = {}) {
 })
 
 // BaseModel.addClassAction('load', function(id) {
-//   API.requestHeaders[HEADER_SESSION_TOKEN] = authProvider.fetchToken()
 //   return API.request({
 //     endpoint: `${this.urlRoot}/${id}`,
-//     onSuccess: async (response) => {
-//       // let modelJson = await Deserializer(response.body)
-//       this.set({ modelJson })
+//     onSuccess: (options = {}) => {
+//       let { json, requestId } = options
+
+//       this.set({
+//         modelJson: json[this.jsonKey],
+//         topLevelJson: json,
+//         requestId
+//       })
 //     }
 //   })
 // })
 
+
+
 // BaseModel.addClassAction('create', function(attributes = {}) {
-//   // let data = await Serializer(name, attributes)
-//   API.requestHeaders[HEADER_SESSION_TOKEN] = authProvider.fetchToken()
-//   return API.request({
-//     method: 'post',
-//     data: attributes,
-//     endpoint: this.urlRoot,
-//     onSuccess: (response) => {
-//       this.set({ modelJson: response.body })
-//     },
-//   })
+  // // let data = await Serializer(name, attributes)
+  // API.requestHeaders[HEADER_SESSION_TOKEN] = authProvider.fetchToken()
+  // return API.request({
+    // method: 'post',
+    // data: attributes,
+    // endpoint: this.urlRoot,
+    // onSuccess: (response) => {
+      // this.set({ modelJson: response.body })
+    // },
+  // })
 // })
 
 // BaseModel.addAction('update', async function(attributes = {}) {
-//   let name = pluralize(snakeCase(this.constructor.name))
-//   let data = await Serializer(name, attributes)
-//   // console.log(data)
+  // let name = pluralize(snakeCase(this.constructor.name))
+  // let data = await Serializer(name, attributes)
+  // // console.log(data)
 
-//   return API.request({
-//     method: 'put',
-//     data: data,
-//     endpoint: `${this.urlRoot}/${this.id}`,
-//     onSuccess: async (response) => {
-//       let modelJson = await Deserializer(response.body)
-//       this.set({ modelJson })
-//     },
-//   })
+  // return API.request({
+    // method: 'put',
+    // data: data,
+    // endpoint: `${this.urlRoot}/${this.id}`,
+    // onSuccess: async (response) => {
+      // let modelJson = await Deserializer(response.body)
+      // this.set({ modelJson })
+    // },
+  // })
 // })
 
 // BaseModel.addAction('destroy', function() {
-//   return API.request({
-//     method: 'del',
-//     endpoint: `${this.urlRoot}/${this.id}`,
-//     onSuccess: (response) => {
-//       this.onDestroy()
-//     },
-//   })
+  // return API.request({
+    // method: 'del',
+    // endpoint: `${this.urlRoot}/${this.id}`,
+    // onSuccess: (response) => {
+      // this.onDestroy()
+    // },
+  // })
 // })
 
 // BaseModel.addClassAction('search', function(searchId, attributes = {}) {

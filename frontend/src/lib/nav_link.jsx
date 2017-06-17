@@ -3,6 +3,7 @@
 
 // <NavLink
 //   to = ""
+//   active = {true}
 // ></NavLink>
 
 // <NavLinkActive
@@ -27,9 +28,10 @@ import { observer } from 'mobx-react'
 
 export class NavLink extends Component {
   render() {
-    let { to, children } = this.props
+    let { to, children, active } = this.props
     return (
       <Link
+        className={ active ? "active" : null }
         to={to ? to : ""}
         activeClassName="active"
       >{children}</Link>
@@ -89,87 +91,4 @@ export class NaviLinkHeader extends Component {
       )
     }
 }
-
-// @observer
-// export class NavLinkDropdown extends Component {
-
-//   static contextTypes = {
-//     router: PropTypes.object.isRequired
-//   }
-
-//   static propTypes = {
-//     name: PropTypes.string,
-//     text: PropTypes.string,
-//     icon: PropTypes.string,
-
-//     textOne: PropTypes.string,
-//     toOne: PropTypes.string,
-
-//     textTwo: PropTypes.string,
-//     toTwo: PropTypes.string,
-//   }
-
-//   state = {
-//    isActiveOne: false,
-//    isActiveTwo: false,
-//   }
-
-//   renderIcon() {
-//     let { icon } = this.props
-//     return(
-//       <span className={ icon }/>
-//     )
-//   }
-
-//   handleClassName = () => {
-//     let { name, toOne, toTwo} = this.props
-//     let { router } = this.context
-
-//     UIStore.sidebar.setName(name)
-
-//     this.setState({
-//       isActiveOne: router.isActive(toOne, true),
-//       isActiveTwo: router.isActive(toTwo, true),
-//     })
-//   }
-
-//   render() {
-//     let { name, icon, text, textOne, textTwo, toOne, toTwo} = this.props
-//     let { isActiveOne, isActiveTwo } = this.state
-
-//     let classNameMain = UIStore.sidebar.name == name ? "open" : ""
-//     let classNameOne = isActiveOne ? "active" : ""
-//     let classNameTwo = isActiveTwo ? "active" : ""
-
-//     return (
-//       <li
-//         className={classNameMain}
-//         onClick={ this.handleClassName }
-//       >
-//         <a>
-//           { icon ? this.renderIcon() : null }
-//           &nbsp;
-//           &nbsp;
-//           { text }
-//         </a>
-
-//         <ul className="sidebar-nav">
-//           <li className={ classNameOne } >
-//             <Link to={toOne} >
-//               { textOne }
-//             </Link>
-//           </li>
-
-//           <li className={ classNameTwo } >
-//             <Link to={toTwo} >
-//               { textTwo }
-//             </Link>
-//           </li>
-//         </ul>
-
-//       </li>
-//     )
-//   }
-
-// }
 

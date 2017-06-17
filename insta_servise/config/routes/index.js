@@ -19,11 +19,6 @@ export default (context) => {
   production_error_handler_no_stacktraces_leaked_to_user(app)
 }
 
-const main = (app) => {
-
-}
-
-
 const catch_404_and_forward_to_error_handler = (app) => {
   app.use((req, res, next) => {
     var err = new Error('Not Found')

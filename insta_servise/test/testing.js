@@ -1,6 +1,6 @@
 // import Instagram from "config/initialize/instagram"
 
-import test from "api/services/phantomjs"
+// import { runFollowExplore } "api/services/web_drives"
 
 
 describe('Testing', async() => {

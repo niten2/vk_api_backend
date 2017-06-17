@@ -1,16 +1,18 @@
 // import { } from 'models'
-import User from './user'
-import Comment from './comment'
-import Filter from './filter'
-import Group from './group'
-import Tag from './tag'
-import Client from './client'
+
+// crm
+import Client from 'models/crm/client'
+
+// vk
+import User from 'models/vk/user'
+import Group from 'models/vk/group'
+import Tag from 'models/vk/tag'
 
 export {
   User,
-  Comment,
-  Filter,
   Group,
   Tag,
   Client,
+  // Filter,
+  // Comment,
 }
