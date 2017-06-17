@@ -1,6 +1,6 @@
 import { API } from 'mobx-model'
-import authProvider from 'lib/auth'
-import Notification from 'notification'
+// import authProvider from 'lib/auth'
+// import Notification from 'notification'
 
 API.config({
   urlRoot: API_ROOT,

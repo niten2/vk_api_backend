@@ -1,8 +1,10 @@
+// import "babel-polyfill";
+
 import React from 'react'
-import router from 'lib/router'
 import 'config'
 import "../stylesheets/index.scss"
-import AppRoutes from 'routes/app'
+import router from 'lib/router'
+import AppRoutes from 'lib/routes'
 
 router(AppRoutes)
 

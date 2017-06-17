@@ -25,6 +25,9 @@ export default class Header extends Component {
           <NaviLinkHeader
             to = "/clients"
             >Clients</NaviLinkHeader>
+          <NaviLinkHeader
+            to = "/instagram"
+            >Instagram</NaviLinkHeader>
         </Nav>
 
         <Nav pullRight>

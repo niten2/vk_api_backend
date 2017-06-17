@@ -17,7 +17,7 @@ export default class App {
 
     this.app = express()
     this.settings = settings
-    this.resourses = resourses(this)
+    // this.resourses = resourses(this)
     this.middlewares = middlewares(this)
     this.routes = routes(this)
 

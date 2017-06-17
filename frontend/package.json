@@ -1,5 +1,5 @@
 {
-  "name": "slim_body_langing",
+  "name": "frontend-service",
   "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server",
@@ -12,6 +12,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "bootstrap": "^3.3.7",
     "core-decorators": "^0.14.0",
     "dotenv": "^2.0.0",
@@ -22,17 +23,15 @@
     "formsy-react-components": "^0.8.1",
     "isomorphic-style-loader": "^1.1.0",
     "jsonapi-serializer": "^3.4.1",
-    "lodash": "^4.13.1",
-    "mobx": "^2.4.0",
-    "mobx-model": "0.0.24",
-    "mobx-react": "^3.5.1",
+    "mobx-model": "0.0.32",
+    "mobx-react": "^4.2.1",
     "moment": "^2.14.1",
     "nuka-carousel": "^2.0.3",
     "pluralize": "^3.0.0",
     "react": "^15.2.1",
-    "react-bootstrap": "^0.30.0-rc.2",
+    "react-bootstrap": "^0.31.0",
     "react-css-modules": "^4.1.0",
-    "react-dom": "https://registry.npmjs.org/react-dom/-/react-dom-15.2.1.tgz",
+    "react-dom": "^15.6.1",
     "react-grid-layout": "^0.12.7",
     "react-image-gallery": "^0.7.9",
     "react-notification-system": "^0.2.7",
@@ -100,8 +99,5 @@
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.14.1",
     "webpack-livereload-plugin": "^0.8.1"
-  },
-  "engines": {
-    "node": ">=0.10.0"
   }
 }

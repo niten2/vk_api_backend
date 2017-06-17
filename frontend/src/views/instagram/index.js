@@ -6,31 +6,18 @@ import React, { PropTypes, Component } from 'react'
 
 // import { Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
 // import { NavLink } from 'nav_link'
-import styled from 'styled-components'
+import FollowExplore from './follow_explore'
 
-// @observer
 export default class Index extends Component {
+
 
   render() {
     return (
       <div>
-        main page
+        <FollowExplore />
       </div>
     )
   }
 
 }
-
-
-        // <Wrapper>
-        //   <Title>Hello World, this is my first styled component!</Title>
-        // </Wrapper>
-
-        // <Button>Normal</Button>
-
-        // <Link>Unstyled, boring Link</Link>
-        // <br />
-        // <StyledLink>Styled, exciting Link</StyledLink>
-
-        // <Button primary active={true} >zzz</Button>
 

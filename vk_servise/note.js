@@ -97,3 +97,29 @@
     log("Gloss for everyone:");
     log(topDataAllUsers(tasks));
 }(ramda));
+
+const R = require('ramda');
+const prop = R.prop;
+const path = R.path;
+const curry = R.curry;
+
+const Maybe = require('ramda-fantasy').Maybe;
+
+const getURLForUser = (user) => {
+  return Maybe(user)
+    .map(path(['prefs', 'languages', 'primary']))
+    .chain(maybeGetUrl)
+}
+
+const maybeGetUrl = R.curry((allUrls, language) => {
+    return Maybe(allUrls[language]);
+})(indexURLs)
+
+function boot(user, defaultURL) {
+  showIndexPage( getURLForUser(user).getOrElse(defaultURL) )
+}
+
+//'[[http://site.com/sp']];;
+boot(joeUser, "http://site.com/en")
+
+

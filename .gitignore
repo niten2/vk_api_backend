@@ -13,3 +13,5 @@ insta_servise/.env
 
 auth_servise/node_modules
 auth_servise/.env
+
+my-app/.env

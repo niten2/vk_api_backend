@@ -1,37 +1,48 @@
 import { AsyncRouter } from 'express-async-router'
+import Settings from "config/settings"
 import Users from './users'
-// import Groups from './groups'
-// import Tags from './tags'
-// import Clients from './clients'
+import Webdriver from './web_driver'
 
 export default (context) => {
+
+  const app = context.app
 	const api = AsyncRouter()
 
   api.all('/', () => ({ version: 'current version /v1' }) )
-  api.use('/v1/users', Users(context))
-  // api.use('/v1/tags', Tags(context))
-  // api.use('/v1/groups', Groups(context))
-  // api.use('/v1/clients', Clients())
+  api.use('/v1/web-drivers', Webdriver)
+  // api.use('/v1/users', Users(context))
 
   context.app.use('/', api)
 
-  // catch 404 and forward to error handler
-  context.app.use((req, res, next) => {
+  catch_404_and_forward_to_error_handler(app)
+  development_error_handler_will_print_stacktrace(app)
+  production_error_handler_no_stacktraces_leaked_to_user(app)
+}
+
+const main = (app) => {
+
+}
+
+
+const catch_404_and_forward_to_error_handler = (app) => {
+  app.use((req, res, next) => {
     var err = new Error('Not Found')
     err.status = 404
     next(err)
   })
+}
 
-  // development error handler will print stacktrace
-  if (context.settings.env == 'development') {
-    context.app.use((err, req, res, next) => {
+const development_error_handler_will_print_stacktrace = (app) => {
+  if (Settings.env == 'development') {
+    app.use((err, req, res, next) => {
       res.status(err.status || 500)
       res.json({"error": err.message})
     })
   }
+}
 
-  // production error handler no stacktraces leaked to user
-  context.app.use((err, req, res, next) => {
+const production_error_handler_no_stacktraces_leaked_to_user = (app) => {
+  app.use((err, req, res, next) => {
     airbrake.notify(err)
     res.status(err.status || 500)
     res.render('error', {
@@ -39,5 +50,4 @@ export default (context) => {
       error: err,
     })
   })
-
 }

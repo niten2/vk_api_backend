@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router'
-import auth from 'auth'
 
+// import auth from 'auth'
 // import authProvider from 'lib/auth'
 
 // Other pages
@@ -23,6 +23,8 @@ import NewGroup from 'views/groups/new'
 
 import Client from 'views/clients'
 
+import Instagram from 'views/instagram'
+
 
 function handleRootRouteEnter (nextState, replaceState) {
   const regHashMask = /^#\/?/
@@ -34,17 +36,7 @@ function handleRootRouteEnter (nextState, replaceState) {
   }
 }
 
-// const requireAuth = (nextState, replace) => {
-//   if (auth.hasNotToken()) {
-//     replace({
-//       pathname: '/auth',
-//       state: { nextPathname: nextState.location.pathname }
-//     })
-//   }
-// }
-
 export default (onUpdate) => {
-
   return (
 	  <Router history={ browserHistory } onUpdate={onUpdate}>
       <Route
@@ -52,10 +44,9 @@ export default (onUpdate) => {
         component={ Layout }
         onEnter={ ( nextState, replaceState ) => handleRootRouteEnter(nextState, replaceState) }
       >
-        <IndexRedirect to="/groups" />
+        <IndexRedirect to="/main" />
 
         <Route path="/main" component={ Main } />
-
         <Route path="/users" component={ Users } />
         <Route path="/users/new" component={ NewUser } />
 
@@ -70,7 +61,10 @@ export default (onUpdate) => {
 
         <Route path="/clients" component={ Client } />
 
+        <Route path="/instagram" component={ Instagram } />
+
         <Route path="*" component={ Notfound } />
+
       </Route>
 
     </Router>

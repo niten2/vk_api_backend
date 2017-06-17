@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react"
 import { UIStore } from 'stores'
 import { observer } from "mobx-react"
-import { handleSetState } from "helpers/promise"
+import { handleSetState } from "lib/promise"
 import auth from "lib/auth"
 
 import { Clearfix, Col, Button } from "react-bootstrap"
