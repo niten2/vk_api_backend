@@ -10,8 +10,8 @@ crm_servise/.env
 crm_servise/db/database.dev.sqlite
 crm_servise/db/csv
 
-frontend/node_modules
-frontend/.env
+web_servise/node_modules
+web_servise/.env
 
 insta_servise/node_modules
 insta_servise/.env
@@ -19,4 +19,5 @@ insta_servise/.env
 auth_servise/node_modules
 auth_servise/.env
 
-my-app/.env
+mobile_servise/node_modules
+mobile_servise/.env
