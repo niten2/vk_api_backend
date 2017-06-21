@@ -1,14 +1,5 @@
 import { API, BaseModel } from 'mobx-model'
 import Notification from 'notification'
-// import authProvider from 'lib/auth'
-// import { UIStore, SearchStore } from 'stores'
-// import * as models from 'models'
-// import { Deserializer, Serializer } from 'lib/serializer'
-// import uniqueId from 'lodash/uniqueId'
-// import { snakeCase } from "lodash"
-// import pluralize from "pluralize"
-
-// const HEADER_SESSION_TOKEN='Authorization'
 
 BaseModel.getModel = (modelName) => { return models[modelName] }
 // BaseModel.getName = function() { pluralize(snakeCase(this.name)) }
@@ -20,16 +11,6 @@ BaseModel.getModel = (modelName) => { return models[modelName] }
 //   })
 //   return json
 // }
-
-// console.log(BaseModel)
-
-// BaseModel.addClassAction('test', function(attributes = {}) {
-
-  // console.log(111)
-
-  // return API.request({})
-
-// })
 
 
 BaseModel.addClassAction('loadAll', function(attributes = {}) {
@@ -55,8 +36,6 @@ BaseModel.addClassAction('loadObject', function(id) {
 })
 
 BaseModel.addClassAction('createObject', function(attributes = {}) {
-  // let data = await Serializer(name, attributes)
-  // API.requestHeaders[HEADER_SESSION_TOKEN] = authProvider.fetchToken()
   return API.request({
     method: 'post',
     data: attributes,

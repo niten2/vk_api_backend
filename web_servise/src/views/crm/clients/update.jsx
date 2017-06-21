@@ -16,7 +16,6 @@ export default class UpdateClient extends Component {
     await Client.loadObject(id)
 
     let client = await Client.get(id)
-    console.log(client)
     this.setState({client: client, loading: false })
   }
 
