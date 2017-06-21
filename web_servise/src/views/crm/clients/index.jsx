@@ -7,16 +7,13 @@ import Spinner from 'spinner'
 import ClientView from './clientView'
 import { compact, sortBy } from "lodash"
 
+
 @observer
 export default class Index extends Component {
 
-  componentWillMount() {
-    // Client.loadAll({ page: { number: 1, size: 50} }).then(response => {
-
-    //   console.log(response)
-
-    //   this.setState({loading: false })
-    // })
+  async componentWillMount () {
+    await Client.loadAll({ page: { number: 1, size: 50} })
+    this.setState({loading: false })
   }
 
   state = {

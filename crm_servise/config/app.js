@@ -17,7 +17,6 @@ export default class App {
 
     this.app = express()
     this.settings = settings
-    // this.models = models
     this.resourses = resourses(this)
     this.middlewares = middlewares(this)
     this.routes = routes(this)
@@ -42,14 +41,6 @@ export default class App {
     if (this.middlewares) {
       this.log.trace('middlewares', Object.keys(this.middlewares))
     }
-    // if (this.models) {
-      // console.log(Object.keys(models))
-      // this.log.trace('models', models)
-    // }
-    if (this.resourses) {
-      this.log.trace('resourses', Object.keys(this.resourses))
-    }
-
     this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
   }
 

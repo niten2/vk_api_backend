@@ -10,32 +10,34 @@ import Notification from 'notification'
 
 // const HEADER_SESSION_TOKEN='Authorization'
 
-// BaseModel.getModel = (modelName) => { return models[modelName] }
+BaseModel.getModel = (modelName) => { return models[modelName] }
 // BaseModel.getName = function() { pluralize(snakeCase(this.name)) }
 
-BaseModel.toJson = function() {
-  let json = { id: this.id }
-  Object.keys(this.attributes).forEach(attrName => {
-    json[attrName] = this[attrName]
-  })
-  return json
-}
+// BaseModel.toJson = function() {
+//   let json = { id: this.id }
+//   Object.keys(this.attributes).forEach(attrName => {
+//     json[attrName] = this[attrName]
+//   })
+//   return json
+// }
 
-console.log(BaseModel)
+// console.log(BaseModel)
 
+// BaseModel.addClassAction('test', function(attributes = {}) {
+
+  // console.log(111)
+
+  // return API.request({})
+
+// })
 
 
 BaseModel.addClassAction('loadAll', function(attributes = {}) {
-  // console.log(11111)
-
-  // console.log(this.urlRoot)
-
-
   return API.request({
     data: attributes,
     endpoint: this.urlRoot,
     onSuccess: async (response) => {
-      // console.log(response)
+      console.log("response")
 
       let models = response.body
       models.forEach( modelJson => { this.set({ modelJson }) })
@@ -58,45 +60,43 @@ BaseModel.addClassAction('loadAll', function(attributes = {}) {
 //   })
 // })
 
-
-
-// BaseModel.addClassAction('create', function(attributes = {}) {
-  // // let data = await Serializer(name, attributes)
+BaseModel.addClassAction('createObject', function(attributes = {}) {
+  // let data = await Serializer(name, attributes)
   // API.requestHeaders[HEADER_SESSION_TOKEN] = authProvider.fetchToken()
-  // return API.request({
-    // method: 'post',
-    // data: attributes,
-    // endpoint: this.urlRoot,
-    // onSuccess: (response) => {
-      // this.set({ modelJson: response.body })
-    // },
-  // })
-// })
+  return API.request({
+    method: 'post',
+    data: attributes,
+    endpoint: this.urlRoot,
+    onSuccess: (response) => {
+      this.set({ modelJson: response.body })
+    },
+  })
+})
 
 // BaseModel.addAction('update', async function(attributes = {}) {
-  // let name = pluralize(snakeCase(this.constructor.name))
-  // let data = await Serializer(name, attributes)
-  // // console.log(data)
+//   let name = pluralize(snakeCase(this.constructor.name))
+//   let data = await Serializer(name, attributes)
+//   // console.log(data)
 
-  // return API.request({
-    // method: 'put',
-    // data: data,
-    // endpoint: `${this.urlRoot}/${this.id}`,
-    // onSuccess: async (response) => {
-      // let modelJson = await Deserializer(response.body)
-      // this.set({ modelJson })
-    // },
-  // })
+//   return API.request({
+//     method: 'put',
+//     data: data,
+//     endpoint: `${this.urlRoot}/${this.id}`,
+//     onSuccess: async (response) => {
+//       let modelJson = await Deserializer(response.body)
+//       this.set({ modelJson })
+//     },
+//   })
 // })
 
 // BaseModel.addAction('destroy', function() {
-  // return API.request({
-    // method: 'del',
-    // endpoint: `${this.urlRoot}/${this.id}`,
-    // onSuccess: (response) => {
-      // this.onDestroy()
-    // },
-  // })
+//   return API.request({
+//     method: 'del',
+//     endpoint: `${this.urlRoot}/${this.id}`,
+//     onSuccess: (response) => {
+//       this.onDestroy()
+//     },
+//   })
 // })
 
 // BaseModel.addClassAction('search', function(searchId, attributes = {}) {

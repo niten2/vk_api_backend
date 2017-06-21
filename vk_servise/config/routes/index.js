@@ -2,7 +2,7 @@ import { AsyncRouter } from 'express-async-router'
 import Groups from './groups'
 import Users from './users'
 import Tags from './tags'
-import Clients from './clients'
+// import Clients from './clients'
 
 export default (context) => {
 	const api = AsyncRouter()

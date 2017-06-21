@@ -23,6 +23,7 @@ import NewGroup from 'views/vk/groups/new'
 
 import Crm from 'views/crm'
 import Client from 'views/crm/clients'
+import NewClient from 'views/crm/clients/new'
 
 function handleRootRouteEnter (nextState, replaceState) {
   const regHashMask = /^#\/?/
@@ -54,6 +55,7 @@ export default (onUpdate) => {
 
         <Route path="/crm" component={ Crm } />
         <Route path="/crm/clients" component={ Client } />
+        <Route path="/crm/clients/new" component={ NewClient } />
 
         <Route path="/vk" component={ Vk } />
         <Route path="/vk/users" component={ Users } />

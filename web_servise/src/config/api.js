@@ -1,17 +1,13 @@
 import { API } from 'mobx-model'
-// import authProvider from 'lib/auth'
-// import Notification from 'notification'
 
 API.config({
-  // urlRoot: API_ROOT,
-  // requestHeaders: {
-    // "Content-Type": "application/json",
-    // "application-type": "REST",
-    // "application-id": APPLICATION_ID,
-    // "secret-key": SECRET_KEY_ID,
-  // },
+  urlRoot: "",
+  requestHeaders: {
+    "Content-Type": "application/json",
+  },
 
   onRequestError(response) {
+    console.log(1111)
     Notification.error(`${response.statusCode}, ${response.body.error}`)
   },
 

@@ -22,7 +22,6 @@ const resource = {
   },
 
   async create(req, res) {
-
     try {
       let urls = req.body.url.split("\n")
       let groups = await Group.createByUrls(urls, req.body.tag_id)

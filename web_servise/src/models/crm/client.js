@@ -27,29 +27,4 @@ class Client extends BaseModel {
 
 }
 
-// Client.addClassAction('search', (searchId, attributes = {}) => {
-//   // let { city } = attributes
-//   // let response
-//   // response = city ? { "where": `city = '${city}'` } : null
-
-//   return API.request({
-//     data: response,
-//     endpoint: ENDPOINT,
-//     onSuccess: (response) => {
-
-//       response.body.data.forEach(modelJson => {
-//         this.set({ modelJson })
-//       })
-
-//       // set search results
-//       SearchStore.set(searchId, {
-//         results: response.body.data.map(object => object.id),
-//       })
-//     },
-//     onError: (error) => {
-//       Notification.error(error.body.message)
-//     },
-//   })
-// })
-
 export default Client
