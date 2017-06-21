@@ -3,9 +3,11 @@ import { observer } from 'mobx-react'
 import { Client } from "models"
 
 import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import Spinner from 'spinner'
-import ClientView from './clientView'
 import { compact, sortBy } from "lodash"
+
+import { NavLink } from 'nav_link'
+import Spinner from 'spinner'
+import ClientView from './client_view'
 
 
 @observer
@@ -60,6 +62,15 @@ export default class Index extends Component {
         <Clearfix />
         <br />
         <br />
+
+
+        <div>
+          <NavLink to="/crm/clients/new">
+            <button>
+              New
+            </button>
+          </NavLink>
+        </div>
 
       </Grid>
     )

@@ -37,28 +37,22 @@ BaseModel.addClassAction('loadAll', function(attributes = {}) {
     data: attributes,
     endpoint: this.urlRoot,
     onSuccess: async (response) => {
-      console.log("response")
-
       let models = response.body
       models.forEach( modelJson => { this.set({ modelJson }) })
     }
   })
 })
 
-// BaseModel.addClassAction('load', function(id) {
-//   return API.request({
-//     endpoint: `${this.urlRoot}/${id}`,
-//     onSuccess: (options = {}) => {
-//       let { json, requestId } = options
-
-//       this.set({
-//         modelJson: json[this.jsonKey],
-//         topLevelJson: json,
-//         requestId
-//       })
-//     }
-//   })
-// })
+BaseModel.addClassAction('loadObject', function(id) {
+  return API.request({
+    endpoint: `${this.urlRoot}/${id}`,
+    onSuccess: (response = {}) => {
+      let model = response.body
+      // console.log(model)
+      this.set({ modelJson: model })
+    }
+  })
+})
 
 BaseModel.addClassAction('createObject', function(attributes = {}) {
   // let data = await Serializer(name, attributes)
