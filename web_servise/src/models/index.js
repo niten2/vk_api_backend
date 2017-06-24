@@ -7,12 +7,12 @@ import Client from 'models/crm/client'
 import User from 'models/vk/user'
 import Group from 'models/vk/group'
 import Tag from 'models/vk/tag'
+import Filter from 'models/vk/filter'
 
 export {
   User,
   Group,
   Tag,
   Client,
-  // Filter,
-  // Comment,
+  Filter,
 }

@@ -1,5 +1,6 @@
 // import { UIStore } from 'stores'
-import { extendObservable, transaction } from 'mobx'
+// import { extendObservable, transaction } from 'mobx'
+import { extendObservable } from 'mobx'
 import bindAll from 'lodash/bindAll'
 
 // import search from './ui_store/search'

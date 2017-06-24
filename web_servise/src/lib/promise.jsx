@@ -4,22 +4,6 @@ import Notification from 'notification'
 import { Deserializer, Serializer } from 'lib/serializer'
 
 export async function PromiseLoadAll(model) {
-
-    // var request = require('superagent');
-    // request
-    //   .get('/api/movies')
-    //   .set('X-API-Key', 'foobar')
-    //   .set('Accept', 'application/json')
-    //   .end(function(err, res){
-    //     console.log(res.body)
-    //     // Calling the end function will send the request
-    //   });
-
-  // model.loadAll().then((resp) => {
-  //   console.log(resp)
-  // })
-
-
   UIStore.setLoading()
   let response = await model.loadAll()
   response.status == 401 ? UIStore.setFobbiden() : null
@@ -78,7 +62,6 @@ export function handeDelete(object, message) {
     }
   })
 }
-
 
 // others
 

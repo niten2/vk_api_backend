@@ -3,7 +3,6 @@
 // Notification.info("")
 // Notification.warning("")
 // Notification.errors("")
-
 import { UIStore } from 'stores'
 
 export default {
@@ -65,4 +64,3 @@ export default {
   }
 
 }
-
