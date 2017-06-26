@@ -2,7 +2,7 @@ import React from 'react'
 import {
   BrowserRouter,
   Switch,
-  Redirect,
+  // Redirect,
 } from 'react-router-dom'
 
 // import authProvider from 'lib/auth'
@@ -25,8 +25,8 @@ import Vk from 'components/vk'
 
 import Crm from 'components/crm'
 // import Client from 'views/crm/clients'
-// import NewClient from 'views/crm/clients/new'
-// import UpdateClient from 'views/crm/clients/update'
+import ClientNew from 'components/crm/clients/new'
+import ClientUpdate from 'components/crm/clients/update'
 
 export default (onUpdate) => {
   return (
@@ -35,9 +35,12 @@ export default (onUpdate) => {
         <Switch>
           <Layout exact path="/" component={Crm}/>
 
-          <Layout path="/crm" component={Crm}/>
-          <Layout path="/vk" component={Vk}/>
-          <Layout path="/instagram" component={ Instagram } />
+          <Layout exact path="/crm" component={Crm}/>
+          <Layout exact path="/crm/clients/new" component={ClientNew}/>
+          <Layout exact path="/crm/clients/:id/update" component={ClientUpdate}/>
+
+          <Layout exact path="/vk" component={Vk}/>
+          <Layout exact path="/instagram" component={ Instagram } />
 
           <Layout component={NotFound}/>
         </Switch>

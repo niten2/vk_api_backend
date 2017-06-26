@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import {
   Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
+  Navbar,
   NavItem,
+  NavbarToggler,
 } from 'reactstrap'
 
-import { NaviLinkHeader as NavLink } from 'lib/nav_link'
+import {
+  NavLink,
+  NavbarBrand,
+} from 'lib/nav_link'
+
 // import authProvider from 'lib/auth'
 // import { UIStore } from 'stores'
 
@@ -36,6 +39,7 @@ export default observer(class Header extends Component {
      <div>
         <Navbar color="faded" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
+
           <NavbarBrand href="/">CRM</NavbarBrand>
 
           <Collapse isOpen={this.state.isOpen} navbar>

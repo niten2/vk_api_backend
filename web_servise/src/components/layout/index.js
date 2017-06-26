@@ -4,6 +4,16 @@ import { UIStore } from 'stores'
 import { Route } from 'react-router-dom'
 import Header from './header'
 
+import {
+  ApolloClient,
+  ApolloProvider,
+  createNetworkInterface,
+} from 'react-apollo'
+
+import Settings from "lib/settings"
+const networkInterface = createNetworkInterface({ uri: `${Settings.crm_servise}/graphql` })
+const client = new ApolloClient({ networkInterface })
+
 class LayoutComponent extends React.Component {
 
   componentDidMount() {
@@ -12,12 +22,14 @@ class LayoutComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <NotificationSystem className="notification" ref="notificationSystem" allowHTML={ true } />
-        <Header />
+      <ApolloProvider client={client}>
+        <div>
+          <NotificationSystem className="notification" ref="notificationSystem" allowHTML={ true } />
+          <Header />
 
-        { this.props.children }
-      </div>
+          { this.props.children }
+        </div>
+      </ApolloProvider>
     )
   }
 }

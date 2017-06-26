@@ -10,9 +10,6 @@ crm_servise/.env
 crm_servise/db/database.dev.sqlite
 crm_servise/db/csv
 
-web_servise/node_modules
-web_servise/.env
-
 insta_servise/node_modules
 insta_servise/.env
 
@@ -21,3 +18,16 @@ auth_servise/.env
 
 mobile_servise/node_modules
 mobile_servise/.env
+
+web_servise/node_modules
+web_servise/coverage
+web_servise/build
+web_servise/.DS_Store
+web_servise/.env
+web_servise/.env.local
+web_servise/.env.development.local
+web_servise/.env.test.local
+web_servise/.env.production.local
+web_servise/npm-debug.log*
+web_servise/yarn-debug.log*
+web_servise/yarn-error.log*

@@ -11,7 +11,6 @@ let params = (object) => {
   ], object)
 }
 
-
 export default {
 
     async index(req, res, next) {

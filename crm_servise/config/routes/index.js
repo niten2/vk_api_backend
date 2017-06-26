@@ -2,8 +2,20 @@ import { AsyncRouter } from 'express-async-router'
 import Settings from "config/settings"
 import Clients from './clients'
 
-export default (context) => {
+// import GraphqlApi from "./graphql_api"
 
+// grahpql
+import bodyParser from 'body-parser'
+import {
+  graphqlExpress,
+  graphiqlExpress,
+} from 'graphql-server-express'
+
+import { schema } from 'api/resourses/schema'
+// grahpql
+
+
+export default (context) => {
   const app = context.app
 	const api = AsyncRouter()
 
@@ -11,6 +23,21 @@ export default (context) => {
   api.use('/v1/clients', Clients)
 
   context.app.use('/', api)
+
+  // context.app.use('/graphql', GraphqlApi)
+
+
+  // grahpql
+  api.use('/graphql', bodyParser.json(), graphqlExpress({
+    schema
+  }))
+
+  api.use('/graphiql', graphiqlExpress({
+    endpointURL: '/graphql'
+  }))
+  // grahpql
+
+
 
   catch_404_and_forward_to_error_handler(app)
   development_error_handler_will_print_stacktrace(app)
