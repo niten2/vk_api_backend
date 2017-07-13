@@ -1,7 +1,8 @@
 import superagent from "superagent"
+import settings from "lib/settings"
 
-let FOLLOW_URL = `${process.env.INSTA_SERVISE}/v1/web-drivers/follow-explore`
-let LIKE_LENTA_URL = `${process.env.INSTA_SERVISE}/v1/web-drivers/like-lenta`
+let FOLLOW_URL = `${settings.insta_servise}/v1/web-drivers/follow-explore`
+let LIKE_LENTA_URL = `${settings.insta_servise}/v1/web-drivers/like-lenta`
 
 export const requestLikeLenta = (params) => {
   return superagent

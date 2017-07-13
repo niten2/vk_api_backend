@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'lib/nav_link'
+import { Link } from 'lib/nav_link'
 import { Button } from 'reactstrap'
 import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
@@ -21,11 +21,13 @@ const List = ({ data: { loading, error, clients, refetch }}) => {
 
   return (
     <div>
-      <NavLink href={`/crm/clients/new`}>
+      <Link href={`/crm/clients/new`}>
         <Button>
-          New
+          New Contact
         </Button>
-      </NavLink>
+      </Link>
+
+      &nbsp;
 
       <Button onClick={() => refetch()}>
         Reload

@@ -17,11 +17,8 @@ export default class FollowExplore extends Component {
 
   render() {
     return (
-      <div className="text-center">
-
-        <h1> requestLikeLenta </h1>
+      <div>
         <Button onClick={ this.handeClick }>run requestLikeLenta</Button>
-
       </div>
     )
   }

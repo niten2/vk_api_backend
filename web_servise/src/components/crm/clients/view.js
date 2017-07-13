@@ -8,7 +8,6 @@ import { ClientsQuery } from 'components/crm/querues'
 
 import { filter } from 'ramda'
 
-
 class GroupView extends Component {
 
   handleDestroy = async () => {

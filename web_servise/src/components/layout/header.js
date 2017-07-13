@@ -20,11 +20,10 @@ export default observer(class Header extends Component {
 
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
+    this.toggle = this.toggle.bind(this)
     this.state = {
       isOpen: false
-    };
+    }
   }
 
   toggle() {
@@ -35,57 +34,51 @@ export default observer(class Header extends Component {
 
   render() {
     return (
+       <div>
+          <Navbar color="faded" light toggleable>
+            <NavbarToggler left onClick={this.toggle} />
 
-     <div>
-        <Navbar color="faded" light toggleable>
-          <NavbarToggler right onClick={this.toggle} />
+            <NavbarBrand href="/">CRM</NavbarBrand>
 
-          <NavbarBrand href="/">CRM</NavbarBrand>
+            <Collapse left isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/crm">Crm</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/vk">Vk</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/instagram">Instagram</NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>
 
-          <Collapse isOpen={this.state.isOpen} navbar>
+            <Login />
+            <Logout />
 
-            <Nav className="ml-auto" navbar>
-
-              <NavItem>
-                <NavLink href="/crm">Crm</NavLink>
-              </NavItem>
-
-              <NavItem>
-                <NavLink href="/vk">Vk</NavLink>
-              </NavItem>
-
-              <NavItem>
-                <NavLink href="/instagram">Instagram</NavLink>
-              </NavItem>
-
-            </Nav>
-          </Collapse>
-
-        </Navbar>
+          </Navbar>
       </div>
-
-
-
     )
   }
 
 })
 
-// const RenderLogin = () => (
-  // <NaviLinkHeader
-    // to = "/login"
-  // >Login</NaviLinkHeader>
-// )
+const Login = () => (
+  <NavLink
+    to = "/login"
+  >Login</NavLink>
+)
 
-// const RenderLogout = () => (
-  // <p
-    // onClick={() => authProvider.logout()}
-    // className="pointer navbar-text navbar-right"
-  // >Logout</p>
-// )
+const Logout = () => (
+  <NavLink
+    onClick={() => console.log("Logout")}
+    className="pointer navbar-text navbar-right"
+  >Logout</NavLink>
+)
 
-// const UserName = () => (
-  // <p
-    // className="navbar-text navbar-right"
-  // >UserName</p>
-// )
+const UserName = () => (
+  <p
+    className="navbar-text navbar-right"
+  >UserName</p>
+)

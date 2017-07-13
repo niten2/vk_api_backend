@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { requestFollowExplore } from "lib/requests"
-import { Button } from 'reactstrap'
+import { Row, Container, Col, Button } from 'reactstrap'
 import Notification from 'lib/notification'
 
 export default class FollowExplore extends Component {
@@ -16,12 +16,9 @@ export default class FollowExplore extends Component {
 
   render() {
     return (
-      <div className="text-center">
-
-        <h1> FollowExplore </h1>
-        <Button onClick={ this.handeClick }>run FollowExplore</Button>
-
-      </div>
+      <Button onClick={this.handeClick}>
+        run FollowExplore
+      </Button>
     )
   }
 
