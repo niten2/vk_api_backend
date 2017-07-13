@@ -1,7 +1,8 @@
 import React from 'react'
-import NotificationSystem from 'react-notification-system'
 import { UIStore } from 'stores'
 import { Route } from 'react-router-dom'
+import settings from "lib/settings"
+import NotificationSystem from 'react-notification-system'
 import Header from './header'
 
 import {
@@ -10,9 +11,11 @@ import {
   createNetworkInterface,
 } from 'react-apollo'
 
-import Settings from "lib/settings"
-const networkInterface = createNetworkInterface({ uri: `${Settings.crm_servise}/graphql` })
-const client = new ApolloClient({ networkInterface })
+const networkInterface = createNetworkInterface({ uri: settings.graphqlUriCrmServise })
+const client = new ApolloClient({
+  networkInterface: networkInterface,
+  dataIdFromObject: o => o.id,
+})
 
 class LayoutComponent extends React.Component {
 

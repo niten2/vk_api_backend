@@ -28,12 +28,12 @@ export default (context) => {
 
 
   // grahpql
-  api.use('/graphql', bodyParser.json(), graphqlExpress({
+  api.use('/v2/graphql', bodyParser.json(), graphqlExpress({
     schema
   }))
 
-  api.use('/graphiql', graphiqlExpress({
-    endpointURL: '/graphql'
+  api.use('/v2/graphiql', graphiqlExpress({
+    endpointURL: '/v2/graphql'
   }))
   // grahpql
 

@@ -8,6 +8,10 @@ export const typeDefs = `
   type Client {
     id: ID!
     name: String
+    number: String
+    phone: String
+    note: String
+    date_birth: String
   }
 
   type Query {
@@ -17,6 +21,14 @@ export const typeDefs = `
 
   type Mutation {
     addChannel(name: String!): Channel
-    addClient(name: String!): Client
+
+    addClient(name: String!,
+      number: String,
+      phone: String,
+      note: String,
+      date_birth: String,
+    ): Client
+
+    ClientDelete(id: ID!): Client
   }
 `

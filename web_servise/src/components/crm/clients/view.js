@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
 import { Row, Container, Col, Button } from 'reactstrap'
+import { Link } from 'lib/nav_link'
+import { ClientDelete } from 'components/crm/querues'
+import { ApolloStore, graphql } from 'react-apollo'
 // import Notification from 'lib/notification'
-import { NavLink } from 'lib/nav_link'
+import { ClientsQuery } from 'components/crm/querues'
 
-export default class GroupView extends Component {
+import { filter } from 'ramda'
 
-  handleDestroy = () => {
-    console.log("handleDestroy")
-    // let { object } = this.props
-    // object.destroy().then(response => {
-    //   Notification.success("ok")
-    // })
+
+class GroupView extends Component {
+
+  handleDestroy = async () => {
+    const { object, mutate } = this.props
+
+    let response = await mutate({
+      variables: { id: object.id },
+      update: (store, { data: { submitComment } }) => {
+        const data = store.readQuery({ query: ClientsQuery });
+        data.clients = filter((o) => { return o.id != object.id}, data.clients)
+        store.writeQuery({ query: ClientsQuery, data });
+      },
+    })
+
   }
 
   render() {
@@ -18,43 +30,50 @@ export default class GroupView extends Component {
 
     return (
       <Container>
-      <Row>
-        <Col xs="1">
-          { object.id }
-        </Col>
+        <Row>
+          <Col xs="1">
+            { object.id }
+          </Col>
 
-        <Col xs="2" className="pointer" onClick={this.handleColor}>
+          <Col xs="2" onClick={this.handleColor}>
+            <Link href={`/crm/clients/${object.id}/update`}>
+              <Button>
+                { object.name }
+              </Button>
+            </Link>
+          </Col>
 
-          <NavLink href={`/crm/clients/${object.id}/update`}>
-            <Button>
-              { object.name }
+          <Col xs={2}>
+            { object.number }
+          </Col>
+
+          <Col xs={2}>
+            { object.phone }
+          </Col>
+
+          <Col xs={2}>
+            { object.note }
+          </Col>
+
+          <Col xs={2}>
+            { object.date_birth }
+          </Col>
+
+          <Col xs={1}>
+            <Button onClick={this.handleDestroy}>
+              <i className="fa fa-ban" aria-hidden="true" />
             </Button>
-          </NavLink>
+          </Col>
 
-        </Col>
-
-        <Col xs={2}>
-          { object.phone }
-        </Col>
-
-        <Col xs={2}>
-          { object.date_birth }
-        </Col>
-
-        <Col xs={4}>
-          { object.note }
-        </Col>
-
-        <Col xs={1}>
-          <Button onClick={this.handleDestroy}>
-            <i className="fa fa-ban" aria-hidden="true" />
-          </Button>
-        </Col>
-
+        </Row>
         <br />
-      </Row>
       </Container>
     )
   }
 
 }
+
+// var isEven = n => n % 2 === 0;
+
+export default graphql(ClientDelete)(GroupView)
+

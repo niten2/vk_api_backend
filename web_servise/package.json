@@ -15,6 +15,7 @@
     "mobx-react": "^4.2.1",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
+    "ramda": "^0.24.1",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
@@ -26,7 +27,8 @@
     "react-spinkit": "^3.0.0",
     "reactstrap": "^4.6.2",
     "styled-components": "^2.1.0",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "tachyons": "^4.7.4"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"

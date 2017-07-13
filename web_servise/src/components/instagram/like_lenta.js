@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { requestLikeLenta } from "lib/requests"
-import { Button } from 'styles'
+import { Button } from 'reactstrap'
 import Notification from 'lib/notification'
 
 export default class FollowExplore extends Component {

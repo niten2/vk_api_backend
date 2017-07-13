@@ -10,6 +10,7 @@
     "db:seed:csv": "node --require ./tools/babelhook ./api/services/parseCsv/index.js",
     "db:drop": "rm -rf db/database.dev.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
+    "parse:test": "node --require ./tools/babelhook api/services/parseTests.js",
     "test": "mocha test --inspect-brk --require ./tools/babelhook",
     "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js"
   },

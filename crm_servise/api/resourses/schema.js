@@ -38,11 +38,18 @@ const typeDefs = `
   }
 
   type Mutation {
-    addChannel(name: String!): Channel
-    addMessage(message: MessageInput!): Message
+    addClient(
+      name: String!
+      number: String
+      phone: String
+      note: String
+      date_birth: String
+    ): Client
 
-    addClient(name: String!): Channel
+    ClientDelete(id: ID!): Client
   }
 `
 
 export const schema = makeExecutableSchema({ typeDefs, resolvers })
+    // addChannel(name: String!): Channel
+    // addMessage(message: MessageInput!): Message

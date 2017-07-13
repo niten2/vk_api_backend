@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { Row, Col, Button } from 'reactstrap'
-import { NavLink } from 'lib/nav_link'
+import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
 // import Spinner from 'components/shared/spinner'
 
-import { ClientAddQuery } from 'components/crm/querues'
+import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
+
+import { ClientsQuery, AddClientQuery } from 'components/crm/querues'
 
 class ClientNew extends Component {
 
   state = {
-    client: {
-      name: "",
-    },
+    client: {},
   }
 
   handleSetState = (e) => {
@@ -26,8 +25,19 @@ class ClientNew extends Component {
     const { mutate } = this.props
     const { client } = this.state
 
+    console.log(client)
+
     let response = await mutate({
-      variables: { name: client.name },
+      variables: {
+        name: client.name,
+        number: client.number,
+        phone: client.phone,
+        note: client.note,
+        date_birth: client.date_birth,
+      },
+      refetchQueries: [{
+        query: ClientsQuery,
+      }],
     })
 
     if (response.data.addClient) {
@@ -42,55 +52,90 @@ class ClientNew extends Component {
   }
 
   handleOnKeyPress = (target) => {
-    target.charCode === 13 ?  this.handleCreate() : null
-  }
-
-  renderView() {
-    return (
-      <Row>
-        <Col xs={12} className="text-center">
-
-          Create new Group
-          <br />
-
-          <Col xs={{ size: 4, offset: 4 }}>
-            Name
-          </Col>
-          <Col xs={{ size: 4, offset: 4 }}>
-            <input
-              name="name"
-              className="form-control"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-            />
-          </Col>
-
-        </Col>
-
-        <br />
-        <br />
-
-        <Col xs={{ size: 4, offset: 6 }}>
-          <br />
-          <Button onClick={this.handleCreate}>
-            Save
-          </Button>
-
-          <NavLink to="/crm/clients">
-            <Button>
-              Return
-            </Button>
-          </NavLink>
-        </Col>
-
-      </Row>
-    )
+    if (target.charCode === 13) {
+      this.handleCreate()
+    }
   }
 
   render() {
-    return this.renderView()
+    return (
+      <Container>
+        <br />
+        <br />
+
+        <InputGroup>
+          <Input
+            name="name"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="name"
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="number"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="number"
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="phone"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="phone"
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="note"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="note"
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="date_birth"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="date_birth"
+          />
+        </InputGroup>
+        <br />
+
+        <br />
+        <br />
+
+        <Row>
+          <Col xs={{ size: "auto", offset: 5 }}>
+            <Button onClick={this.handleCreate}>
+              Save
+            </Button>
+
+            &nbsp;
+
+            <Link to="/crm/clients">
+              <Button>
+                Return
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+
+      </Container>
+    )
   }
 
 }
 
-export default graphql(ClientAddQuery)(ClientNew)
+export default graphql(AddClientQuery)(ClientNew)
