@@ -36,11 +36,11 @@ export default observer(class Header extends Component {
     return (
        <div>
           <Navbar color="faded" light toggleable>
-            <NavbarToggler left onClick={this.toggle} />
+            <NavbarToggler onClick={this.toggle} />
 
             <NavbarBrand href="/">CRM</NavbarBrand>
 
-            <Collapse left isOpen={this.state.isOpen} navbar>
+            <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
                   <NavLink href="/crm">Crm</NavLink>
@@ -55,7 +55,7 @@ export default observer(class Header extends Component {
             </Collapse>
 
             <Login />
-            <Logout />
+            <UserName />
 
           </Navbar>
       </div>
@@ -70,15 +70,14 @@ const Login = () => (
   >Login</NavLink>
 )
 
-const Logout = () => (
-  <NavLink
-    onClick={() => console.log("Logout")}
-    className="pointer navbar-text navbar-right"
-  >Logout</NavLink>
-)
+// <Logout />
+// const Logout = () => (
+//   <NavLink
+//     onClick={() => console.log("Logout")}
+//     className="pointer navbar-text navbar-right"
+//   >Logout</NavLink>
+// )
 
 const UserName = () => (
-  <p
-    className="navbar-text navbar-right"
-  >UserName</p>
+  <NavLink>UserName</NavLink>
 )

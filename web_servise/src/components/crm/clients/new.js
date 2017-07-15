@@ -6,7 +6,7 @@ import Notification from 'lib/notification'
 
 import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
 
-import { ClientsQuery, AddClientQuery } from 'components/crm/querues'
+import { clientCreateQuery, clientsQuery } from 'components/crm/querues'
 
 class ClientNew extends Component {
 
@@ -22,26 +22,25 @@ class ClientNew extends Component {
   }
 
   handleCreate = async () => {
-    const { mutate } = this.props
+    const { clientCreateQuery } = this.props
     const { client } = this.state
 
-    console.log(client)
-
-    let response = await mutate({
-      variables: {
-        name: client.name,
-        number: client.number,
-        phone: client.phone,
-        note: client.note,
-        date_birth: client.date_birth,
-      },
-      refetchQueries: [{
-        query: ClientsQuery,
-      }],
-    })
-
-    if (response.data.addClient) {
+    try {
+      await clientCreateQuery({
+        variables: {
+          name: client.name,
+          number: client.number,
+          phone: client.phone,
+          note: client.note,
+          date_birth: client.date_birth,
+        },
+        refetchQueries: [{
+          query: clientsQuery,
+        }],
+      })
       Notification.success("ok")
+    } catch (e) {
+      Notification.error(e)
     }
   }
 
@@ -138,4 +137,6 @@ class ClientNew extends Component {
 
 }
 
-export default graphql(AddClientQuery)(ClientNew)
+export default graphql(clientCreateQuery, {
+  name: "clientCreateQuery"
+})(ClientNew)

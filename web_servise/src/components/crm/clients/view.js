@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 import { Row, Container, Col, Button } from 'reactstrap'
 import { Link } from 'lib/nav_link'
-import { ClientDelete } from 'components/crm/querues'
-import { ApolloStore, graphql } from 'react-apollo'
-// import Notification from 'lib/notification'
-import { ClientsQuery } from 'components/crm/querues'
-
+import { graphql } from 'react-apollo'
+import { clientsQuery, clientDelete } from 'components/crm/querues'
 import { filter } from 'ramda'
+
+// import Notification from 'lib/notification'
 
 class GroupView extends Component {
 
   handleDestroy = async () => {
     const { object, mutate } = this.props
 
-    let response = await mutate({
+    await mutate({
       variables: { id: object.id },
       update: (store, { data: { submitComment } }) => {
-        const data = store.readQuery({ query: ClientsQuery });
-        data.clients = filter((o) => { return o.id != object.id}, data.clients)
-        store.writeQuery({ query: ClientsQuery, data });
+        const data = store.readQuery({ query: clientsQuery });
+        data.clients = filter((o) => { return o.id !== object.id}, data.clients)
+        store.writeQuery({ query: clientsQuery, data });
       },
     })
 
@@ -72,7 +71,4 @@ class GroupView extends Component {
 
 }
 
-// var isEven = n => n % 2 === 0;
-
-export default graphql(ClientDelete)(GroupView)
-
+export default graphql(clientDelete)(GroupView)

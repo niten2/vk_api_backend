@@ -74,3 +74,14 @@ export default compose(
 )(Login)
 
 
+// export default graphql(ClientListQuery, { options: { pollInterval: 5000 } })(List)
+
+
+export default compose(
+  graphql(clientQuery, {
+    options: (props) => ({ variables: { id: props.match.params.id } })
+  }),
+  graphql(clientUpdate, {
+    name: "clientUpdate"
+  }),
+)(Update)

@@ -1,6 +1,6 @@
 import { gql } from 'react-apollo'
 
-export const ClientsQuery = gql`
+export const clientsQuery = gql`
   query clients {
     clients {
       id
@@ -13,15 +13,32 @@ export const ClientsQuery = gql`
   }
 `
 
-export const AddClientQuery = gql`
-  mutation addClient(
-    $name: String!
+export const clientQuery = gql`
+  query client(
+    $id: ID!
+  ) {
+    client(
+      id: $id
+    ) {
+      id
+      name
+      number
+      phone
+      note
+      date_birth
+    }
+  }
+`
+
+export const clientCreateQuery = gql`
+  mutation clientCreate(
+    $name: String
     $number: String
     $phone: String
     $note: String
     $date_birth: String
   ) {
-    addClient(
+    clientCreate(
       name: $name
       number: $number
       phone: $phone
@@ -37,9 +54,36 @@ export const AddClientQuery = gql`
   }
 `
 
-export const ClientDelete = gql`
-  mutation ClientDelete($id: ID!) {
-    ClientDelete(id: $id) {
+export const clientUpdate = gql`
+  mutation clientUpdate(
+    $id: ID!
+    $name: String
+    $number: String
+    $phone: String
+    $note: String
+    $date_birth: String
+  ) {
+    clientUpdate(
+      id: $id
+      name: $name
+      number: $number
+      phone: $phone
+      note: $note
+      date_birth: $date_birth
+    ) {
+      id
+      name
+      number
+      phone
+      note
+      date_birth
+    }
+  }
+`
+
+export const clientDelete = gql`
+  mutation clientDelete($id: ID!) {
+    clientDelete(id: $id) {
       id
     }
   }

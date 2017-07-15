@@ -4,12 +4,11 @@ import { Button } from 'reactstrap'
 import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 
-import { ClientsQuery } from 'components/crm/querues'
+import { clientsQuery } from 'components/crm/querues'
 import ClientView from './view'
 
 const List = ({ data: { loading, error, clients, refetch }}) => {
   clients = clients || []
-  console.log("ClientsQuery", clients)
 
   if (loading) {
     return <p>Loading ...</p>
@@ -43,5 +42,4 @@ const List = ({ data: { loading, error, clients, refetch }}) => {
   )
 }
 
-// export default graphql(ClientListQuery, { options: { pollInterval: 5000 } })(List)
-export default graphql(ClientsQuery)(List)
+export default graphql(clientsQuery)(List)

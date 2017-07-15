@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { requestFollowExplore } from "lib/requests"
-import { Row, Container, Col, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import Notification from 'lib/notification'
 
 export default class FollowExplore extends Component {

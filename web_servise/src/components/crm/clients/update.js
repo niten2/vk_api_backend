@@ -1,125 +1,159 @@
 import React, { Component } from 'react'
-// import { observer } from 'mobx-react'
-// import { UIStore } from 'stores'
-
-import { Row, Container, Col, Button } from 'reactstrap'
-import { NavLink } from 'lib/nav_link'
-// import Notification from 'lib/notification'
+import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
+import { Link } from 'lib/nav_link'
+import { compose, graphql } from 'react-apollo'
+import { clientQuery, clientUpdate } from 'components/crm/querues'
 import Spinner from 'components/shared/spinner'
+import Notification from 'lib/notification'
+import { set, lensProp } from 'ramda'
 
-export default class UpdateClient extends Component {
+class Update extends Component {
 
-  // async componentWillMount() {
-  //   let id = this.props.params.id
-  //   await Client.loadObject(id)
-
-  //   let client = await Client.get(id)
-  //   this.setState({client: client, loading: false })
-  // }
-
-  state = {
-    client: {
-      name: "",
-    },
-    loading: false,
+  componentWillReceiveProps(props) {
+    const { client } = props.data
+    this.setState({ client })
   }
 
-  // handleSetState = (e) => {
-  //   const { name, value } = e.target
-  //   let { client } = this.state
-  //   client[name] = value
-  //   this.setState({ client })
-  // }
+  state = {
+    client: {},
+  }
 
-  // handleUpdate = async () => {
-  //   const { client } = this.state
-  //   let response = await Client.updateObject(client)
+  handleSetState = (e) => {
+    const { name, value } = e.target
+    let setClient = set(lensProp(name), value)
+    this.setState({ client: setClient(this.state.client) })
+  }
 
-  //   if (response.ok) {
-  //     Notification.success("ok")
-  //   } else {
-  //     Notification.errors(response.body)
-  //   }
-  // }
+  handleUpdate = async () => {
+    const { client } = this.state
+    const { clientUpdate } = this.props
 
-  // handleOnKeyPress = (target) => {
-  //   target.charCode == 13 ?  this.handleCreate() : null
-  // }
+    try {
+      await clientUpdate({
+        variables: {
+          id: this.props.match.params.id,
+          number: client.number,
+          name: client.name,
+          phone: client.phone,
+          note: client.note,
+          date_birth: client.date_birth,
+        },
+      })
+      Notification.success("update")
+    } catch (error) {
+      Notification.error(error)
+    }
+  }
 
-  renderView() {
-    // let { client } = this.state
-
-    return (
-      <Container>
-        <Row>
-          <Col xs={12} className="text-center">
-            update
-          </Col>
-
-
-
-          <Col xs={{ size: 4, offset: 6 }}>
-            <br />
-            <Button onClick={this.handleCreate}>
-              Save
-            </Button>
-
-            <NavLink to="/crm/clients">
-              <Button>
-                Return
-              </Button>
-            </NavLink>
-          </Col>
-
-        </Row>
-      </Container>
-    )
+  handleOnKeyPress = (target) => {
+    if (target.charCode === 13) { this.handleUpdate() }
   }
 
   render() {
-    return this.state.loading ? Spinner() : this.renderView()
+    let { client } = this.state
+    let { loading, error } = this.props.data
+
+    if (loading) {
+      return <Spinner />
+    }
+
+    if (error) {
+      Notification.error(error.message)
+      return (<div> Error </div>)
+    }
+
+    if (client) {
+      return (
+        <Container>
+          <br />
+          <br />
+
+        <InputGroup>
+          <Input
+            name="name"
+            placeholder="name"
+            value={client.name || ""}
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="number"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="number"
+            value={client.number || ""}
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="phone"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="phone"
+            value={client.phone || ""}
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="note"
+            placeholder="note"
+            value={client.note || ""}
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+          />
+        </InputGroup>
+        <br />
+
+        <InputGroup>
+          <Input
+            name="date_birth"
+            placeholder="date_birth"
+            value={client.date_birth || ""}
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+          />
+        </InputGroup>
+        <br />
+
+        <br />
+        <br />
+
+          <Row>
+            <Col xs={{ size: "auto", offset: 5 }}>
+              <Button onClick={ this.handleUpdate }>
+                Update
+              </Button>
+
+              &nbsp;
+
+              <Link to="/crm/clients">
+                <Button>
+                  Return
+                </Button>
+              </Link>
+            </Col>
+          </Row>
+
+        </Container>
+      )
+    }
   }
 
 }
 
-
-        //   Create new Group
-        //   <Clearfix />
-        //   <br />
-
-        //   <Col xs={6}>
-        //     URL
-        //   </Col>
-        //   <Col xs={6}>
-        //     <textarea
-        //       name="name"
-        //       rows="10"
-        //       cols="10"
-        //       className="form-control"
-        //       onChange={ this.handleSetState }
-        //       onKeyPress={ this.handleOnKeyPress }
-        //       value={ client.name }
-        //     />
-        //   </Col>
-
-        //   <Clearfix />
-        //   <br />
-
-
-        // </Col>
-
-        // <Clearfix />
-        // <br />
-
-        // <div className="text-center">
-        //   <Button onClick={this.handleCreate}>
-        //     Save
-        //   </Button>
-        //   &nbsp;
-        //   <NavLink to="/crm/clients">
-        //     <Button>
-        //       Return
-        //     </Button>
-        //   </NavLink>
-        // </div>
-
+export default compose(
+  graphql(clientQuery, {
+    options: (props) => ({ variables: { id: props.match.params.id } })
+  }),
+  graphql(clientUpdate, {
+    name: "clientUpdate"
+  }),
+)(Update)

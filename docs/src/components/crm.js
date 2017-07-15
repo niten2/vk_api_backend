@@ -2,36 +2,7 @@ import React from 'react'
 import GraphiQL from 'graphiql'
 import fetch from 'isomorphic-fetch'
 import { isUri } from 'valid-url'
-
-const options = {
-  method: 'post',
-  headers: { 'Content-Type': 'application/json' }
-}
-
-const endpoint = 'http://localhost:4002/v2/graphql'
-
-const defaultQuery = `
-
-# mutation addClient {
-#   addClient(name: "1234", number: "66666") {
-#     name
-#     number
-#   }
-# }
-
-query clients {
-  clients {
-    id
-    name
-    number
-    phone
-    note
-    date_birth
-  }
-}
-
-
-`
+import { endpoint, options, defaultQuery } from "data"
 
 export default class App extends React.Component {
 
