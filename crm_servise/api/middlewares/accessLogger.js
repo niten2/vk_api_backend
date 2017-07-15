@@ -66,6 +66,11 @@ export default (params) => ([
         const diff = process.hrtime(hrtime)
         data.duration = diff[0] * 1e3 + diff[1] * 1e-6
 
+
+        if (req.body) {
+          log.debug(req.body)
+        }
+
         log[levelFn(data)](logFinish(data))
 
         // log[levelFn(data)](data, logFinish(data))
