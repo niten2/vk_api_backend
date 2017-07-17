@@ -8,5 +8,7 @@ export default {
   vk_servise: process.env.REACT_APP_VK_SERVISE,
   insta_servise: process.env.REACT_APP_INSTA_SERVISE,
 
-  graphqlUriCrmServise: `${process.env.REACT_APP_CRM_SERVISE}/v2/graphql`,
+  graphqlUriCrmServise: `${process.env.REACT_APP_CRM_SERVISE}/v2`,
+
+  graphqlUriAuthServise: `${process.env.REACT_APP_AUTH_SERVISE}/v2`,
 }

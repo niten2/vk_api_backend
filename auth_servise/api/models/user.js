@@ -1,9 +1,11 @@
 import db from 'db'
 import Sequelize from 'sequelize'
 
-import Tag from 'api/models/tag'
+const User = db.define('users', {
 
-let User = db.define('users', {
+  name: Sequelize.STRING,
+  email: Sequelize.STRING,
+  password: Sequelize.STRING,
 
 }, {
 

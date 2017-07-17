@@ -6,9 +6,5 @@ export default {
   storage: "./db/database.dev.sqlite",
   env: process.env.NODE_ENV,
 
-  insta_access_token: process.env.INSTA_ACCESS_TOKEN,
-  insta_client_id: process.env.INSTA_CLIENT_ID,
-  insta_client_secret: process.env.INSTA_CLIENT_SECRET,
-  insta_callback_url: process.env.INSTA_CALLBACK_URL,
-
+  jwt_secret_key: process.env.JWT_SECRET_KEY,
 }

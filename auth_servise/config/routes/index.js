@@ -1,24 +1,39 @@
-import { AsyncRouter } from 'express-async-router'
-import Passport from './passport'
-// import Users from './users'
-// import Tags from './tags'
-// import Clients from './clients'
+// import { AsyncRouter } from 'express-async-router'
+// import Passport from './passport'
 
-export default (context) => {
-	const api = AsyncRouter()
+import {
+  graphqlExpress,
+  graphiqlExpress,
+} from 'graphql-server-express'
+import bodyParser from 'body-parser'
+import { schema } from 'graphql/schema'
 
-  api.all('/', () => ({
-    app: "auth servise",
-    version: 'current version /v1',
-  }) )
+export default (app) => {
+  // const app = context.app
+	// const api = AsyncRouter()
+
+  // api.all('/', () => ({
+  //   app: "auth servise",
+  //   version: 'current version /v2 (graphql)',
+  // }) )
 
   // api.use('/v1/users', Users(context))
   // api.use('/v1/tags', Tags(context))
   // api.use('/v1/groups', Groups(context))
   // api.use('/v1/clients', Clients())
 
-  context.app.use('/', api)
-  context.app.use('/auth', Passport())
+  // context.app.use('/', api)
+  // context.app.use('/auth', Passport())
+
+  // grahpql
+  app.use('/v2', bodyParser.json(), graphqlExpress({
+    schema
+  }))
+
+  app.use('/v2', graphiqlExpress({
+    endpointURL: '/v2'
+  }))
+
 
   // // catch 404 and forward to error handler
   // context.app.use((req, res, next) => {

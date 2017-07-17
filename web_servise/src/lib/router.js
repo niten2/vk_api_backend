@@ -28,12 +28,21 @@ import Crm from 'components/crm'
 import ClientNew from 'components/crm/clients/new'
 import ClientUpdate from 'components/crm/clients/update'
 
+
+import LayoutAuth from 'components/auth/layout'
+import LoginUser from 'components/auth/login_user'
+import CreateUser from 'components/auth/create_user'
+
+
 export default (onUpdate) => {
   return (
     <BrowserRouter>
       <div>
         <Switch>
           <Layout exact path="/" component={Crm}/>
+
+          <LayoutAuth exact path="/login" component={LoginUser}/>
+          <LayoutAuth exact path="/auth" component={CreateUser}/>
 
           <Layout exact path="/crm" component={Crm}/>
           <Layout exact path="/crm/clients/new" component={ClientNew}/>

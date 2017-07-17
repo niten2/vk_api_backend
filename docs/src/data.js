@@ -3,7 +3,8 @@ export const options = {
   headers: { 'Content-Type': 'application/json' }
 }
 
-export const endpoint = 'http://localhost:4002/v2/graphql'
+// export const endpoint = 'http://localhost:4002/v2/graphql'
+export const endpoint = 'http://localhost:4001/v2'
 
 export const defaultQuery = `
 
@@ -54,7 +55,23 @@ mutation clientDelete {
   }
 }
 
+ query user {
+  user(id: 1) {
+    id
+    email
+    password
+  }
+ }
 
+mutation JwtTokenCreate {
+  JwtTokenCreate(
+    email: "email@test.com"
+    password: "1234"
+  ) {
+    email
+    password
+  }
+}
 
 
 `

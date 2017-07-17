@@ -66,13 +66,13 @@ export default observer(class Header extends Component {
 
 const Login = () => (
   <NavLink
-    to = "/login"
+    href = "/login"
   >Login</NavLink>
 )
 
 const Auth = () => (
   <NavLink
-    to = "/auth"
+    href = "/auth"
   >auth</NavLink>
 )
 

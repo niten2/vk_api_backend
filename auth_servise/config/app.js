@@ -19,7 +19,8 @@ export default class App {
     this.settings = settings
     // this.resourses = resourses(this)
     this.middlewares = middlewares(this)
-    this.routes = routes(this)
+    // this.routes = routes(this)
+    routes(this.app)
 
     if (settings.env != "test") {
       this.initLogSetup()
