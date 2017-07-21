@@ -1,18 +1,5 @@
 import { gql } from 'react-apollo'
 
-// export const userQuery = gql`
-//   query clients {
-//     clients {
-//       id
-//       name
-//       number
-//       phone
-//       note
-//       date_birth
-//     }
-//   }
-// `
-
 export const UserCreateQuery = gql`
   mutation UserCreate(
     $email: String!
@@ -37,13 +24,10 @@ export const JwtTokenCreateQuery = gql`
       email: $email
       password: $password
     ) {
-      email
-      password
+      token
     }
   }
 `
-
-
 
 // const createUser = gql`
 //   mutation ($email: String!, $password: String!, $name: String!, $emailSubscription: Boolean!) {
@@ -57,6 +41,19 @@ export const JwtTokenCreateQuery = gql`
 //   mutation ($email: String!, $password: String!) {
 //     signinUser(email: {email: $email, password: $password}) {
 //       token
+//     }
+//   }
+// `
+
+// export const userQuery = gql`
+//   query clients {
+//     clients {
+//       id
+//       name
+//       number
+//       phone
+//       note
+//       date_birth
 //     }
 //   }
 // `

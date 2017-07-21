@@ -1,7 +1,4 @@
-import {
-  makeExecutableSchema,
-} from 'graphql-tools'
-
+import { makeExecutableSchema } from 'graphql-tools'
 import { resolvers } from './resolvers'
 
 const typeDefs = `
@@ -17,8 +14,6 @@ const typeDefs = `
   }
 
   type JwtToken {
-    email: String
-    password: String
     token: String
   }
 
@@ -27,7 +22,6 @@ const typeDefs = `
     JwtTokenCreate(
       email: String!
       password: String!
-      token: String
     ): JwtToken
 
     UserCreate(

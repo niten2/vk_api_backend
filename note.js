@@ -85,3 +85,10 @@ export default compose(
     name: "clientUpdate"
   }),
 )(Update)
+
+
+export default graphql(
+  // signinUser, {name: 'signinUser'})
+  // (graphql(userQuery, { options: { fetchPolicy: 'network-only' }})
+  // (withRouter(CreateLogin))
+)

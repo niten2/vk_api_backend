@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 // import { withRouter } from 'react-router'
 import { graphql } from 'react-apollo'
 import { Input, Row, Col, Button } from 'reactstrap'
-import { UserCreateQuery } from 'components/auth/graphql/querues'
 import Notification from 'lib/notification'
 import { set, lensProp } from 'ramda'
+import { UserCreateQuery } from 'components/auth/graphql/querues'
 import { Center } from "./style"
 
 class CreateUser extends Component {

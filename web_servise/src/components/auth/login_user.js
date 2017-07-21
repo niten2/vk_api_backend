@@ -1,9 +1,10 @@
 import React from 'react'
-import { withRouter } from 'react-router'
-import { withApollo, graphql, gql } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
+import { graphql } from 'react-apollo'
 import { Col, Input, Row, Button } from 'reactstrap'
 import Notification from 'lib/notification'
 import { Center } from "./style"
+import authProvider from "lib/auth_provider"
 
 import { JwtTokenCreateQuery } from 'components/auth/graphql/querues'
 
@@ -25,26 +26,19 @@ class CreateLogin extends React.Component {
           password: password,
         }
       })
-      console.log(response)
+      const token = response.data.JwtTokenCreate.token
+
+      console.log("GET token = ", token)
+
+      authProvider.saveToken(token)
+      this.props.history.push('/')
     } catch(error) {
       Notification.error(error)
     }
-
   }
 
   render () {
     console.log(this.props)
-
-    // if (this.props.data.loading) {
-    //   return (<div>Loading</div>)
-    // }
-
-    // // redirect if user is logged in
-    // if (this.props.data.user) {
-    //   console.warn('already logged in')
-    //   // this.props.router.replace('/')
-    // }
-
     return (
       <Center>
         <Row>
@@ -76,30 +70,6 @@ class CreateLogin extends React.Component {
 
 }
 
-const signinUser = gql`
-  mutation ($email: String!, $password: String!) {
-    signinUser(email: {email: $email, password: $password}) {
-      token
-    }
-  }
-`
-
-const userQuery = gql`
-  query {
-    user {
-      id
-    }
-  }
-`
-
-// export default graphql(
-//   // signinUser, {name: 'signinUser'})
-//   // (graphql(userQuery, { options: { fetchPolicy: 'network-only' }})
-//   // (withRouter(CreateLogin))
-// )
-
-// export default CreateLogin
-
 export default graphql(
   JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" },
-)(CreateLogin)
+)(withRouter(CreateLogin))

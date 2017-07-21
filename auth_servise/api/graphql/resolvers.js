@@ -1,19 +1,11 @@
 import { User } from "api/models"
 import { createJwt } from "api/services/createJwt"
 
+import { schema } from 'api/graphql/schema'
+
 import {
   GraphQLObjectType,
-} from 'graphql'
-
-      // let z = new GraphQLObjectType({
-      //   name: 'JwtToken',
-      //   fields: {
-      //     token: "33333"
-      //   }
-      // });
-
-// console.log(z)
-
+} from 'graphql-tools'
 
 export const resolvers = {
 
@@ -39,22 +31,7 @@ export const resolvers = {
         }
       })
 
-      // console.log(createJwt(user))
-
-      return new GraphQLObjectType({
-        name: 'JwtToken',
-        fields: {
-          token: "33333"
-        }
-      })
-
-
-
-      // if (user) {
-      //   return { token: createJwt(user) }
-      // } else {
-      //   return null
-      // }
+      return { token: createJwt(user) }
     },
 
     UserCreate: async (root, args) => {

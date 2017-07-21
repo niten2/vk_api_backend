@@ -1,6 +1,6 @@
 // import authProvider from 'lib/auth'
-import { API } from 'mobx-model'
-import { autorun } from 'mobx'
+// import { API } from 'mobx-model'
+// import { autorun } from 'mobx'
 import { UIStore } from 'stores'
 import Notification from 'lib/notification'
 
@@ -21,16 +21,17 @@ class AuthProvider {
   }
 
   fetchToken() {
-    const token = this.storage && this.storage.getItem(AUTH_SESSION_STORAGE_KEY) || null
+    const token = this.storage && this.storage.getItem(AUTH_SESSION_STORAGE_KEY)
     return `Bearer ${token}`
   }
 
   saveToken(token) {
     if (!this.storage) return null
-    token ? this.storage.setItem(AUTH_SESSION_STORAGE_KEY, token) : null
 
+    if (token) {
+      this.storage.setItem(AUTH_SESSION_STORAGE_KEY, token)
+    }
   }
-
   removeToken() {
     if (!this.storage) return null
     this.storage.removeItem(AUTH_SESSION_STORAGE_KEY)
