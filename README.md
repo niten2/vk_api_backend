@@ -1,20 +1,25 @@
-Description.
+#Smm Crm System
 
-npm i -g nodaemon
+install
 
-
-
-Vk servise
-
-npm run parse:test
-
-
-insta servise
+  - npm i -g nodaemon
 
 
 
-AUTH_SERVISE=http://localhost:4001
-CRM_SERVISE=http://localhost:4002
-VK_SERVISE=http://localhost:4003
-INSTA_SERVISE=http://localhost:4005
+Servises
+
+- Crm (node)
+- Vk (node)
+- Insta (node)
+- Web app (react)
+- Docs (documetation graphql)
+- Mobile app (react native)
+
+
+##default ports on local machine
+
+###AUTH_SERVISE=http://localhost:4001
+###CRM_SERVISE=http://localhost:4002
+###VK_SERVISE=http://localhost:4003
+###INSTA_SERVISE=http://localhost:4005
 
