@@ -30,21 +30,21 @@ export default observer(class Sidebar extends Component {
 
           <Link href="/crm">
             <Item>
-              <i className="fa fa-dashboard"></i>
+              <i className="fa fa-id-card"></i>
               Crm
             </Item>
           </Link>
 
           <Link href="/vk">
             <Item>
-              <i className="fa fa-dashboard"></i>
+              <i className="fa fa-vk"></i>
               Vk
             </Item>
           </Link>
 
           <Link href="/instagram">
             <Item>
-              <i className="fa fa-dashboard"></i>
+              <i className="fa fa-instagram"></i>
               Instagram
             </Item>
           </Link>

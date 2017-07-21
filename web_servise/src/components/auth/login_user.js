@@ -1,32 +1,49 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import { graphql, gql } from 'react-apollo'
+import { withApollo, graphql, gql } from 'react-apollo'
 import { Col, Input, Row, Button } from 'reactstrap'
+import Notification from 'lib/notification'
 import { Center } from "./style"
+
+import { JwtTokenCreateQuery } from 'components/auth/graphql/querues'
 
 class CreateLogin extends React.Component {
 
-  // static propTypes = {
-  //   router: React.PropTypes.object.isRequired,
-  //   signinUser: React.PropTypes.func.isRequired,
-  //   data: React.PropTypes.object.isRequired,
-  // }
-
   state = {
-    email: '',
-    password: '',
+    email: 'email@test.com',
+    password: '1234',
+  }
+
+  signinUser = async () => {
+    const { email, password } = this.state
+    const { JwtTokenCreateQuery } = this.props
+
+    try {
+      let response = await JwtTokenCreateQuery({
+        variables: {
+          email: email,
+          password: password,
+        }
+      })
+      console.log(response)
+    } catch(error) {
+      Notification.error(error)
+    }
+
   }
 
   render () {
-    if (this.props.data.loading) {
-      return (<div>Loading</div>)
-    }
+    console.log(this.props)
 
-    // redirect if user is logged in
-    if (this.props.data.user) {
-      console.warn('already logged in')
-      // this.props.router.replace('/')
-    }
+    // if (this.props.data.loading) {
+    //   return (<div>Loading</div>)
+    // }
+
+    // // redirect if user is logged in
+    // if (this.props.data.user) {
+    //   console.warn('already logged in')
+    //   // this.props.router.replace('/')
+    // }
 
     return (
       <Center>
@@ -57,18 +74,6 @@ class CreateLogin extends React.Component {
     )
   }
 
-  signinUser = () => {
-    const {email, password} = this.state
-
-    this.props.signinUser({variables: {email, password}})
-      .then((response) => {
-        window.localStorage.setItem('graphcoolToken', response.data.signinUser.token)
-        // this.props.router.replace('/')
-      }).catch((e) => {
-        console.error(e)
-        // this.props.router.replace('/')
-      })
-  }
 }
 
 const signinUser = gql`
@@ -87,6 +92,14 @@ const userQuery = gql`
   }
 `
 
-export default graphql(signinUser, {name: 'signinUser'})(
-  graphql(userQuery, { options: { fetchPolicy: 'network-only' }})(withRouter(CreateLogin))
-)
+// export default graphql(
+//   // signinUser, {name: 'signinUser'})
+//   // (graphql(userQuery, { options: { fetchPolicy: 'network-only' }})
+//   // (withRouter(CreateLogin))
+// )
+
+// export default CreateLogin
+
+export default graphql(
+  JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" },
+)(CreateLogin)

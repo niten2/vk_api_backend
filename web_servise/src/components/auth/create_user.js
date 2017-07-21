@@ -13,7 +13,6 @@ class CreateUser extends Component {
     user: {
       email: 'email@test.com',
       password: '1234',
-      // emailSubscription: false,
     }
   }
 
@@ -31,12 +30,13 @@ class CreateUser extends Component {
     const { UserCreateQuery } = this.props
 
     try {
-      await UserCreateQuery({
+      let response = await UserCreateQuery({
         variables: {
           email: user.email,
           password: user.password,
         }
       })
+      console.log(response)
     } catch(error) {
       Notification.error(error)
     }
@@ -89,7 +89,7 @@ class CreateUser extends Component {
 
             <br />
 
-            <Button onClick={ this.createUser }>Log in</Button>
+            <Button onClick={ this.createUser }>Sign Up</Button>
 
           </Col>
 
@@ -110,6 +110,6 @@ class CreateUser extends Component {
 // export default graphql(createUserQuery, {name: 'createUserQuery'})(CreateUser)
 // export default graphql(CreateUser)
 
-export default graphql(UserCreateQuery, {
-  name: "UserCreateQuery"
-})(CreateUser)
+export default graphql(
+  UserCreateQuery, { name: "UserCreateQuery" },
+)(CreateUser)

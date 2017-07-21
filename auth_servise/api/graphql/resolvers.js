@@ -1,6 +1,20 @@
 import { User } from "api/models"
 import { createJwt } from "api/services/createJwt"
 
+import {
+  GraphQLObjectType,
+} from 'graphql'
+
+      // let z = new GraphQLObjectType({
+      //   name: 'JwtToken',
+      //   fields: {
+      //     token: "33333"
+      //   }
+      // });
+
+// console.log(z)
+
+
 export const resolvers = {
 
   Query: {
@@ -26,20 +40,24 @@ export const resolvers = {
       })
 
       // console.log(createJwt(user))
-      if (user) {
-        return {
-          "token": "2222222",
-          "email": "dsfsdfsdf",
-          "password": "password",
+
+      return new GraphQLObjectType({
+        name: 'JwtToken',
+        fields: {
+          token: "33333"
         }
-      } else {
-        return null
-      }
+      })
+
+
+
+      // if (user) {
+      //   return { token: createJwt(user) }
+      // } else {
+      //   return null
+      // }
     },
 
     UserCreate: async (root, args) => {
-      console.log(111111)
-      console.log(args)
       const user = await User.create({
         email: args.email,
         password: args.password,
