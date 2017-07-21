@@ -8,6 +8,7 @@ install
 
 Servises
 
+- Auth (node)
 - Crm (node)
 - Vk (node)
 - Insta (node)
