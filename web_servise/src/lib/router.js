@@ -9,13 +9,15 @@ import {
 
 // Other pages
 import NotFound from 'components/shared/not_found'
-import Layout from 'components/layout'
+import Layout from 'components/shared/layout'
 // import Login from 'views/common/auth/login'
 // import VkCallback from 'views/common/auth/vk_callback'
 
 import Instagram from 'components/instagram'
+import LayoutInstagram from 'components/instagram/layout'
 
 import Vk from 'components/vk'
+import LayoutVk from 'components/vk/layout'
 // import Users from 'views/vk/users'
 // import NewUser from 'views/vk/users/new'
 // import Tags from 'views/vk/tags'
@@ -23,11 +25,10 @@ import Vk from 'components/vk'
 // import Group from 'views/vk/groups'
 // import NewGroup from 'views/vk/groups/new'
 
+import LayoutCrm from 'components/crm/layout'
 import Crm from 'components/crm'
-// import Client from 'views/crm/clients'
 import ClientNew from 'components/crm/clients/new'
 import ClientUpdate from 'components/crm/clients/update'
-
 
 import LayoutAuth from 'components/auth/layout'
 import LoginUser from 'components/auth/login_user'
@@ -39,17 +40,17 @@ export default (onUpdate) => {
     <BrowserRouter>
       <div>
         <Switch>
-          <Layout exact path="/" component={Crm}/>
+          <LayoutCrm exact path="/" component={Crm}/>
 
           <LayoutAuth exact path="/login" component={LoginUser}/>
           <LayoutAuth exact path="/auth" component={CreateUser}/>
 
-          <Layout exact path="/crm" component={Crm}/>
-          <Layout exact path="/crm/clients/new" component={ClientNew}/>
-          <Layout exact path="/crm/clients/:id/update" component={ClientUpdate}/>
+          <LayoutCrm exact path="/crm" component={Crm}/>
+          <LayoutCrm exact path="/crm/clients/new" component={ClientNew}/>
+          <LayoutCrm exact path="/crm/clients/:id/update" component={ClientUpdate}/>
 
-          <Layout exact path="/vk" component={Vk}/>
-          <Layout exact path="/instagram" component={ Instagram } />
+          <LayoutVk exact path="/vk" component={Vk}/>
+          <LayoutInstagram exact path="/instagram" component={ Instagram } />
 
           <Layout component={NotFound}/>
         </Switch>

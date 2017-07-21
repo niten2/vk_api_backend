@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { observer } from 'mobx-react'
 import { UIStore } from 'stores'
-import { User, Tag } from "models"
+// import { User, Tag } from "models"
 
 import Select from 'react-select'
 import { filter, sortBy } from "lodash"
@@ -14,8 +14,8 @@ import Spinner from 'spinner'
 export default class CreateGroup extends Component {
 
   async componentWillMount() {
-    await Tag.loadAll({ kind: "users" })
-    this.setState({loading: false })
+    // await Tag.loadAll({ kind: "users" })
+    // this.setState({loading: false })
   }
 
   state = {

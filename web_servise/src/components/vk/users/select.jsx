@@ -2,21 +2,21 @@ import React, { PropTypes, Component } from 'react'
 import { observer } from 'mobx-react'
 import { autorun } from 'mobx'
 import { UIStore } from 'stores'
-import { User, Tag } from "models"
+// import { User, Tag } from "models"
 
 import Select from 'react-select'
-import { filter, sortBy, size } from "lodash"
+// import { filter, sortBy, size } from "lodash"
 
-import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { NavLink } from 'nav_link'
-import Notification from 'notification'
-import Spinner from 'spinner'
+import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'reactstrap'
+import { Link } from 'lib/nav_link'
+import Notification from 'lib/notification'
+import Spinner from 'components/shared/spinner'
 
-@observer
+// @observer
 export default class SelectView extends Component {
 
   async componentWillMount() {
-    let tags = await Tag.loadAll({kind: "users"})
+    // let tags = await Tag.loadAll({kind: "users"})
     // let firstTag = tags.body[0]
     // this.setState({
     //   tag: {
@@ -36,26 +36,27 @@ export default class SelectView extends Component {
   }
 
   handleSelect = (value) => {
-    UIStore.loading = true
+    // UIStore.loading = true
 
-    User.loadAll({ tag_id: value.id, filter: ["active"] }).then(response => {
-      let ids = []
+    // User.loadAll({ tag_id: value.id, filter: ["active"] }).then(response => {
+    //   let ids = []
 
-      response.body.map(object => {
-        ids.push(object.id)
-      })
+    //   response.body.map(object => {
+    //     ids.push(object.id)
+    //   })
 
-      autorun(() => {
-        UIStore.user_ids = ids
-        UIStore.loading = false
-      })
-    })
+    //   autorun(() => {
+    //     UIStore.user_ids = ids
+    //     UIStore.loading = false
+    //   })
+    // })
 
-    this.setState({ tag: value })
+    // this.setState({ tag: value })
   }
 
   render() {
-    const tagUsers = filter(Tag.all(), { kind: "users"})
+    // const tagUsers = filter(Tag.all(), { kind: "users"})
+    const tagUsers = []
 
     let { select, options, tag } = this.state
     let { count } = this.props
@@ -80,14 +81,13 @@ export default class SelectView extends Component {
         </Col>
 
         <Col xs={3}>
-          <NavLink to="/users/new">
+          <Link href="/users/new">
             <Button>
               New
             </Button>
-          </NavLink>
+          </Link>
         </Col>
 
-        <Clearfix />
         <br />
 
       </div>

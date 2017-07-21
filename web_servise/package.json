@@ -24,6 +24,7 @@
     "react-notification-system": "^0.2.14",
     "react-router-dom": "^4.1.1",
     "react-select": "^1.0.0-rc.5",
+    "react-sidebar": "^2.3.2",
     "react-spinkit": "^3.0.0",
     "reactstrap": "^4.6.2",
     "styled-components": "^2.1.0",

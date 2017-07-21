@@ -1,21 +1,21 @@
 import React, { PropTypes, Component } from 'react'
 import { observer } from 'mobx-react'
 import { UIStore } from 'stores'
-import { User, Tag } from "models"
+// import { User, Tag } from "models"
 
-import { size, sortBy } from "lodash"
+// import { size, sortBy } from "lodash"
 import Select from 'react-select'
 
-import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { NavLink } from 'nav_link'
-import Notification from 'notification'
-import Spinner from 'spinner'
+import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'reactstrap'
+import { Link } from 'lib/nav_link'
+import Notification from 'lib/notification'
+import Spinner from 'components/shared/spinner'
 
 export default class UserView extends Component {
 
   handlerInactive = () => {
     let { object } = this.props
-    User.setInactive({ id: object.id })
+    // User.setInactive({ id: object.id })
   }
 
   render() {
@@ -66,7 +66,6 @@ export default class UserView extends Component {
           </button>
         </Col>
 
-        <Clearfix />
       </div>
       <br />
       </div>

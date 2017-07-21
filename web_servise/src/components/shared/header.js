@@ -10,11 +10,8 @@ import {
 
 import {
   NavLink,
-  NavbarBrand,
 } from 'lib/nav_link'
-
-// import authProvider from 'lib/auth'
-// import { UIStore } from 'stores'
+import { UIStore } from "stores"
 
 export default observer(class Header extends Component {
 
@@ -32,30 +29,28 @@ export default observer(class Header extends Component {
     })
   }
 
+  touchSidebar() {
+    UIStore.sidebar = !UIStore.sidebar
+  }
+
   render() {
     return (
        <div>
-          <Navbar color="faded" light toggleable>
+          <Navbar full="true" color="faded" toggleable>
             <NavbarToggler onClick={this.toggle} />
 
-            <NavbarBrand href="/">CRM</NavbarBrand>
+            <a onClick={this.touchSidebar}>
+              <i className="fa fa-navicon fa-2x py-2 p-1" />
+            </a>
+
 
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="/crm">Crm</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/vk">Vk</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/instagram">Instagram</NavLink>
-                </NavItem>
+                <Login />
+                <Auth />
               </Nav>
             </Collapse>
 
-            <Login />
-            <Auth />
 
           </Navbar>
       </div>
@@ -65,15 +60,19 @@ export default observer(class Header extends Component {
 })
 
 const Login = () => (
-  <NavLink
-    href = "/login"
-  >Login</NavLink>
+  <NavItem>
+    <NavLink
+      href = "/login"
+    >Sign In</NavLink>
+  </NavItem>
 )
 
 const Auth = () => (
-  <NavLink
-    href = "/auth"
-  >auth</NavLink>
+  <NavItem>
+    <NavLink
+      href = "/auth"
+    >Sign Up</NavLink>
+  </NavItem>
 )
 
 // <Logout />

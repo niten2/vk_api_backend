@@ -14,6 +14,9 @@ let UIStore  = {
 }
 
 extendObservable(UIStore, {
+
+  sidebar: true,
+
   modalOk: false,
   modalForm: false,
   login: false,

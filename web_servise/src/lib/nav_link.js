@@ -3,12 +3,12 @@ import { Link as LinkRouter } from 'react-router-dom'
 
 export class Link extends Component {
   render() {
-    let { href, children, active } = this.props
+    let { className, href, children } = this.props
 
     return (
       <LinkRouter
-        className={ active ? "active" : null }
-        to={href ? href : ""}
+        className={ className }
+        to={ href ? href : "" }
       >{children}</LinkRouter>
     )
   }
