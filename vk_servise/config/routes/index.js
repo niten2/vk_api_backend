@@ -7,12 +7,15 @@ import Tags from './tags'
 export default (context) => {
 	const api = AsyncRouter()
 
-  api.all('/', () => ({ version: 'current version /v1' }) )
+  api.all('/', () => ({
+    servise: "vk_servise",
+    version: 'current version /v2 with graphql' })
+  )
 
   api.use('/v1/users', Users(context))
   api.use('/v1/tags', Tags(context))
   api.use('/v1/groups', Groups(context))
-  api.use('/v1/clients', Clients())
+  // api.use('/v1/clients', Clients())
 
   context.app.use('/', api)
 

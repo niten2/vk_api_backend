@@ -6,7 +6,7 @@ export default (app) => {
 
   app.get('/', (req, res) => (
     res.json({
-      servise: "auth_servise",
+      servise: "crm_servise",
       version: 'current version /v2 with graphql'
     })
   ))

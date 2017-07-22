@@ -4,7 +4,7 @@ import settings from "lib/settings"
 import LayoutComponent from 'components/shared/layout'
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
 
-const networkInterface = createNetworkInterface({ uri: settings.graphqlUriAuthServise })
+const networkInterface = createNetworkInterface({ uri: settings.uriAuthServise })
 const client = new ApolloClient({
   networkInterface: networkInterface,
   dataIdFromObject: o => o.id,

@@ -4,9 +4,9 @@ import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
 // import Spinner from 'components/shared/spinner'
 
-import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
+import { clientCreateQuery, clientsQuery } from 'components/crm/graphql/querues'
+import { InputGroup, Input, Row, Col, Button } from 'reactstrap'
 
-import { clientCreateQuery, clientsQuery } from 'components/crm/querues'
 
 class ClientNew extends Component {
 
@@ -58,7 +58,7 @@ class ClientNew extends Component {
 
   render() {
     return (
-      <Container>
+      <Col xs="5">
         <br />
         <br />
 
@@ -131,7 +131,7 @@ class ClientNew extends Component {
           </Col>
         </Row>
 
-      </Container>
+      </Col>
     )
   }
 

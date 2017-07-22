@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'lib/nav_link'
-import { Button } from 'reactstrap'
 import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
-
-import { clientsQuery } from 'components/crm/querues'
+import { clientsQuery } from 'components/crm/graphql/querues'
 import ClientView from './view'
+
+
+import { Col, Button } from 'reactstrap'
 
 const List = ({ data: { loading, error, clients, refetch }}) => {
   clients = clients || []
@@ -19,7 +20,9 @@ const List = ({ data: { loading, error, clients, refetch }}) => {
   }
 
   return (
-    <div>
+    <Col className="text-center">
+      <br />
+
       <Link href={`/crm/clients/new`}>
         <Button>
           New Contact
@@ -38,7 +41,7 @@ const List = ({ data: { loading, error, clients, refetch }}) => {
       { clients.map( (object, index) =>
         <ClientView key={index} object={object} />
       )}
-    </div>
+    </Col>
   )
 }
 

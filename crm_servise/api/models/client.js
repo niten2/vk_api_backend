@@ -1,6 +1,5 @@
 import db from 'db'
 import Sequelize from 'sequelize'
-// import R from "ramda"
 
 const Client = db.define('clients', {
 

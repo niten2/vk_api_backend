@@ -8,7 +8,11 @@ export default (context) => {
   const app = context.app
 	const api = AsyncRouter()
 
-  api.all('/', () => ({ version: 'current version /v1' }) )
+  api.all('/', () => ({
+    servise: "insta_servise",
+    version: 'current version /v2 with graphql' })
+  )
+
   api.use('/v1/web-drivers', Webdriver)
   // api.use('/v1/users', Users(context))
 

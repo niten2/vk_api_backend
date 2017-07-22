@@ -44,6 +44,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "babel-resolver": "^1.1.0",
-    "bunyan": "^1.8.10"
+    "bunyan": "^1.8.10",
+    "nodemon": "^1.11.0"
   }
 }

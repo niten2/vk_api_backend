@@ -1,7 +1,7 @@
 import React from 'react'
 import { UIStore } from 'stores'
-import { ApolloProvider } from 'react-apollo'
 import NotificationSystem from 'react-notification-system'
+import { Container, Col, Row } from 'reactstrap'
 
 import Header from 'components/shared/header'
 import Sidebar from 'components/shared/sidebar'
@@ -14,23 +14,25 @@ export default class LayoutComponent extends React.Component {
   }
 
   render() {
-    let { client } = this.props
-
     return (
-      <ApolloProvider client={client}>
-        <div>
-          <NotificationSystem className="notification" ref="notificationSystem" allowHTML={ true } />
+      <div>
+        <NotificationSystem className="notification" ref="notificationSystem" allowHTML={ true } />
 
-          <div>
-            <Sidebar />
-            <div>
-                <Header />
-                { this.props.children }
-            </div>
-          </div>
+        <Container fluid>
+          <Row noGutters>
 
-        </div>
-      </ApolloProvider>
+            <Col xs={3}>
+              <Sidebar />
+            </Col>
+
+            <Col xs={9}>
+              <Header />
+              { this.props.children }
+            </Col>
+          </Row>
+        </Container>
+
+      </div>
     )
   }
 }

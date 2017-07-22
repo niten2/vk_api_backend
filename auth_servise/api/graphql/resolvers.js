@@ -1,11 +1,6 @@
 import { User } from "api/models"
 import { createJwt } from "api/services/createJwt"
-
-import { schema } from 'api/graphql/schema'
-
-import {
-  GraphQLObjectType,
-} from 'graphql-tools'
+import { GraphQLObjectType } from 'graphql-tools'
 
 export const resolvers = {
 

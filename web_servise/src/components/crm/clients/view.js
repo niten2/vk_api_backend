@@ -2,23 +2,27 @@ import React, { Component } from 'react'
 import { Row, Container, Col, Button } from 'reactstrap'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import { clientsQuery, clientDelete } from 'components/crm/querues'
+import { clientsQuery, clientDelete } from 'components/crm/graphql/querues'
 import { filter } from 'ramda'
-// import Notification from 'lib/notification'
+import Notification from 'lib/notification'
 
 class GroupView extends Component {
 
   handleDestroy = async () => {
-    const { object, mutate } = this.props
+    const { object, clientDelete } = this.props
 
-    await mutate({
-      variables: { id: object.id },
-      update: (store, { data: { submitComment } }) => {
-        const data = store.readQuery({ query: clientsQuery });
-        data.clients = filter((o) => { return o.id !== object.id}, data.clients)
-        store.writeQuery({ query: clientsQuery, data });
-      },
-    })
+    try {
+      await clientDelete({
+        variables: { id: object.id },
+        update: (store, { data: { submitComment } }) => {
+          const data = store.readQuery({ query: clientsQuery });
+          data.clients = filter((o) => { return o.id !== object.id}, data.clients)
+          store.writeQuery({ query: clientsQuery, data });
+        },
+      })
+    } catch (error) {
+      Notification.error(error)
+    }
 
   }
 
@@ -33,7 +37,7 @@ class GroupView extends Component {
           </Col>
 
           <Col xs="2" onClick={this.handleColor}>
-            <Link href={`/crm/clients/${object.id}/update`}>
+            <Link href={`/crm/clients/${object.id}`}>
               <Button>
                 { object.name }
               </Button>
@@ -70,4 +74,6 @@ class GroupView extends Component {
 
 }
 
-export default graphql(clientDelete)(GroupView)
+export default graphql(
+  clientDelete, { name: "clientDelete"}
+)(GroupView)
