@@ -1,0 +1,93 @@
+version: '2'
+services:
+
+  auth_servise:
+    container_name: auth_servise
+    build:
+      context: ./auth_servise
+      dockerfile: Dockerfile.development
+    image: auth_servise
+    ports:
+      - "4001:4001"
+    command: bash -c "/bin/bash ; npm run start"
+    env_file: ./auth_servise/.env
+    volumes:
+      - ./auth_servise/:/app
+
+  crm_servise:
+    container_name: crm_servise
+    build:
+      context: ./crm_servise
+      dockerfile: Dockerfile.development
+    image: crm_servise
+    ports:
+      - "4002:4002"
+    command: bash -c "/bin/bash ; npm run start"
+    env_file: ./crm_servise/.env
+    volumes:
+      - ./crm_servise/:/app
+
+  docs_servise:
+    container_name: docs_servise
+    build:
+      context: ./docs_servise
+      dockerfile: Dockerfile.development
+    image: docs_servise
+    ports:
+      - "4003:4003"
+    command: bash -c "/bin/bash ; npm run start"
+    env_file: ./docs_servise/.env.development
+    volumes:
+      - ./docs_servise/:/app
+
+  insta_servise:
+    container_name: insta_servise
+    build:
+      context: ./insta_servise
+      dockerfile: Dockerfile.development
+    image: insta_servise
+    ports:
+      - "4004:4004"
+    command: bash -c "/bin/bash ; npm run start"
+    env_file: ./insta_servise/.env
+    volumes:
+      - ./insta_servise/:/app
+
+  # mobile_servise:
+  #   container_name: mobile_servise
+  #   build:
+  #     context: ./mobile_servise
+  #     dockerfile: Dockerfile.development
+  #   image: mobile_servise
+  #   ports:
+  #     - "4005:4005"
+  #   command: bash -c "/bin/bash ; npm run start"
+  #   env_file: ./mobile_servise/.env
+  #   volumes:
+  #     - ./mobile_servise/:/app
+
+  vk_servise:
+    container_name: vk_servise
+    build:
+      context: ./vk_servise
+      dockerfile: Dockerfile.development
+    image: vk_servise
+    ports:
+      - "4006:4006"
+    command: bash -c "/bin/bash ; npm run start"
+    env_file: ./vk_servise/.env
+    volumes:
+      - ./vk_servise/:/app
+
+  web_servise:
+    container_name: web_servise
+    build:
+      context: ./web_servise
+      dockerfile: Dockerfile.development
+    image: web_servise
+    ports:
+      - "4007:4007"
+    command: bash -c "/bin/bash ; npm run start"
+    env_file: ./web_servise/.env.development
+    volumes:
+      - ./web_servise/:/app

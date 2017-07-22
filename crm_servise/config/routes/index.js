@@ -19,7 +19,7 @@ export default (context) => {
   const app = context.app
 	const api = AsyncRouter()
 
-  api.all('/', () => ({ version: 'current version /v1', servise: "crm servise" }) )
+  api.all('/', () => ({ version: 'current version /v2', servise: "crm servise" }) )
   api.use('/v1/clients', Clients)
 
   context.app.use('/', api)

@@ -4,7 +4,6 @@ import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import { clientsQuery, clientDelete } from 'components/crm/querues'
 import { filter } from 'ramda'
-
 // import Notification from 'lib/notification'
 
 class GroupView extends Component {

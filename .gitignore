@@ -7,6 +7,7 @@ vk_servise/db/csv
 
 crm_servise/node_modules
 crm_servise/.env
+crm_servise/.env.development
 crm_servise/db/database.dev.sqlite
 crm_servise/db/csv
 
@@ -19,11 +20,16 @@ auth_servise/.env
 mobile_servise/node_modules
 mobile_servise/.env
 
+docs_servise/node_modules
+docs_servise/.env.development
+
 web_servise/node_modules
 web_servise/coverage
 web_servise/build
 web_servise/.DS_Store
 web_servise/.env
+web_servise/.env.development
+web_servise/.env.production
 web_servise/.env.local
 web_servise/.env.development.local
 web_servise/.env.test.local

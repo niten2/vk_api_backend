@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { Col, Input, Row, Button } from 'reactstrap'
 import Notification from 'lib/notification'
@@ -72,4 +71,4 @@ class CreateLogin extends React.Component {
 
 export default graphql(
   JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" },
-)(withRouter(CreateLogin))
+)(CreateLogin)

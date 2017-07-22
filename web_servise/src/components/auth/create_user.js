@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-// import { withRouter } from 'react-router'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
 import { Input, Row, Col, Button } from 'reactstrap'
 import Notification from 'lib/notification'
+import authProvider from "lib/auth_provider"
 import { set, lensProp } from 'ramda'
-import { UserCreateQuery } from 'components/auth/graphql/querues'
+import { UserCreateQuery, JwtTokenCreateQuery } from 'components/auth/graphql/querues'
 import { Center } from "./style"
 
 class CreateUser extends Component {
@@ -27,47 +27,37 @@ class CreateUser extends Component {
 
   createUser = async () => {
     const { user } = this.state
-    const { UserCreateQuery } = this.props
+    const { UserCreateQuery, JwtTokenCreateQuery } = this.props
 
     try {
-      let response = await UserCreateQuery({
+      await UserCreateQuery({
         variables: {
           email: user.email,
           password: user.password,
         }
       })
-      console.log(response)
+
+      let response = await JwtTokenCreateQuery({
+        variables: {
+          email: user.email,
+          password: user.password,
+        }
+      })
+
+      const token = response.data.JwtTokenCreate.token
+
+      console.log("GET token = ", token)
+
+      authProvider.saveToken(token)
+      this.props.history.push('/')
+
     } catch(error) {
       Notification.error(error)
     }
-
-    // .then((response) => {
-    //   this.props.signinUser({variables: {email, password}})
-    //     .then((response) => {
-    //       window.localStorage.setItem('graphcoolToken', response.data.signinUser.token)
-    //       this.props.router.replace('/')
-    //     }).catch((e) => {
-    //       console.error(e)
-    //       this.props.router.replace('/')
-    //     })
-    // }).catch((e) => {
-    //   console.error(e)
-    //   this.props.router.replace('/')
-    // })
   }
-
 
   render () {
     const { user } = this.state
-    // if (this.props.data.loading) {
-    //   return (<div>Loading</div>)
-    // }
-
-    // redirect if user is logged in
-    // if (this.props.data.user) {
-    //   console.warn('already logged in')
-    //   this.props.router.replace('/')
-    // }
 
     return (
       <Center>
@@ -100,16 +90,8 @@ class CreateUser extends Component {
   }
 }
 
-// export default graphql(createUser, {name: 'createUser'})(
-  // graphql(userQuery, { options: { fetchPolicy: 'network-only' }})(
-  //   graphql(signinUser, {name: 'signinUser'})(
-  //     withRouter(CreateUser))
-  //   )
-// )
-
-// export default graphql(createUserQuery, {name: 'createUserQuery'})(CreateUser)
-// export default graphql(CreateUser)
-
-export default graphql(
-  UserCreateQuery, { name: "UserCreateQuery" },
+export default compose(
+  graphql(UserCreateQuery, { name: "UserCreateQuery" }),
+  graphql(JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" }),
 )(CreateUser)
+

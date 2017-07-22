@@ -7,10 +7,9 @@ import {
   NavItem,
   NavbarToggler,
 } from 'reactstrap'
+import authProvider from 'lib/auth_provider'
 
-import {
-  NavLink,
-} from 'lib/nav_link'
+import { NavLink } from 'lib/nav_link'
 import { UIStore } from "stores"
 
 export default observer(class Header extends Component {
@@ -45,10 +44,7 @@ export default observer(class Header extends Component {
 
 
             <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                <Login />
-                <Auth />
-              </Nav>
+              { UIStore.login ?  <Logout /> : <Login /> }
             </Collapse>
 
 
@@ -60,29 +56,34 @@ export default observer(class Header extends Component {
 })
 
 const Login = () => (
-  <NavItem>
-    <NavLink
-      href = "/login"
-    >Sign In</NavLink>
-  </NavItem>
+  <Nav className="ml-auto" navbar>
+    <NavItem>
+      <NavLink
+        href = "/login"
+      >Sign In</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink
+        href = "/auth"
+      >Sign Up</NavLink>
+    </NavItem>
+  </Nav>
 )
 
-const Auth = () => (
-  <NavItem>
-    <NavLink
-      href = "/auth"
-    >Sign Up</NavLink>
-  </NavItem>
+const Logout = () => (
+  <Nav className="ml-auto" navbar>
+    <NavItem>
+      <NavLink>UserName</NavLink>
+    </NavItem>
+
+    <NavItem
+      onClick={() => {
+          authProvider.removeToken()
+          console.log("Logout")
+        }
+      }
+    >
+      <NavLink>Logout</NavLink>
+    </NavItem>
+  </Nav>
 )
-
-// <Logout />
-// const Logout = () => (
-//   <NavLink
-//     onClick={() => console.log("Logout")}
-//     className="pointer navbar-text navbar-right"
-//   >Logout</NavLink>
-// )
-
-// const UserName = () => (
-//   <NavLink>UserName</NavLink>
-// )

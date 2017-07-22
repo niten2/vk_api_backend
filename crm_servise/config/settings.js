@@ -1,4 +1,6 @@
-require('dotenv').config()
+import Dotenv from "dotenv"
+
+Dotenv.config()
 
 export default {
   name: "crm servise",

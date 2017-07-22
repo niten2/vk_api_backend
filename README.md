@@ -21,5 +21,8 @@ Servises
 
 - AUTH_SERVISE=http://localhost:4001
 - CRM_SERVISE=http://localhost:4002
-- VK_SERVISE=http://localhost:4003
-- INSTA_SERVISE=http://localhost:4005
+- DOCS_SERVISE=http://localhost:4003
+- INSTA_SERVISE=http://localhost:4004
+> - MOBILE_SERVISE=http://localhost:4005
+- VK_SERVISE=http://localhost:4006
+- INSTA_SERVISE=http://localhost:4007
