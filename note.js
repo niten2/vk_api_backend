@@ -301,3 +301,14 @@ const production_error_handler_no_stacktraces_leaked_to_user = (app) => {
   })
 }
 
+
+      await clientDelete({
+        variables: { id: object.id },
+        update: (store, { data: { submitComment } }) => {
+          const data = store.readQuery({ query: clientsQuery });
+          data.clients = filter((o) => { return o.id !== object.id}, data.clients)
+          store.writeQuery({ query: clientsQuery, data });
+        },
+      })
+
+

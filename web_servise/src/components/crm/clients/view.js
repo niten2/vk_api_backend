@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
-import { Row, Container, Col, Button } from 'reactstrap'
+import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import { clientsQuery, clientDelete } from 'components/crm/graphql/querues'
-import { filter } from 'ramda'
+import { clientDelete } from 'components/crm/graphql/querues'
+// import { filter } from 'ramda'
 import Notification from 'lib/notification'
+import { Row, Container, Col, Button } from 'reactstrap'
 
 class GroupView extends Component {
+
+  static propTypes = {
+    object: PropTypes.object.isRequired,
+    refresh: PropTypes.func.isRequired,
+    clientDelete: PropTypes.func.isRequired,
+  }
 
   handleDestroy = async () => {
     const { object, clientDelete } = this.props
@@ -14,12 +21,8 @@ class GroupView extends Component {
     try {
       await clientDelete({
         variables: { id: object.id },
-        update: (store, { data: { submitComment } }) => {
-          const data = store.readQuery({ query: clientsQuery });
-          data.clients = filter((o) => { return o.id !== object.id}, data.clients)
-          store.writeQuery({ query: clientsQuery, data });
-        },
       })
+      this.props.refresh()
     } catch (error) {
       Notification.error(error)
     }

@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
+
 import {
   Collapse,
-  Nav,
+  // Nav,
   Navbar,
-  NavItem,
+  // NavItem,
   NavbarToggler,
 } from 'reactstrap'
-import authProvider from 'lib/auth_provider'
 
-import { NavLink } from 'lib/nav_link'
+// import { NavLink } from 'lib/nav_link'
 import { UIStore } from "stores"
+import Login from "./login"
+import Logout from "./logout"
 
 export default observer(class Header extends Component {
 
@@ -54,36 +56,3 @@ export default observer(class Header extends Component {
   }
 
 })
-
-const Login = () => (
-  <Nav className="ml-auto" navbar>
-    <NavItem>
-      <NavLink
-        href = "/login"
-      >Sign In</NavLink>
-    </NavItem>
-    <NavItem>
-      <NavLink
-        href = "/auth"
-      >Sign Up</NavLink>
-    </NavItem>
-  </Nav>
-)
-
-const Logout = () => (
-  <Nav className="ml-auto" navbar>
-    <NavItem>
-      <NavLink>UserName</NavLink>
-    </NavItem>
-
-    <NavItem
-      onClick={() => {
-          authProvider.removeToken()
-          console.log("Logout")
-        }
-      }
-    >
-      <NavLink>Logout</NavLink>
-    </NavItem>
-  </Nav>
-)

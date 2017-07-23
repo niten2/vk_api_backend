@@ -10,7 +10,7 @@ export const Red = styled.span`
 `
 export const Center = styled.div`
   margin: auto;
-  text-align: center;
+  // text-align: center;
 `
 
 // import styled from 'styled-components'

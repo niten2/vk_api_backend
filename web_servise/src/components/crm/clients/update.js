@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
 import { Link } from 'lib/nav_link'
 import { compose, graphql } from 'react-apollo'
 import { clientQuery, clientUpdate } from 'components/crm/graphql/querues'
 import Spinner from 'components/shared/spinner'
 import Notification from 'lib/notification'
 import { set, lensProp } from 'ramda'
+import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
 
 class Update extends Component {
 
@@ -65,66 +65,68 @@ class Update extends Component {
     if (client) {
       return (
         <Container>
+        <Row className="justify-content-center">
+        <Col>
           <br />
           <br />
 
-        <InputGroup>
-          <Input
-            name="name"
-            placeholder="name"
-            value={client.name || ""}
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="name"
+              placeholder="name"
+              value={client.name || ""}
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="number"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="number"
-            value={client.number || ""}
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="number"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="number"
+              value={client.number || ""}
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="phone"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="phone"
-            value={client.phone || ""}
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="phone"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="phone"
+              value={client.phone || ""}
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="note"
-            placeholder="note"
-            value={client.note || ""}
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="note"
+              placeholder="note"
+              value={client.note || ""}
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="date_birth"
-            placeholder="date_birth"
-            value={client.date_birth || ""}
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="date_birth"
+              placeholder="date_birth"
+              value={client.date_birth || ""}
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+            />
+          </InputGroup>
+          <br />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
           <Row>
             <Col xs={{ size: "auto", offset: 5 }}>
@@ -142,6 +144,8 @@ class Update extends Component {
             </Col>
           </Row>
 
+        </Col>
+        </Row>
         </Container>
       )
     }

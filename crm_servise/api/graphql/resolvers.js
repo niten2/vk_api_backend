@@ -4,7 +4,6 @@ export const resolvers = {
 
   Query: {
     clients: async () => {
-      console.log(1111)
       const clients = await Client.findAll({})
       return clients
     },

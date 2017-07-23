@@ -7,7 +7,9 @@ import React, { Component } from 'react'
 // import Select from 'react-select'
 
 // import { Tabs, Tab, Button, Row, Col } from 'reactstrap'
-import { Row, Col } from 'reactstrap'
+// import { Row, Col } from 'reactstrap'
+// import { Row, Container, Col, Button } from 'reactstrap'
+import { Row, Container, Col } from 'reactstrap'
 // import { Link } from 'lib/nav_link'
 // import Notification from 'lib/notification'
 // import Spinner from 'components/shared/spinner'
@@ -47,38 +49,41 @@ export default class Index extends Component {
     // let count = 0
 
     return (
-      <Row>
-        <Col xs={12}>
-          <h1 className="text-center"> Пользователи </h1>
-        </Col>
+      <Container>
+        <Row className="text-center">
 
+          <Col xs={12}>
+            <br />
+            <h1> Пользователи </h1>
+          </Col>
 
-        <Col xs={1}>
-          ID
-        </Col>
-        <Col xs={2}>
-          Аватар
-        </Col>
-        <Col xs={3}>
-          Имя
-        </Col>
-        <Col xs={1}>
-          Друзья
-        </Col>
-        <Col xs={1}>
-          Пол
-        </Col>
-        <Col xs={1}>
-          Город
-        </Col>
-        <Col xs={1}>
-          Возраст
-        </Col>
-        <Col xs={1}>
-          Статус
-        </Col>
+          <Col xs={1}>
+            ID
+          </Col>
+          <Col xs={2}>
+            Аватар
+          </Col>
+          <Col xs={3}>
+            Имя
+          </Col>
+          <Col xs={1}>
+            Друзья
+          </Col>
+          <Col xs={1}>
+            Пол
+          </Col>
+          <Col xs={1}>
+            Город
+          </Col>
+          <Col xs={1}>
+            Возраст
+          </Col>
+          <Col xs={1}>
+            Статус
+          </Col>
 
-    </Row>
+        </Row>
+      </Container>
     )
   }
 

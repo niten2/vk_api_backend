@@ -1,11 +1,8 @@
 import React from 'react'
-import settings from "lib/settings"
 import { BrowserRouter, Switch } from 'react-router-dom'
-import { LayoutWithApollo, Layout } from "lib/layout_helper"
 
+import { Layout, LayoutCrm, LayoutVk, LayoutInstagram, LayoutAuth } from "lib/layout_helper"
 import NotFound from 'components/shared/not_found'
-
-import Instagram from 'components/instagram'
 
 import Vk from 'components/vk'
 // import Users from 'views/vk/users'
@@ -19,25 +16,30 @@ import Crm from 'components/crm'
 import ClientNew from 'components/crm/clients/new'
 import ClientUpdate from 'components/crm/clients/update'
 
+import Instagram from 'components/instagram'
+
 import LoginUser from 'components/auth/login_user'
 import CreateUser from 'components/auth/create_user'
+import Profile from 'components/auth/profile'
 
 export default (onUpdate) => {
   return (
     <BrowserRouter>
       <div>
         <Switch>
-          <LayoutWithApollo exact path="/" uri={settings.uriCrmServise} component={Crm} />
+          <LayoutCrm exact path="/" component={Crm} />
 
-          <LayoutWithApollo exact path="/login" uri={settings.uriAuthServise} component={LoginUser}/>
-          <LayoutWithApollo exact path="/auth" uri={settings.uriAuthServise} component={CreateUser}/>
+          <LayoutAuth exact path="/login" component={LoginUser}/>
+          <LayoutAuth exact path="/auth" component={CreateUser}/>
+          <LayoutAuth exact path="/profile" component={Profile}/>
 
-          <LayoutWithApollo exact path="/crm" uri={settings.uriCrmServise} component={Crm} />
-          <LayoutWithApollo exact path="/crm/clients/new" uri={settings.uriCrmServise} component={ClientNew} />
-          <LayoutWithApollo exact path="/crm/clients/:id" uri={settings.uriCrmServise} component={ClientUpdate} />
+          <LayoutCrm exact path="/crm" component={Crm} />
+          <LayoutCrm exact path="/crm/clients/new" component={ClientNew} />
+          <LayoutCrm exact path="/crm/clients/:id" component={ClientUpdate} />
 
-          <LayoutWithApollo exact path="/vk" uri={settings.uriVkServise} component={Vk}/>
-          <LayoutWithApollo exact path="/instagram" uri={settings.uriInstaServise} component={Instagram}/>
+
+          <LayoutVk exact path="/vk" component={Vk}/>
+          <LayoutInstagram exact path="/instagram" component={Instagram}/>
 
           <Layout path="*" component={NotFound}/>
         </Switch>

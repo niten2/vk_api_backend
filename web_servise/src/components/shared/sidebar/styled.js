@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export const Item = styled.div`
   border-radius: 0;
-  // background-color: #333;
   border-left: 0;
   border-right: 0;
   border-color: #2c2c2c;
@@ -35,7 +34,18 @@ export const ItemBrand = styled.div`
 
 	color: white;
 `
+
 export const SidebarDiv = styled.div`
   background-color: #333;
   height: 100vh;
+`
+
+export const SubItem = styled.div`
+  background-color: #333;
+  padding: 0.75rem 4.25rem;
+	color: white;
+
+  > i {
+    padding: 10px;
+  }
 `

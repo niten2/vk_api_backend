@@ -8,7 +8,7 @@ export default {
   vkServise: process.env.REACT_APP_VK_SERVISE,
   instaServise: process.env.REACT_APP_INSTA_SERVISE,
 
-  uriAuthServise: `${process.env.REACT_APP_CRM_SERVISE}/v2`,
+  uriAuthServise: `${process.env.REACT_APP_AUTH_SERVISE}/v2`,
   uriCrmServise: `${process.env.REACT_APP_CRM_SERVISE}/v2`,
   uriVkServise: `${process.env.REACT_APP_VK_SERVISE}/v2`,
   uriInstaServise: `${process.env.REACT_APP_INSTA_SERVISE}/v2`,

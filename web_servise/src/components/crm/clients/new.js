@@ -2,11 +2,8 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
-// import Spinner from 'components/shared/spinner'
-
 import { clientCreateQuery, clientsQuery } from 'components/crm/graphql/querues'
 import { InputGroup, Input, Row, Col, Button } from 'reactstrap'
-
 
 class ClientNew extends Component {
 
@@ -58,80 +55,82 @@ class ClientNew extends Component {
 
   render() {
     return (
-      <Col xs="5">
-        <br />
-        <br />
+      <Row className="justify-content-center">
+        <Col xs="5" className="text-center">
+          <br />
+          <br />
 
-        <InputGroup>
-          <Input
-            name="name"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="name"
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="name"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="name"
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="number"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="number"
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="number"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="number"
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="phone"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="phone"
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="phone"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="phone"
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="note"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="note"
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="note"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="note"
+            />
+          </InputGroup>
+          <br />
 
-        <InputGroup>
-          <Input
-            name="date_birth"
-            onChange={ this.handleSetState }
-            onKeyPress={ this.handleOnKeyPress }
-            placeholder="date_birth"
-          />
-        </InputGroup>
-        <br />
+          <InputGroup>
+            <Input
+              name="date_birth"
+              onChange={ this.handleSetState }
+              onKeyPress={ this.handleOnKeyPress }
+              placeholder="date_birth"
+            />
+          </InputGroup>
+          <br />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <Row>
-          <Col xs={{ size: "auto", offset: 5 }}>
-            <Button onClick={this.handleCreate}>
-              Save
-            </Button>
-
-            &nbsp;
-
-            <Link to="/crm/clients">
-              <Button>
-                Return
+          <Row>
+            <Col xs={{ size: "auto", offset: 5 }}>
+              <Button onClick={this.handleCreate}>
+                Save
               </Button>
-            </Link>
-          </Col>
-        </Row>
 
-      </Col>
+              &nbsp;
+
+              <Link to="/crm/clients">
+                <Button>
+                  Return
+                </Button>
+              </Link>
+            </Col>
+          </Row>
+
+        </Col>
+      </Row>
     )
   }
 

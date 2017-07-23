@@ -3,9 +3,8 @@ import { observer } from 'mobx-react'
 import { UIStore } from "stores"
 import { Link } from 'lib/nav_link'
 
-// import "./index.css"
 // import { Container, Col, Input, Row, Button } from 'reactstrap'
-import { SidebarDiv, ItemBrand, Item } from './styled'
+import { SubItem, SidebarDiv, ItemBrand, Item } from './styled'
 
 export default observer(class Sidebar extends Component {
 
@@ -42,6 +41,22 @@ export default observer(class Sidebar extends Component {
               <i className="fa fa-vk"></i>
               Vk
             </Item>
+
+            <SubItem>
+              <i className="fa fa-vk"></i>
+              Users
+            </SubItem>
+
+            <SubItem>
+              <i className="fa fa-vk"></i>
+              Groups
+            </SubItem>
+
+            <SubItem>
+              <i className="fa fa-vk"></i>
+              Tags
+            </SubItem>
+
           </Link>
 
           <Link href="/instagram">
