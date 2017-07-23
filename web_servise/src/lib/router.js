@@ -13,8 +13,11 @@ import Vk from 'components/vk'
 // import NewGroup from 'views/vk/groups/new'
 
 import Crm from 'components/crm'
+import Clients from 'components/crm/clients/list'
 import ClientNew from 'components/crm/clients/new'
 import ClientUpdate from 'components/crm/clients/update'
+
+import Status from 'components/crm/statuses/list'
 
 import Instagram from 'components/instagram'
 
@@ -33,9 +36,11 @@ export default (onUpdate) => {
           <LayoutAuth exact path="/auth" component={CreateUser}/>
           <LayoutAuth exact path="/profile" component={Profile}/>
 
-          <LayoutCrm exact path="/crm" component={Crm} />
+          <LayoutCrm exact path="/crm/clients" component={Clients} />
           <LayoutCrm exact path="/crm/clients/new" component={ClientNew} />
           <LayoutCrm exact path="/crm/clients/:id" component={ClientUpdate} />
+
+          <LayoutCrm exact path="/crm/statuses" component={Status} />
 
 
           <LayoutVk exact path="/vk" component={Vk}/>

@@ -88,3 +88,13 @@ export const clientDelete = gql`
     }
   }
 `
+
+
+export const statusQuery = gql`
+  query status {
+    status {
+      id
+      name
+    }
+  }
+`

@@ -29,12 +29,25 @@ export default observer(class Sidebar extends Component {
             </ItemBrand>
           </Link>
 
-          <Link href="/crm">
             <Item>
               <i className="fa fa-id-card"></i>
               Crm
             </Item>
-          </Link>
+
+            <Link href="/crm/clients">
+              <SubItem>
+                <i className="fa fa-vk"></i>
+                Clients
+              </SubItem>
+            </Link>
+
+            <Link href="/crm/statuses">
+              <SubItem>
+                <i className="fa fa-vk"></i>
+                Statuses
+              </SubItem>
+            </Link>
+
 
           <Link href="/vk">
             <Item>
@@ -64,6 +77,12 @@ export default observer(class Sidebar extends Component {
               <i className="fa fa-instagram"></i>
               Instagram
             </Item>
+
+            <SubItem>
+              <i className="fa fa-vk"></i>
+              Search
+            </SubItem>
+
           </Link>
 
 

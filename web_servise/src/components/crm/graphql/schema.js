@@ -1,5 +1,18 @@
 export const typeDefs = `
 
+  type Query {
+    clients: [ Client ]
+    client: Client
+
+    statuses: [ Status ]
+    status(id: ID!): Status
+  }
+
+  type Status {
+    id: ID!
+    name: String
+  }
+
   type Client {
     id: ID!
     name: String
@@ -9,10 +22,6 @@ export const typeDefs = `
     date_birth: String
   }
 
-  type Query {
-    clients: [ Client ]
-    client(id: ID!): Client
-  }
 
   type Mutation {
 
