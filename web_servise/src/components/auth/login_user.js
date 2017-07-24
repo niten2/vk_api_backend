@@ -30,7 +30,7 @@ class CreateLogin extends React.Component {
       console.log("GET token = ", token)
 
       authProvider.saveToken(token)
-      this.props.history.push('/')
+      this.props.history.push('/dasboard')
     } catch(error) {
       Notification.error(error)
     }

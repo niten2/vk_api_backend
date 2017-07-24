@@ -1,12 +1,8 @@
 import React from 'react'
-
 import { NavLink } from 'lib/nav_link'
 import {
-  // Collapse,
   Nav,
-  // Navbar,
   NavItem,
-  // NavbarToggler,
 } from 'reactstrap'
 
 const Login = () => (
