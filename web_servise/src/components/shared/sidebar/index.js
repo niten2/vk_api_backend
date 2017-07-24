@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const activeRoute = (routeName, props) => {
-  return props.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown'
+  return props.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open pointer' : 'nav-item nav-dropdown pointer'
 }
 
 // const secondLevelActive = (routeName) => {
