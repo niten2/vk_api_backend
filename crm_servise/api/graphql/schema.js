@@ -8,6 +8,9 @@ const typeDefs = `
   type Query {
     clients: [Client]
     client(id: ID!): Client
+
+    status(id: ID!): Status
+    statuses: [Status]
   }
 
   type Client {
@@ -17,6 +20,11 @@ const typeDefs = `
     phone: String
     note: String
     date_birth: String
+  }
+
+  type Status {
+    id: ID!
+    name: String
   }
 
   type Mutation {
@@ -40,6 +48,21 @@ const typeDefs = `
     clientDelete(
       id: ID!
     ): Client
+
+    statusCreate(
+      name: String
+    ): Status
+
+    statusUpdate(
+      id: ID!
+      name: String
+    ): Status
+
+    statusDelete(
+      id: ID!
+    ): Status
+
+
   }
 `
 

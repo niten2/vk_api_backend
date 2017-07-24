@@ -90,11 +90,45 @@ export const clientDelete = gql`
 `
 
 
-export const statusQuery = gql`
-  query status {
-    status {
+export const statusesQuery = gql`
+  query statuses {
+    statuses {
       id
       name
+    }
+  }
+`
+export const statusCreateQuery = gql`
+  mutation statusCreate(
+    $name: String
+  ) {
+    statusCreate(
+      name: $name
+    ) {
+      name
+    }
+  }
+`
+
+export const statusUpdate = gql`
+  mutation clientUpdate(
+    $id: ID!
+    $name: String
+  ) {
+    clientUpdate(
+      id: $id
+      name: $name
+    ) {
+      id
+      name
+    }
+  }
+`
+
+export const statusDelete = gql`
+  mutation statusDelete($id: ID!) {
+    statusDelete(id: $id) {
+      id
     }
   }
 `

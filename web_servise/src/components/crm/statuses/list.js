@@ -1,26 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'lib/nav_link'
+// import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
-import { statusQuery } from 'components/crm/graphql/querues'
-import ClientView from './view'
+import { statusesQuery } from 'components/crm/graphql/querues'
+import StatusView from './view'
+// import { Col, Button } from 'reactstrap'
 
-import { Col, Button } from 'reactstrap'
+class List extends Component {
 
-class ListStatus extends Component {
+  state = {}
 
   static propTypes = {
-    statusQuery: PropTypes.object.isRequired,
+    statusesQuery: PropTypes.object.isRequired,
   }
 
   componentWillReceiveProps(props) {
-    let error = props.statusQuery.error
+    let error = props.statusesQuery.error
     if (error) { Notification.error(error.message) }
   }
 
   render() {
-    let { loading, error, clients, refetch } = this.props.statusQuery
+    let { loading, error, statuses, refetch } = this.props.statusesQuery
 
     if (loading ) {
       return <p className="text-center">Loading ...</p>
@@ -31,36 +32,53 @@ class ListStatus extends Component {
     }
 
     return (
-      <Col className="text-center">
-        <br />
 
-        <Link href={`/crm/clients/new`}>
-          <Button>
-            New Status
-          </Button>
-        </Link>
+      <div className="col-lg-6">
+        <div className="card">
+          <div className="card-header">
+            <i className="fa fa-align-justify"></i> Clients
+          </div>
+          <div className="card-block">
+            <table className="table text-center">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Destroy</th>
+                </tr>
+              </thead>
+              <tbody>
 
-        &nbsp;
+                { statuses.map( (object, index) =>
+                  <StatusView
+                    key={index}
+                    object={object}
+                    refresh={() => refetch()}
+                  />
+                )}
 
+              </tbody>
+            </table>
 
-        <br />
-        <br />
+            <ul className="pagination">
+              <li className="page-item"><a className="page-link">Prev</a></li>
+              <li className="page-item active">
+                <a className="page-link">1</a>
+              </li>
+              <li className="page-item"><a className="page-link">2</a></li>
+              <li className="page-item"><a className="page-link">3</a></li>
+              <li className="page-item"><a className="page-link">4</a></li>
+              <li className="page-item"><a className="page-link">Next</a></li>
+            </ul>
 
-      </Col>
+          </div>
+        </div>
+      </div>
+
     )
   }
 }
 
-// export default ListStatus
-
-export default graphql(statusQuery,
-  { name: "statusQuery"}
-)(ListStatus)
-
-        // { statuses.map( (object, index) =>
-        //   <StatusView
-        //     key={index}
-        //     object={object}
-        //     refresh={() => refetch()}
-        //   />
-        // )}
+export default graphql(statusesQuery,
+  { name: "statusesQuery"}
+)(List)

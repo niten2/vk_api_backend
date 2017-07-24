@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo'
 import { clientDelete } from 'components/crm/graphql/querues'
 // import { filter } from 'ramda'
 import Notification from 'lib/notification'
-import { Row, Container, Col, Button } from 'reactstrap'
+// import { Row, Container, Col, Button } from 'reactstrap'
 
 class GroupView extends Component {
 
@@ -33,45 +33,31 @@ class GroupView extends Component {
     let { object } = this.props
 
     return (
-      <Container>
-        <Row>
-          <Col xs="1">
-            { object.id }
-          </Col>
+      <tr>
+        <td>{ object.id }</td>
 
-          <Col xs="2" onClick={this.handleColor}>
-            <Link href={`/crm/clients/${object.id}`}>
-              <Button>
-                { object.name }
-              </Button>
-            </Link>
-          </Col>
+        <td>
+          <Link href={`/crm/clients/${object.id}`}>
+            { object.name }
+          </Link>
+        </td>
 
-          <Col xs={2}>
-            { object.number }
-          </Col>
+        <td>{ object.number }</td>
+        <td>{ object.phone }</td>
+        <td>{ object.note }</td>
+        <td>{ object.date_birth }</td>
 
-          <Col xs={2}>
-            { object.phone }
-          </Col>
+        <td >
+          <div className="text-center" onClick={this.handleDestroy}>
+            <i className="pointer icon-ban" />
+          </div>
+        </td>
 
-          <Col xs={2}>
-            { object.note }
-          </Col>
 
-          <Col xs={2}>
-            { object.date_birth }
-          </Col>
-
-          <Col xs={1}>
-            <Button onClick={this.handleDestroy}>
-              <i className="fa fa-ban" aria-hidden="true" />
-            </Button>
-          </Col>
-
-        </Row>
-        <br />
-      </Container>
+        <td>
+          <span className="badge badge-success">Active</span>
+        </td>
+      </tr>
     )
   }
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import { UIStore } from 'stores'
 import NotificationSystem from 'react-notification-system'
-import { Container, Col, Row } from 'reactstrap'
+// import { Container, Col, Row } from 'reactstrap'
 
-import Header from 'components/shared/header';
-import Sidebar from 'components/shared/sidebar';
-import Breadcrumb from 'components/shared/breadcrumb';
-import Aside from 'components/shared/aside';
-import Footer from 'components/shared/footer';
+import Header from 'components/shared/header'
+import Sidebar from 'components/shared/sidebar'
+import Breadcrumb from 'components/shared/breadcrumb'
+import Aside from 'components/shared/aside'
+import Footer from 'components/shared/footer'
 
 
 

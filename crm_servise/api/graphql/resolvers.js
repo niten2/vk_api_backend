@@ -1,4 +1,4 @@
-import { Client } from "api/models"
+import { Status, Client } from "api/models"
 
 export const resolvers = {
 
@@ -11,6 +11,16 @@ export const resolvers = {
     client: async (root, args) => {
       const client = await Client.findById(args.id)
       return client
+    },
+
+    statuses: async () => {
+      const objects = await Status.findAll({})
+      return objects
+    },
+
+    status: async (root, args) => {
+      const object = await Status.findById(args.id)
+      return object
     },
   },
 
@@ -48,6 +58,34 @@ export const resolvers = {
         }
       })
     },
+
+
+    statusCreate: async (root, args) => {
+      const object = await Status.create({
+        name: args.name,
+      })
+      return object
+    },
+
+    statusUpdate: async (root, args) => {
+      const object = await Status.findById(args.id)
+
+      await object.update({
+        name: args.name,
+      })
+
+      return object
+    },
+
+    statusDelete: async (root, { id }) => {
+      await Status.destroy({
+        where: {
+          id: id
+        }
+      })
+    },
+
+
 
   },
 }

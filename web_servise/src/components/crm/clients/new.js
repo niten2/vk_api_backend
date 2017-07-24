@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
 import { clientCreateQuery, clientsQuery } from 'components/crm/graphql/querues'
-import { InputGroup, Input, Row, Col, Button } from 'reactstrap'
+import { Input } from 'reactstrap'
 
 class ClientNew extends Component {
 
@@ -18,7 +18,8 @@ class ClientNew extends Component {
     this.setState({ client })
   }
 
-  handleCreate = async () => {
+  handleCreate = async (e) => {
+    e.preventDefault()
     const { clientCreateQuery } = this.props
     const { client } = this.state
 
@@ -55,82 +56,103 @@ class ClientNew extends Component {
 
   render() {
     return (
-      <Row className="justify-content-center">
-        <Col xs="5" className="text-center">
-          <br />
-          <br />
+      <div className="animated fadeIn">
 
-          <InputGroup>
-            <Input
-              name="name"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="name"
-            />
-          </InputGroup>
-          <br />
+        <div className="row">
+          <div className="col-lg-12">
 
-          <InputGroup>
-            <Input
-              name="number"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="number"
-            />
-          </InputGroup>
-          <br />
+            <div className="card">
 
-          <InputGroup>
-            <Input
-              name="phone"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="phone"
-            />
-          </InputGroup>
-          <br />
+              <div className="card-header">
+                <i className="fa fa-align-justify"></i> Simple Table
+              </div>
 
-          <InputGroup>
-            <Input
-              name="note"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="note"
-            />
-          </InputGroup>
-          <br />
+              <div className="card-block">
+                <form className="form-2orizontal">
 
-          <InputGroup>
-            <Input
-              name="date_birth"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="date_birth"
-            />
-          </InputGroup>
-          <br />
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Name</span>
+                        <Input
+                          name="name"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="name"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-          <br />
-          <br />
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Number</span>
+                        <Input
+                          name="number"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="Number"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-          <Row>
-            <Col xs={{ size: "auto", offset: 5 }}>
-              <Button onClick={this.handleCreate}>
-                Save
-              </Button>
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Phone</span>
+                        <Input
+                          name="phone"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="Phone"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-              &nbsp;
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Note</span>
+                        <Input
+                          name="note"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="Note"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-              <Link to="/crm/clients">
-                <Button>
-                  Return
-                </Button>
-              </Link>
-            </Col>
-          </Row>
 
-        </Col>
-      </Row>
+                  <div className="form-actions">
+                    <button
+                      className="btn btn-primary"
+                      onClick={this.handleCreate}
+                    >
+                      Save changes
+                    </button>
+
+                    &nbsp;
+
+                    <Link href="/crm/clients">
+                      <button
+                        className="btn btn-default"
+                      >
+                        Cancel
+                      </button>
+                    </Link>
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 

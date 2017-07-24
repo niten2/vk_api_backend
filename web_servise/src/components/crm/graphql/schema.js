@@ -46,5 +46,18 @@ export const typeDefs = `
       id: ID!
     ): Client
 
+    statusCreate(
+      name: String
+    ): Status
+
+    statusUpdate(
+      id: ID!
+      name: String
+    ): Status
+
+    statusDelete(
+      id: ID!
+    ): Status
+
   }
 `
