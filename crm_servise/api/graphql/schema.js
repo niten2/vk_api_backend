@@ -20,6 +20,8 @@ const typeDefs = `
     phone: String
     note: String
     date_birth: String
+    status: Status
+    status_id: String
   }
 
   type Status {
@@ -34,6 +36,7 @@ const typeDefs = `
       phone: String
       note: String
       date_birth: String
+      status_id: String
     ): Client
 
     clientUpdate(
@@ -43,6 +46,7 @@ const typeDefs = `
       phone: String
       note: String
       date_birth: String
+      status_id: String
     ): Client
 
     clientDelete(

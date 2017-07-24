@@ -3,8 +3,7 @@ export const options = {
   headers: { 'Content-Type': 'application/json' }
 }
 
-// export const endpoint = 'http://localhost:4002/v2/graphql'
-export const endpoint = 'http://localhost:4001/v2'
+export const endpoint = 'http://localhost:4002/v2'
 
 export const defaultQuery = `
 
@@ -15,16 +14,20 @@ export const defaultQuery = `
 #   }
 # }
 
-# query clients {
-#  clients {
-#    id
-#    name
-#    number
-#    phone
-#    note
-#    date_birth
-#  }
-# }
+query clients {
+  clients {
+    id
+    name
+    number
+    phone
+    note
+    date_birth
+    status {
+      id
+      name
+    }
+  }
+}
 
 query client {
   client(id: 66) {
@@ -34,6 +37,10 @@ query client {
     phone
     note
     date_birth
+    status {
+      id
+      name
+    }
   }
 }
 

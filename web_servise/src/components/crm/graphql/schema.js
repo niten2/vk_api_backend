@@ -20,6 +20,7 @@ export const typeDefs = `
     phone: String
     note: String
     date_birth: String
+    status_id: String
   }
 
 

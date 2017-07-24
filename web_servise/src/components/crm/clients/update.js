@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'lib/nav_link'
 import { compose, graphql } from 'react-apollo'
-import { clientQuery, clientUpdate } from 'components/crm/graphql/querues'
 import Spinner from 'components/shared/spinner'
 import Notification from 'lib/notification'
 import { set, lensProp } from 'ramda'
-import { InputGroup, Input, Container, Row, Col, Button } from 'reactstrap'
+import { statusesQuery, clientsQuery, clientQuery, clientUpdate } from 'components/crm/graphql/querues'
+
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 
 class Update extends Component {
 
   componentWillReceiveProps(props) {
-    const { client } = props.data
+    const { client } = props.clientQuery
     this.setState({ client })
   }
 
@@ -24,7 +26,13 @@ class Update extends Component {
     this.setState({ client: setClient(this.state.client) })
   }
 
-  handleUpdate = async () => {
+  changeSelect = (value) => {
+    let setClient = set(lensProp("status_id"), value.id)
+    this.setState({ client: setClient(this.state.client) })
+  }
+
+  handleUpdate = async (e) => {
+    e.preventDefault()
     const { client } = this.state
     const { clientUpdate } = this.props
 
@@ -37,7 +45,11 @@ class Update extends Component {
           phone: client.phone,
           note: client.note,
           date_birth: client.date_birth,
+          status_id: client.status_id,
         },
+        refetchQueries: [{
+          query: clientsQuery,
+        }],
       })
       Notification.success("update")
     } catch (error) {
@@ -51,102 +63,143 @@ class Update extends Component {
 
   render() {
     let { client } = this.state
-    let { loading, error } = this.props.data
+    let { loading, error } = this.props.clientQuery
+    let { loadingStatus, errorStatus, statuses } = this.props.statusesQuery
 
-    if (loading) {
+    if (loading || loadingStatus) {
       return <Spinner />
     }
 
-    if (error) {
+    if (error || errorStatus) {
       Notification.error(error.message)
       return (<div> Error </div>)
     }
 
     if (client) {
       return (
-        <Container>
-        <Row className="justify-content-center">
-        <Col>
-          <br />
-          <br />
+        <div className="animated fadeIn">
 
-          <InputGroup>
-            <Input
-              name="name"
-              placeholder="name"
-              value={client.name || ""}
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-            />
-          </InputGroup>
-          <br />
+          <div className="row">
+            <div className="col-lg-12">
 
-          <InputGroup>
-            <Input
-              name="number"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="number"
-              value={client.number || ""}
-            />
-          </InputGroup>
-          <br />
+              <div className="card">
 
-          <InputGroup>
-            <Input
-              name="phone"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-              placeholder="phone"
-              value={client.phone || ""}
-            />
-          </InputGroup>
-          <br />
+                <div className="card-header">
+                  <i className="fa fa-align-justify"></i> Simple Table
+                </div>
 
-          <InputGroup>
-            <Input
-              name="note"
-              placeholder="note"
-              value={client.note || ""}
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-            />
-          </InputGroup>
-          <br />
+                <div className="card-block">
+                  <form className="form-2orizontal">
 
-          <InputGroup>
-            <Input
-              name="date_birth"
-              placeholder="date_birth"
-              value={client.date_birth || ""}
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-            />
-          </InputGroup>
-          <br />
+                    <div className="form-group row">
+                      <div className="col-md-12">
+                        <div className="input-group">
+                          <span className="input-group-addon">Name</span>
+                          <input
+                            name="name"
+                            className="form-control"
+                            onChange={ this.handleSetState }
+                            onKeyPress={ this.handleOnKeyPress }
+                            placeholder="name"
+                            value={client.name || ""}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
-          <br />
-          <br />
+                    <div className="form-group row">
+                      <div className="col-md-12">
+                        <div className="input-group">
+                          <span className="input-group-addon">Number</span>
+                          <input
+                            name="number"
+                            onChange={ this.handleSetState }
+                            className="form-control"
+                            onKeyPress={ this.handleOnKeyPress }
+                            placeholder="Number"
+                            value={client.number || ""}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
-          <Row>
-            <Col xs={{ size: "auto", offset: 5 }}>
-              <Button onClick={ this.handleUpdate }>
-                Update
-              </Button>
+                    <div className="form-group row">
+                      <div className="col-md-12">
+                        <div className="input-group">
+                          <span className="input-group-addon">Phone</span>
+                          <input
+                            name="phone"
+                            className="form-control"
+                            onChange={ this.handleSetState }
+                            onKeyPress={ this.handleOnKeyPress }
+                            placeholder="Phone"
+                            value={client.phone || ""}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
-              &nbsp;
+                    <div className="form-group row">
+                      <div className="col-md-12">
+                        <div className="input-group">
+                          <span className="input-group-addon">Note</span>
+                          <input
+                            name="note"
+                            className="form-control"
+                            onChange={ this.handleSetState }
+                            onKeyPress={ this.handleOnKeyPress }
+                            placeholder="Note"
+                            value={client.note || ""}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
-              <Link to="/crm/clients">
-                <Button>
-                  Return
-                </Button>
-              </Link>
-            </Col>
-          </Row>
+                    <div className="form-group row">
+                      <div className="col-md-12">
+                        <div className="input-group">
+                          <span className="input-group-addon">Status</span>
+                            <Select
+                              deleteRemoves={false}
+                              name="status_id"
+                              value={client.status_id}
+                              options={statuses}
+                              onChange={this.changeSelect}
+                              className="form-control"
+                              labelKey="name"
+                              valueKey="id"
+                            />
+                        </div>
+                      </div>
+                    </div>
 
-        </Col>
-        </Row>
-        </Container>
+
+                    <div className="form-actions">
+                      <button
+                        className="btn btn-primary"
+                        onClick={this.handleUpdate}
+                      >
+                        Save changes
+                      </button>
+
+                      &nbsp;
+
+                      <Link href="/crm/clients">
+                        <button
+                          className="btn btn-default"
+                        >
+                          Cancel
+                        </button>
+                      </Link>
+                    </div>
+                  </form>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
       )
     }
   }
@@ -155,9 +208,19 @@ class Update extends Component {
 
 export default compose(
   graphql(clientQuery, {
-    options: (props) => ({ variables: { id: props.match.params.id } })
+    name: "clientQuery",
+    options: (props) => ({
+      variables: { id: props.match.params.id }
+    })
   }),
   graphql(clientUpdate, {
     name: "clientUpdate"
   }),
+  graphql(statusesQuery, {
+    name: "statusesQuery"
+  }),
 )(Update)
+
+
+
+

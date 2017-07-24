@@ -18,6 +18,8 @@ module.exports = {
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
 
+        status_id: Sequelize.INTEGER,
+
       })
   },
 

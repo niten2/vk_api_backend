@@ -5,7 +5,6 @@ import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import { clientsQuery } from 'components/crm/graphql/querues'
 import ClientView from './view'
-// import { Col, Button } from 'reactstrap'
 
 const Buttons = (props) => {
   return(
@@ -38,15 +37,11 @@ const Buttons = (props) => {
 
 class ListClient extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   static propTypes = {
     clientsQuery: PropTypes.object.isRequired,
   }
+
+  state = {}
 
   componentWillReceiveProps(props) {
     let error = props.clientsQuery.error
@@ -79,14 +74,15 @@ class ListClient extends Component {
                 <table className="table text-center">
                   <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>number</th>
-                      <th>phone</th>
-                      <th>note</th>
-                      <th>date_birth</th>
-                      <th className="text-center">destroy</th>
-                      <th>status</th>
+                      <th className="text-center">Id</th>
+                      <th className="text-center">Name</th>
+                      <th className="text-center">Number</th>
+                      <th className="text-center">Phone</th>
+                      <th className="text-center">Note</th>
+                      <th className="text-center">Date birth</th>
+                      <th className="text-center">Destroy</th>
+                      <th className="text-center">Status</th>
+                      <th className="text-center">Edit</th>
                     </tr>
                   </thead>
                   <tbody>

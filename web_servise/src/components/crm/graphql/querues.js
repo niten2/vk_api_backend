@@ -9,6 +9,11 @@ export const clientsQuery = gql`
       phone
       note
       date_birth
+      status_id
+      status {
+        id
+        name
+      }
     }
   }
 `
@@ -26,6 +31,7 @@ export const clientQuery = gql`
       phone
       note
       date_birth
+      status_id
     }
   }
 `
@@ -62,6 +68,7 @@ export const clientUpdate = gql`
     $phone: String
     $note: String
     $date_birth: String
+    $status_id: String
   ) {
     clientUpdate(
       id: $id
@@ -70,6 +77,7 @@ export const clientUpdate = gql`
       phone: $phone
       note: $note
       date_birth: $date_birth
+      status_id: $status_id
     ) {
       id
       name
@@ -77,6 +85,7 @@ export const clientUpdate = gql`
       phone
       note
       date_birth
+      status_id
     }
   }
 `

@@ -3,8 +3,12 @@ import { Status, Client } from "api/models"
 export const resolvers = {
 
   Query: {
-    clients: async () => {
-      const clients = await Client.findAll({})
+    clients: async (root, args) => {
+      const clients = await Client.findAll({
+        include: {
+          model: Status,
+        }
+      })
       return clients
     },
 
@@ -38,6 +42,7 @@ export const resolvers = {
     },
 
     clientUpdate: async (root, args) => {
+      console.log(args)
       const client = await Client.findById(args.id)
 
       await client.update({
@@ -46,6 +51,7 @@ export const resolvers = {
         phone: args.phone,
         note: args.note,
         date_birth: args.date_birth,
+        status_id: args.status_id,
       })
 
       return client

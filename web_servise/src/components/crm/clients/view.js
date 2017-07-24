@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import { clientDelete } from 'components/crm/graphql/querues'
-// import { filter } from 'ramda'
 import Notification from 'lib/notification'
-// import { Row, Container, Col, Button } from 'reactstrap'
 
 class GroupView extends Component {
 
@@ -37,9 +35,7 @@ class GroupView extends Component {
         <td>{ object.id }</td>
 
         <td>
-          <Link href={`/crm/clients/${object.id}`}>
             { object.name }
-          </Link>
         </td>
 
         <td>{ object.number }</td>
@@ -53,10 +49,18 @@ class GroupView extends Component {
           </div>
         </td>
 
+        <td>
+          <span className="">
+            { object.status.name }
+          </span>
+        </td>
 
         <td>
-          <span className="badge badge-success">Active</span>
+          <Link href={`/crm/clients/${object.id}`}>
+            Edit
+          </Link>
         </td>
+
       </tr>
     )
   }
