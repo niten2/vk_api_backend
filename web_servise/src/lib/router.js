@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { Redirect, Route, BrowserRouter, Switch } from 'react-router-dom'
 
 import { Layout, LayoutCrm, LayoutVk, LayoutInstagram, LayoutAuth } from "lib/layout_helper"
 import NotFound from 'components/shared/not_found'
@@ -25,12 +25,16 @@ import LoginUser from 'components/auth/login_user'
 import CreateUser from 'components/auth/create_user'
 import Profile from 'components/auth/profile'
 
+
+import Login from 'views/Pages/Login'
+
 export default (onUpdate) => {
   return (
     <BrowserRouter>
       <div>
         <Switch>
-          <LayoutCrm exact path="/" component={Crm} />
+
+          <Route exact path="/login-new" name="Login Page" component={Login}/>
 
           <LayoutAuth exact path="/login" component={LoginUser}/>
           <LayoutAuth exact path="/auth" component={CreateUser}/>
@@ -46,6 +50,7 @@ export default (onUpdate) => {
           <LayoutVk exact path="/vk" component={Vk}/>
           <LayoutInstagram exact path="/instagram" component={Instagram}/>
 
+          <Redirect from="/" to="/crm/clients"/>
           <Layout path="*" component={NotFound}/>
         </Switch>
       </div>

@@ -1,98 +1,105 @@
-import React, { Component } from 'react'
-import { observer } from 'mobx-react'
-import { UIStore } from "stores"
-import { Link } from 'lib/nav_link'
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom'
 
-// import { Container, Col, Input, Row, Button } from 'reactstrap'
-import { SubItem, SidebarDiv, ItemBrand, Item } from './styled'
+class Sidebar extends Component {
 
-export default observer(class Sidebar extends Component {
-
-  classSidebar = () => {
-    if (UIStore.sidebar) {
-      return  ""
-      // return  "col-md-3 float-left col-1 pl-0 pr-0 width collapse show"
-    } else {
-      // return "col-md-3 col-xs-1 p-l-0 p-r-0 collapse in"
-    }
+  handleClick(e) {
+    e.preventDefault();
+    e.target.parentElement.classList.toggle('open');
   }
+
+  activeRoute(routeName) {
+    // return this.props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
+    return 'nav-item nav-dropdown open'
+  }
+
+  // secondLevelActive(routeName) {
+  //   return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
+  // }
 
   render() {
     return (
-      <SidebarDiv className={this.classSidebar()}>
-
-        <div>
-
-          <Link href="">
-            <ItemBrand>
-              Crm System
-            </ItemBrand>
-          </Link>
-
-            <Item>
-              <i className="fa fa-id-card"></i>
-              Crm
-            </Item>
-
-            <Link href="/crm/clients">
-              <SubItem>
-                <i className="fa fa-vk"></i>
-                Clients
-              </SubItem>
-            </Link>
-
-            <Link href="/crm/statuses">
-              <SubItem>
-                <i className="fa fa-vk"></i>
-                Statuses
-              </SubItem>
-            </Link>
-
-
-          <Link href="/vk">
-            <Item>
-              <i className="fa fa-vk"></i>
-              Vk
-            </Item>
-
-            <SubItem>
-              <i className="fa fa-vk"></i>
-              Users
-            </SubItem>
-
-            <SubItem>
-              <i className="fa fa-vk"></i>
-              Groups
-            </SubItem>
-
-            <SubItem>
-              <i className="fa fa-vk"></i>
-              Tags
-            </SubItem>
-
-          </Link>
-
-          <Link href="/instagram">
-            <Item>
-              <i className="fa fa-instagram"></i>
-              Instagram
-            </Item>
-
-            <SubItem>
-              <i className="fa fa-vk"></i>
-              Search
-            </SubItem>
-
-          </Link>
-
-
-        </div>
-
-      </SidebarDiv>
+      <div className="sidebar">
+        <nav className="sidebar-nav">
+          <ul className="nav">
+            <li className="nav-item">
+              <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"></i> Dashboard <span className="badge badge-info">NEW</span></NavLink>
+            </li>
+            <li className="nav-title">
+              UI Elements
+            </li>
+            <li className={this.activeRoute("/components")}>
+              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-puzzle"></i> Components</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/components/buttons'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Buttons</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/social-buttons'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Social Buttons</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/cards'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Cards</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/forms'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Forms</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/modals'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Modals</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/switches'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Switches</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/tables'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Tables</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/components/tabs'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Tabs</NavLink>
+                </li>
+              </ul>
+            </li>
+            <li className={this.activeRoute("/icons")}>
+              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-star"></i> Icons</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/icons/font-awesome'} className="nav-link" activeClassName="active"><i className="icon-star"></i> Font Awesome</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/icons/simple-line-icons'} className="nav-link" activeClassName="active"><i className="icon-star"></i> Simple Line Icons</NavLink>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-item">
+              <NavLink to={'/widgets'} className="nav-link" activeClassName="active"><i className="icon-calculator"></i> Widgets <span className="badge badge-info">NEW</span></NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to={'/charts'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Charts</NavLink>
+            </li>
+            <li className="divider"></li>
+            <li className="nav-title">
+              Extras
+            </li>
+            <li className="nav-item nav-dropdown">
+              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-star"></i> Pages</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/login'} className="nav-link" activeClassName="active"><i className="icon-star"></i> Login</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/register'} className="nav-link" activeClassName="active"><i className="icon-star"></i> Register</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/404'} className="nav-link" activeClassName="active"><i className="icon-star"></i> Error 404</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/500'} className="nav-link" activeClassName="active"><i className="icon-star"></i> Error 500</NavLink>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
     )
   }
-})
+}
 
-// <div className="collapse" id="menu1">
-//     <a href="menu1sub1" className="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
-// </div>
+export default Sidebar;
