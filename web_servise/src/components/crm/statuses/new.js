@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-// import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
 import { statusCreateQuery, statusesQuery } from 'components/crm/graphql/querues'
-import { Input } from 'reactstrap'
 
 class New extends Component {
 
@@ -68,7 +66,8 @@ class New extends Component {
                 <div className="col-md-12">
                   <div className="input-group">
                     <span className="input-group-addon">Name</span>
-                    <Input
+                    <input
+                      className="form-control"
                       name="name"
                       onChange={ this.handleSetState }
                       onKeyPress={ this.handleOnKeyPress }

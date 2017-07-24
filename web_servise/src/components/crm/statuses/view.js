@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'lib/nav_link'
-import { graphql } from 'react-apollo'
-import { statusDelete } from 'components/crm/graphql/querues'
+import { compose, graphql } from 'react-apollo'
+import { statusesQuery, statusUpdateQuery, statusDelete } from 'components/crm/graphql/querues'
 import Notification from 'lib/notification'
+import { set, lensProp } from 'ramda'
 
 class View extends Component {
 
@@ -11,33 +11,74 @@ class View extends Component {
     object: PropTypes.object.isRequired,
     refresh: PropTypes.func.isRequired,
     statusDelete: PropTypes.func.isRequired,
+    statusUpdateQuery: PropTypes.func.isRequired,
+  }
+
+  componentWillMount() {
+    this.setState({ status: this.props.object })
+  }
+
+  state = {
+    status: {}
+  }
+
+  handleSetState = (e) => {
+    const { name, value } = e.target
+    let setClient = set(lensProp(name), value)
+    this.setState({ status: setClient(this.state.status) })
   }
 
   handleDestroy = async () => {
-    const { object, statusDelete } = this.props
+    const { status, statusDelete } = this.props
 
     try {
       await statusDelete({
-        variables: { id: object.id },
+        variables: { id: status.id },
       })
       this.props.refresh()
     } catch (error) {
       Notification.error(error)
     }
-
   }
 
+  handleUpdate = async (e) => {
+    e.preventDefault()
+    const { status } = this.state
+    const { statusUpdateQuery } = this.props
+
+    try {
+      await statusUpdateQuery({
+        variables: {
+          id: status.id,
+          name: status.name,
+        },
+        refetchQueries: [{
+          query: statusesQuery,
+        }],
+      })
+      Notification.success("ok")
+    } catch (e) {
+      Notification.error(e)
+    }
+  }
+
+
   render() {
-    let { object } = this.props
+    let { status } = this.state
 
     return (
       <tr>
-        <td>{ object.id }</td>
+        <td>{ status.id }</td>
 
         <td>
-          <Link href={`/crm/clients/${object.id}`}>
-            { object.name }
-          </Link>
+          <input
+            className="form-control"
+            onChange={ this.handleSetState }
+            onKeyPress={ this.handleOnKeyPress }
+            placeholder="name"
+            value={status.name}
+            name="name"
+          />
         </td>
 
         <td >
@@ -45,14 +86,20 @@ class View extends Component {
             <i className="pointer icon-ban" />
           </div>
         </td>
+
+        <td >
+          <button
+            className="btn btn-outline-success"
+            onClick={this.handleUpdate}
+          > Update </button>
+        </td>
       </tr>
     )
   }
 
 }
 
-export default graphql(
-  statusDelete, { name: "statusDelete"}
+export default compose(
+  graphql(statusUpdateQuery, {name: "statusUpdateQuery"}),
+  graphql(statusDelete, {name: "statusDelete"}),
 )(View)
-
-

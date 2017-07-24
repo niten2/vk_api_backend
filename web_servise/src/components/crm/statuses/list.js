@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import { statusesQuery } from 'components/crm/graphql/querues'
 import StatusView from './view'
-// import { Col, Button } from 'reactstrap'
 
 class List extends Component {
 
@@ -36,15 +34,16 @@ class List extends Component {
       <div className="col-lg-6">
         <div className="card">
           <div className="card-header">
-            <i className="fa fa-align-justify"></i> Clients
+            <i className="fa fa-align-justify"></i> Status
           </div>
-          <div className="card-block">
-            <table className="table text-center">
+          <div className="card-block text-center">
+            <table className="table">
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Destroy</th>
+                  <th className="text-center">Id</th>
+                  <th className="text-center">Name</th>
+                  <th className="text-center">Destroy</th>
+                  <th className="text-center">Update</th>
                 </tr>
               </thead>
               <tbody>

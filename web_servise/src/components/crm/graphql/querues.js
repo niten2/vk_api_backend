@@ -110,12 +110,12 @@ export const statusCreateQuery = gql`
   }
 `
 
-export const statusUpdate = gql`
-  mutation clientUpdate(
+export const statusUpdateQuery = gql`
+  mutation statusUpdate(
     $id: ID!
     $name: String
   ) {
-    clientUpdate(
+    statusUpdate(
       id: $id
       name: $name
     ) {
