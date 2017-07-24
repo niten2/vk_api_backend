@@ -1,3 +1,4 @@
+// import Page500 from 'components/shared/page500'
 import React, { Component } from 'react';
 
 class Page500 extends Component {

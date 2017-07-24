@@ -1,8 +1,8 @@
 import { gql } from 'react-apollo'
 
 export const clientsQuery = gql`
-  query clients {
-    clients {
+  query clients($offset: Int, $limit: Int) {
+    clients(offset: $offset, limit: $limit) {
       id
       name
       number
@@ -14,6 +14,9 @@ export const clientsQuery = gql`
         id
         name
       }
+    }
+    meta(name: "Client") {
+      count
     }
   }
 `

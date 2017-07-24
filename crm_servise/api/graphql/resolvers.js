@@ -1,15 +1,20 @@
 import { Status, Client } from "api/models"
 
+const Classes = {
+  "Client": Client,
+}
+
 export const resolvers = {
 
   Query: {
     clients: async (root, args) => {
-      const clients = await Client.findAll({
+      return  await Client.findAll({
         include: {
           model: Status,
-        }
+        },
+        offset: args.offset,
+        limit: args.limit,
       })
-      return clients
     },
 
     client: async (root, args) => {
@@ -25,6 +30,16 @@ export const resolvers = {
     status: async (root, args) => {
       const object = await Status.findById(args.id)
       return object
+    },
+
+    meta: async (root, args) => {
+      const model = Classes[args.name]
+      if (model) {
+        const count = await model.count()
+        return {
+          count: count
+        }
+      }
     },
   },
 

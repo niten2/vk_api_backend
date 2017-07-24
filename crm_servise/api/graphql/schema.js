@@ -6,11 +6,13 @@ import { resolvers } from './resolvers'
 
 const typeDefs = `
   type Query {
-    clients: [Client]
+    clients(offset: Int, limit: Int): [Client]
     client(id: ID!): Client
 
     status(id: ID!): Status
     statuses: [Status]
+
+    meta(name: String): Meta
   }
 
   type Client {
@@ -20,8 +22,12 @@ const typeDefs = `
     phone: String
     note: String
     date_birth: String
-    status: Status
     status_id: String
+    status: Status
+  }
+
+  type Meta {
+    count: Int
   }
 
   type Status {

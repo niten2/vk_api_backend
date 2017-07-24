@@ -1,7 +1,7 @@
 export const typeDefs = `
 
   type Query {
-    clients: [ Client ]
+    clients($offset: Int, $limit: Int): [ Client ]
     client: Client
 
     statuses: [ Status ]

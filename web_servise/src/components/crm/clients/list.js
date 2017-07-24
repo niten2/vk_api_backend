@@ -5,6 +5,11 @@ import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import { clientsQuery } from 'components/crm/graphql/querues'
 import ClientView from './view'
+import Spinner from 'components/shared/spinner'
+import Page500 from 'components/shared/page500'
+import Pagination from 'components/shared/pagination'
+
+const ITEMS_PER_PAGE = 20
 
 const Buttons = (props) => {
   return(
@@ -49,14 +54,14 @@ class ListClient extends Component {
   }
 
   render() {
-    let { loading, error, clients, refetch } = this.props.clientsQuery
+    let { loading, error, clients, refetch, meta } = this.props.clientsQuery
 
     if (loading ) {
-      return <p className="text-center">Loading ...</p>
+      return <Spinner />
     }
 
     if (error) {
-      return <p className="text-center">Error ...</p>
+      return <Page500 />
     }
 
     return (
@@ -98,16 +103,7 @@ class ListClient extends Component {
                   </tbody>
                 </table>
 
-                <ul className="pagination">
-                  <li className="page-item"><a className="page-link">Prev</a></li>
-                  <li className="page-item active">
-                    <a className="page-link">1</a>
-                  </li>
-                  <li className="page-item"><a className="page-link">2</a></li>
-                  <li className="page-item"><a className="page-link">3</a></li>
-                  <li className="page-item"><a className="page-link">4</a></li>
-                  <li className="page-item"><a className="page-link">Next</a></li>
-                </ul>
+                <Pagination count={meta.count}/>
 
               </div>
             </div>
@@ -119,6 +115,14 @@ class ListClient extends Component {
   }
 }
 
-export default graphql(clientsQuery,
-  { name: "clientsQuery"}
-)(ListClient)
+export default graphql(clientsQuery, {
+  name: "clientsQuery",
+  options: {
+    variables: {
+      offset: 0,
+      limit: ITEMS_PER_PAGE,
+      name: "Client",
+    },
+    fetchPolicy: 'network-only',
+  }
+})(ListClient)
