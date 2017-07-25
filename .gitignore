@@ -16,6 +16,7 @@ insta_servise/.env
 
 auth_servise/node_modules
 auth_servise/.env
+auth_servise/db/database.dev.sqlite
 
 mobile_servise/node_modules
 mobile_servise/.env

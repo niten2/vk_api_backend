@@ -20,8 +20,8 @@ import Status from 'components/crm/statuses'
 
 import Instagram from 'components/instagram'
 
-import LoginUser from 'components/auth/login_user'
-import CreateUser from 'components/auth/create_user'
+import Login from 'components/auth/login'
+import Register from 'components/auth/register'
 import Profile from 'components/auth/profile'
 
 // import Login from 'views/Pages/Login'
@@ -36,8 +36,8 @@ export default (onUpdate) => {
 
           <Layout exact path="/dasboard" name="Dasboard" component={Dasboard}/>
 
-          <LayoutAuth exact path="/login" component={LoginUser}/>
-          <LayoutAuth exact path="/auth" component={CreateUser}/>
+          <LayoutAuth exact path="/login" component={Login}/>
+          <LayoutAuth exact path="/register" component={Register}/>
           <LayoutAuth exact path="/profile" component={Profile}/>
 
           <LayoutCrm exact path="/crm/clients" component={Clients} />

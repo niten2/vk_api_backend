@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { UIStore } from "stores"
-
+import { Link } from "lib/nav_link"
 import Login from "./login"
 import Logout from "./logout"
 
@@ -56,7 +56,10 @@ class Header extends Component {
           </li>
 
           <li className="nav-item px-3">
-            <a className="nav-link">Dashboard</a>
+            <Link
+              href="/dasboard"
+              className="nav-link"
+            >Dashboard</Link>
           </li>
           <li className="nav-item px-3">
             <a className="nav-link">Users</a>

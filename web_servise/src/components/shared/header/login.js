@@ -14,7 +14,7 @@ const Login = () => (
     </NavItem>
     <NavItem>
       <NavLink
-        href = "/auth"
+        href = "/register"
       >Sign Up</NavLink>
     </NavItem>
   </Nav>
