@@ -3,15 +3,14 @@ module.exports = {
 
     return queryInterface.bulkInsert('users', [
       {
+        id: 1,
         name: 'first_name',
-        password: 'last_name',
+        password: '1234',
+        email: 'email@email.com',
         createdAt: new Date(),
       }
     ], {})
   },
 
-  down: function (queryInterface, Sequelize) {
-
-  }
-
+  down: function (queryInterface, Sequelize) { }
 }

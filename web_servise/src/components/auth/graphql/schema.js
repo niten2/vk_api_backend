@@ -1,10 +1,10 @@
 export const typeDefs = `
   type Query {
-    user(id: ID!): User
+    user: User
   }
 
   type User {
-    id: ID!
+    name: String
     email: String
     password: String
   }
@@ -25,6 +25,12 @@ export const typeDefs = `
       id: ID!
       email: String!
       password: String!
+    ): User
+
+    UserUpdate(
+      name: String
+      email: String
+      password: String
     ): User
 
   }

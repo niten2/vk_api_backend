@@ -3,7 +3,8 @@ export const options = {
   headers: { 'Content-Type': 'application/json' }
 }
 
-export const endpoint = 'http://localhost:4002/v2'
+// export const endpoint = 'http://localhost:4002/v2'
+export const endpoint = process.env.REACT_APP_ENDPOINT
 
 export const defaultQuery = `
 
@@ -80,6 +81,13 @@ mutation JwtTokenCreate {
   }
 }
 
+query user {
+  user {
+    id
+    name
+    email
+  }
+}
 
 `
 

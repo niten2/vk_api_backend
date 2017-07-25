@@ -29,13 +29,33 @@ export const JwtTokenCreateQuery = gql`
   }
 `
 
-// const createUser = gql`
-//   mutation ($email: String!, $password: String!, $name: String!, $emailSubscription: Boolean!) {
-//     createUser(authProvider: {email: {email: $email, password: $password}}, name: $name, emailSubscription: $emailSubscription) {
-//       id
-//     }
-//   }
-// `
+export const updateUserQuery = gql`
+  mutation UserUpdate(
+    $name: String,
+    $email: String,
+    $password: String,
+  ) {
+    UserUpdate(
+      name: $name
+      email: $email
+      password: $password
+    ) {
+      id
+      name
+      email
+      password
+    }
+  }
+`
+export const userQuery = gql`
+  query user {
+    user {
+      id
+      name
+      email
+    }
+  }
+`
 
 // const signinUser = gql`
 //   mutation ($email: String!, $password: String!) {

@@ -3,12 +3,13 @@ import { resolvers } from './resolvers'
 
 const typeDefs = `
   type Query {
-    user(id: ID!): User
+    user: User
     users: [User]
   }
 
   type User {
-    id: ID!
+    id: ID
+    name: String
     email: String
     password: String
   }
@@ -27,6 +28,12 @@ const typeDefs = `
     UserCreate(
       email: String!
       password: String!
+    ): User
+
+    UserUpdate(
+      name: String
+      email: String
+      password: String
     ): User
 
   }

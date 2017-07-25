@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { compose, graphql } from 'react-apollo'
-import { Input, Row, Col, Button } from 'reactstrap'
 import Notification from 'lib/notification'
 import authProvider from "lib/auth_provider"
 import { set, lensProp } from 'ramda'
 import { UserCreateQuery, JwtTokenCreateQuery } from 'components/auth/graphql/querues'
-// import { Center } from "./style"
 import { Link } from 'lib/nav_link'
 
 class CreateUser extends Component {
@@ -13,7 +11,7 @@ class CreateUser extends Component {
   state = {
     user: {
       email: 'email@test.com',
-      password: '12344',
+      password: '1234',
       confirmPassword: "1234",
     },
     errorPassword: false,
@@ -31,7 +29,7 @@ class CreateUser extends Component {
     const { user } = this.state
     const { UserCreateQuery, JwtTokenCreateQuery } = this.props
 
-    if (user.password != user.confirmPassword) {
+    if (user.password !== user.confirmPassword) {
       this.setState({ errorPassword: true })
       return null
     }

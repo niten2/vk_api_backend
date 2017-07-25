@@ -1,11 +1,8 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-// import { Col, Input, Row, Button } from 'reactstrap'
 import Notification from 'lib/notification'
 import { Link } from 'lib/nav_link'
-import { Center } from "./style"
 import authProvider from "lib/auth_provider"
-
 import { JwtTokenCreateQuery } from 'components/auth/graphql/querues'
 
 class CreateLogin extends React.Component {

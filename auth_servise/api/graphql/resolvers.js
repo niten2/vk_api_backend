@@ -11,7 +11,8 @@ export const resolvers = {
     },
 
     user: async (root, args) => {
-      const user = await User.findById(args.id)
+      // const user = await User.findById(args.id)
+      const user = await User.findById(1)
       return user
     },
   },
@@ -36,6 +37,20 @@ export const resolvers = {
       })
 
       return user
+    },
+
+    UserUpdate: async (root, args) => {
+      console.log(111111)
+      // const object = await User.findById(args.id)
+      const object = await User.findById(1)
+
+      await object.update({
+        name: args.name,
+        email: args.email,
+        // password: args.password,
+      })
+
+      return object
     },
 
   },
