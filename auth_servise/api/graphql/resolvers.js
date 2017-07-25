@@ -5,14 +5,14 @@ import { GraphQLObjectType } from 'graphql-tools'
 export const resolvers = {
 
   Query: {
-    users: async () => {
+    users: async (root, args) => {
       const users = await User.findAll()
       return users
     },
 
-    user: async (root, args) => {
-      // const user = await User.findById(args.id)
-      const user = await User.findById(1)
+    user: async (root, args, context) => {
+      const user_id = context.user.id
+      const user = await User.findById(user_id)
       return user
     },
   },
@@ -20,14 +20,17 @@ export const resolvers = {
   Mutation: {
 
     JwtTokenCreate: async (root, args) => {
-      let user = await User.findAll({
+      const users = await User.findAll({
         where: {
           email: args.email,
           password: args.password,
         }
       })
+      const user = users[0]
 
-      return { token: createJwt(user) }
+      if (user) {
+        return { token: createJwt(user) }
+      }
     },
 
     UserCreate: async (root, args) => {
@@ -39,10 +42,10 @@ export const resolvers = {
       return user
     },
 
-    UserUpdate: async (root, args) => {
-      console.log(111111)
-      // const object = await User.findById(args.id)
-      const object = await User.findById(1)
+    UserUpdate: async (_, args, context) => {
+      const user_id = context.user.id
+
+      const object = await User.findById(user_id)
 
       await object.update({
         name: args.name,

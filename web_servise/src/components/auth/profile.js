@@ -6,6 +6,7 @@ import { compose, graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
+import Page401 from 'components/shared/page401'
 
 const ErrorMessage = (
   <div>
@@ -26,6 +27,9 @@ class Profile extends React.Component {
   componentWillReceiveProps(props) {
     const { user } = props.userQuery
     this.setState({ user })
+
+    let error = props.userQuery.error
+    if (error) { Notification.error(error.message) }
   }
 
   state = {
@@ -74,6 +78,10 @@ class Profile extends React.Component {
 
     if (loading ) {
       return <Spinner />
+    }
+
+    if (error && error.message.includes("401") ) {
+      return <Page401 />
     }
 
     if (error ) {

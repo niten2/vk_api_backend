@@ -3,12 +3,27 @@ import { Route } from 'react-router-dom'
 import LayoutComponent from 'components/shared/layout'
 import { ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo'
 import settings from "lib/settings"
+import authProvider from 'lib/auth_provider'
 
 const createClient = (url) => {
+  const networkInterface = createNetworkInterface({ uri: url })
+
+  networkInterface.use([{
+    applyMiddleware(req, next) {
+      if (!req.options.headers) {
+        req.options.headers = {}
+      }
+
+      req.options.headers.authorization = authProvider.fetchToken()
+      next()
+    }
+  }])
+
   return new ApolloClient({
-    networkInterface: createNetworkInterface({ uri: url }),
+    networkInterface: networkInterface,
     dataIdFromObject: o => o.id,
   })
+
 }
 
 const createLayoutWithApollo = (client) => {

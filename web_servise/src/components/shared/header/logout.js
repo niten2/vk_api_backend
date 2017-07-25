@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
 import { withRouter } from "react-router-dom"
+import { withApollo } from 'react-apollo'
 import Avatar from "./avatar.jpg"
 import { Link } from 'lib/nav_link'
 import authProvider from 'lib/auth_provider'
@@ -20,11 +21,13 @@ class Logout extends Component {
 
   logout = () => {
     authProvider.removeToken()
+    // this.props.client.resetStore()
     this.props.history.push('/dasboard')
     console.log("Logout")
   }
 
   render() {
+    console.log(this.props)
     return (
       <li className="nav-item">
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -59,4 +62,5 @@ class Logout extends Component {
   }
 }
 
+// console.log(withRouter(Logout))
 export default withRouter(Logout)

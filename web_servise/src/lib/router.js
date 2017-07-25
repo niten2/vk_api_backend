@@ -34,7 +34,7 @@ export default (onUpdate) => {
       <div>
         <Switch>
 
-          <Layout exact path="/dasboard" name="Dasboard" component={Dasboard}/>
+          <LayoutAuth exact path="/dasboard" name="Dasboard" component={Dasboard}/>
 
           <LayoutAuth exact path="/login" component={Login}/>
           <LayoutAuth exact path="/register" component={Register}/>
@@ -46,7 +46,6 @@ export default (onUpdate) => {
 
           <LayoutCrm exact path="/crm/statuses" component={Status} />
 
-
           <LayoutVk exact path="/vk" component={Vk}/>
           <LayoutVk exact path="/vk/users" component={VkUsers}/>
           <LayoutVk exact path="/vk/groups" component={VkGroups}/>
@@ -54,8 +53,8 @@ export default (onUpdate) => {
 
           <LayoutInstagram exact path="/instagram" component={Instagram}/>
 
+          <Redirect exact from="/" to="/dasboard"/>
           <Layout path="*" component={Page404}/>
-          <Redirect from="/" to="/dasboard"/>
         </Switch>
       </div>
     </BrowserRouter>

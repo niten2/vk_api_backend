@@ -40,7 +40,6 @@ export const updateUserQuery = gql`
       email: $email
       password: $password
     ) {
-      id
       name
       email
       password
@@ -50,31 +49,8 @@ export const updateUserQuery = gql`
 export const userQuery = gql`
   query user {
     user {
-      id
       name
       email
     }
   }
 `
-
-// const signinUser = gql`
-//   mutation ($email: String!, $password: String!) {
-//     signinUser(email: {email: $email, password: $password}) {
-//       token
-//     }
-//   }
-// `
-
-// export const userQuery = gql`
-//   query clients {
-//     clients {
-//       id
-//       name
-//       number
-//       phone
-//       note
-//       date_birth
-//     }
-//   }
-// `
-

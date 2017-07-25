@@ -5,11 +5,21 @@ import { Link } from 'lib/nav_link'
 import authProvider from "lib/auth_provider"
 import { JwtTokenCreateQuery } from 'components/auth/graphql/querues'
 
+const ErrorMessage = (
+  <div>
+    <div className="text-danger text-center">
+      Email or Password incorrect
+    </div>
+    <br />
+  </div>
+)
+
 class CreateLogin extends React.Component {
 
   state = {
-    email: 'email@test.com',
+    email: 'email@email.com',
     password: '1234',
+    error: false,
   }
 
   signinUser = async () => {
@@ -29,10 +39,13 @@ class CreateLogin extends React.Component {
       this.props.history.push('/dasboard')
     } catch(error) {
       Notification.error(error)
+      this.setState({ error: true })
     }
   }
 
   render () {
+    let { error } = this.state
+
     return (
       <div className="app flex-row">
         <div className="container">
@@ -68,6 +81,9 @@ class CreateLogin extends React.Component {
                       />
 
                     </div>
+
+                    { error ? ErrorMessage : null }
+
                     <div className="row">
 
                       <div className="col-6">

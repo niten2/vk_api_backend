@@ -16,13 +16,11 @@ export const typeDefs = `
   type Mutation {
 
     JwtTokenCreate(
-      id: ID!
       email: String!
       password: String!
     ): JwtToken
 
     UserCreate(
-      id: ID!
       email: String!
       password: String!
     ): User

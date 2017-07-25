@@ -5,8 +5,8 @@ module.exports = {
       {
         id: 1,
         name: 'first_name',
-        password: '1234',
         email: 'email@email.com',
+        password: '1234',
         createdAt: new Date(),
       }
     ], {})

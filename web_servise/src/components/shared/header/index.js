@@ -83,7 +83,7 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
-          { UIStore.login ?  <Logout /> : <Login /> }
+          { UIStore.login ?  <Logout {...this.props}/> : <Login /> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>
