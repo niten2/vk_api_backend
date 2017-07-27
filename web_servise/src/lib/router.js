@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect, BrowserRouter, Switch } from 'react-router-dom'
 
-import { Layout, LayoutCrm, LayoutVk, LayoutInstagram, LayoutAuth } from "lib/layout_helper"
+import { Layout, LayoutCrm, LayoutVk, LayoutInstagram, LayoutAuthPublic, LayoutAuthPrivate } from "lib/layout_helper"
 import Page404 from 'components/shared/page404'
 
 import Vk from 'components/vk'
@@ -20,9 +20,9 @@ import Status from 'components/crm/statuses'
 
 import Instagram from 'components/instagram'
 
-import Login from 'components/auth/login'
-import Register from 'components/auth/register'
-import Profile from 'components/auth/profile'
+import Login from 'components/auth/public/login'
+import Register from 'components/auth/public/register'
+import Profile from 'components/auth/private/profile'
 
 // import Login from 'views/Pages/Login'
 import Dasboard from 'components/shared/dasboard'
@@ -34,11 +34,11 @@ export default (onUpdate) => {
       <div>
         <Switch>
 
-          <LayoutAuth exact path="/dasboard" name="Dasboard" component={Dasboard}/>
+          <LayoutAuthPublic exact path="/dasboard" name="Dasboard" component={Dasboard}/>
 
-          <LayoutAuth exact path="/login" component={Login}/>
-          <LayoutAuth exact path="/register" component={Register}/>
-          <LayoutAuth exact path="/profile" component={Profile}/>
+          <LayoutAuthPublic exact path="/login" component={Login}/>
+          <LayoutAuthPublic exact path="/register" component={Register}/>
+          <LayoutAuthPrivate exact path="/profile" component={Profile}/>
 
           <LayoutCrm exact path="/crm/clients" component={Clients} />
           <LayoutCrm exact path="/crm/clients/new" component={ClientNew} />

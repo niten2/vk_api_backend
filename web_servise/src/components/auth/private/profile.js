@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { set, lensProp } from 'ramda'
-import { userQuery, updateUserQuery } from 'components/auth/graphql/querues'
+import { userQuery, updateUserQuery } from 'components/auth/graphql/private/querues'
 import { compose, graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import Spinner from 'components/shared/spinner'

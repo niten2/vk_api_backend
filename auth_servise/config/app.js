@@ -17,9 +17,8 @@ export default class App {
 
     this.app = express()
     this.settings = settings
-    // this.resourses = resourses(this)
     this.middlewares = middlewares(this)
-    // this.routes = routes(this)
+
     routes(this.app)
 
     if (settings.env != "test") {
@@ -42,10 +41,6 @@ export default class App {
     if (this.middlewares) {
       this.log.trace('middlewares', Object.keys(this.middlewares))
     }
-    // if (this.resourses) {
-    //   this.log.trace('resourses', Object.keys(this.resourses))
-    // }
-
     this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
   }
 

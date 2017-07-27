@@ -50,8 +50,12 @@ export const Layout = ({component: Component, ...rest}) => {
   )
 }
 
-export const LayoutAuth = createLayoutWithApollo(
-  createClient(settings.uriAuthServise)
+export const LayoutAuthPrivate = createLayoutWithApollo(
+  createClient(settings.uriAuthServisePrivate)
+)
+
+export const LayoutAuthPublic = createLayoutWithApollo(
+  createClient(settings.uriAuthServisePublic)
 )
 
 export const LayoutCrm = createLayoutWithApollo(

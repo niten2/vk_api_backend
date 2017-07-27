@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
 import { withRouter } from "react-router-dom"
-import { withApollo } from 'react-apollo'
+// import { withApollo } from 'react-apollo'
 import Avatar from "./avatar.jpg"
 import { Link } from 'lib/nav_link'
 import authProvider from 'lib/auth_provider'

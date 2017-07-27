@@ -1,10 +1,13 @@
 export const options = {
   method: 'post',
-  headers: { 'Content-Type': 'application/json' }
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${process.env.REACT_APP_TOKEN}`,
+  }
 }
 
-// export const endpoint = 'http://localhost:4002/v2'
-export const endpoint = process.env.REACT_APP_ENDPOINT
+export const endpoint = 'http://localhost:4001/v2'
+// export const endpoint = process.env.REACT_APP_ENDPOINT
 
 export const defaultQuery = `
 
@@ -83,6 +86,23 @@ mutation JwtTokenCreate {
 
 query user {
   user {
+    id
+    name
+    email
+  }
+}
+
+mutation JwtTokenCreate {
+  JwtTokenCreate(
+    email: "dfgdfg"
+    password: "dsfsdf"
+  ) {
+    token
+  }
+}
+
+query users {
+  users {
     id
     name
     email

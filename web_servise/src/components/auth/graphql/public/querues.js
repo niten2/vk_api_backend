@@ -29,28 +29,3 @@ export const JwtTokenCreateQuery = gql`
   }
 `
 
-export const updateUserQuery = gql`
-  mutation UserUpdate(
-    $name: String,
-    $email: String,
-    $password: String,
-  ) {
-    UserUpdate(
-      name: $name
-      email: $email
-      password: $password
-    ) {
-      name
-      email
-      password
-    }
-  }
-`
-export const userQuery = gql`
-  query user {
-    user {
-      name
-      email
-    }
-  }
-`

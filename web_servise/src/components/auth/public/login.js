@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import { Link } from 'lib/nav_link'
 import authProvider from "lib/auth_provider"
-import { JwtTokenCreateQuery } from 'components/auth/graphql/querues'
+import { JwtTokenCreateQuery } from 'components/auth/graphql/public/querues'
 
 const ErrorMessage = (
   <div>
@@ -14,7 +14,7 @@ const ErrorMessage = (
   </div>
 )
 
-class CreateLogin extends React.Component {
+class Login extends React.Component {
 
   state = {
     email: 'email@email.com',
@@ -33,13 +33,18 @@ class CreateLogin extends React.Component {
           password: password,
         }
       })
+      if (!response.data.JwtTokenCreate) {
+        Notification.error("Email or Password incorrect")
+        this.setState({ error: true })
+        return null
+      }
+
       const token = response.data.JwtTokenCreate.token
       console.log("GET token = ", token)
       authProvider.saveToken(token)
       this.props.history.push('/dasboard')
     } catch(error) {
       Notification.error(error)
-      this.setState({ error: true })
     }
   }
 
@@ -123,5 +128,5 @@ class CreateLogin extends React.Component {
 
 export default graphql(
   JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" },
-)(CreateLogin)
+)(Login)
 
