@@ -17,10 +17,9 @@ export default class App {
 
     this.app = express()
     this.settings = settings
-    // this.models = models
     this.resourses = resourses(this)
     this.middlewares = middlewares(this)
-    this.routes = routes(this)
+    routes(this.app)
 
     if (settings.env != "test") {
       this.initLogSetup()

@@ -59,11 +59,11 @@ const Vk = (props) => {
 
         <li className="nav-item">
           <NavLink
-            to={'/vk/users'}
+            to={'/vk/persons'}
             className="nav-link"
             activeClassName="active"
           >
-            <i className="icon-star"></i> Users
+            <i className="icon-star"></i> Person
           </NavLink>
         </li>
 

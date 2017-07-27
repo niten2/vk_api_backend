@@ -1,7 +1,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
 
-    return queryInterface.bulkInsert('users', [
+    return queryInterface.bulkInsert('persons', [
       {
         uid: 'uid',
         first_name: 'first_name',

@@ -1,31 +1,21 @@
 export const typeDefs = `
   type Query {
-    user(id: ID!): User
+    persons: Person
   }
 
-  type User {
-    id: ID!
-    email: String
-    password: String
+  type Person {
+    id: ID
+    uid: String
+    first_name: String
+    last_name: String
+    followers_count: String
+    sex: String
+    city: String
+    bdate: String
+    crop_photo_url: String
+    status: String
+    createdAt: String
+    updatedAt: String
   }
 
-  type JwtToken {
-    token: String
-  }
-
-  type Mutation {
-
-    JwtTokenCreate(
-      id: ID!
-      email: String!
-      password: String!
-    ): JwtToken
-
-    UserCreate(
-      id: ID!
-      email: String!
-      password: String!
-    ): User
-
-  }
 `

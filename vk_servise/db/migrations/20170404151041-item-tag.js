@@ -15,7 +15,7 @@ module.exports = {
         },
 
         taggable: {
-          type: Sequelize.ENUM('groups', 'users'),
+          type: Sequelize.ENUM('groups', 'persons'),
           unique: 'item_tag_taggable'
         },
 

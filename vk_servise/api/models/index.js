@@ -1,15 +1,15 @@
-import User from './user'
+import Person from './person'
 import Group from './group'
 import Tag from './tag'
 import ItemTag from './itemTag'
-import Client from './client'
+// import Client from './client'
 
-User.belongsToMany(Tag, {
+Person.belongsToMany(Tag, {
   through: {
     model: ItemTag,
     unique: false,
     scope: {
-      taggable: 'users'
+      taggable: 'persons'
     },
   },
   foreignKey: 'taggable_id',
@@ -28,7 +28,7 @@ Group.belongsToMany(Tag, {
   constraints: false,
 })
 
-Tag.belongsToMany(User, {
+Tag.belongsToMany(Person, {
   through: {
     model: ItemTag,
     unique: false
@@ -47,9 +47,9 @@ Tag.belongsToMany(Group, {
 })
 
 export {
-  User,
+  Person,
   Group,
   Tag,
   ItemTag,
-  Client,
+  // Client,
 }

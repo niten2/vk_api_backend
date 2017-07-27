@@ -13,7 +13,7 @@ module.exports = {
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
         status: Sequelize.ENUM('active', 'inactive'),
-        kind: Sequelize.ENUM('groups', 'users'),
+        kind: Sequelize.ENUM('groups', 'persons'),
       })
   },
 

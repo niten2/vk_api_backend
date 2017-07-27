@@ -27,7 +27,6 @@ class Logout extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <li className="nav-item">
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>

@@ -3,7 +3,7 @@ import Sequelize from 'sequelize'
 
 import Tag from 'api/models/tag'
 
-let User = db.define('users', {
+let Person = db.define('persons', {
 
   uid: Sequelize.STRING,
 
@@ -55,4 +55,4 @@ let User = db.define('users', {
 //   }
 // }
 
-export default User
+export default Person

@@ -5,7 +5,7 @@ import { Layout, LayoutCrm, LayoutVk, LayoutInstagram, LayoutAuthPublic, LayoutA
 import Page404 from 'components/shared/page404'
 
 import Vk from 'components/vk'
-import VkUsers from 'components/vk/users'
+import VkPersons from 'components/vk/persons'
 // import NewUser from 'views/vk/users/new'
 import VkTags from 'components/vk/tags'
 // import NewTag from 'views/vk/tags/new'
@@ -47,7 +47,7 @@ export default (onUpdate) => {
           <LayoutCrm exact path="/crm/statuses" component={Status} />
 
           <LayoutVk exact path="/vk" component={Vk}/>
-          <LayoutVk exact path="/vk/users" component={VkUsers}/>
+          <LayoutVk exact path="/vk/persons" component={VkPersons}/>
           <LayoutVk exact path="/vk/groups" component={VkGroups}/>
           <LayoutVk exact path="/vk/tags" component={VkTags}/>
 
