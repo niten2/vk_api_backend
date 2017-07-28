@@ -1,169 +1,161 @@
-import React, { PropTypes, Component } from 'react'
-import { observer } from 'mobx-react'
-import { UIStore } from 'stores'
-// import { User, Tag } from "models"
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Notification from 'lib/notification'
+import { graphql } from 'react-apollo'
+import { Link } from 'lib/nav_link'
+import { personCreateQuery } from 'components/vk/graphql/querues'
+import { Input } from 'reactstrap'
 
-import Select from 'react-select'
-import { filter, sortBy } from "lodash"
+class New extends Component {
 
-import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { NavLink } from 'nav_link'
-import Notification from 'notification'
-import Spinner from 'spinner'
-
-export default class CreateGroup extends Component {
-
-  async componentWillMount() {
-    // await Tag.loadAll({ kind: "users" })
-    // this.setState({loading: false })
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    personCreateQuery: PropTypes.func.isRequired,
   }
 
   state = {
-    loading: true,
-  }
-
-  state = {
-    user: {
-      url: "",
-      tag_id: "",
-    },
-    response: {
-      first_name: "",
-      last_name: "",
-      followers_count: "",
-      crop_photo_url: "",
-    },
-    create: false,
+    person: {},
   }
 
   handleSetState = (e) => {
     const { name, value } = e.target
-    let { user } = this.state
-
-    user[name] = value
-    this.setState({ user })
+    let { person } = this.state
+    person[name] = value
+    this.setState({ person })
   }
 
-  handleCreate = () => {
-    const { user } = this.state
+  handleCreate = async (e) => {
+    e.preventDefault()
+    const { personCreateQuery, refetch } = this.props
+    const { person } = this.state
 
-    User.create(user).then(response => {
-      if (response.ok) {
-        Notification.success("ok")
-        this.setState({ response: response.body, create: true })
-      }
-    })
+    try {
+      await personCreateQuery({
+        variables: {
+          first_name: person.name,
+        },
+      })
+      this.props.refetch()
+      Notification.success("ok")
+    } catch (e) {
+      Notification.error(e)
+    }
   }
 
   handleChangeTag = (val) => {
-    let { user } = this.state
-    user.tag_id = val.id
-    this.setState({ user })
+    let { group } = this.state
+    group.tag_id = val.id
+    this.setState({ group })
   }
 
   handleOnKeyPress = (target) => {
-    target.charCode == 13 ?  this.handleCreate() : null
+    if (target.charCode === 13) {
+      this.handleCreate()
+    }
   }
 
-  renderResponse() {
-    let { response } = this.state
-
+  render() {
     return (
-      <Col xs={12} className="text-center">
+      <div className="animated fadeIn">
 
-        first_name:
-        &nbsp;
-        { response.first_name }
+        <div className="row">
+          <div className="col-lg-12">
 
-        <br />
+            <div className="card">
 
-        last_name:
-        &nbsp;
-        { response.last_name }
+              <div className="card-header">
+                <i className="fa fa-align-justify"></i> Simple Table
+              </div>
 
-        <br />
+              <div className="card-block">
+                <form className="form-2orizontal">
 
-        followers_count:
-        &nbsp;
-        { response.followers_count }
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Name</span>
+                        <Input
+                          name="name"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="name"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-        <br />
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Number</span>
+                        <Input
+                          name="number"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="Number"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-        <img className="avatar" src={ response.crop_photo_url } />
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Phone</span>
+                        <Input
+                          name="phone"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="Phone"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-      </Col>
-    )
-  }
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <div className="input-group">
+                        <span className="input-group-addon">Note</span>
+                        <Input
+                          name="note"
+                          onChange={ this.handleSetState }
+                          onKeyPress={ this.handleOnKeyPress }
+                          placeholder="Note"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
 
-  renderView() {
-    const tags = filter(Tag.all(), { kind: "users"})
-    let { user, create } = this.state
+                  <div className="form-actions">
+                    <button
+                      className="btn btn-primary"
+                      onClick={this.handleCreate}
+                    >
+                      Save changes
+                    </button>
 
-    return (
-      <div>
-        <Col xs={12} className="text-center">
+                    &nbsp;
 
-          Create new User
-          <Clearfix />
-          <br />
+                    <Link href="/crm/clients">
+                      <button
+                        className="btn btn-default"
+                      >
+                        Cancel
+                      </button>
+                    </Link>
+                  </div>
+                </form>
 
-          <Col xs={6}>
-            URL
-          </Col>
-          <Col xs={6}>
-            <input
-              name="url"
-              className="form-control"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
-            />
-          </Col>
+              </div>
 
-          <Clearfix />
-          <br />
-
-          <Col xs={6}>
-            Tag
-          </Col>
-          <Col xs={6}>
-            <Select
-              name="form-field-name"
-              value={user.tag_id}
-              options={tags}
-              onChange={this.handleChangeTag}
-              valueKey="id"
-              labelKey="name"
-            />
-          </Col>
-
-        </Col>
-
-        <Clearfix />
-        <br />
-
-        <div className="text-center">
-          <Button onClick={this.handleCreate}>
-            Save
-          </Button>
-          &nbsp;
-          <NavLink to="/users">
-            <Button>
-              Return
-            </Button>
-          </NavLink>
+            </div>
+          </div>
         </div>
-
-        <br />
-        <br />
-        { create ? this.renderResponse() : null }
-
       </div>
     )
   }
 
-  render() {
-    return this.state.loading ? Spinner() : this.renderView()
-  }
-
 }
+
+export default graphql(personCreateQuery, { name: "personCreateQuery" })(New)

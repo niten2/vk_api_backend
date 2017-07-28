@@ -6,12 +6,7 @@ export const resolvers = {
 
   Query: {
     persons: async (root, args) => {
-      console.log(1111)
-      const persons = await Person.findAll({})
-
-      console.log(persons)
-      return persons
-
+      return await Person.findAll({})
     },
     tags: async (root, args, context) => {
       return await Tag.findAll()
@@ -21,21 +16,48 @@ export const resolvers = {
     },
   },
 
-  // Mutation: {
-    // UserUpdate: async (_, args, context) => {
-    //   const user_id = context.user.id
+  Mutation: {
+    personCreate: async (_, args, context) => {
+      const user_id = context.user_id
+      const {
+        name,
+        email,
+        uid,
+        first_name,
+        last_name,
+        followers_count,
+        sex,
+        city,
+        bdate,
+        crop_photo_url,
+        status,
+      } = args
 
-    //   const object = await User.findById(user_id)
+      const object = await Person.create({
+        name,
+        email,
+        uid,
+        first_name,
+        last_name,
+        followers_count,
+        sex,
+        city,
+        bdate,
+        crop_photo_url,
+        status,
+        user_id,
+      })
 
-    //   await object.update({
-    //     name: args.name,
-    //     email: args.email,
-    //     // password: args.password,
-    //   })
+      console.log(object)
+      return object
+    },
 
-    //   return object
-    // },
+    personDelete: async (_, args, context) => {
+      return await Person.destroy({
+        where: { id: args.id }
+      })
+    }
 
-  // },
+  },
 }
 

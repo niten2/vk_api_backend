@@ -27,6 +27,8 @@ module.exports = {
 
         updatedAt: Sequelize.DATE,
 
+        user_id: Sequelize.INTEGER,
+
       })
   },
 

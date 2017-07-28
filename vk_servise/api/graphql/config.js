@@ -10,7 +10,7 @@ const formatErrorCustom = error => {
 
 export const buildOptions = async (req, res) => {
   return {
-    context: { user: req.user },
+    context: { payload: req.payload },
     schema: schema,
     formatError: formatErrorCustom,
   }

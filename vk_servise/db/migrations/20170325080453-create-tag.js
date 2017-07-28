@@ -14,6 +14,7 @@ module.exports = {
         updatedAt: Sequelize.DATE,
         status: Sequelize.ENUM('active', 'inactive'),
         kind: Sequelize.ENUM('groups', 'persons'),
+        user_id: Sequelize.INTEGER,
       })
   },
 

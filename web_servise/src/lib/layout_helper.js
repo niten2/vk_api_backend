@@ -6,7 +6,9 @@ import settings from "lib/settings"
 import authProvider from 'lib/auth_provider'
 
 const createClient = (url) => {
-  const networkInterface = createNetworkInterface({ uri: url })
+  const networkInterface = createNetworkInterface({
+    uri: url,
+  })
 
   networkInterface.use([{
     applyMiddleware(req, next) {
@@ -15,6 +17,17 @@ const createClient = (url) => {
       }
 
       req.options.headers.authorization = authProvider.fetchToken()
+      next()
+    },
+
+  }])
+
+  networkInterface.useAfter([{
+    applyAfterware({ response }, next) {
+      if (response.status === 401) {
+        console.log("---------> server response status 401")
+        authProvider.removeToken()
+      }
       next()
     }
   }])

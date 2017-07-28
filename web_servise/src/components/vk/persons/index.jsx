@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { Row, Container, Col } from 'reactstrap'
-import { Link } from 'lib/nav_link'
+// import { Row, Container, Col } from 'reactstrap'
+// import { Link } from 'lib/nav_link'
 import { personsQuery } from 'components/vk/graphql/querues'
 import Spinner from 'components/shared/spinner'
+import Page401 from 'components/shared/page401'
 import Page500 from 'components/shared/page500'
 import PersonView from './view'
 
@@ -20,39 +21,39 @@ import PersonView from './view'
 // import { Row, Col } from 'reactstrap'
 // import { Row, Container, Col, Button } from 'reactstrap'
 
-// import SelectView from './select'
+import PersonNew from './new'
 // import Sidebar from 'components/vk/sidebar'
 
 // @observer
 
-const Buttons = (props) => {
-  return(
-    <div className="row">
-      <div className="col-lg-12">
-        <div className="card">
-          <div className="card-header">
-            <strong>Options</strong>
-          </div>
-          <div className="card-block">
+// const Buttons = (props) => {
+//   return(
+//     <div className="row">
+//       <div className="col-lg-12">
+//         <div className="card">
+//           <div className="card-header">
+//             <strong>Options</strong>
+//           </div>
+//           <div className="card-block">
 
-            <Link href={`/crm/users/new`}>
-              <button type="button" className="btn btn-primary">
-                New Contact
-              </button>
-            </Link>
+//             <Link href={`/vk/persons/new`}>
+//               <button type="button" className="btn btn-primary">
+//                 New Person
+//               </button>
+//             </Link>
 
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => { props.refetch() }}
-            >Reload</button>
+//             <button
+//               type="button"
+//               className="btn btn-secondary"
+//               onClick={() => { props.refetch() }}
+//             >Reload</button>
 
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
 
 class Person extends Component {
@@ -71,7 +72,7 @@ class Person extends Component {
     return (
       <div className="animated fadeIn">
 
-        <Buttons refetch={refetch}/>
+        <PersonNew refetch={refetch}/>
 
         <div className="row">
           <div className="col-lg-12">
@@ -101,13 +102,12 @@ class Person extends Component {
                       <PersonView
                         key={index}
                         object={object}
-                        refresh={() => refetch()}
+                        refetch={() => refetch()}
                       />
                     )}
 
                   </tbody>
                 </table>
-
 
               </div>
             </div>

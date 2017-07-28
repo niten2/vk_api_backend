@@ -1,6 +1,6 @@
 export const typeDefs = `
   type Query {
-    persons: Person
+    persons: [ Person ]
   }
 
   type Person {

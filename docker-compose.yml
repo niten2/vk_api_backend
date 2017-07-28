@@ -1,85 +1,101 @@
 version: '2'
 services:
 
-  # web
+  # NOTE web
   web_servise:
-    container_name: web_servise
+    tty: true
+    container_name: web
+    # environment:
+    #   TERM: "xterm-256color"
     build:
       context: ./web_servise
       dockerfile: Dockerfile.development
-    environment:
-      TERM: "xterm"
     image: web_servise
     ports:
       - "4000:4000"
-    command: bash -c "/bin/bash ; npm run start"
+    command: bash -c "npm run start"
     env_file: ./web_servise/.env.development
     volumes:
       - ./web_servise/:/app
 
-  # node
+  # NOTE node
   auth_servise:
-    container_name: auth_servise
+    tty: true
+    container_name: auth
+    # environment:
+    #   TERM: "xterm"
     build:
       context: ./auth_servise
       dockerfile: Dockerfile.development
     image: auth_servise
     ports:
       - "4001:4001"
-    command: bash -c "/bin/bash ; npm run start"
+    command: bash -c "npm run start"
     env_file: ./auth_servise/.env
     volumes:
       - ./auth_servise/:/app
 
   crm_servise:
-    container_name: crm_servise
+    tty: true
+    container_name: crm
+    # environment:
+    #   TERM: "xterm"
     build:
       context: ./crm_servise
       dockerfile: Dockerfile.development
     image: crm_servise
     ports:
       - "4002:4002"
-    command: bash -c "/bin/bash ; npm run start"
+    command: bash -c "npm run start"
     env_file: ./crm_servise/.env
     volumes:
       - ./crm_servise/:/app
 
   vk_servise:
-    container_name: vk_servise
+    tty: true
+    container_name: vk
+    # environment:
+    #   TERM: "xterm"
     build:
       context: ./vk_servise
       dockerfile: Dockerfile.development
     image: vk_servise
     ports:
       - "4003:4003"
-    command: bash -c "/bin/bash ; npm run start"
+    command: bash -c "npm run start"
     env_file: ./vk_servise/.env
     volumes:
       - ./vk_servise/:/app
 
   insta_servise:
-    container_name: insta_servise
+    tty: true
+    container_name: insta
+    # environment:
+    #   TERM: "xterm"
     build:
       context: ./insta_servise
       dockerfile: Dockerfile.development
     image: insta_servise
     ports:
       - "4004:4004"
-    command: bash -c "/bin/bash ; npm run start"
+    command: bash -c "npm run start"
     env_file: ./insta_servise/.env
     volumes:
       - ./insta_servise/:/app
 
-  # other
+  # NOTE other
   docs_servise:
-    container_name: docs_servise
+    tty: true
+    container_name: docs
+    # environment:
+    #   TERM: "xterm"
     build:
       context: ./docs_servise
       dockerfile: Dockerfile.development
     image: docs_servise
     ports:
       - "4005:4005"
-    command: bash -c "/bin/bash ; npm run start"
+    command: bash -c "npm run start"
     env_file: ./docs_servise/.env.development
     volumes:
       - ./docs_servise/:/app
@@ -92,9 +108,8 @@ services:
   #   image: mobile_servise
   #   ports:
   #     - "4005:4005"
-  #   command: bash -c "/bin/bash ; npm run start"
+  #   command: bash -c "npm run start"
   #   env_file: ./mobile_servise/.env
   #   volumes:
   #     - ./mobile_servise/:/app
-
 

@@ -5,8 +5,8 @@ import { userQuery, updateUserQuery } from 'components/auth/graphql/private/quer
 import { compose, graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import Spinner from 'components/shared/spinner'
-import Page500 from 'components/shared/page500'
 import Page401 from 'components/shared/page401'
+import Page500 from 'components/shared/page500'
 
 const ErrorMessage = (
   <div>

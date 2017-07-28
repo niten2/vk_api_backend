@@ -4,7 +4,7 @@ import settings from 'config/settings'
 export const createJwt = (user) => {
   return jsonwebtoken.sign(
     {
-      id: user.id,
+      user_id: user.id,
       email: user.email,
     },
     settings.jwt_secret_key,

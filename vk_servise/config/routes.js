@@ -18,7 +18,7 @@ export default (app) => {
 
   app.use(
     '/v2',
-    // AuthMiddleware(),
+    AuthMiddleware(),
     graphqlExpress(buildOptions)
   )
 

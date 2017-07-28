@@ -41,11 +41,15 @@ export default (params) => ([
 
     return verifyJwt(token, async (err, payload) => {
       if (err) {
-        return res.status(401).json({ data: err, error: err })
+        return res.status(401).json({
+          data: { token: null },
+          errors: [{
+            message: err.message
+          }]
+        })
       }
 
-      const user = await User.findById(payload.id)
-      req.user = user
+      req.payload = payload
       return next()
     })
   }

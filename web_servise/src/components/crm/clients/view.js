@@ -9,7 +9,7 @@ class GroupView extends Component {
 
   static propTypes = {
     object: PropTypes.object.isRequired,
-    refresh: PropTypes.func.isRequired,
+    refetch: PropTypes.func.isRequired,
     clientDelete: PropTypes.func.isRequired,
   }
 
@@ -20,7 +20,7 @@ class GroupView extends Component {
       await clientDelete({
         variables: { id: object.id },
       })
-      this.props.refresh()
+      this.props.refetch()
     } catch (error) {
       Notification.error(error)
     }

@@ -100,13 +100,9 @@ export const resolvers = {
 
     statusDelete: async (root, { id }) => {
       await Status.destroy({
-        where: {
-          id: id
-        }
+        where: { id: id }
       })
     },
-
-
 
   },
 }

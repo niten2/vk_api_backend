@@ -72,7 +72,6 @@ const typeDefs = `
       id: ID!
     ): Status
 
-
   }
 `
 

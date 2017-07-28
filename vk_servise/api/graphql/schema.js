@@ -32,11 +32,30 @@ const typeDefs = `
     id: ID
     name: String
   }
+
+  type Mutation {
+
+    personCreate(
+      uid: String
+      first_name: String
+      last_name: String
+      followers_count: String
+      sex: String
+      city: String
+      bdate: String
+      crop_photo_url: String
+      status: String
+      createdAt: String
+      updatedAt: String
+    ): Person
+
+    personDelete(
+      id: ID!
+    ): Person
+
+  }
 `
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 export default schema
 
-//   type Mutation {
-
-//   }
