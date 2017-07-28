@@ -64,7 +64,7 @@ class New extends Component {
             <div className="card">
 
               <div className="card-header">
-                <i className="fa fa-align-justify"></i> Simple Table
+                <i className="fa fa-align-justify"></i> Create Person
               </div>
 
               <div className="card-block">

@@ -5,8 +5,6 @@ services:
   web_servise:
     tty: true
     container_name: web
-    # environment:
-    #   TERM: "xterm-256color"
     build:
       context: ./web_servise
       dockerfile: Dockerfile.development
@@ -22,8 +20,6 @@ services:
   auth_servise:
     tty: true
     container_name: auth
-    # environment:
-    #   TERM: "xterm"
     build:
       context: ./auth_servise
       dockerfile: Dockerfile.development
@@ -38,8 +34,6 @@ services:
   crm_servise:
     tty: true
     container_name: crm
-    # environment:
-    #   TERM: "xterm"
     build:
       context: ./crm_servise
       dockerfile: Dockerfile.development
@@ -54,8 +48,6 @@ services:
   vk_servise:
     tty: true
     container_name: vk
-    # environment:
-    #   TERM: "xterm"
     build:
       context: ./vk_servise
       dockerfile: Dockerfile.development
@@ -70,8 +62,6 @@ services:
   insta_servise:
     tty: true
     container_name: insta
-    # environment:
-    #   TERM: "xterm"
     build:
       context: ./insta_servise
       dockerfile: Dockerfile.development
@@ -87,8 +77,6 @@ services:
   docs_servise:
     tty: true
     container_name: docs
-    # environment:
-    #   TERM: "xterm"
     build:
       context: ./docs_servise
       dockerfile: Dockerfile.development

@@ -78,7 +78,7 @@ class Person extends Component {
           <div className="col-lg-12">
             <div className="card">
               <div className="card-header">
-                <i className="fa fa-align-justify"></i> persons
+                <i className="fa fa-align-justify pointer"></i> Persons
               </div>
               <div className="card-block">
                 <table className="table text-center">
