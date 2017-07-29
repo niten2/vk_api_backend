@@ -1,4 +1,5 @@
 import { formatError } from 'graphql'
+
 import schemaPublic from 'api/graphql/public/schema'
 import schemaPrivate from 'api/graphql/private/schema'
 
@@ -18,7 +19,7 @@ export const buildOptionsPublic = async (req, res) => {
 
 export const buildOptionsPrivate = async (req, res) => {
   return {
-    context: { user: req.user },
+    context: { payload: req.payload },
     schema: schemaPrivate,
     formatError: formatErrorCustom,
   }

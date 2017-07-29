@@ -4,6 +4,7 @@ import LayoutComponent from 'components/shared/layout'
 import { ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo'
 import settings from "lib/settings"
 import authProvider from 'lib/auth_provider'
+import Notification from 'lib/notification'
 
 const createClient = (url) => {
   const networkInterface = createNetworkInterface({
@@ -15,17 +16,15 @@ const createClient = (url) => {
       if (!req.options.headers) {
         req.options.headers = {}
       }
-
       req.options.headers.authorization = authProvider.fetchToken()
       next()
-    },
-
+    }
   }])
 
   networkInterface.useAfter([{
     applyAfterware({ response }, next) {
       if (response.status === 401) {
-        console.log("---------> server response status 401")
+        Notification.error("Server response status 401")
         authProvider.removeToken()
       }
       next()

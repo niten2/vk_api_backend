@@ -5,6 +5,7 @@ import settings from 'config/settings'
 import AuthMiddleware from 'api/middlewares/auth'
 import { buildOptionsPublic, buildOptionsPrivate } from 'api/graphql/config'
 
+
 export default (app) => {
 
   app.get('/', (req, res) => (

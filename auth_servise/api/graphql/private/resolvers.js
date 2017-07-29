@@ -6,15 +6,14 @@ export const resolvers = {
 
   Query: {
     user: async (root, args, context) => {
-      const user_id = context.user.id
-      const user = await User.findById(user_id)
-      return user
+      const user_id = context.payload.user_id
+      return await User.findById(user_id)
     },
   },
 
   Mutation: {
     UserUpdate: async (_, args, context) => {
-      const user_id = context.user.id
+      const user_id = context.payload.user_id
 
       const object = await User.findById(user_id)
 
