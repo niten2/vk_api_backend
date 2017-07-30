@@ -2,15 +2,31 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
-import { personDeleteQuery } from 'components/vk/graphql/querues'
 import Notification from 'lib/notification'
+import { deletePersonQuery } from 'components/vk/graphql/querues'
 
 class View extends Component {
 
   static propTypes = {
     object: PropTypes.object.isRequired,
     refetch: PropTypes.func.isRequired,
-    personDeleteQuery: PropTypes.func.isRequired,
+    deletePersonQuery: PropTypes.func.isRequired,
+  }
+
+  state = {
+    person: {},
+    attributes: [
+      "id",
+      "uid",
+      "first_name",
+      "last_name",
+      "followers_count",
+      "sex",
+      "city",
+      "bdate",
+      "crop_photo_url",
+      "status",
+    ]
   }
 
   // handlerInactive = () => {
@@ -19,11 +35,11 @@ class View extends Component {
   // }
 
   handleDestroy = async () => {
-    const { object, personDeleteQuery } = this.props
+    const { object, deletePersonQuery } = this.props
 
     try {
-      await personDeleteQuery({
-        variables: { id: object.id },
+      await deletePersonQuery({
+        variables: { input: { id: object.id } }
       })
       this.props.refetch()
       Notification.success("destroy")
@@ -34,23 +50,14 @@ class View extends Component {
   }
 
   render() {
-    let { object } = this.props
+    const { object } = this.props
+    const { attributes } = this.state
     return (
       <tr>
-        <td>{ object.id }</td>
 
-        <td> </td>
-        <td>
-          { object.first_name }
-        </td>
-
-        <td> </td>
-        <td>
-          { object.sex === 1 ? "women" : "men"}
-        </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        { attributes.map((attribute, index) =>
+          <td key={index}>{ object[attribute] }</td>
+        )}
 
         <td>
           <Link href={`/crm/clients/${object.id}`}>
@@ -63,7 +70,6 @@ class View extends Component {
           </div>
         </td>
 
-
       </tr>
     )
   }
@@ -71,5 +77,5 @@ class View extends Component {
 }
 
 export default graphql(
-  personDeleteQuery, { name: "personDeleteQuery"}
+  deletePersonQuery, { name: "deletePersonQuery"}
 )(View)

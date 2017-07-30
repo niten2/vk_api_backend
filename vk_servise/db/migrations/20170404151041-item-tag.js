@@ -25,9 +25,9 @@ module.exports = {
           references: null
         },
 
+        user_id: Sequelize.INTEGER,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-        user_id: Sequelize.INTEGER,
       })
   },
 

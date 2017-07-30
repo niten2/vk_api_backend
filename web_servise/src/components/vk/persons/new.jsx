@@ -3,18 +3,48 @@ import PropTypes from 'prop-types'
 import Notification from 'lib/notification'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
-import { personCreateQuery } from 'components/vk/graphql/querues'
-import { Input } from 'reactstrap'
+import { createPersonQuery } from 'components/vk/graphql/querues'
+
+const InputField = (props) => {
+  return (
+    <div className="form-group row">
+      <div className="col-md-12">
+        <div className="input-group">
+          <span className="input-group-addon">{ props.name }</span>
+          <input
+            className="form-control"
+            name={ props.name }
+            placeholder={ props.name }
+            onChange={ props.onChange }
+            onKeyPress={props.onKeyPress}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 class New extends Component {
 
   static propTypes = {
     refetch: PropTypes.func.isRequired,
-    personCreateQuery: PropTypes.func.isRequired,
+    createPersonQuery: PropTypes.func.isRequired,
   }
 
   state = {
+    open: false,
     person: {},
+    attributes: [
+      "uid",
+      "first_name",
+      "last_name",
+      "followers_count",
+      "sex",
+      "city",
+      "bdate",
+      "crop_photo_url",
+      "status",
+    ]
   }
 
   handleSetState = (e) => {
@@ -26,16 +56,16 @@ class New extends Component {
 
   handleCreate = async (e) => {
     e.preventDefault()
-    const { personCreateQuery, refetch } = this.props
+    const { createPersonQuery, refetch } = this.props
     const { person } = this.state
 
     try {
-      await personCreateQuery({
+      await createPersonQuery({
         variables: {
-          first_name: person.name,
+          input: person,
         },
       })
-      this.props.refetch()
+      refetch()
       Notification.success("ok")
     } catch (e) {
       Notification.error(e)
@@ -49,107 +79,67 @@ class New extends Component {
   }
 
   handleOnKeyPress = (target) => {
-    if (target.charCode === 13) {
-      this.handleCreate()
-    }
+    if (target.charCode === 13) { this.handleCreate() }
+  }
+
+  handleCard = () => {
+    this.setState({ open: !this.state.open })
+  }
+
+  renderCardBlock = () => {
+    const { attributes } = this.state
+    return (
+      <div className="card-block animated fadeIn">
+        <form className="form-2orizontal">
+
+          { attributes.map((attribute, index) =>
+            <InputField
+              key={index}
+              onChange={this.handleSetState.bind(this)}
+              onKeyPress={ this.handleOnKeyPress.bind(this) }
+              name={attribute}
+            />
+          )}
+
+          <div className="form-actions">
+            <button
+              className="btn btn-primary"
+              onClick={this.handleCreate}
+            >Save changes</button>
+
+            &nbsp;
+
+            <button
+              onClick={this.handleCard}
+              className="btn btn-default"
+            >Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    )
   }
 
   render() {
+    const { open } = this.state
+
     return (
-      <div className="animated fadeIn">
+      <div className="row">
+        <div className="col-lg-12">
 
-        <div className="row">
-          <div className="col-lg-12">
+          <div className="card">
 
-            <div className="card">
-
-              <div className="card-header">
-                <i className="fa fa-align-justify"></i> Create Person
+            <div className="card-header">
+              <i className="pointer fa fa-align-justify"/> Create Person
+              <div className="card-actions pointer ">
+                <a onClick={this.handleCard} className="btn-minimize">
+                  <i className={ open ? "icon-arrow-up" : "icon-arrow-down"} />
+                </a>
               </div>
-
-              <div className="card-block">
-                <form className="form-2orizontal">
-
-                  <div className="form-group row">
-                    <div className="col-md-12">
-                      <div className="input-group">
-                        <span className="input-group-addon">Name</span>
-                        <Input
-                          name="name"
-                          onChange={ this.handleSetState }
-                          onKeyPress={ this.handleOnKeyPress }
-                          placeholder="name"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group row">
-                    <div className="col-md-12">
-                      <div className="input-group">
-                        <span className="input-group-addon">Number</span>
-                        <Input
-                          name="number"
-                          onChange={ this.handleSetState }
-                          onKeyPress={ this.handleOnKeyPress }
-                          placeholder="Number"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group row">
-                    <div className="col-md-12">
-                      <div className="input-group">
-                        <span className="input-group-addon">Phone</span>
-                        <Input
-                          name="phone"
-                          onChange={ this.handleSetState }
-                          onKeyPress={ this.handleOnKeyPress }
-                          placeholder="Phone"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group row">
-                    <div className="col-md-12">
-                      <div className="input-group">
-                        <span className="input-group-addon">Note</span>
-                        <Input
-                          name="note"
-                          onChange={ this.handleSetState }
-                          onKeyPress={ this.handleOnKeyPress }
-                          placeholder="Note"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="form-actions">
-                    <button
-                      className="btn btn-primary"
-                      onClick={this.handleCreate}
-                    >
-                      Save changes
-                    </button>
-
-                    &nbsp;
-
-                    <Link href="/crm/clients">
-                      <button
-                        className="btn btn-default"
-                      >
-                        Cancel
-                      </button>
-                    </Link>
-                  </div>
-                </form>
-
-              </div>
-
             </div>
+
+            { open ? this.renderCardBlock() : null }
+
           </div>
         </div>
       </div>
@@ -158,4 +148,4 @@ class New extends Component {
 
 }
 
-export default graphql(personCreateQuery, { name: "personCreateQuery" })(New)
+export default graphql(createPersonQuery, { name: "createPersonQuery" })(New)

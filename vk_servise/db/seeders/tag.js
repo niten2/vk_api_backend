@@ -6,12 +6,16 @@ module.exports = {
         name: 'user-1',
         status: "active",
         kind: "users",
+
+        user_id: 1,
         createdAt: new Date(),
       },
       {
         name: 'user-2',
         status: "active",
         kind: "users",
+
+        user_id: 1,
         createdAt: new Date(),
       },
 
@@ -19,12 +23,16 @@ module.exports = {
         name: 'group-1',
         status: "active",
         kind: "groups",
+
+        user_id: 1,
         createdAt: new Date(),
       },
       {
         name: 'group-2',
         status: "active",
         kind: "groups",
+
+        user_id: 1,
         createdAt: new Date(),
       },
 

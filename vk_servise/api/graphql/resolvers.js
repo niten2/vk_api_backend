@@ -1,10 +1,11 @@
 import { Person, Tag, Group } from "api/models"
 import { createJwt } from "api/services/jwt"
 import { GraphQLObjectType } from 'graphql-tools'
+import { merge } from 'ramda'
 
 export const resolvers = {
 
-  Query: {
+  RootQuery: {
     persons: async (root, args) => {
       return await Person.findAll({})
     },
@@ -16,47 +17,30 @@ export const resolvers = {
     },
   },
 
-  Mutation: {
-    personCreate: async (_, args, context) => {
-      const user_id = context.user_id
-      const {
-        name,
-        email,
-        uid,
-        first_name,
-        last_name,
-        followers_count,
-        sex,
-        city,
-        bdate,
-        crop_photo_url,
-        status,
-      } = args
+  RootMutation: {
+    createPerson: async (_, args, context) => {
+      const attributes = merge(
+        args.input,
+        { user_id: context.payload.user_id }
+      )
 
-      const object = await Person.create({
-        name,
-        email,
-        uid,
-        first_name,
-        last_name,
-        followers_count,
-        sex,
-        city,
-        bdate,
-        crop_photo_url,
-        status,
-        user_id,
-      })
+      console.log(attributes)
+
+
+      const object = await Person.create(attributes)
 
       console.log(object)
+
       return object
     },
 
-    personDelete: async (_, args, context) => {
-      return await Person.destroy({
-        where: { id: args.id }
-      })
-    }
+    updatePerson: async (_, args, context) => {
+      console.log(11111, "update")
+    },
+
+    deletePerson: async (_, args, context) => {
+      return await Person.destroy({ where: { id: args.input.id } })
+    },
 
   },
 }

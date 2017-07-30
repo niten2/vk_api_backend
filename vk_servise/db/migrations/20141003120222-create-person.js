@@ -20,14 +20,12 @@ module.exports = {
         crop_photo_url: Sequelize.STRING,
         status: Sequelize.STRING,
 
+        user_id: Sequelize.INTEGER,
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false
         },
-
         updatedAt: Sequelize.DATE,
-
-        user_id: Sequelize.INTEGER,
 
       })
   },

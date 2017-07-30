@@ -2,17 +2,31 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { personsQuery } from 'components/vk/graphql/querues'
 import Spinner from 'components/shared/spinner'
-import Page401 from 'components/shared/page401'
+// import Page401 from 'components/shared/page401'
 import Page500 from 'components/shared/page500'
 import PersonView from './view'
 import PersonNew from './new'
 
 class Person extends Component {
 
-  render() {
-    console.log(this.props)
+  state = {
+    attributes: [
+      "id",
+      "uid",
+      "first_name",
+      "last_name",
+      "followers_count",
+      "sex",
+      "city",
+      "bdate",
+      "crop_photo_url",
+      "status",
+    ]
+  }
 
-    let { loading, error, persons, refetch } = this.props.personsQuery
+  render() {
+    const { loading, error, persons, refetch } = this.props.personsQuery
+    const { attributes } = this.state
 
     if (loading ) {
       return <Spinner />
@@ -37,14 +51,10 @@ class Person extends Component {
                 <table className="table text-center">
                   <thead>
                     <tr>
-                      <th className="text-center">Id</th>
-                      <th className="text-center">Аватар</th>
-                      <th className="text-center">Имя</th>
-                      <th className="text-center">Друзья</th>
-                      <th className="text-center">Пол</th>
-                      <th className="text-center">Город</th>
-                      <th className="text-center">Возраст</th>
-                      <th className="text-center">Статус</th>
+                      { attributes.map((attribute, index) =>
+                        <th key={index} className="text-center">{ attribute }</th>
+                      )}
+
                       <th className="text-center">Edit</th>
                       <th className="text-center">Delete</th>
                     </tr>

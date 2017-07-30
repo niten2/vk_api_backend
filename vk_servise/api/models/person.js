@@ -30,11 +30,10 @@ let Person = db.define('persons', {
     type: Sequelize.STRING
   },
 
-  crop_photo_url: {
-    type: Sequelize.STRING
-  },
+  crop_photo_url: Sequelize.STRING,
 
   status: Sequelize.ENUM('active', 'inactive'),
+  user_id: Sequelize.INTEGER,
 
 }, {
 

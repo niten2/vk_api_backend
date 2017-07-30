@@ -6,6 +6,7 @@ module.exports = {
         screen_name: 'screen_name',
         createdAt: new Date(),
         status: 'active',
+        user_id: 1,
       },
 
     ], {})

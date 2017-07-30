@@ -17,9 +17,9 @@ module.exports = {
         photo_50: Sequelize.STRING,
         status: Sequelize.ENUM('active', 'inactive'),
 
+        user_id: Sequelize.INTEGER,
         createdAt: Sequelize.DATE,
         updatedAt: Sequelize.DATE,
-        user_id: Sequelize.INTEGER,
       })
   },
 

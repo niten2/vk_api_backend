@@ -9,7 +9,7 @@ export const createJwt = (user) => {
     },
     settings.jwt_secret_key,
     {
-      expiresIn: 10800
+      expiresIn: 10000000000
     }
   )
 }

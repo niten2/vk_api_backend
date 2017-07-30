@@ -12,6 +12,8 @@ module.exports = {
         bdate: 'bdate',
         crop_photo_url: 'crop_photo_url',
         status: 'active',
+
+        user_id: 1,
         createdAt: new Date(),
       }
     ], {})

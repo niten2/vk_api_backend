@@ -19,36 +19,25 @@ export const personsQuery = gql`
     }
   }
 `
-export const personCreateQuery = gql`
-  mutation personCreate(
-    $uid: String
-    $first_name: String
-    $last_name: String
-    $followers_count: String
-    $sex: String
-    $city: String
-  ) {
-    personCreate(
-      uid: $uid
-      first_name: $first_name
-      last_name: $last_name
-      followers_count: $followers_count
-      sex: $sex
-      city: $city
-    ) {
-      uid
-      first_name
-      last_name
-      followers_count
-      sex
-      city
+export const createPersonQuery = gql`
+  mutation createPerson($input: PersonInput!) {
+    createPerson(input: $input) {
+      id
     }
   }
 `
 
-export const personDeleteQuery = gql`
-  mutation personDelete($id: ID!) {
-    personDelete(id: $id) {
+export const updatePersonQuery = gql`
+  mutation createPerson($input: PersonInput!) {
+    createPerson(input: $input) {
+      id
+    }
+  }
+`
+
+export const deletePersonQuery = gql`
+  mutation deletePerson($input: IdInput!) {
+    deletePerson(input: $input) {
       id
     }
   }
