@@ -11,6 +11,15 @@ extendObservable(UIStore, {
 
   sidebar: true,
   login: false,
+
+
+  // tags: {
+  //   name: "",
+  //   loading: false,
+  //   error: null,
+  //   tags: []
+  // }
+
 })
 
 Object.assign(UIStore, {

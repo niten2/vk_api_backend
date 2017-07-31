@@ -3,43 +3,31 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
-import { deletePersonQuery } from 'components/vk/graphql/querues'
+import { deleteTagQuery } from 'components/vk/graphql/querues'
 
 class View extends Component {
 
   static propTypes = {
     object: PropTypes.object.isRequired,
     refetch: PropTypes.func.isRequired,
-    deletePersonQuery: PropTypes.func.isRequired,
+    deleteTagQuery: PropTypes.func.isRequired,
   }
 
   state = {
     person: {},
     attributes: [
       "id",
-      "uid",
-      "first_name",
-      "last_name",
-      "followers_count",
-      "sex",
-      "city",
-      "bdate",
-      "crop_photo_url",
+      "name",
       "status",
     ]
   }
 
-  // handlerInactive = () => {
-  //   let { object } = this.props
-  //   // User.setInactive({ id: object.id })
-  // }
-
   handleDestroy = async () => {
-    const { object, deletePersonQuery } = this.props
+    const { object, deleteTagQuery } = this.props
 
     try {
-      await deletePersonQuery({
-        variables: { input: { id: object.id } }
+      await deleteTagQuery({
+        variables: { input: { id: object.id } },
       })
       this.props.refetch()
       Notification.success("destroy")
@@ -60,10 +48,11 @@ class View extends Component {
         )}
 
         <td>
-          <Link href={`/vk/persons/${object.id}`}>
+          <Link href={`/vk/tags/${object.id}`}>
             Edit
           </Link>
         </td>
+
         <td >
           <div className="text-center" onClick={this.handleDestroy}>
             <i className="pointer icon-ban" />
@@ -77,5 +66,5 @@ class View extends Component {
 }
 
 export default graphql(
-  deletePersonQuery, { name: "deletePersonQuery"}
+  deleteTagQuery, { name: "deleteTagQuery"}
 )(View)

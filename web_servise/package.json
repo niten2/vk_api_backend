@@ -33,6 +33,7 @@
     "react-ultimate-pagination": "^1.0.2",
     "reactstrap": "^4.6.2",
     "styled-components": "^2.1.0",
+    "subscriptions-transport-ws": "^0.8.1",
     "superagent": "^3.5.2",
     "tachyons": "^4.7.4"
   },

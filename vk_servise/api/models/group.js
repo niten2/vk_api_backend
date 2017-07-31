@@ -34,7 +34,9 @@ let Group = db.define('groups', {
     type: Sequelize.STRING,
   },
 
-  user_id: Sequelize.INTEGER,
+  user_id: {
+    type: Sequelize.STRING,
+  },
 
 }, {
 

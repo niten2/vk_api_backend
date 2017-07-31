@@ -24,7 +24,10 @@ export default (app) => {
 
   app.use(
     '/v2',
-    graphiqlExpress({ endpointURL: '/graphql' })
+    graphiqlExpress({
+      endpointURL: '/graphql',
+      subscriptionsEndpoint: `ws://localhost:${settings.port}/subscriptions`,
+    })
   )
 
 }

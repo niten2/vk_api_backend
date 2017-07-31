@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Notification from 'lib/notification'
 import { graphql } from 'react-apollo'
-import { Link } from 'lib/nav_link'
 import { createPersonQuery } from 'components/vk/graphql/querues'
 
 const InputField = (props) => {

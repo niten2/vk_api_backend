@@ -3,29 +3,23 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
-import { deletePersonQuery } from 'components/vk/graphql/querues'
+import { deleteGroupQuery } from 'components/vk/graphql/querues'
 
 class View extends Component {
 
   static propTypes = {
     object: PropTypes.object.isRequired,
     refetch: PropTypes.func.isRequired,
-    deletePersonQuery: PropTypes.func.isRequired,
+    deleteGroupQuery: PropTypes.func.isRequired,
   }
 
   state = {
     person: {},
     attributes: [
       "id",
-      "uid",
-      "first_name",
-      "last_name",
-      "followers_count",
-      "sex",
-      "city",
-      "bdate",
-      "crop_photo_url",
-      "status",
+      "name",
+      "members_count",
+      "note",
     ]
   }
 
@@ -35,10 +29,10 @@ class View extends Component {
   // }
 
   handleDestroy = async () => {
-    const { object, deletePersonQuery } = this.props
+    const { object, deleteGroupQuery } = this.props
 
     try {
-      await deletePersonQuery({
+      await deleteGroupQuery({
         variables: { input: { id: object.id } }
       })
       this.props.refetch()
@@ -77,5 +71,5 @@ class View extends Component {
 }
 
 export default graphql(
-  deletePersonQuery, { name: "deletePersonQuery"}
+  deleteGroupQuery, { name: "deleteGroupQuery"}
 )(View)

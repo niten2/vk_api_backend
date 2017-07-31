@@ -1,139 +1,88 @@
 import React, { Component } from 'react'
-// import { observer } from 'mobx-react'
-// import { UIStore } from 'stores'
-// import { Group } from "models"
+import PropTypes from 'prop-types'
+import { graphql } from 'react-apollo'
+import { groupsQuery } from 'components/vk/graphql/querues'
+import Spinner from 'components/shared/spinner'
+// import Page401 from 'components/shared/page401'
+import Page500 from 'components/shared/page500'
 
-// import Select from 'react-select'
-// import { compact, sortBy } from "lodash"
+import GroupNew from './new'
+import GroupView from './view'
 
-// import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { Col } from 'reactstrap'
-// import Notification from 'notification'
-// import Spinner from 'spinner'
-// import { NavLink } from 'nav_link'
+class Groups extends Component {
 
-// import GroupView from './group_view'
-// import SelectView from './select'
-// import Sidebar from 'views/vk/sidebar'
+  static propTypes = {
+    groupsQuery: PropTypes.object.isRequired,
+  }
 
-// @observer
-export default class Index extends Component {
-
-  // state = {
-  //   loading: false,
-  //   showinText: false,
-  // }
-
-  // getObjects() {
-    // let objects = []
-    // let ids = UIStore.group_ids.slice()
-
-    // ids.map(id => { objects.push(Group.get(id)) })
-    // objects = sortBy(objects, "members_count").reverse()
-
-    // return objects
-  // }
-
-
-  // handeShowInText = () => {
-  //   let { showInText } = this.state
-  //   this.setState({ showInText: !showInText })
-  // }
-
-  // renderObjects = () => {
-
-  //   return (
-  //     <div>
-  //       { compact(this.getObjects()).map((object, index) =>
-  //           <GroupView
-  //             object={object}
-  //             key={index}
-  //           />
-  //       )}
-  //     </div>
-  //   )
-  // }
-
-  // renderTextGroups() {
-  //   return (
-  //     <div>
-  //       List Groups
-  //       <br />
-  //       <br />
-
-  //       { compact(this.getObjects()).map((object, index) =>
-  //           <div key={index}>
-  //             { `http://vk.com/club${object.gid}` }
-  //             <Clearfix />
-  //           </div>
-  //       )}
-
-
-  //     </div>
-  //   )
-  // }
-
-  // renderGroups() {
-  //   return (
-  //     <div>
-  //       <Col xs={1}>
-  //         ID
-  //       </Col>
-  //       <Col xs={2}>
-  //         Screen Name
-  //       </Col>
-  //       <Col xs={5}>
-  //         Название
-  //       </Col>
-  //       <Col xs={2}>
-  //         Количество
-  //       </Col>
-  //       <Col xs={2}>
-  //         Комментарий
-  //       </Col>
-
-  //       <Clearfix />
-  //       <br />
-  //       <br />
-
-  //       { UIStore.loading ? Spinner() : this.renderObjects() }
-  //     </div>
-  //   )
-  // }
+  state = {
+    attributes: [
+      "id",
+      "name",
+      "members_count",
+      "note",
+    ]
+  }
 
   render() {
-    // let { showInText } = this.state
-    // let count = UIStore.group_ids.slice().length
+    const { loading, error, groups, refetch } = this.props.groupsQuery
+    const { attributes } = this.state
+
+    if (loading ) {
+      return <Spinner />
+    }
+
+    if (error) {
+      return <Page500 />
+    }
 
     return (
-      <Col>
+      <div className="animated fadeIn">
 
-        groups
+        <GroupNew refetch={refetch}/>
 
-      </Col>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card">
+              <div className="card-header">
+                <i className="fa fa-align-justify pointer"></i> Groups
+              </div>
+              <div className="card-block">
+                <table className="table text-center">
+                  <thead>
+                    <tr>
+                      { attributes.map((attribute, index) =>
+                        <th key={index} className="text-center">{ attribute }</th>
+                      )}
+
+                      <th className="text-center">Edit</th>
+                      <th className="text-center">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    { groups.map( (object, index) =>
+                      <GroupView
+                        key={index}
+                        object={object}
+                        refetch={() => refetch()}
+                      />
+                    )}
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     )
   }
 
 }
 
-        // <Sidebar active="groups"/>
-
-        // <Col xs={6}>
-        //   <h1> Группы </h1>
-        // </Col>
-
-        // <Col xs={6}>
-        //   <Button onClick={this.handeShowInText}>
-        //     show in text
-        //   </Button>
-        // </Col>
-
-        // <Clearfix />
-
-        // <SelectView count={count} />
-
-        // { showInText ? this.renderTextGroups() : this.renderGroups() }
-
-        // <Clearfix />
-        // <br />
-        // <br />
+export default graphql(
+  groupsQuery, { name: "groupsQuery", }
+)(Groups)

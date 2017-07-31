@@ -71,6 +71,10 @@ export default (params) => ([
         // log[levelFn(data)](data, logFinish(data))
       }
 
+      if (req.body) {
+        log.debug(req.body)
+      }
+
       res.on('finish', logging)
       // res.on('close', logging)
     }

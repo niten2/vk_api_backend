@@ -5,7 +5,7 @@ const formatErrorCustom = error => {
   const data = formatError(error)
   const { originalError } = error
   data.field = originalError && originalError.field
-  return data;
+  return data
 }
 
 export const buildOptions = async (req, res) => {

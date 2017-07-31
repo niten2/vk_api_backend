@@ -1,55 +1,68 @@
-import React, { PropTypes, Component } from 'react'
-import { observer } from 'mobx-react'
-import { UIStore } from 'stores'
-import { Group, Tag } from "models"
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Notification from 'lib/notification'
+import { graphql } from 'react-apollo'
+import { createGroupQuery } from 'components/vk/graphql/querues'
 
-import Select from 'react-select'
-import { filter, sortBy } from "lodash"
+const InputField = (props) => {
+  return (
+    <div className="form-group row">
+      <div className="col-md-12">
+        <div className="input-group">
+          <span className="input-group-addon">{ props.name }</span>
+          <input
+            className="form-control"
+            name={ props.name }
+            placeholder={ props.name }
+            onChange={ props.onChange }
+            onKeyPress={props.onKeyPress}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
 
-import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { NavLink } from 'nav_link'
-import Notification from 'notification'
-import Spinner from 'spinner'
+class New extends Component {
 
-export default class CreateGroup extends Component {
-
-  async componentWillMount() {
-    await Tag.loadAll({kind: "groups"})
-    this.setState({loading: false })
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    createGroupQuery: PropTypes.func.isRequired,
   }
 
   state = {
-    loading: true,
-  }
-
-
-  state = {
-    group: {
-      url: "",
-      tag_id: "",
-    },
-    responses: {},
-    create: false,
+    open: false,
+    group: {},
+    attributes: [
+      "name",
+      "members_count",
+      "note",
+    ]
   }
 
   handleSetState = (e) => {
     const { name, value } = e.target
     let { group } = this.state
-
     group[name] = value
     this.setState({ group })
   }
 
-  handleCreate = () => {
+  handleCreate = async (e) => {
+    e.preventDefault()
+    const { createGroupQuery, refetch } = this.props
     const { group } = this.state
 
-    Group.create(group).then(response => {
-      console.log(response)
-      if (response.ok) {
-        Notification.success("ok")
-        this.setState({ responses: response.body, create: true })
-      }
-    })
+    try {
+      await createGroupQuery({
+        variables: {
+          input: group,
+        },
+      })
+      refetch()
+      Notification.success("ok")
+    } catch (e) {
+      Notification.error(e)
+    }
   }
 
   handleChangeTag = (val) => {
@@ -59,117 +72,73 @@ export default class CreateGroup extends Component {
   }
 
   handleOnKeyPress = (target) => {
-    target.charCode == 13 ?  this.handleCreate() : null
+    if (target.charCode === 13) { this.handleCreate() }
   }
 
-  renderResponse() {
-    let { responses } = this.state
-
-    console.log(responses)
-    return (
-      <Col xs={12} className="text-center">
-        { responses.map((response, index) =>
-            <div key={index}>
-              screen_name:
-              &nbsp;
-              { response.screen_name }
-
-              <br />
-
-              name:
-              &nbsp;
-              { response.name }
-
-              <br />
-
-              members count:
-              &nbsp;
-              { response.members_count }
-            <br />
-            <br />
-            </div>
-          )
-        }
-
-      </Col>
-    )
+  handleCard = () => {
+    this.setState({ open: !this.state.open })
   }
 
-
-  renderView() {
-    const tags = filter(Tag.all(), { kind: "groups"})
-
-    let { group, create } = this.state
-
+  renderCardBlock = () => {
+    const { attributes } = this.state
     return (
-      <div>
-        <Col xs={12} className="text-center">
+      <div className="card-block animated fadeIn">
+        <form className="form-2orizontal">
 
-          Create new Group
-          <Clearfix />
-          <br />
-
-          <Col xs={6}>
-            URL
-          </Col>
-          <Col xs={6}>
-            <textarea
-              name="url"
-              rows="10"
-              cols="45"
-              className="form-control"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
+          { attributes.map((attribute, index) =>
+            <InputField
+              key={index}
+              onChange={this.handleSetState.bind(this)}
+              onKeyPress={ this.handleOnKeyPress.bind(this) }
+              name={attribute}
             />
-          </Col>
+          )}
 
-          <Clearfix />
-          <br />
+          <div className="form-actions">
+            <button
+              className="btn btn-primary"
+              onClick={this.handleCreate}
+            >Save changes</button>
 
-          <Col xs={6}>
-            Tag
-          </Col>
-          <Col xs={6}>
-            <Select
-              name="form-field-name"
-              value={group.tag_id}
-              options={tags}
-              onChange={this.handleChangeTag}
-              valueKey="id"
-              labelKey="name"
-            />
-          </Col>
+            &nbsp;
 
+            <button
+              onClick={this.handleCard}
+              className="btn btn-default"
+            >Cancel</button>
+          </div>
 
-        </Col>
-
-        <Clearfix />
-        <br />
-
-        <div className="text-center">
-          <Button onClick={this.handleCreate}>
-            Save
-          </Button>
-          &nbsp;
-          <NavLink to="/groups">
-            <Button>
-              Return
-            </Button>
-          </NavLink>
-        </div>
-
-        <br />
-        <br />
-        { create ? this.renderResponse() : null }
-
+        </form>
       </div>
     )
   }
 
   render() {
-    return this.state.loading ? Spinner() : this.renderView()
-  }
+    const { open } = this.state
 
+    return (
+      <div className="row">
+        <div className="col-lg-12">
+
+          <div className="card">
+
+            <div className="card-header">
+              <i className="pointer fa fa-align-justify"/> Create Group
+              <div className="card-actions pointer ">
+                <a onClick={this.handleCard} className="btn-minimize">
+                  <i className={ open ? "icon-arrow-up" : "icon-arrow-down"} />
+                </a>
+              </div>
+            </div>
+
+            { open ? this.renderCardBlock() : null }
+
+          </div>
+        </div>
+      </div>
+    )
+  }
 
 }
 
+export default graphql(createGroupQuery, { name: "createGroupQuery" })(New)

@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { personsQuery } from 'components/vk/graphql/querues'
 import Spinner from 'components/shared/spinner'
-// import Page401 from 'components/shared/page401'
 import Page500 from 'components/shared/page500'
 import PersonView from './view'
 import PersonNew from './new'
 
 class Person extends Component {
+
+  static propTypes = {
+    personsQuery: PropTypes.object.isRequired,
+  }
 
   state = {
     attributes: [

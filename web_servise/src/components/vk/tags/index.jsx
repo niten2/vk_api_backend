@@ -1,104 +1,95 @@
 import React, { Component } from 'react'
-// import { observer } from 'mobx-react'
-// import { UIStore } from 'stores'
-// import { Tag } from "models"
+import PropTypes from 'prop-types'
+import { graphql } from 'react-apollo'
+import { tagsQuery } from 'components/vk/graphql/querues'
+import Spinner from 'components/shared/spinner'
+import Page500 from 'components/shared/page500'
+import New from './new'
+import View from './view'
+import Filter from './filter'
 
-// import Select from 'react-select'
-// import { filter, sortBy } from "lodash"
+class Tag extends Component {
 
-// import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { Col } from 'reactstrap'
-// import Notification from 'notification'
-// import Spinner from 'spinner'
-// import { NavLink } from 'nav_link'
-
-// import TagView from './tag_view'
-// // import SelectView from './select'
-// import Sidebar from 'views/vk/sidebar'
-
-// @observer
-export default class Index extends Component {
-
-  // async componentWillMount() {
-  //   await Tag.loadAll()
-  //   this.setState({loading: false })
-  // }
+  static propTypes = {
+    tagsQuery: PropTypes.object.isRequired,
+  }
 
   state = {
-    loading: true,
+    attributes: [
+      "id",
+      "name",
+      "status",
+    ]
   }
 
   render() {
-    // const tagUsers = filter(Tag.all(), { kind: "users"})
-    // const tagGroups = filter(Tag.all(), { kind: "groups"})
+    const { loading, error, tags, refetch } = this.props.tagsQuery
+    const { attributes } = this.state
+
+    if (loading ) {
+      return <Spinner />
+    }
+
+    if (error) {
+      return <Page500 />
+    }
 
     return (
-      <Col>
-        tags
+      <div className="">
+        <div className="row">
 
+          <div className="col-lg-6">
+            <div className="card">
 
-      </Col>
+              <div className="card-header">
+                <i className="fa fa-align-justify pointer"></i> Tags
+              </div>
+              <div className="card-block">
+                <table className="table text-center">
+                  <thead>
+                    <tr>
+                      { attributes.map((attribute, index) =>
+                        <th key={index} className="text-center">{ attribute }</th>
+                      )}
+
+                      <th className="text-center">Edit</th>
+                      <th className="text-center">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    { tags.map( (object, index) =>
+                      <View
+                        key={index}
+                        object={object}
+                        refetch={() => refetch()}
+                      />
+                    )}
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div className="col-lg-6">
+            <div className="col-lg-12">
+              <New refetch={refetch}/>
+            </div>
+
+            <div className="col-lg-12">
+              <Filter refetch={refetch}/>
+            </div>
+          </div>
+
+        </div>
+      </div>
     )
   }
 
 }
-        // <Sidebar active="tags"/>
 
-        // <h1> Тэги </h1>
-
-        // <Col xs={6}>
-        //   <NavLink to="/tags/new">
-        //     <Button>
-        //       New
-        //     </Button>
-        //   </NavLink>
-        // </Col>
-
-        // <Clearfix />
-
-        // <Col xs={6}>
-        //   <h1> Users </h1>
-
-        //   <Col xs={1}>
-        //     ID
-        //   </Col>
-        //   <Col xs={5}>
-        //     Название
-        //   </Col>
-
-        //   <Clearfix />
-        //   <br />
-        //   <br />
-
-        //   {
-        //     tagUsers.map((object, index) =>
-        //       <TagView
-        //         object={object}
-        //         key={index}
-        //       />
-        //   )}
-        // </Col>
-
-
-        // <Col xs={6}>
-        //   <h1> Groups </h1>
-
-        //   <Col xs={1}>
-        //     ID
-        //   </Col>
-        //   <Col xs={5}>
-        //     Название
-        //   </Col>
-
-        //   <Clearfix />
-        //   <br />
-        //   <br />
-
-        //   {
-        //     tagGroups.map((object, index) =>
-        //       <TagView
-        //         object={object}
-        //         key={index}
-        //       />
-        //   )}
-        // </Col>
+export default graphql(
+  tagsQuery, { name: "tagsQuery" }
+)(Tag)

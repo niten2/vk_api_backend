@@ -1,132 +1,159 @@
-import React, { PropTypes, Component } from 'react'
-import { observer } from 'mobx-react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { UIStore } from 'stores'
-import { Group, Tag } from "models"
+import Notification from 'lib/notification'
+import { graphql, withApollo } from 'react-apollo'
+import { createTagQuery, tagsQuery } from 'components/vk/graphql/querues'
 
-import Select from 'react-select'
-import { sortBy } from "lodash"
+const InputField = (props) => {
+  return (
+    <div className="form-group row">
+      <div className="col-md-12">
+        <div className="input-group">
+          <span className="input-group-addon">{ props.name }</span>
+          <input
+            className="form-control"
+            name={ props.name }
+            placeholder={ props.name }
+            onChange={ props.onChange }
+            value={ props.value || ""}
+            onKeyPress={props.onKeyPress}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
 
-import { Tabs, Tab, Button, Clearfix, Grid, Row, Col } from 'react-bootstrap'
-import { NavLink } from 'nav_link'
-import Notification from 'notification'
-import Spinner from 'spinner'
+class New extends Component {
 
-export default class CreateGroup extends Component {
-
-  state = {
-    loading: true,
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    createTagQuery: PropTypes.func.isRequired,
   }
 
   state = {
-    tag: {
-      name: "",
-      kind: "",
-    },
-    select: {
-      name: "groups",
-      value: "groups",
-    },
-    options: [
-      { name: "groups", value: "groups" },
-      { name: "users", value: "users" },
+    open: true,
+    group: {},
+    attributes: [
+      "name",
+      "status",
     ]
+  }
+
+  query = async (name) => {
+    const result = await this.props.client.query({
+      query: tagsQuery,
+      variables: {
+        filter: { name: UIStore.tags.query || null }
+      },
+    })
+    UIStore.tags.tags = result.data.tags
   }
 
   handleSetState = (e) => {
     const { name, value } = e.target
-    let { tag } = this.state
-
-    tag[name] = value
-    this.setState({ tag })
+    let { group } = this.state
+    group[name] = value
+    this.setState({ group })
   }
 
-  handleChangeTag = (value) => {
-    this.setState({ select: value })
+  handleCreate = async (e) => {
+    e.preventDefault()
+    const { createTagQuery, refetch } = this.props
+    const { group } = this.state
+
+    try {
+      await createTagQuery({
+        variables: {
+          input: group,
+        },
+      })
+      refetch()
+      this.setState({ group: {} })
+      Notification.success("ok")
+    } catch (e) {
+      Notification.error(e)
+    }
   }
 
-  handleCreate = () => {
-    const { tag, select } = this.state
-    tag.kind = select.value
-
-    Tag.create(tag).then(response => {
-      if (response.ok) {
-        Notification.success("ok")
-      }
-    })
+  handleChangeTag = (val) => {
+    let { group } = this.state
+    group.tag_id = val.id
+    this.setState({ group })
   }
 
   handleOnKeyPress = (target) => {
-    target.charCode == 13 ?  this.handleCreate() : null
+    if (target.charCode === 13) { this.handleCreate() }
   }
 
-  renderView() {
-    let { options, select } = this.state
+  handleCard = () => {
+    this.setState({ open: !this.state.open })
+  }
 
+  renderCardBlock = () => {
+    let { group, attributes } = this.state
     return (
-      <div>
-        <Col xs={12} className="text-center">
+      <div className="card-block">
+        <form className="form-2orizontal">
 
-          Create new Tag
-          <Clearfix />
-          <br />
-
-          <Col xs={6}>
-            Name
-          </Col>
-          <Col xs={6}>
-            <input
-              name="name"
-              className="form-control"
-              onChange={ this.handleSetState }
-              onKeyPress={ this.handleOnKeyPress }
+          { attributes.map((attribute, index) =>
+            <InputField
+              key={index}
+              onChange={this.handleSetState.bind(this)}
+              value={group[attribute]}
+              onKeyPress={ this.handleOnKeyPress.bind(this) }
+              name={attribute}
             />
-          </Col>
+          )}
 
-          <Clearfix />
-          <br />
+          <div className="form-actions">
+            <button
+              className="btn btn-primary"
+              onClick={this.handleCreate}
+            >Save changes</button>
 
-          <Col xs={6}>
-            Kind
-          </Col>
-          <Col xs={6}>
-            <Select
-              name="form-field-name"
-              value={select}
-              options={options}
-              onChange={this.handleChangeTag}
-              valueKey="value"
-              labelKey="name"
-            />
-          </Col>
+            &nbsp;
 
-        </Col>
+            <button
+              onClick={this.handleCard}
+              className="btn btn-default"
+            >Cancel</button>
+          </div>
 
-        <Clearfix />
-        <br />
-
-        <div className="text-center">
-          <Button onClick={this.handleCreate}>
-            Save
-          </Button>
-          &nbsp;
-          <NavLink to="/tags">
-            <Button>
-              Return
-            </Button>
-          </NavLink>
-        </div>
-
-        <br />
-        <br />
-
+        </form>
       </div>
     )
   }
 
   render() {
-    return this.state.loading ? Spinner() : this.renderView()
-  }
+    const { open } = this.state
 
+    return (
+      <div className="row">
+        <div className="col-lg-12">
+
+          <div className="card">
+
+            <div className="card-header">
+              <i className="pointer fa fa-align-justify"/> Create Tag
+              <div className="card-actions pointer ">
+                <a onClick={this.handleCard} className="btn-minimize">
+                  <i className={ open ? "icon-arrow-up" : "icon-arrow-down"} />
+                </a>
+              </div>
+            </div>
+
+            { open ? this.renderCardBlock() : null }
+
+          </div>
+        </div>
+      </div>
+    )
+  }
 
 }
 
+export default graphql(
+  createTagQuery, { name: "createTagQuery" }
+)(withApollo(New))

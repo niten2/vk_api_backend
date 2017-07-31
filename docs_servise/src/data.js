@@ -110,6 +110,74 @@ query users {
   }
 }
 
+query tags {
+  tags {
+    id
+    name
+  }
+}
+
+
+subscription Group {
+  Group(
+    filter: { mutation_in: [CREATED] }
+  ) {
+    mutation
+    node {
+      name
+      members_count
+      note
+    }
+  }
+}
+
+
+tags {
+  tags {
+    id
+    name
+    status
+    kind
+  }
+}
+
+query tags($filter: TagFilterInput) {
+  tags(filter: $filter) {
+    id
+    name
+    status
+    kind
+  }
+}
+
+variables: {
+  filter: {
+    name: "test",
+    status: "test",
+  }
+}
+
+
 `
 
+// query ($username: String = "GovSchwarzenegger"){
+//   tags {
+//     tags(filter: { name: $username, status: $username}) {
+//       id
+//       name
+//       status
+//       kind
+//     }
+//   }
+// }
+
+// {
+//   query: "query tags($filter: TagFilterInput) {↵  tags(filter: $filter) {↵    id↵    name↵    status↵    kind↵    __typename↵  }↵}↵"
+//   variables: {
+//     filter: {
+//       name: "test",
+//       status: "test",
+//     }
+//   }
+// }
 
