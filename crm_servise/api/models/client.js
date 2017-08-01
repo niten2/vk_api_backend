@@ -3,11 +3,11 @@ import Sequelize from 'sequelize'
 
 const Client = db.define('clients', {
 
-  number: Sequelize.INTEGER,
   name: Sequelize.STRING,
+  number: Sequelize.INTEGER,
   phone: Sequelize.INTEGER,
-  date_birth: Sequelize.STRING,
   note: Sequelize.STRING,
+  date_birth: Sequelize.STRING,
 
 }, {
   freezeTableName: true,

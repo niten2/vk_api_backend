@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import { clientDelete } from 'components/crm/graphql/querues'
+import { deleteClientQuery } from 'components/crm/graphql/querues'
 import Notification from 'lib/notification'
 
 class GroupView extends Component {
@@ -14,10 +14,10 @@ class GroupView extends Component {
   }
 
   handleDestroy = async () => {
-    const { object, clientDelete } = this.props
+    const { object, deleteClientQuery } = this.props
 
     try {
-      await clientDelete({
+      await deleteClientQuery({
         variables: { id: object.id },
       })
       this.props.refetch()
@@ -68,5 +68,5 @@ class GroupView extends Component {
 }
 
 export default graphql(
-  clientDelete, { name: "clientDelete"}
+  deleteClientQuery, { name: "deleteClientQuery"}
 )(GroupView)

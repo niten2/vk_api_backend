@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import Notification from 'lib/notification'
-import { clientCreateQuery, clientsQuery } from 'components/crm/graphql/querues'
+import { createClientQuery, clientsQuery } from 'components/crm/graphql/querues'
 import { Input } from 'reactstrap'
 
 class ClientNew extends Component {
@@ -20,17 +20,19 @@ class ClientNew extends Component {
 
   handleCreate = async (e) => {
     e.preventDefault()
-    const { clientCreateQuery } = this.props
+    const { createClientQuery } = this.props
     const { client } = this.state
 
     try {
-      await clientCreateQuery({
+      await createClientQuery({
         variables: {
-          name: client.name,
-          number: client.number,
-          phone: client.phone,
-          note: client.note,
-          date_birth: client.date_birth,
+          input: {
+            name: client.name,
+            number: client.number,
+            phone: client.phone,
+            note: client.note,
+            date_birth: client.date_birth,
+          }
         },
         refetchQueries: [{
           query: clientsQuery,
@@ -158,6 +160,6 @@ class ClientNew extends Component {
 
 }
 
-export default graphql(clientCreateQuery, {
-  name: "clientCreateQuery"
+export default graphql(createClientQuery, {
+  name: "createClientQuery"
 })(ClientNew)

@@ -11,14 +11,11 @@ const Numbers = ({ page, currentPage, href }) => (
 )
 
 const Pagination = (props) => {
-  console.log(props)
   let { perPage, count, href, currentPage } = props
   const pages = Math.ceil(count / perPage) || 1
-
   const pagesArray = Array.from({ length: pages }, (v, k) => k + 1)
   const prev = currentPage > 1 ? currentPage - 1 : currentPage
   const next = currentPage < pages ? currentPage + 1 : pages
-
 
   return (
     <ul className="pagination">

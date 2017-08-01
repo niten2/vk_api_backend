@@ -1,19 +1,15 @@
 import { Status, Client } from "api/models"
 
-const Classes = {
-  "Client": Client,
-}
-
 export const resolvers = {
-
-  Query: {
+  RootQuery: {
     clients: async (root, args) => {
-      return  await Client.findAll({
+      let { limit, offset } = args.pagination
+      return await Client.findAll({
         include: {
           model: Status,
         },
-        offset: args.offset,
-        limit: args.limit,
+        offset: offset,
+        limit: limit,
       })
     },
 
@@ -23,8 +19,7 @@ export const resolvers = {
     },
 
     statuses: async () => {
-      const objects = await Status.findAll({})
-      return objects
+      return await Status.findAll({})
     },
 
     status: async (root, args) => {
@@ -33,9 +28,12 @@ export const resolvers = {
     },
 
     meta: async (root, args) => {
+      const Classes = {
+        "Client": Client,
+      }
       const model = Classes[args.name]
       if (model) {
-        const count = await .count()
+        const count = await model.count()
         return {
           count: count
         }
@@ -43,9 +41,9 @@ export const resolvers = {
     },
   },
 
-  Mutation: {
+  RootMutation: {
 
-    clientCreate: async (root, args) => {
+    createClient: async (root, args) => {
       const client = await Client.create({
         name: args.name,
         number: args.number,
@@ -56,8 +54,7 @@ export const resolvers = {
       return client
     },
 
-    clientUpdate: async (root, args) => {
-      console.log(args)
+    updateClient: async (root, args) => {
       const client = await Client.findById(args.id)
 
       await client.update({
@@ -72,7 +69,7 @@ export const resolvers = {
       return client
     },
 
-    clientDelete: async (root, { id }) => {
+    deleteClient: async (root, { id }) => {
       await Client.destroy({
         where: {
           id: id
@@ -81,14 +78,14 @@ export const resolvers = {
     },
 
 
-    statusCreate: async (root, args) => {
+    createStatus: async (root, args) => {
       const object = await Status.create({
         name: args.name,
       })
       return object
     },
 
-    statusUpdate: async (root, args) => {
+    updateStatus: async (root, args) => {
       const object = await Status.findById(args.id)
 
       await object.update({
@@ -98,14 +95,13 @@ export const resolvers = {
       return object
     },
 
-    statusDelete: async (root, { id }) => {
+    deleteStatus: async (root, { id }) => {
       await Status.destroy({
         where: {
           id: id
         }
       })
     },
-
 
 
   },

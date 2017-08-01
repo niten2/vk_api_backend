@@ -1,8 +1,8 @@
 import { gql } from 'react-apollo'
 
 export const clientsQuery = gql`
-  query clients($offset: Int, $limit: Int) {
-    clients(offset: $offset, limit: $limit) {
+  query clients($pagination: PaginationInput) {
+    clients(pagination: $pagination) {
       id
       name
       number
@@ -39,69 +39,32 @@ export const clientQuery = gql`
   }
 `
 
-export const clientCreateQuery = gql`
-  mutation clientCreate(
-    $name: String
-    $number: String
-    $phone: String
-    $note: String
-    $date_birth: String
-  ) {
-    clientCreate(
-      name: $name
-      number: $number
-      phone: $phone
-      note: $note
-      date_birth: $date_birth
-    ) {
-      name
-      number
-      phone
-      note
-      date_birth
-    }
-  }
-`
-
-export const clientUpdate = gql`
-  mutation clientUpdate(
-    $id: ID!
-    $name: String
-    $number: String
-    $phone: String
-    $note: String
-    $date_birth: String
-    $status_id: String
-  ) {
-    clientUpdate(
-      id: $id
-      name: $name
-      number: $number
-      phone: $phone
-      note: $note
-      date_birth: $date_birth
-      status_id: $status_id
-    ) {
+export const createClientQuery = gql`
+  mutation createClient($input: ClientInput!) {
+    createClient(input: $input) {
       id
-      name
-      number
-      phone
-      note
-      date_birth
-      status_id
     }
   }
 `
 
-export const clientDelete = gql`
-  mutation clientDelete($id: ID!) {
-    clientDelete(id: $id) {
+export const updateClientQuery = gql`
+  mutation updateClient($input: ClientInput!) {
+    updateClient(input: $input) {
+      id
+    }
+  }
+`
+
+export const deleteClientQuery = gql`
+  mutation deleteClient($input: IdInput!) {
+    deleteClient(input: $input) {
       id
     }
   }
 `
 
 
+// NOTE Status
 export const statusesQuery = gql`
   query statuses {
     statuses {

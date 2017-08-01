@@ -4,7 +4,12 @@ import { Link } from 'lib/nav_link'
 import { compose, graphql } from 'react-apollo'
 import Notification from 'lib/notification'
 import { set, lensProp } from 'ramda'
-import { statusesQuery, clientsQuery, clientQuery, clientUpdate } from 'components/crm/graphql/querues'
+import {
+  statusesQuery,
+  clientsQuery,
+  clientQuery,
+  updateClientQuery
+} from 'components/crm/graphql/querues'
 import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
 import Select from 'react-select'
@@ -219,8 +224,8 @@ export default compose(
       variables: { id: props.match.params.id }
     })
   }),
-  graphql(clientUpdate, {
-    name: "clientUpdate"
+  graphql(updateClientQuery, {
+    name: "updateClientQuery"
   }),
   graphql(statusesQuery, {
     name: "statusesQuery"

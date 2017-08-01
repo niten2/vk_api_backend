@@ -9,7 +9,7 @@ import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
 import Pagination from 'components/shared/pagination'
 
-const ITEMS_PER_PAGE = 20
+const PER_PAGE = 10
 
 const Buttons = (props) => {
   return(
@@ -117,12 +117,14 @@ class ListClient extends Component {
 
 export default graphql(clientsQuery, {
   name: "clientsQuery",
-  options: {
-    variables: {
-      offset: 0,
-      limit: ITEMS_PER_PAGE,
-      name: "Client",
-    },
-    fetchPolicy: 'network-only',
+  options: (props) => {
+    const limit = PER_PAGE
+    const page = parseInt(props.match.params.page, 10)
+    const offset = (page - 1) * limit
+    return {
+      variables: {
+        pagination: { limit, offset }
+      }
+    }
   }
 })(ListClient)
