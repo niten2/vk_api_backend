@@ -49,14 +49,17 @@ export const deletePersonQuery = gql`
 
 // NOTE Groups
 export const groupsQuery = gql`
-  query groups {
-    groups {
+  query groups($pagination: PaginationInput) {
+    groups(pagination: $pagination) {
       id
       name
       members_count
       note
       createdAt
       updatedAt
+    }
+    meta(name: "Group") {
+      count
     }
   }
 `

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { groupsQuery } from 'components/vk/graphql/querues'
 import Spinner from 'components/shared/spinner'
-// import Page401 from 'components/shared/page401'
+import Pagination from 'components/shared/pagination'
 import Page500 from 'components/shared/page500'
-
 import GroupNew from './new'
 import GroupView from './view'
+
+const PER_PAGE = 10
 
 class Groups extends Component {
 
@@ -25,7 +26,8 @@ class Groups extends Component {
   }
 
   render() {
-    const { loading, error, groups, refetch } = this.props.groupsQuery
+    const { page } = this.props.match.params
+    const { meta, loading, error, groups, refetch } = this.props.groupsQuery
     const { attributes } = this.state
 
     if (loading ) {
@@ -72,6 +74,13 @@ class Groups extends Component {
                   </tbody>
                 </table>
 
+                <Pagination
+                  href="/vk/groups"
+                  count={meta.count}
+                  currentPage={parseInt(page, 10)}
+                  perPage={PER_PAGE}
+                />
+
               </div>
             </div>
           </div>
@@ -83,6 +92,18 @@ class Groups extends Component {
 
 }
 
-export default graphql(
-  groupsQuery, { name: "groupsQuery", }
+export default graphql(groupsQuery,
+  {
+    name: "groupsQuery",
+    options: (props) => {
+      const limit = PER_PAGE
+      const page = parseInt(props.match.params.page, 10)
+      const offset = (page - 1) * limit
+      return {
+        variables: {
+          pagination: { limit, offset }
+        }
+      }
+    }
+  }
 )(Groups)

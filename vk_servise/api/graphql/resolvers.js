@@ -8,6 +8,7 @@ const pubsub = new PubSub()
 
 const Classes = {
   "Person": Person,
+  "Group": Group,
 }
 
 export const resolvers = {
@@ -21,11 +22,13 @@ export const resolvers = {
       })
     },
     groups: async (root, args, context) => {
-      return await Group.findAll()
+      let { limit, offset } = args.pagination
+      return await Group.findAll({
+        limit: limit,
+        offset: offset,
+      })
     },
     tags: async (root, args, context) => {
-      console.log(args)
-
       if (args.filter && args.filter.name) {
         const objects = await Tag.findAll({
           where: {

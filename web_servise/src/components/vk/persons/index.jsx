@@ -8,7 +8,7 @@ import Pagination from 'components/shared/pagination'
 import PersonView from './view'
 import PersonNew from './new'
 
-const PER_PAGE = 5
+const PER_PAGE = 10
 
 class Person extends Component {
 
@@ -32,9 +32,9 @@ class Person extends Component {
   }
 
   render() {
+    const { page } = this.props.match.params
     const { meta, loading, error, persons, refetch } = this.props.personsQuery
     const { attributes } = this.state
-    const { page } = this.props.match.params
 
     if (loading ) {
       return <Spinner />
@@ -105,7 +105,6 @@ export default graphql(personsQuery,
       const limit = PER_PAGE
       const page = parseInt(props.match.params.page, 10)
       const offset = (page - 1) * limit
-
       return {
         variables: {
           pagination: { limit, offset }

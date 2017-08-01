@@ -10,8 +10,8 @@ const typeDefs = `
 
   # Root
   type RootQuery {
-    persons(pagination: PaginationInput): [Person]
-    groups: [Group]
+    persons(pagination: PaginationInput): [Person]!
+    groups(pagination: PaginationInput): [Group]!
     tags(filter: TagFilterInput, skip: Int, first: Int): [Tag!]!
     meta(name: String!): Meta
   }

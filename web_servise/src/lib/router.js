@@ -61,7 +61,10 @@ export default (onUpdate) => {
 
           <Route exact path='/vk/persons' render={() => <Redirect to='/vk/persons/1' />} />
           <LayoutVk exact path="/vk/persons/:page" component={VkPersons}/>
-          <LayoutVk exact path="/vk/groups" component={VkGroups}/>
+
+          <Route exact path='/vk/groups' render={() => <Redirect to='/vk/groups/1' />} />
+          <LayoutVk exact path="/vk/groups/:page" component={VkGroups}/>
+
           <LayoutVk exact path="/vk/tags" component={VkTags}/>
 
           <LayoutInstagram exact path="/instagram" component={Instagram}/>
