@@ -10,9 +10,10 @@ const typeDefs = `
 
   # Root
   type RootQuery {
-    persons: [Person]
+    persons(pagination: PaginationInput): [Person]
     groups: [Group]
     tags(filter: TagFilterInput, skip: Int, first: Int): [Tag!]!
+    meta(name: String!): Meta
   }
 
   type RootMutation {
@@ -64,6 +65,10 @@ const typeDefs = `
     kind: String
   }
 
+  type Meta {
+    count: Int!
+  }
+
   # NOTE Inputs
 
   input PersonInput {
@@ -100,6 +105,10 @@ const typeDefs = `
     id: ID!
   }
 
+  input PaginationInput {
+    limit: Int
+    offset: Int
+  }
 
 
 

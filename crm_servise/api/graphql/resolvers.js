@@ -1,53 +1,113 @@
-import { verifyJwt } from 'api/services/jwt'
+import { Status, Client } from "api/models"
 
-const errorJwt = (message) => {
-  return {
-    data: { token: null },
-    errors: [{
-      message: message || 'Format for Authorization: Bearer [token]'
-    }]
-  }
+const Classes = {
+  "Client": Client,
 }
 
-export default (params) => ([
-  (req, res, next) => {
-    let token;
+export const resolvers = {
 
-    if (req.header('Authorization') || req.header('authorization')) {
+  Query: {
+    clients: async (root, args) => {
+      return  await Client.findAll({
+        include: {
+          model: Status,
+        },
+        offset: args.offset,
+        limit: args.limit,
+      })
+    },
 
-      const parts = req.header('Authorization').split(' ');
+    client: async (root, args) => {
+      const client = await Client.findById(args.id)
+      return client
+    },
 
-      if (parts.length === 2) {
-        const scheme = parts[0];
-        const credentials = parts[1];
+    statuses: async () => {
+      const objects = await Status.findAll({})
+      return objects
+    },
 
-        if (/^Bearer$/.test(scheme) && credentials !== "null") {
-          token = credentials;
-        } else {
-          return res.status(401).json(
-            errorJwt('Format for Authorization: Bearer [token]')
-          )
+    status: async (root, args) => {
+      const object = await Status.findById(args.id)
+      return object
+    },
+
+    meta: async (root, args) => {
+      const model = Classes[args.name]
+      if (model) {
+        const count = await .count()
+        return {
+          count: count
         }
-      } else {
-        return res.status(401).json(
-          errorJwt('Format for Authorization: Bearer [token]')
-        )
       }
+    },
+  },
 
-    } else if (req.body.token) {
-      token = req.body.token
-      delete req.query.token
+  Mutation: {
 
-    } else {
-      return res.status(401).json(
-        errorJwt('Format for Authorization: Bearer [token]')
-      )
-    }
+    clientCreate: async (root, args) => {
+      const client = await Client.create({
+        name: args.name,
+        number: args.number,
+        phone: args.phone,
+        note: args.note,
+        date_birth: args.date_birth,
+      })
+      return client
+    },
 
-    return verifyJwt(token, async (err, payload) => {
-      if (err) return res.status(401).json(errorJwt(err.message))
-      req.payload = payload
-      return next()
-    })
-  }
-])
+    clientUpdate: async (root, args) => {
+      console.log(args)
+      const client = await Client.findById(args.id)
+
+      await client.update({
+        name: args.name,
+        number: args.number,
+        phone: args.phone,
+        note: args.note,
+        date_birth: args.date_birth,
+        status_id: args.status_id,
+      })
+
+      return client
+    },
+
+    clientDelete: async (root, { id }) => {
+      await Client.destroy({
+        where: {
+          id: id
+        }
+      })
+    },
+
+
+    statusCreate: async (root, args) => {
+      const object = await Status.create({
+        name: args.name,
+      })
+      return object
+    },
+
+    statusUpdate: async (root, args) => {
+      const object = await Status.findById(args.id)
+
+      await object.update({
+        name: args.name,
+      })
+
+      return object
+    },
+
+    statusDelete: async (root, { id }) => {
+      await Status.destroy({
+        where: {
+          id: id
+        }
+      })
+    },
+
+
+
+  },
+}
+

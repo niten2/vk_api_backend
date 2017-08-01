@@ -1,28 +1,49 @@
 import React from 'react'
+import { Link } from 'lib/nav_link'
+
+const Numbers = ({ page, currentPage, href }) => (
+  <li className={ page === currentPage ? "page-item active" : "page-item"}>
+    <Link
+      className="page-link"
+      href={`${href}/${page}`}
+    >{page}</Link>
+  </li>
+)
+
+
 const Pagination = (props) => {
-  // let { count } = props
-  // console.log(count)
+  let { perPage, count, href, currentPage } = props
+  const pages = Math.floor(count / perPage)
 
-  // const pages = count / ITEMS_PER_PAGE
-  // console.log(pages)
-  // console.log([1..pages])
+  const prev = currentPage > 1 ? currentPage - 1 : currentPage
+  const next = currentPage < pages ? currentPage + 1 : pages
 
-  // [...Array(25).keys()]
-
+  const pagesArray = Array.from({ length: pages }, (v, k) => k + 1)
 
   return (
     <ul className="pagination">
-      <li className="page-item">
-        <a className="page-link" >Prev</a>
-      </li>
 
-      <li className="page-item active">
-        <a className="page-link" >1</a>
-      </li>
+      <Link href={`${href}/${prev}`}>
+        <li className="page-item">
+          <a className="page-link" >Prev</a>
+        </li>
+      </Link>
 
-      <li className="page-item">
-        <a className="page-link">Next</a>
-      </li>
+      { pagesArray.map((page, index) =>
+        <Numbers
+          key={index}
+          page={page}
+          currentPage={currentPage}
+          href={href}
+        />
+      )}
+
+      <Link href={`${href}/${next}`}>
+        <li className="page-item">
+          <a className="page-link" >Next</a>
+        </li>
+      </Link>
+
     </ul>
   )
 }

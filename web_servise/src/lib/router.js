@@ -1,7 +1,18 @@
 import React from 'react'
-import { Redirect, BrowserRouter, Switch } from 'react-router-dom'
-
-import { Layout, LayoutCrm, LayoutVk, LayoutInstagram, LayoutAuthPublic, LayoutAuthPrivate } from "lib/layout_helper"
+import {
+  Route,
+  Redirect,
+  BrowserRouter,
+  Switch
+} from 'react-router-dom'
+import {
+  Layout,
+  LayoutCrm,
+  LayoutVk,
+  LayoutInstagram,
+  LayoutAuthPublic,
+  LayoutAuthPrivate
+} from "lib/layout_helper"
 import Page404 from 'components/shared/page404'
 
 import Vk from 'components/vk'
@@ -47,7 +58,9 @@ export default (onUpdate) => {
           <LayoutCrm exact path="/crm/statuses" component={Status} />
 
           <LayoutVk exact path="/vk" component={Vk}/>
-          <LayoutVk exact path="/vk/persons" component={VkPersons}/>
+
+          <Route exact path='/vk/persons' render={() => <Redirect to='/vk/persons/1' />} />
+          <LayoutVk exact path="/vk/persons/:page" component={VkPersons}/>
           <LayoutVk exact path="/vk/groups" component={VkGroups}/>
           <LayoutVk exact path="/vk/tags" component={VkTags}/>
 

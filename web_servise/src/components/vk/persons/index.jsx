@@ -4,8 +4,11 @@ import { graphql } from 'react-apollo'
 import { personsQuery } from 'components/vk/graphql/querues'
 import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
+import Pagination from 'components/shared/pagination'
 import PersonView from './view'
 import PersonNew from './new'
+
+const PER_PAGE = 5
 
 class Person extends Component {
 
@@ -29,8 +32,9 @@ class Person extends Component {
   }
 
   render() {
-    const { loading, error, persons, refetch } = this.props.personsQuery
+    const { meta, loading, error, persons, refetch } = this.props.personsQuery
     const { attributes } = this.state
+    const { page } = this.props.match.params
 
     if (loading ) {
       return <Spinner />
@@ -76,6 +80,13 @@ class Person extends Component {
                   </tbody>
                 </table>
 
+                <Pagination
+                  href="/vk/persons"
+                  count={meta.count}
+                  currentPage={parseInt(page, 10)}
+                  perPage={PER_PAGE}
+                />
+
               </div>
             </div>
           </div>
@@ -87,6 +98,19 @@ class Person extends Component {
 
 }
 
-export default graphql(
-  personsQuery, { name: "personsQuery", }
+export default graphql(personsQuery,
+  {
+    name: "personsQuery",
+    options: (props) => {
+      const limit = PER_PAGE
+      const page = parseInt(props.match.params.page, 10)
+      const offset = (page - 1) * limit
+
+      return {
+        variables: {
+          pagination: { limit, offset }
+        }
+      }
+    }
+  }
 )(Person)

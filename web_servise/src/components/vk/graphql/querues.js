@@ -2,8 +2,8 @@ import { gql } from 'react-apollo'
 
 // NOTE Persons
 export const personsQuery = gql`
-  query persons {
-    persons {
+  query persons($pagination: PaginationInput) {
+    persons(pagination: $pagination) {
       id
       first_name
       uid
@@ -17,6 +17,9 @@ export const personsQuery = gql`
       status
       createdAt
       updatedAt
+    }
+    meta(name: "Person") {
+      count
     }
   }
 `

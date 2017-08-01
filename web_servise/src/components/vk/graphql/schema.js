@@ -1,10 +1,4 @@
 export const typeDefs = `
-  type Query {
-    persons: [ Person ]
-    groups: [ Group ]
-    tags: [ Tag ]
-  }
-
   type Person {
     id: ID
     uid: String
@@ -69,6 +63,11 @@ export const typeDefs = `
 
   input IdInput {
     id: ID!
+  }
+
+  input PaginationInput {
+    limit: Int
+    offset: Int
   }
 
 `

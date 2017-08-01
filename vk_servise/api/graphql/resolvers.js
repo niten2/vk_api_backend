@@ -6,34 +6,19 @@ import { PubSub } from 'graphql-subscriptions'
 
 const pubsub = new PubSub()
 
-
-// function buildFilters({ OR = [], name, status }) {
-
-//   console.log(name, status)
-//   const filter = (name || status) ? {} : null
-
-//   // if (name) {
-//   //   filter.name = {$regex: `.*${name}.*`};
-//   // }
-//   // if (status) {
-//   //   filter.status = {$regex: `.*${status}.*`};
-//   // }
-
-//   // let filters = filter ? [filter] : [];
-
-//   // for (let i = 0; i < OR.length; i++) {
-//   //   filters = filters.concat(buildFilters(OR[i]));
-//   // }
-//   // return filters;
-// }
-
-
+const Classes = {
+  "Person": Person,
+}
 
 export const resolvers = {
 
   RootQuery: {
     persons: async (root, args) => {
-      return await Person.findAll({})
+      let { limit, offset } = args.pagination
+      return await Person.findAll({
+        limit: limit,
+        offset: offset,
+      })
     },
     groups: async (root, args, context) => {
       return await Group.findAll()
@@ -57,7 +42,15 @@ export const resolvers = {
       }
 
     },
-
+    meta: async (root, args) => {
+      const model = Classes[args.name]
+      if (model) {
+        const count = await model.count()
+        return {
+          count: count
+        }
+      }
+    },
   },
 
   RootMutation: {
