@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
-import { statusCreateQuery, statusesQuery } from 'components/crm/graphql/querues'
+import { compose, graphql } from 'react-apollo'
+import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
+import { InputField } from 'components/shared/default_components'
 
-class New extends Component {
+class NewStatus extends Component {
 
   state = {
-    status: { name: ""},
+    status: {},
+    attributes: [
+      "name",
+    ]
   }
 
   handleSetState = (e) => {
@@ -19,16 +23,17 @@ class New extends Component {
   handleCreate = async (e) => {
     e.preventDefault()
     const { status } = this.state
+    const { createStatusQuery, statusesQuery } = this.props
 
     try {
-      await this.props.statusCreateQuery({
+      await createStatusQuery({
         variables: {
-          name: status.name,
+          input: {
+            name: status.name,
+          }
         },
-        refetchQueries: [{
-          query: statusesQuery,
-        }],
       })
+      await statusesQuery.refetch()
       this.setState({ status: { name: "" } })
       Notification.success("ok")
     } catch (e) {
@@ -49,7 +54,9 @@ class New extends Component {
   }
 
   render() {
-    let { status } = this.state
+    console.log(this.props)
+    let { status, attributes } = this.state
+    console.log(this.state.status)
     return (
       <div className="col-lg-6">
 
@@ -62,21 +69,15 @@ class New extends Component {
           <div className="card-block">
             <form className="form-2orizontal">
 
-              <div className="form-group row">
-                <div className="col-md-12">
-                  <div className="input-group">
-                    <span className="input-group-addon">Name</span>
-                    <input
-                      className="form-control"
-                      name="name"
-                      onChange={ this.handleSetState }
-                      onKeyPress={ this.handleOnKeyPress }
-                      placeholder="name"
-                      value={status.name}
-                    />
-                  </div>
-                </div>
-              </div>
+              { attributes.map((attribute, index) =>
+                <InputField
+                  key={index}
+                  onChange={this.handleSetState.bind(this)}
+                  onKeyPress={ this.handleOnKeyPress.bind(this) }
+                  name={attribute}
+                  value={status[attribute]}
+                />
+              )}
 
               <div className="form-actions">
                 <button
@@ -98,6 +99,11 @@ class New extends Component {
 
 }
 
-export default graphql(statusCreateQuery, {
-  name: "statusCreateQuery"
-})(New)
+export default compose(
+  graphql(createStatusQuery, {
+    name: "createStatusQuery",
+  }),
+  graphql(statusesQuery, {
+    name: "statusesQuery"
+  }),
+)(NewStatus)

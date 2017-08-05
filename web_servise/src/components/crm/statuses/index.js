@@ -8,7 +8,7 @@ class Status extends Component {
       <div className="animated fadeIn">
         <div className="row">
 
-          <List />
+          <List {...this.props}/>
           <New />
 
         </div>

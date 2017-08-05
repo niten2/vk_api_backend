@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import Notification from 'lib/notification'
+import Pagination from 'components/shared/pagination'
 import { statusesQuery } from 'components/crm/graphql/querues'
 import StatusView from './view'
 
-class List extends Component {
-
-  state = {}
+class ClientList extends Component {
 
   static propTypes = {
     statusesQuery: PropTypes.object.isRequired,
@@ -19,7 +18,8 @@ class List extends Component {
   }
 
   render() {
-    let { loading, error, statuses, refetch } = this.props.statusesQuery
+    const { page } = this.props.match.params
+    let { meta, loading, error, statuses, refetch } = this.props.statusesQuery
 
     if (loading ) {
       return <p className="text-center">Loading ...</p>
@@ -59,16 +59,12 @@ class List extends Component {
               </tbody>
             </table>
 
-            <ul className="pagination">
-              <li className="page-item"><a className="page-link">Prev</a></li>
-              <li className="page-item active">
-                <a className="page-link">1</a>
-              </li>
-              <li className="page-item"><a className="page-link">2</a></li>
-              <li className="page-item"><a className="page-link">3</a></li>
-              <li className="page-item"><a className="page-link">4</a></li>
-              <li className="page-item"><a className="page-link">Next</a></li>
-            </ul>
+            <Pagination
+              href="/crm/statuses"
+              count={meta.count}
+              currentPage={parseInt(page, 10)}
+              perPage={PER_PAGE}
+            />
 
           </div>
         </div>
@@ -78,6 +74,20 @@ class List extends Component {
   }
 }
 
+const PER_PAGE = 10
 export default graphql(statusesQuery,
-  { name: "statusesQuery"}
-)(List)
+  {
+    name: "statusesQuery",
+    options: (props) => {
+      console.log(props)
+      const limit = PER_PAGE
+      const page = parseInt(props.match.params.page, 10)
+      const offset = (page - 1) * limit
+      return {
+        variables: {
+          pagination: { limit, offset }
+        }
+      }
+    }
+  }
+)(ClientList)

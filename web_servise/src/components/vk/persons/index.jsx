@@ -8,8 +8,6 @@ import Pagination from 'components/shared/pagination'
 import PersonView from './view'
 import PersonNew from './new'
 
-const PER_PAGE = 10
-
 class Person extends Component {
 
   static propTypes = {
@@ -98,6 +96,7 @@ class Person extends Component {
 
 }
 
+const PER_PAGE = 10
 export default graphql(personsQuery,
   {
     name: "personsQuery",

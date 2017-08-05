@@ -1,3 +1,23 @@
+// const { page } = this.props.match.params
+
+// options: (props) => {
+//   const limit = PER_PAGE
+//   const page = parseInt(props.match.params.page, 10)
+//   const offset = (page - 1) * limit
+//   return {
+//     variables: {
+//       pagination: { limit, offset }
+//     }
+//   }
+// }
+
+// <Pagination
+//   href="/"
+//   count={meta.count}
+//   currentPage={parseInt(page, 10)}
+//   perPage={PER_PAGE}
+// />
+
 import React from 'react'
 import { Link } from 'lib/nav_link'
 

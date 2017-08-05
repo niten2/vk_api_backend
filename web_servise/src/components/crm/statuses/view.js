@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { compose, graphql } from 'react-apollo'
-import { statusesQuery, statusUpdateQuery, statusDelete } from 'components/crm/graphql/querues'
+import { statusesQuery, updateStatusQuery, deleteStatusQuery } from 'components/crm/graphql/querues'
 import Notification from 'lib/notification'
 import { set, lensProp } from 'ramda'
 
@@ -10,8 +10,8 @@ class View extends Component {
   static propTypes = {
     object: PropTypes.object.isRequired,
     refresh: PropTypes.func.isRequired,
-    statusDelete: PropTypes.func.isRequired,
-    statusUpdateQuery: PropTypes.func.isRequired,
+    deleteStatusQuery: PropTypes.func.isRequired,
+    updateStatusQuery: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -29,13 +29,18 @@ class View extends Component {
   }
 
   handleDestroy = async () => {
-    const { status, statusDelete } = this.props
+    const { object, deleteStatusQuery } = this.props
 
     try {
-      await statusDelete({
-        variables: { id: status.id },
+      await deleteStatusQuery({
+        variables: {
+          input: {
+            id: object.id
+          }
+        },
       })
       this.props.refresh()
+      Notification.success("ok")
     } catch (error) {
       Notification.error(error)
     }
@@ -44,13 +49,15 @@ class View extends Component {
   handleUpdate = async (e) => {
     e.preventDefault()
     const { status } = this.state
-    const { statusUpdateQuery } = this.props
+    const { updateStatusQuery } = this.props
 
     try {
-      await statusUpdateQuery({
+      await updateStatusQuery({
         variables: {
           id: status.id,
-          name: status.name,
+          input: {
+            name: status.name,
+          }
         },
         refetchQueries: [{
           query: statusesQuery,
@@ -76,7 +83,7 @@ class View extends Component {
             onChange={ this.handleSetState }
             onKeyPress={ this.handleOnKeyPress }
             placeholder="name"
-            value={status.name}
+            value={status.name || ""}
             name="name"
           />
         </td>
@@ -100,6 +107,6 @@ class View extends Component {
 }
 
 export default compose(
-  graphql(statusUpdateQuery, {name: "statusUpdateQuery"}),
-  graphql(statusDelete, {name: "statusDelete"}),
+  graphql(updateStatusQuery, {name: "updateStatusQuery"}),
+  graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),
 )(View)

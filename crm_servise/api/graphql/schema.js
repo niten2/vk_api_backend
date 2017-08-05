@@ -13,10 +13,10 @@ const typeDefs = `
 
   # Root
   type RootQuery {
-    clients(pagination: PaginationInput): [Client]!
+    clients(pagination: PaginationInput): [Client]
     client(id: ID!): Client
 
-    statuses: [Status]
+    statuses(pagination: PaginationInput): [Status]
     status(id: ID!): Status
 
     meta(name: String): Meta
@@ -24,11 +24,11 @@ const typeDefs = `
 
   type RootMutation {
     createClient(input: ClientInput!): Client
-    updateClient(input: ClientInput!): Client
+    updateClient(id: ID!, input: ClientInput!): Client
     deleteClient(input: IdInput!): Client
 
     createStatus(input: StatusInput!): Status
-    updateStatus(input: StatusInput!): Status
+    updateStatus(id: ID!, input: StatusInput!): Status
     deleteStatus(input: IdInput!): Status
   }
 

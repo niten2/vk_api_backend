@@ -1,5 +1,6 @@
 import { gql } from 'react-apollo'
 
+// Client
 export const clientsQuery = gql`
   query clients($pagination: PaginationInput) {
     clients(pagination: $pagination) {
@@ -9,7 +10,6 @@ export const clientsQuery = gql`
       phone
       note
       date_birth
-      status_id
       status {
         id
         name
@@ -48,8 +48,8 @@ export const createClientQuery = gql`
 `
 
 export const updateClientQuery = gql`
-  mutation updateClient($input: ClientInput!) {
-    updateClient(input: $input) {
+  mutation updateClient($id: ID!, $input: ClientInput!) {
+    updateClient(id: $id, input: $input) {
       id
     }
   }
@@ -63,46 +63,37 @@ export const deleteClientQuery = gql`
   }
 `
 
-
 // NOTE Status
 export const statusesQuery = gql`
-  query statuses {
-    statuses {
+  query statuses($pagination: PaginationInput) {
+    statuses(pagination: $pagination) {
       id
       name
     }
+    meta(name: "Status") {
+      count
+    }
   }
 `
-export const statusCreateQuery = gql`
-  mutation statusCreate(
-    $name: String
-  ) {
-    statusCreate(
-      name: $name
-    ) {
-      name
+export const createStatusQuery = gql`
+  mutation createStatus($input: StatusInput!) {
+    createStatus(input: $input) {
+      id
     }
   }
 `
 
-export const statusUpdateQuery = gql`
-  mutation statusUpdate(
-    $id: ID!
-    $name: String
-  ) {
-    statusUpdate(
-      id: $id
-      name: $name
-    ) {
+export const updateStatusQuery = gql`
+  mutation updateStatus($id: ID!, $input: StatusInput!) {
+    updateStatus(id: $id, input: $input) {
       id
-      name
     }
   }
 `
 
-export const statusDelete = gql`
-  mutation statusDelete($id: ID!) {
-    statusDelete(id: $id) {
+export const deleteStatusQuery = gql`
+  mutation deleteStatus($input: IdInput!) {
+    deleteStatus(input: $input) {
       id
     }
   }

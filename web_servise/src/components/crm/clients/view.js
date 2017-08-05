@@ -5,22 +5,34 @@ import { graphql } from 'react-apollo'
 import { deleteClientQuery } from 'components/crm/graphql/querues'
 import Notification from 'lib/notification'
 
-class GroupView extends Component {
+class ClientView extends Component {
 
   static propTypes = {
     object: PropTypes.object.isRequired,
     refetch: PropTypes.func.isRequired,
-    clientDelete: PropTypes.func.isRequired,
+    deleteClientQuery: PropTypes.func.isRequired,
+  }
+
+  state = {
+    object: {},
+    attributes: [
+      "id",
+      "name",
+      "number",
+      "phone",
+      "note",
+      "date_birth"
+    ]
   }
 
   handleDestroy = async () => {
-    const { object, deleteClientQuery } = this.props
+    const { refetch, object, deleteClientQuery } = this.props
 
     try {
       await deleteClientQuery({
         variables: { id: object.id },
       })
-      this.props.refetch()
+      refetch()
     } catch (error) {
       Notification.error(error)
     }
@@ -29,19 +41,13 @@ class GroupView extends Component {
 
   render() {
     let { object } = this.props
+    let { attributes } = this.state
 
     return (
       <tr>
-        <td>{ object.id }</td>
-
-        <td>
-            { object.name }
-        </td>
-
-        <td>{ object.number }</td>
-        <td>{ object.phone }</td>
-        <td>{ object.note }</td>
-        <td>{ object.date_birth }</td>
+        { attributes.map((attribute, index) =>
+          <td key={index}>{ object[attribute] }</td>
+        )}
 
         <td >
           <div className="text-center" onClick={this.handleDestroy}>
@@ -51,13 +57,13 @@ class GroupView extends Component {
 
         <td>
           <span className="">
-            { object.status.name }
+            { object.status && object.status.name }
           </span>
         </td>
 
         <td>
-          <Link href={`/crm/clients/${object.id}`}>
-            Edit
+          <Link href={`/crm/clients/update/${object.id}`}>
+            <i className="pointer icon-folder" />
           </Link>
         </td>
 
@@ -69,4 +75,4 @@ class GroupView extends Component {
 
 export default graphql(
   deleteClientQuery, { name: "deleteClientQuery"}
-)(GroupView)
+)(ClientView)

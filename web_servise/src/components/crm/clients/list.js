@@ -9,8 +9,6 @@ import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
 import Pagination from 'components/shared/pagination'
 
-const PER_PAGE = 10
-
 const Buttons = (props) => {
   return(
     <div className="row">
@@ -40,7 +38,7 @@ const Buttons = (props) => {
   )
 }
 
-class ListClient extends Component {
+class Clients extends Component {
 
   static propTypes = {
     clientsQuery: PropTypes.object.isRequired,
@@ -54,6 +52,8 @@ class ListClient extends Component {
   }
 
   render() {
+    console.log(this.props)
+    const { page } = this.props.match.params
     let { loading, error, clients, refetch, meta } = this.props.clientsQuery
 
     if (loading ) {
@@ -96,14 +96,19 @@ class ListClient extends Component {
                       <ClientView
                         key={index}
                         object={object}
-                        refresh={() => refetch()}
+                        refetch={refetch}
                       />
                     )}
 
                   </tbody>
                 </table>
 
-                <Pagination count={meta.count}/>
+                <Pagination
+                  href="/crm/clients"
+                  count={meta.count}
+                  currentPage={parseInt(page, 10)}
+                  perPage={PER_PAGE}
+                />
 
               </div>
             </div>
@@ -114,6 +119,8 @@ class ListClient extends Component {
     )
   }
 }
+
+const PER_PAGE = 10
 
 export default graphql(clientsQuery, {
   name: "clientsQuery",
@@ -127,4 +134,4 @@ export default graphql(clientsQuery, {
       }
     }
   }
-})(ListClient)
+})(Clients)

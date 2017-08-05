@@ -18,7 +18,7 @@ class Update extends Component {
 
   static propTypes = {
     clientQuery: PropTypes.object.isRequired,
-    clientUpdate: PropTypes.func.isRequired,
+    updateClientQuery: PropTypes.func.isRequired,
     statusesQuery: PropTypes.object.isRequired,
   }
 
@@ -48,18 +48,20 @@ class Update extends Component {
   handleUpdate = async (e) => {
     e.preventDefault()
     const { client } = this.state
-    const { clientUpdate } = this.props
+    const { updateClientQuery } = this.props
 
     try {
-      await clientUpdate({
+      await updateClientQuery({
         variables: {
           id: this.props.match.params.id,
-          number: client.number,
-          name: client.name,
-          phone: client.phone,
-          note: client.note,
-          date_birth: client.date_birth,
-          status_id: client.status_id,
+          input: {
+            number: client.number,
+            name: client.name,
+            phone: client.phone,
+            note: client.note,
+            date_birth: client.date_birth,
+            status_id: client.status_id,
+          },
         },
         refetchQueries: [{
           query: clientsQuery,

@@ -13,7 +13,6 @@ export const resolvers = {
 
   Mutation: {
     JwtTokenCreate: async (root, args) => {
-      console.log(1111)
       const user = await User.findOne({
         where: {
           email: args.email,
