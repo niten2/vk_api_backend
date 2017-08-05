@@ -13,8 +13,23 @@ import {
   LayoutAuthPublic,
   LayoutAuthPrivate
 } from "lib/layout_helper"
+
+// shared
 import Page404 from 'components/shared/page404'
 
+// auth
+import Login from 'components/auth/public/login'
+import Register from 'components/auth/public/register'
+import Profile from 'components/auth/private/profile'
+import Dasboard from 'components/shared/dasboard'
+
+// crm
+import Clients from 'components/crm/clients/list'
+import ClientNew from 'components/crm/clients/new'
+import ClientUpdate from 'components/crm/clients/update'
+import Status from 'components/crm/statuses'
+
+// vk
 import Vk from 'components/vk'
 import VkPersons from 'components/vk/persons'
 // import NewUser from 'views/vk/users/new'
@@ -23,20 +38,10 @@ import VkTags from 'components/vk/tags'
 import VkGroups from 'components/vk/groups'
 // import NewGroup from 'views/vk/groups/new'
 
-import Clients from 'components/crm/clients/list'
-import ClientNew from 'components/crm/clients/new'
-import ClientUpdate from 'components/crm/clients/update'
-
-import Status from 'components/crm/statuses'
-
+// insta
 import Instagram from 'components/instagram'
 
-import Login from 'components/auth/public/login'
-import Register from 'components/auth/public/register'
-import Profile from 'components/auth/private/profile'
-
-// import Login from 'views/Pages/Login'
-import Dasboard from 'components/shared/dasboard'
+import TEST from 'components/test'
 
 
 export default (onUpdate) => {
@@ -44,6 +49,8 @@ export default (onUpdate) => {
     <BrowserRouter>
       <div>
         <Switch>
+
+          <Layout exact path="/test" name="test" component={TEST}/>
 
           <LayoutAuthPublic exact path="/dasboard" name="Dasboard" component={Dasboard}/>
 

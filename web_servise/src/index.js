@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from 'lib/router'
+import App from './router'
 import AuthProvider from 'lib/auth_provider'
 
 // import "font-awesome/css/font-awesome.css"
