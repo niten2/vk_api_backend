@@ -9,6 +9,9 @@ import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
 import Pagination from 'components/shared/pagination'
 
+import { store } from 'store'
+
+
 const Buttons = (props) => {
   return(
     <div className="row">
@@ -52,7 +55,6 @@ class Clients extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { page } = this.props.match.params
     let { loading, error, clients, refetch, meta } = this.props.clientsQuery
 

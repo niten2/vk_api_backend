@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from "lib/nav_link"
 // import { observer } from 'mobx-react'
 // import { UIStore } from "stores"
-import { Link } from "lib/nav_link"
 // import Login from "./login"
 // import Logout from "./logout"
 
@@ -10,7 +10,10 @@ class Header extends Component {
   constructor(props) {
     super(props)
     this.toggle = this.toggle.bind(this)
-    this.state = { dropdownOpen: false }
+  }
+
+  state = {
+    dropdownOpen: false
   }
 
   toggle() {
@@ -72,7 +75,9 @@ class Header extends Component {
         <ul className="nav navbar-nav ml-auto">
 
           <li className="nav-item d-md-down-none">
-            <a className="nav-link"><i className="icon-bell"></i><span className="badge badge-pill badge-danger">5</span></a>
+            <a className="nav-link">
+              <i className="icon-bell" />
+            </a>
           </li>
 
           <li className="nav-item d-md-down-none">

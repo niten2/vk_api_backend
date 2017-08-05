@@ -34,6 +34,7 @@
     "react-ultimate-pagination": "^1.0.2",
     "reactstrap": "^4.6.2",
     "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "styled-components": "^2.1.0",

@@ -1,4 +1,23 @@
 import React, { Component } from 'react'
+import { store } from 'store'
+import { changePerPage } from 'actions'
+
+
+// console.log(store)
+
+
+
+
+store.dispatch(changePerPage(1))
+// console.log(store.getState())
+
+// store.dispatch(changePerPage(2))
+// console.log(store.getState())
+
+// store.dispatch(changePerPage(3))
+// console.log(store.getState())
+
+
 // // import { Content } from 'shared/components'
 
 // import { combineReducers, createStore } from 'redux'
