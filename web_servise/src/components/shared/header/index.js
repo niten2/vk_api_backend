@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { observer } from 'mobx-react'
-import { UIStore } from "stores"
+// import { observer } from 'mobx-react'
+// import { UIStore } from "stores"
 import { Link } from "lib/nav_link"
-import Login from "./login"
-import Logout from "./logout"
+// import Login from "./login"
+// import Logout from "./logout"
 
 class Header extends Component {
 
@@ -83,7 +83,6 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
-          { UIStore.login ?  <Logout {...this.props}/> : <Login /> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>
@@ -97,4 +96,5 @@ class Header extends Component {
   }
 }
 
-export default observer(Header)
+export default Header
+          // { UIStore.login ?  <Logout {...this.props}/> : <Login /> }

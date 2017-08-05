@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  Route,
-  Redirect,
-  BrowserRouter,
-  Switch
-} from 'react-router-dom'
+import { Route, Redirect, BrowserRouter, Switch } from 'react-router-dom'
 import {
   Layout,
   LayoutCrm,
@@ -12,7 +7,7 @@ import {
   LayoutInstagram,
   LayoutAuthPublic,
   LayoutAuthPrivate
-} from "lib/layout_helper"
+} from "components/shared/layout/helpers"
 
 // shared
 import Page404 from 'components/shared/page404'

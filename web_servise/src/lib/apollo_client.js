@@ -1,12 +1,11 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
-import authProvider from 'lib/auth_provider'
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
+import authProvider from 'lib/auth_provider'
 
 export const createClient = (url, uriSubscription) => {
   let networkInterface
 
   if (uriSubscription) {
-    console.log(uriSubscription)
     const wsClient = new SubscriptionClient(uriSubscription, {
       reconnect: true,
       connectionParams: {
@@ -49,4 +48,3 @@ export const createClient = (url, uriSubscription) => {
   })
 
 }
-

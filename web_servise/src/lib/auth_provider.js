@@ -1,5 +1,5 @@
 // import authProvider from 'lib/auth_provider'
-import { UIStore } from 'stores'
+// import { UIStore } from 'stores'
 import Notification from 'lib/notification'
 
 const AUTH_SESSION_STORAGE_KEY = 'smm-crm-system'
@@ -33,14 +33,14 @@ class AuthProvider {
     if (!token) return null
 
     this.storage.setItem(AUTH_SESSION_STORAGE_KEY, token)
-    UIStore.setLogin()
+    // UIStore.setLogin()
     Notification.success("You Logout")
   }
 
   removeToken() {
     if (!this.storage) return null
     this.storage.removeItem(AUTH_SESSION_STORAGE_KEY)
-    UIStore.setLogout()
+    // UIStore.setLogout()
   }
 
   hasLogin() {
@@ -49,7 +49,7 @@ class AuthProvider {
 
   checkAuth() {
     if (this.hasLogin()) {
-      UIStore.setLogin()
+      // UIStore.setLogin()
     }
   }
 
