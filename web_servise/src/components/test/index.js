@@ -1,105 +1,75 @@
-import React, { Component } from 'react'
-import { store } from 'store'
-import { changePerPage } from 'actions'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import ReactDOM from 'react-dom';
+
+import Notifications, { success, error, warning, info, removeAll } from 'react-notification-system-redux';
+
+const notificationOpts = {
+  message: "dfsdfsdfdsf",
+  position: "br",
+  // position: "tc",
+  level: 'info'
 
 
-// console.log(store)
+  // uid: 'once-please', // you can specify your own uid if required
+  // title: 'Hey, it\'s good to see you!',
+  // message: 'Now you can see how easy it is to use notifications in React!',
+  // position: 'tr',
+  // autoDismiss: 0,
+  // action: {
+  //   label: 'Click me!!',
+  //   callback: () => alert('clicked!')
+  // }
+};
 
+class Container extends React.Component {
 
+  constructor() {
+    super();
 
-
-store.dispatch(changePerPage(1))
-// console.log(store.getState())
-
-// store.dispatch(changePerPage(2))
-// console.log(store.getState())
-
-// store.dispatch(changePerPage(3))
-// console.log(store.getState())
-
-
-// // import { Content } from 'shared/components'
-
-// import { combineReducers, createStore } from 'redux'
-// // import { createStore } from 'redux'
-
-// function counter(state = 0, action) {
-//   switch (action.type) {
-//   case 'INCREMENT':
-//     return state + 1
-//   case 'DECREMENT':
-//     return state - 1
-//   default:
-//     return state
-//   }
-// }
-
-// let store = createStore(counter)
-
-// store.subscribe(() =>
-//   console.log(store.getState())
-// )
-
-// // Единственный способ изменить внутреннее состояние - это вызвать действие
-// // Действия могут быть сериализированы, залогированы или сохранены и далее воспроизведены.
-// store.dispatch({ type: 'INCREMENT' })
-// // 1
-// store.dispatch({ type: 'INCREMENT' })
-// // 2
-// store.dispatch({ type: 'DECREMENT' })
-// // 1
-
-
-
-
-// function visibilityFilter(state = 'SHOW_ALL', action) {
-//   switch (action.type) {
-//     case 'SET_VISIBILITY_FILTER':
-//       return action.filter
-//     default:
-//       return state
-//   }
-// }
-
-// function todos(state = [], action) {
-//   switch (action.type) {
-//     case 'ADD_TODO':
-//       return [
-//         ...state,
-//         {
-//           text: action.text,
-//           completed: false
-//         }
-//       ]
-//     case 'COMPLETE_TODO':
-//       return state.map((todo, index) => {
-//         if (index === action.index) {
-//           return Object.assign({}, todo, {
-//             completed: true
-//           })
-//         }
-//         return todo
-//       })
-//     default:
-//       return state
-//   }
-// }
-
-// let reducer = combineReducers({ visibilityFilter, todos })
-// // let store = createStore(reducer)
-
-
-
-
-
-export default class Test extends Component {
-  render() {
-    return (
-      <div className="center">
-        TEST PAGE
-      </div>
-    )
+    this.handleClick = this.handleClick.bind(this);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
   }
+
+  dispatchNotification(fn, timeout) {
+    setTimeout(() => {
+      this.context.store.dispatch(fn(notificationOpts));
+    }, timeout);
+  }
+
+  handleClick() {
+    this.dispatchNotification(success);
+    // this.dispatchNotification(error, 500);
+    // this.dispatchNotification(warning, 750);
+    // this.dispatchNotification(info, 1000);
+  }
+
+  handleRemoveAll() {
+    this.context.store.dispatch(removeAll());
+  }
+
+	render() {
+    const {notifications} = this.props;
+
+		return (
+	    <div>
+        <button onClick={this.handleClick}>Spawn some notifications!!!</button>
+        <button onClick={this.handleRemoveAll}>Remove all notifications</button>
+        <Notifications notifications={notifications} />
+      </div>
+		);
+	}
 }
 
+Container.contextTypes = {
+  store: PropTypes.object
+};
 
+Container.propTypes = {
+  notifications: PropTypes.array
+};
+
+export default connect(
+  state => ({ notifications: state.notifications })
+)(Container);

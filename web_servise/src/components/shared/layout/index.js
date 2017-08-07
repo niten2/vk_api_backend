@@ -2,6 +2,9 @@ import React from 'react'
 // import { UIStore } from 'stores'
 // import NotificationSystem from 'react-notification-system'
 
+// import Notifications, { success } from 'react-notification-system-redux';
+
+
 import Header from 'components/shared/header'
 import Sidebar from 'components/shared/sidebar'
 import Breadcrumb from 'components/shared/breadcrumb'

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
 import { withRouter } from "react-router-dom"
-// import { withApollo } from 'react-apollo'
-import Avatar from "./avatar.jpg"
-import { Link } from 'lib/nav_link'
+import { connect } from 'react-redux'
 import authProvider from 'lib/auth_provider'
+import Avatar from "./avatar.jpg"
+import Notification from 'lib/notification'
+import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Link } from 'lib/nav_link'
+import { Logout as LogoutAction } from 'actions'
 
 class Logout extends Component {
 
@@ -20,10 +22,10 @@ class Logout extends Component {
   }
 
   logout = () => {
-    authProvider.removeToken()
-    // this.props.client.resetStore()
+    this.props.dispatch(LogoutAction())
     this.props.history.push('/dasboard')
-    console.log("Logout")
+    authProvider.removeToken()
+    Notification.success("Logout")
   }
 
   render() {
@@ -62,4 +64,5 @@ class Logout extends Component {
 }
 
 // console.log(withRouter(Logout))
-export default withRouter(Logout)
+// export default withRouter(Logout)
+export default connect()(withRouter(Logout))

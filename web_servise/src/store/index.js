@@ -1,14 +1,31 @@
-import { applyMiddleware, createStore } from 'redux'
-import reducers from 'reducers'
+import rootReducer from 'reducers'
 import { logger } from 'middleware'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
-// console.log(1111)
-// export const store = createStore(reducers, {
-//    perPage: 9999
-// })
+export const configureStore = (initialState = {}) => {
+  return createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(
+      thunk, logger
+    )
+  )
+}
 
-export const store = createStore(reducers,  applyMiddleware(logger))
 
+
+
+
+// import { applyMiddleware, createStore } from 'redux'
+//   const logger = createLogger()
+
+//   return store
+// }
+
+
+// import rootReducer from '../reducers'
+// import createLogger from 'redux-logger'
 
 // /*
 //  * типы действий
@@ -44,3 +61,17 @@ export const store = createStore(reducers,  applyMiddleware(logger))
 //   return { type: SET_VISIBILITY_FILTER, filter }
 // }
 
+// console.log(thunk)
+// console.log(1111)
+// export const store = createStore(reducers, {
+//    perPage: 9999
+// })
+
+
+// const logger = createLogger()
+
+// export const store = createStore(rootReducer,  applyMiddleware(logger, thunk))
+
+
+
+// export const configureStore = () => {

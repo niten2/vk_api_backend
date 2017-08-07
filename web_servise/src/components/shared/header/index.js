@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from "lib/nav_link"
+import { connect } from 'react-redux'
 // import { observer } from 'mobx-react'
 // import { UIStore } from "stores"
-// import Login from "./login"
-// import Logout from "./logout"
+import Login from "./login"
+import Logout from "./logout"
 
 class Header extends Component {
 
@@ -38,6 +39,9 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.props)
+    const { login } = this.props
+
     return (
       <header className="app-header navbar">
         <button
@@ -88,6 +92,7 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
+          { login ?  <Logout {...this.props}/> : <Login /> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>
@@ -101,5 +106,11 @@ class Header extends Component {
   }
 }
 
-export default Header
-          // { UIStore.login ?  <Logout {...this.props}/> : <Login /> }
+function mapStateToProps(state) {
+  return {
+    perPage: state.perPage,
+    login: state.login,
+  }
+}
+
+export default connect(mapStateToProps)(Header)

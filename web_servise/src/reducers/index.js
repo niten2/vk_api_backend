@@ -1,9 +1,10 @@
-// import { combineReducers } from 'redux'
+import { combineReducers } from 'redux'
+import { reducer as notifications } from 'react-notification-system-redux'
 import settings from './settings'
 
-// const todoApp = combineReducers({
-//   settings,
-// })
+const reducers  = combineReducers({
+  settings,
+  notifications,
+})
 
-export default settings
-// export default todoApp
+export default reducers

@@ -9,9 +9,6 @@ import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
 import Pagination from 'components/shared/pagination'
 
-import { store } from 'store'
-
-
 const Buttons = (props) => {
   return(
     <div className="row">
