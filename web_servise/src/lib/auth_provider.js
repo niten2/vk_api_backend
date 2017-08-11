@@ -1,6 +1,7 @@
 // import authProvider from 'lib/auth_provider'
 // import { UIStore } from 'stores'
 import Notification from 'lib/notification'
+// import { store } from 'store'
 
 const AUTH_SESSION_STORAGE_KEY = 'smm-crm-system'
 
@@ -49,11 +50,12 @@ class AuthProvider {
 
   checkAuth() {
     if (this.hasLogin()) {
+      // store.dispatch()
+      // dispatch(addTodo(input.value))
       // UIStore.setLogin()
     }
   }
 
 }
 
-const authProvider = new AuthProvider()
-export default authProvider
+export default new AuthProvider()

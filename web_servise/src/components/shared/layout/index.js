@@ -1,4 +1,6 @@
 import React from 'react'
+import Notifications from 'react-notification-system-redux'
+import { connect } from 'react-redux'
 // import { UIStore } from 'stores'
 // import NotificationSystem from 'react-notification-system'
 
@@ -11,15 +13,19 @@ import Breadcrumb from 'components/shared/breadcrumb'
 import Aside from 'components/shared/aside'
 import Footer from 'components/shared/footer'
 
-export default class LayoutComponent extends React.Component {
+class LayoutComponent extends React.Component {
 
   // componentDidMount() {
     // UIStore.notificationSystem = this.refs.notificationSystem
   // }
 
   render() {
+    const { notifications } = this.props
+
     return (
       <div className="app">
+        <Notifications notifications={notifications} />
+
         <Header />
         <div className="app-body">
           <Sidebar {...this.props}/>
@@ -36,4 +42,7 @@ export default class LayoutComponent extends React.Component {
     )
   }
 }
+
+export default connect(state => ({ notifications: state.notifications }))(LayoutComponent);
+
         // <NotificationSystem className="notification" ref="notificationSystem" allowHTML={ true } />

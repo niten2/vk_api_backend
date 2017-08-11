@@ -30,6 +30,8 @@ const todos = (state = {}, action) => {
       ]
     case 'LOGOUT':
       console.log(1111)
+      authProvider.removeToken()
+
       return [
         ...state,
         {
