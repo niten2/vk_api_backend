@@ -1,9 +1,6 @@
 import React from 'react'
 import { NavLink } from 'lib/nav_link'
-import {
-  Nav,
-  NavItem,
-} from 'reactstrap'
+import { Nav, NavItem } from 'reactstrap'
 
 const Login = () => (
   <Nav className="ml-auto" navbar>

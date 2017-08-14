@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from "lib/nav_link"
 import { connect } from 'react-redux'
+import { Link } from "lib/nav_link"
 import Login from "./login"
 import Logout from "./logout"
-import { checkLogin } from 'actions'
 
 class Header extends Component {
-
-  // componentWillMount() {
-  //   this.props.dispatch(checkLogin())
-  // }
 
   state = {
     dropdownOpen: false
@@ -104,10 +99,9 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
-    perPage: state.settings && state.settings.perPage,
-    login: state.settings && state.settings.login,
+    perPage: state.settings.perPage,
+    login: state.settings.login,
   }
 }
 

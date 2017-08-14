@@ -2,8 +2,8 @@ import React from 'react'
 import { graphql } from 'react-apollo'
 import { JwtTokenCreateQuery } from 'components/auth/graphql/public/querues'
 import { Link } from 'lib/nav_link'
-import { handleLogin } from 'actions'
 import { connect } from 'react-redux'
+import { handleLogin } from 'actions/auth'
 import Notification from 'actions/notification'
 
 const ErrorMessage = (

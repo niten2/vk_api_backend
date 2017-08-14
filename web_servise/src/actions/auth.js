@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 
 export const LOGOUT = "LOGOUT"
 export const LOGIN = "LOGIN"
-export const CHANGE_PER_PAGE = "CHANGE_PER_PAGE"
 
 export const changePerPage = (perPage) => ({
   type: 'CHANGE_PER_PAGE',

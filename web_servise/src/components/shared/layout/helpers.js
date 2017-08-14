@@ -1,17 +1,10 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import LayoutComponent from 'components/shared/layout'
-import { ApolloProvider } from 'react-apollo'
 import settings from "lib/settings"
+import { Route } from 'react-router-dom'
+import { ApolloProvider } from 'react-apollo'
 import { createClient } from 'lib/apollo_client'
-// import { store } from 'store'
 import { configureStore } from 'store'
-
-// const state = {
-//   settings: {
-//     login: true,
-//   }
-// }
 
 const store = configureStore()
 

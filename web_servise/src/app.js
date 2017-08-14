@@ -31,11 +31,8 @@ import Status from 'components/crm/statuses'
 // vk
 import Vk from 'components/vk'
 import VkPersons from 'components/vk/persons'
-// import NewUser from 'views/vk/users/new'
 import VkTags from 'components/vk/tags'
-// import NewTag from 'views/vk/tags/new'
 import VkGroups from 'components/vk/groups'
-// import NewGroup from 'views/vk/groups/new'
 
 // insta
 import Instagram from 'components/instagram'

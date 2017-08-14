@@ -1,5 +1,5 @@
 // import { connect } from 'react-redux'
-// import { success } from 'actions/notification'
+// import { success } from 'actions'
 // this.props.dispatch(success("message"))
 // export default connect()(Container)
 

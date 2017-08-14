@@ -1,4 +1,4 @@
-import { LOGOUT, LOGIN } from 'actions'
+import { LOGOUT, LOGIN } from 'actions/auth'
 import { assocPath } from 'ramda'
 import authProvider from "lib/auth_provider"
 
