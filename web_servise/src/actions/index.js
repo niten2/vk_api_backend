@@ -1,8 +1,9 @@
 import Notification from 'actions/notification'
 import authProvider from "lib/auth_provider"
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import { push } from 'react-router-redux'
 
 export const LOGOUT = "LOGOUT"
+export const LOGIN = "LOGIN"
 export const CHANGE_PER_PAGE = "CHANGE_PER_PAGE"
 
 export const changePerPage = (perPage) => ({
@@ -12,10 +13,10 @@ export const changePerPage = (perPage) => ({
 
 export const handleLogout = () => {
   return (dispatch) => {
-    console.log("Logout")
     authProvider.removeToken()
+    dispatch(Notification.success("Logout"))
     dispatch(push('/dashboard'))
-    dispatch({ type: "LOGOUT" })
+    dispatch({ type: LOGOUT })
   }
 }
 
@@ -25,22 +26,16 @@ export const handleLogin = (token) => {
     authProvider.saveToken(token)
     dispatch(Notification.success("Get token"))
     dispatch(push('/dashboard'))
-    dispatch({ type: "LOGIN" })
+    dispatch({ type: LOGIN })
   }
 }
 
 
-
 // export function handleSetting() {
-
-//   return function(dispatch) {
-
+//   return (dispatch) => {
 //     dispatch({
 //       type: "SETTING_REQUEST"
 //     })
-
-//     console.log(222)
-
 
 //     dispatch({
 //       type: "SETTING_SUCCES",
@@ -70,5 +65,4 @@ export const handleLogin = (token) => {
 //     //   }
 //     // },4); // запрос прав на доступ к photo
 //   }
-
 // }

@@ -4,7 +4,7 @@ import LayoutComponent from 'components/shared/layout'
 import { ApolloProvider } from 'react-apollo'
 import settings from "lib/settings"
 import { createClient } from 'lib/apollo_client'
-import { history, store } from 'store'
+import { store } from 'store'
 
 const createLayoutWithApollo = (client) => {
   return ({component: Component, ...rest}) => {

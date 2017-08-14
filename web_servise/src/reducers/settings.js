@@ -1,4 +1,4 @@
-import authProvider from 'lib/auth_provider'
+import { LOGOUT, LOGIN } from 'actions'
 import { assocPath } from 'ramda'
 
 const defaultState = {
@@ -17,9 +17,9 @@ const settings = (state = defaultState, action) => {
           perPage: action.perPage,
         }
       ]
-    case 'LOGOUT':
+    case LOGOUT:
       return assocPath(['login'])(false)(state)
-    case 'LOGIN':
+    case LOGIN:
       return assocPath(['login'])(true)(state)
     default:
       return state

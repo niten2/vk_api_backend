@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
-import authProvider from 'lib/auth_provider'
-import Notification from 'lib/notification'
 import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
 import { Link } from 'lib/nav_link'
 import Avatar from "./avatar.jpg"
