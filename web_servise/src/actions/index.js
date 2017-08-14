@@ -30,7 +30,6 @@ export const handleLogin = (token) => {
   }
 }
 
-
 // export function handleSetting() {
 //   return (dispatch) => {
 //     dispatch({

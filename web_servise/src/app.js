@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { history, store } from 'store'
+import { history, configureStore } from 'store'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import {
@@ -42,8 +42,9 @@ import Instagram from 'components/instagram'
 
 import Test from 'components/test'
 
-
 export default (onUpdate) => {
+  const store = configureStore()
+
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
