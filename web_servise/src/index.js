@@ -1,44 +1,63 @@
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+// import { Provider } from 'react-redux'
+import App from './app'
+// import { Router, Route, browserHistory } from 'react-router'
+// import { configureStore } from 'store'
+// import createHistory from 'history/createBrowserHistory'
+
+// const history = createHistory()
+// const store = configureStore({ history: history, state: {}})
+
+
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <Router history={history}>
+//       <App />
+//     </Router>
+//   </Provider>,
+//   document.getElementById('root')
+// )
+
+
+
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './router'
-// import AuthProvider from 'lib/auth_provider'
 
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-// import { configureStore } from 'store'
-import { configureStore } from 'store'
 
-// console.log(store.getState())
-// const store = configureStore()
+// import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
 
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 
-// import "font-awesome/css/font-awesome.css"
-// import 'bootstrap/dist/css/bootstrap.css'
+// import reducers from 'reducers' // Or wherever you keep your reducers
 
-// console.log(AuthProvider.checkAuth())
+import { history, store } from 'store'
+// import Test from 'components/test'
+// import Test2 from 'components/test2'
 
+// const history = createHistory()
 
-const state = () => {
+// const middleware = routerMiddleware(history)
 
-  // if (AuthProvider.checkAuth()) {
-  //   return {}
-  // }
+// const store = createStore(
+//   combineReducers({
+//     ...reducers,
+//     router: routerReducer
+//   }),
+//   applyMiddleware(middleware)
+// )
 
-  return {
-    settings: {
-      perPage: 4444,
-      login: true,
-    }
-  }
-}
 
 ReactDOM.render(
-  // <App />,
-
-  <Provider store={configureStore(state())}>
-    <div className='app'>
-      <App />
-    </div>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <div>
+        <App />
+      </div>
+    </ConnectedRouter>
   </Provider>,
-
   document.getElementById('root')
 )

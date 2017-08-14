@@ -1,17 +1,37 @@
-import rootReducer from 'reducers'
 import { logger } from 'middleware'
 import { createStore, applyMiddleware } from 'redux'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
+import reducers from 'reducers' // Or wherever you keep your reducers
 import thunk from 'redux-thunk'
+import { combineReducers } from 'redux'
 
-export const configureStore = (initialState = {}) => {
-  return createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(
-      thunk, logger
-    )
-  )
-}
+
+
+export const history = createHistory()
+
+const middleware = routerMiddleware(history)
+
+export const store = createStore(
+  reducers,
+  // combineReducers({
+  //   ...reducers,
+  //   router: routerReducer
+  // }),
+  applyMiddleware(middleware, thunk, logger)
+)
+
+
+// export const configureStore = (options = {}) => {
+//   const { state, history } = options
+//   const middleware = routerMiddleware(history)
+
+//   return createStore(
+//     reducers,
+//     state,
+//     applyMiddleware(middleware, thunk, logger)
+//   )
+// }
 
 
 

@@ -10,35 +10,38 @@ import {
   info as infoNotification,
 } from 'react-notification-system-redux'
 
-export const success = (message) => {
-  return successNotification({
-    message,
-    position: "br",
-    level: 'success'
-  })
-}
+export default {
 
-export const error = (message) => {
-  return errorNotification({
-    message,
-    position: "br",
-    level: 'error'
-  })
-}
+  success(message) {
+    return successNotification({
+      message,
+      position: "br",
+      level: 'success'
+    })
+  },
 
-export const warning = (message) => {
-  return warningNotification({
-    message,
-    position: "br",
-    level: 'warning'
-  })
-}
+  error(message) {
+    return errorNotification({
+      message,
+      position: "br",
+      level: 'error'
+    })
+  },
 
-export const info = (message) => {
-  return infoNotification({
-    message,
-    position: "br",
-    level: 'info'
-  })
-}
+  warning(message) {
+    return warningNotification({
+      message,
+      position: "br",
+      level: 'warning'
+    })
+  },
 
+  info(message) {
+    return infoNotification({
+      message,
+      position: "br",
+      level: 'info'
+    })
+  },
+
+}

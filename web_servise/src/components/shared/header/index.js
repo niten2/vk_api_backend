@@ -1,46 +1,39 @@
 import React, { Component } from 'react'
 import { Link } from "lib/nav_link"
 import { connect } from 'react-redux'
-// import { observer } from 'mobx-react'
-// import { UIStore } from "stores"
 import Login from "./login"
 import Logout from "./logout"
 
 class Header extends Component {
 
-  constructor(props) {
-    super(props)
-    this.toggle = this.toggle.bind(this)
-  }
-
   state = {
     dropdownOpen: false
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     })
   }
 
-  sidebarToggle(e) {
+  sidebarToggle = (e) => {
     e.preventDefault()
     document.body.classList.toggle('sidebar-hidden')
   }
 
-  mobileSidebarToggle(e) {
+  mobileSidebarToggle = (e) => {
     e.preventDefault()
     document.body.classList.toggle('sidebar-mobile-show')
   }
 
-  asideToggle(e) {
+  asideToggle = (e) => {
     e.preventDefault()
     document.body.classList.toggle('aside-menu-hidden')
   }
 
   render() {
-    console.log(this.props)
     const { login } = this.props
+    console.log(111, login)
 
     return (
       <header className="app-header navbar">
@@ -108,8 +101,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    perPage: state.perPage,
-    login: state.login,
+    perPage: state.settings && state.settings.perPage,
+    login: state.settings && state.settings.login,
   }
 }
 

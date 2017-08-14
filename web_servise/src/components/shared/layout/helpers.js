@@ -4,14 +4,13 @@ import LayoutComponent from 'components/shared/layout'
 import { ApolloProvider } from 'react-apollo'
 import settings from "lib/settings"
 import { createClient } from 'lib/apollo_client'
-// import { store } from 'store'
-        // <ApolloProvider store={store} client={client}>
+import { history, store } from 'store'
 
 const createLayoutWithApollo = (client) => {
   return ({component: Component, ...rest}) => {
     return (
       <Route {...rest} render={ matchProps => (
-        <ApolloProvider client={client}>
+        <ApolloProvider store={store} client={client}>
           <LayoutComponent>
             <Component {...matchProps} />
           </LayoutComponent>

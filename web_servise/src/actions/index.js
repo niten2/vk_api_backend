@@ -1,4 +1,8 @@
 // let nextTodoId = 0
+import Notification from 'actions/notification'
+import authProvider from "lib/auth_provider"
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
 export const LOGOUT = "LOGOUT"
 export const CHANGE_PER_PAGE = "CHANGE_PER_PAGE"
 
@@ -10,6 +14,16 @@ export const changePerPage = (perPage) => ({
 export const Logout = () => ({
   type: 'LOGOUT',
 })
+
+export const handleLogin = (token) => {
+  return (dispatch) => {
+    console.log("GET token = ", token)
+    authProvider.saveToken(token)
+    dispatch(Notification.success("Get token"))
+    dispatch(push('/dashboard'))
+    dispatch({ type: "LOGIN" })
+  }
+}
 
 
 
@@ -60,6 +74,8 @@ export function handleSetting() {
   }
 
 }
+
+
 
 
 // export const addTodo = (text) => ({

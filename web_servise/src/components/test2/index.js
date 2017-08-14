@@ -4,6 +4,7 @@ import React from 'react';
 
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+console.log(push)
 // import { success } from 'actions/notification'
 
 
@@ -45,9 +46,7 @@ class Container extends React.Component {
   // }
 
   handleClick = () => {
-    // this.props.dispatch(push("/dashboard"))
-
-    this.props.dispatch(push('/crm'))
+    this.props.dispatch(push("/test"))
     // console.log(this.props)
     // this.dispatchNotification(success);
     // this.props.dispatch(success("message"))
@@ -69,7 +68,7 @@ class Container extends React.Component {
 
 		return (
 	    <div>
-        TEST
+        test2
         <button onClick={this.handleClick}>Spawn some notifications!!!</button>
       </div>
 		);

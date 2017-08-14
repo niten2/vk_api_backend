@@ -3,11 +3,7 @@ import React from 'react';
 // import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-// import { success } from 'actions/notification'
-
-
-// import Notification from 'lib/notification'
+import { success } from 'actions/notification'
 
 // import Notifications, { success, error, warning, info, removeAll } from 'react-notification-system-redux';
 
@@ -45,18 +41,13 @@ class Container extends React.Component {
   // }
 
   handleClick = () => {
-    // this.props.dispatch(push("/dashboard"))
-
-    this.props.dispatch(push('/crm'))
-    // console.log(this.props)
+    console.log(this.props)
     // this.dispatchNotification(success);
-    // this.props.dispatch(success("message"))
+    this.props.dispatch(success("message"))
 
     // this.dispatchNotification(error, 500);
     // this.dispatchNotification(warning, 750);
     // this.dispatchNotification(info, 1000);
-// Notification.success("update profile")
-
   }
 
   // handleRemoveAll() {
@@ -64,12 +55,11 @@ class Container extends React.Component {
   // }
 
 	render() {
-    // console.log(this.props)
     // const {notifications} = this.props;
 
 		return (
 	    <div>
-        TEST
+        settings
         <button onClick={this.handleClick}>Spawn some notifications!!!</button>
       </div>
 		);
@@ -83,12 +73,5 @@ class Container extends React.Component {
 // Container.propTypes = {
 //   notifications: PropTypes.array
 // };
-
-// const mapStateToProps = (state, ownProps) => {
-//   // console.log(state.settings.login)
-//   return {
-//     login: state.settings.login,
-//   }
-// }
 
 export default connect()(Container)
