@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import { success } from 'actions/notification'
 import { set, lensProp } from 'ramda'
 import { userQuery, updateUserQuery } from 'components/auth/graphql/private/querues'
 import { compose, graphql } from 'react-apollo'
@@ -43,7 +42,7 @@ class Profile extends React.Component {
   handleSetState = (e) => {
     const { name, value } = e.target
     this.setState({
-      user: set( lensProp(name), value, this.state.user),
+      user: set(lensProp(name), value, this.state.user),
       errorPassword: false,
     })
   }

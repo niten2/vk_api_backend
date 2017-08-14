@@ -55,7 +55,6 @@ export default (onUpdate) => {
           <LayoutAuthPublic exact path="/register" component={Register}/>
           <LayoutAuthPrivate exact path="/profile" component={Profile}/>
 
-
           <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
           <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
           <LayoutCrm exact path="/crm/clients/:page" component={Clients}/>

@@ -56,15 +56,16 @@ class Header extends Component {
 
           <li className="nav-item px-3">
             <Link
-              href="/dasboard"
+              href="/dashboard"
               className="nav-link"
             >Dashboard</Link>
           </li>
           <li className="nav-item px-3">
             <a className="nav-link">Users</a>
           </li>
+
           <li className="nav-item px-3">
-            <a className="nav-link">Settings</a>
+            { login ?  <Link className="nav-link" to="/settings">Settings</Link> : null }
           </li>
         </ul>
 
