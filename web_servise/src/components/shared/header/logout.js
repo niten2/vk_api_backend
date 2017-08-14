@@ -2,30 +2,24 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom"
 import { connect } from 'react-redux'
 import authProvider from 'lib/auth_provider'
-import Avatar from "./avatar.jpg"
 import Notification from 'lib/notification'
 import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
 import { Link } from 'lib/nav_link'
-import { Logout as LogoutAction } from 'actions'
+import Avatar from "./avatar.jpg"
+import { handleLogout } from 'actions'
 
 class Logout extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.toggle = this.toggle.bind(this)
-    this.state = { dropdownOpen: false }
+  state = {
+    dropdownOpen: false
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen })
   }
 
   logout = () => {
-    this.props.dispatch(LogoutAction())
-    this.props.history.push('/dasboard')
-    authProvider.removeToken()
-    Notification.success("Logout")
+    this.props.dispatch(handleLogout())
   }
 
   render() {
@@ -63,6 +57,4 @@ class Logout extends Component {
   }
 }
 
-// console.log(withRouter(Logout))
-// export default withRouter(Logout)
-export default connect()(withRouter(Logout))
+export default connect()(Logout)

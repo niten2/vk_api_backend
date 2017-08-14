@@ -1,5 +1,8 @@
 import React from 'react'
+import { Provider } from 'react-redux'
+import { history, store } from 'store'
 import { Route, Redirect, BrowserRouter, Switch } from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux'
 import {
   Layout,
   LayoutCrm,
@@ -42,40 +45,42 @@ import Test from 'components/test'
 
 export default (onUpdate) => {
   return (
-    <div>
-      <Switch>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Switch>
 
-        <Layout exact path="/test" name="test" component={Test}/>
+          <Layout exact path="/test" name="test" component={Test}/>
 
-        <LayoutAuthPublic exact path="/dashboard" name="Dashboard" component={Dashboard}/>
+          <LayoutAuthPublic exact path="/dashboard" name="Dashboard" component={Dashboard}/>
 
-        <LayoutAuthPublic exact path="/login" component={Login}/>
-        <LayoutAuthPublic exact path="/register" component={Register}/>
-        <LayoutAuthPrivate exact path="/profile" component={Profile}/>
+          <LayoutAuthPublic exact path="/login" component={Login}/>
+          <LayoutAuthPublic exact path="/register" component={Register}/>
+          <LayoutAuthPrivate exact path="/profile" component={Profile}/>
 
 
-        <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
-        <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
-        <LayoutCrm exact path="/crm/clients/:page" component={Clients}/>
+          <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
+          <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
+          <LayoutCrm exact path="/crm/clients/:page" component={Clients}/>
 
-        <LayoutCrm exact path="/crm/clients/new" component={ClientNew} />
-        <LayoutCrm exact path="/crm/clients/update/:id" component={ClientUpdate} />
+          <LayoutCrm exact path="/crm/clients/new" component={ClientNew} />
+          <LayoutCrm exact path="/crm/clients/update/:id" component={ClientUpdate} />
 
-        <Route exact path='/crm/statuses' render={() => <Redirect to='/crm/statuses/1' />} />
-        <LayoutCrm exact path="/crm/statuses/:page" component={Status}/>
+          <Route exact path='/crm/statuses' render={() => <Redirect to='/crm/statuses/1' />} />
+          <LayoutCrm exact path="/crm/statuses/:page" component={Status}/>
 
-        <LayoutVk exact path="/vk" component={Vk}/>
-        <Route exact path='/vk/persons' render={() => <Redirect to='/vk/persons/1' />} />
-        <LayoutVk exact path="/vk/persons/:page" component={VkPersons}/>
-        <Route exact path='/vk/groups' render={() => <Redirect to='/vk/groups/1' />} />
-        <LayoutVk exact path="/vk/groups/:page" component={VkGroups}/>
-        <LayoutVk exact path="/vk/tags" component={VkTags}/>
+          <LayoutVk exact path="/vk" component={Vk}/>
+          <Route exact path='/vk/persons' render={() => <Redirect to='/vk/persons/1' />} />
+          <LayoutVk exact path="/vk/persons/:page" component={VkPersons}/>
+          <Route exact path='/vk/groups' render={() => <Redirect to='/vk/groups/1' />} />
+          <LayoutVk exact path="/vk/groups/:page" component={VkGroups}/>
+          <LayoutVk exact path="/vk/tags" component={VkTags}/>
 
-        <LayoutInstagram exact path="/instagram" component={Instagram}/>
+          <LayoutInstagram exact path="/instagram" component={Instagram}/>
 
-        <Redirect exact from="/" to="/dasboard"/>
-        <Layout path="*" component={Page404}/>
-      </Switch>
-    </div>
+          <Redirect exact from="/" to="/dasboard"/>
+          <Layout path="*" component={Page404}/>
+        </Switch>
+      </ConnectedRouter>
+    </Provider>
   )
 }

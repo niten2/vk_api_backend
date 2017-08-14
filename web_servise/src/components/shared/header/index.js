@@ -33,7 +33,6 @@ class Header extends Component {
 
   render() {
     const { login } = this.props
-    console.log(111, login)
 
     return (
       <header className="app-header navbar">
