@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import { deleteClientQuery } from 'components/crm/graphql/querues'
-import Notification from 'lib/notification'
+// import Notification from 'actions/notification'
 
 class ClientView extends Component {
 
@@ -34,7 +34,7 @@ class ClientView extends Component {
       })
       refetch()
     } catch (error) {
-      Notification.error(error)
+      // Notification.error(error)
     }
 
   }

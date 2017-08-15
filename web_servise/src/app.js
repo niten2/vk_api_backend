@@ -74,7 +74,7 @@ export default (onUpdate) => {
 
           <LayoutInstagram exact path="/instagram" component={Instagram}/>
 
-          <Redirect exact from="/" to="/dasboard"/>
+          <Redirect exact from="/" to="/dashboard"/>
           <Layout path="*" component={Page404}/>
         </Switch>
       </ConnectedRouter>

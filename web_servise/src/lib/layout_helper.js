@@ -42,6 +42,7 @@ export const LayoutCrm = createLayoutWithApollo(
 )
 
 export const LayoutVk = createLayoutWithApollo(
+  // TODO
   // createClient(settings.uriVkServise, settings.vkServiseSubscriptions)
   createClient(settings.uriVkServise)
 )

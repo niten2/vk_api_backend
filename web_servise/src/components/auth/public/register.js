@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { compose, graphql } from 'react-apollo'
-import Notification from 'lib/notification'
+import Notification from 'actions/notification'
 import authProvider from "lib/auth_provider"
 import { set, lensProp } from 'ramda'
 import { UserCreateQuery, JwtTokenCreateQuery } from 'components/auth/graphql/public/querues'

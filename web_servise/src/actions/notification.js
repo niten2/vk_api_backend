@@ -20,14 +20,6 @@ export default {
     })
   },
 
-  error(message) {
-    return errorNotification({
-      message,
-      position: "br",
-      level: 'error'
-    })
-  },
-
   warning(message) {
     return warningNotification({
       message,
@@ -44,4 +36,24 @@ export default {
     })
   },
 
+  error(message) {
+    return errorNotification({
+      message,
+      position: "br",
+      level: 'error'
+    })
+  },
+
+  errors(errors = []) {
+    if (errors.length === 1) {
+      this.error(errors[0])
+      return
+    }
+
+    errors = errors.reduce((message, error) => {
+      return message + error
+    }, '')
+
+    this.error(errors)
+  }
 }

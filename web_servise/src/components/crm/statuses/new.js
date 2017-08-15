@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Notification from 'lib/notification'
+// import Notification from 'actions/notification'
 import { compose, graphql } from 'react-apollo'
 import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
 import { InputField } from 'components/shared/default_components'
@@ -35,9 +35,9 @@ class NewStatus extends Component {
       })
       await statusesQuery.refetch()
       this.setState({ status: { name: "" } })
-      Notification.success("ok")
+      // Notification.success("ok")
     } catch (e) {
-      Notification.error(e)
+      // Notification.error(e)
     }
   }
 

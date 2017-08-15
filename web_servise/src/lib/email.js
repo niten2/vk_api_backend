@@ -3,5 +3,5 @@ export default function(options = {}) {
 
   console.log(`send email with ${name}, ${phone}`)
 
-  emailjs.send("mailgun","test", { name: name, phone: phone })
+  // emailjs.send("mailgun","test", { name: name, phone: phone })
 }

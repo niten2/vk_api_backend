@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import Notification from 'lib/notification'
+// import Notification from 'actions/notification'
 import PropTypes from 'prop-types'
-// import { UIStore } from 'stores'
 import { graphql, withApollo } from 'react-apollo'
 // import { createTagQuery, tagsQuery } from 'components/vk/graphql/querues'
 import { createTagQuery } from 'components/vk/graphql/querues'
@@ -73,9 +72,9 @@ class New extends Component {
       })
       refetch()
       this.setState({ group: {} })
-      Notification.success("ok")
+      // Notification.success("ok")
     } catch (e) {
-      Notification.error(e)
+      // Notification.error(e)
     }
   }
 
