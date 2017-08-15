@@ -55,17 +55,7 @@ class Header extends Component {
           </li>
 
           <li className="nav-item px-3">
-            <Link
-              href="/dashboard"
-              className="nav-link"
-            >Dashboard</Link>
-          </li>
-          <li className="nav-item px-3">
-            <a className="nav-link">Users</a>
-          </li>
-
-          <li className="nav-item px-3">
-            { login ?  <Link className="nav-link" to="/settings">Settings</Link> : null }
+            { login ?  <Link className="nav-link" href="settings">Settings</Link> : null }
           </li>
         </ul>
 

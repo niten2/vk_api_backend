@@ -19,6 +19,7 @@ import Page404 from 'components/shared/page404'
 import Login from 'components/auth/public/login'
 import Register from 'components/auth/public/register'
 import Profile from 'components/auth/private/profile'
+import Settings from 'components/auth/private/settings/index'
 
 import Dashboard from 'components/shared/dashboard'
 
@@ -54,6 +55,7 @@ export default (onUpdate) => {
           <LayoutAuthPublic exact path="/login" component={Login}/>
           <LayoutAuthPublic exact path="/register" component={Register}/>
           <LayoutAuthPrivate exact path="/profile" component={Profile}/>
+          <LayoutAuthPrivate exact path="/settings" component={Settings}/>
 
           <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
           <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
