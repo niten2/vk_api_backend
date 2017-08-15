@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Notification from 'lib/notification'
+// import Notification from 'actions/notification'
 import { graphql } from 'react-apollo'
 import { createGroupQuery } from 'components/vk/graphql/querues'
 
@@ -59,9 +59,9 @@ class New extends Component {
         },
       })
       refetch()
-      Notification.success("ok")
+      // Notification.success("ok")
     } catch (e) {
-      Notification.error(e)
+      // Notification.error(e)
     }
   }
 

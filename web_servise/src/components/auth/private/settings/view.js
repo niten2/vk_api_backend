@@ -2,34 +2,29 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import { deleteClientQuery } from 'components/crm/graphql/querues'
-// import Notification from 'actions/notification'
+import { deleteSettingQuery } from 'components/auth/graphql/private/querues'
 
-class ClientView extends Component {
+class SettingView extends Component {
 
   static propTypes = {
     object: PropTypes.object.isRequired,
     refetch: PropTypes.func.isRequired,
-    deleteClientQuery: PropTypes.func.isRequired,
+    deleteSettingQuery: PropTypes.func.isRequired,
   }
 
   state = {
     object: {},
     attributes: [
-      "id",
       "name",
-      "number",
-      "phone",
-      "note",
-      "date_birth"
+      "value"
     ]
   }
 
   handleDestroy = async () => {
-    const { refetch, object, deleteClientQuery } = this.props
+    const { refetch, object, deleteSettingQuery } = this.props
 
     try {
-      await deleteClientQuery({
+      await deleteSettingQuery({
         variables: { id: object.id },
       })
       refetch()
@@ -56,12 +51,6 @@ class ClientView extends Component {
         </td>
 
         <td>
-          <span className="">
-            { object.status && object.status.name }
-          </span>
-        </td>
-
-        <td>
           <Link href={`/crm/clients/update/${object.id}`}>
             <i className="pointer icon-folder" />
           </Link>
@@ -74,5 +63,5 @@ class ClientView extends Component {
 }
 
 export default graphql(
-  deleteClientQuery, { name: "deleteClientQuery"}
-)(ClientView)
+  deleteSettingQuery, { name: "deleteSettingQuery"}
+)(SettingView)

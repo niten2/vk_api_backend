@@ -8,20 +8,43 @@ export const userQuery = gql`
     }
   }
 `
-export const updateUserQuery = gql`
-  mutation UserUpdate(
-    $name: String,
-    $email: String,
-    $password: String,
-  ) {
-    UserUpdate(
-      name: $name
-      email: $email
-      password: $password
-    ) {
+export const settingQuery = gql`
+  query settings {
+    settings {
       name
-      email
-      password
+      value
+    }
+  }
+`
+
+export const updateUserQuery = gql`
+  mutation updateUser($input: UserInput!) {
+    updateUser(input: $input) {
+      id
+    }
+  }
+`
+
+export const createSettingQuery = gql`
+  mutation createSetting($input: SettingInput!) {
+    createSetting(input: $input) {
+      id
+    }
+  }
+`
+
+export const updateSettingQuery = gql`
+  mutation updateSetting($input: SettingInput!) {
+    updateSetting(input: $input) {
+      id
+    }
+  }
+`
+
+export const deleteSettingQuery = gql`
+  mutation deleteSetting($input: IdInput!) {
+    deleteSetting(input: $input) {
+      id
     }
   }
 `

@@ -1,15 +1,18 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import LayoutComponent from 'components/shared/layout'
-import { ApolloProvider } from 'react-apollo'
 import settings from "lib/settings"
-import { createClient } from './apollo_client'
+import { Route } from 'react-router-dom'
+import { ApolloProvider } from 'react-apollo'
+import { createClient } from 'lib/apollo_client'
+import { configureStore } from 'store'
+
+const store = configureStore()
 
 const createLayoutWithApollo = (client) => {
   return ({component: Component, ...rest}) => {
     return (
       <Route {...rest} render={ matchProps => (
-        <ApolloProvider client={client}>
+        <ApolloProvider store={store} client={client}>
           <LayoutComponent>
             <Component {...matchProps} />
           </LayoutComponent>
@@ -42,7 +45,6 @@ export const LayoutCrm = createLayoutWithApollo(
 )
 
 export const LayoutVk = createLayoutWithApollo(
-  // TODO
   // createClient(settings.uriVkServise, settings.vkServiseSubscriptions)
   createClient(settings.uriVkServise)
 )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
-import Notification from 'lib/notification'
+import Notification from 'actions/notification'
 import { createClientQuery, clientsQuery } from 'components/crm/graphql/querues'
 import { Input } from 'reactstrap'
 

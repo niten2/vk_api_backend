@@ -1,29 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
-import { withRouter } from "react-router-dom"
-// import { withApollo } from 'react-apollo'
-import Avatar from "./avatar.jpg"
 import { Link } from 'lib/nav_link'
-import authProvider from 'lib/auth_provider'
+import Avatar from "./avatar.jpg"
+import { handleLogout } from 'actions/auth'
 
 class Logout extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.toggle = this.toggle.bind(this)
-    this.state = { dropdownOpen: false }
+  state = {
+    dropdownOpen: false
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen })
   }
 
   logout = () => {
-    authProvider.removeToken()
-    // this.props.client.resetStore()
-    this.props.history.push('/dasboard')
-    console.log("Logout")
+    this.props.dispatch(handleLogout())
   }
 
   render() {
@@ -61,5 +54,4 @@ class Logout extends Component {
   }
 }
 
-// console.log(withRouter(Logout))
-export default withRouter(Logout)
+export default connect()(Logout)

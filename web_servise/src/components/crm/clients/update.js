@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'lib/nav_link'
-import { compose, graphql } from 'react-apollo'
-import Notification from 'lib/notification'
-import { set, lensProp } from 'ramda'
 import {
   statusesQuery,
   clientsQuery,
   clientQuery,
   updateClientQuery
 } from 'components/crm/graphql/querues'
+import { Link } from 'lib/nav_link'
+import { compose, graphql } from 'react-apollo'
+import Notification from 'actions/notification'
+import { set, lensProp } from 'ramda'
 import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
 import Select from 'react-select'

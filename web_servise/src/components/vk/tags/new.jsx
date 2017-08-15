@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
+// import Notification from 'actions/notification'
 import PropTypes from 'prop-types'
-import { UIStore } from 'stores'
-import Notification from 'lib/notification'
 import { graphql, withApollo } from 'react-apollo'
-import { createTagQuery, tagsQuery } from 'components/vk/graphql/querues'
+// import { createTagQuery, tagsQuery } from 'components/vk/graphql/querues'
+import { createTagQuery } from 'components/vk/graphql/querues'
 
 const InputField = (props) => {
   return (
@@ -42,13 +42,14 @@ class New extends Component {
   }
 
   query = async (name) => {
-    const result = await this.props.client.query({
-      query: tagsQuery,
-      variables: {
-        filter: { name: UIStore.tags.query || null }
-      },
-    })
-    UIStore.tags.tags = result.data.tags
+    console.log("TODO")
+    // await this.props.client.query({
+    //   query: tagsQuery,
+    //   variables: {
+    //     // filter: { name: UIStore.tags.query || null }
+    //   },
+    // })
+    // // UIStore.tags.tags = result.data.tags
   }
 
   handleSetState = (e) => {
@@ -71,9 +72,9 @@ class New extends Component {
       })
       refetch()
       this.setState({ group: {} })
-      Notification.success("ok")
+      // Notification.success("ok")
     } catch (e) {
-      Notification.error(e)
+      // Notification.error(e)
     }
   }
 

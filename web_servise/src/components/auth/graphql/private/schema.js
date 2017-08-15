@@ -1,21 +1,43 @@
 export const typeDefs = `
-  type Query {
-    user: User
-  }
 
   type User {
+    id: ID
     name: String
-    email: String
+    email: String @isUnique
     password: String
   }
 
-  type Mutation {
-
-    UserUpdate(
-      name: String
-      email: String
-      password: String
-    ): User
-
+  type Setting {
+    id: ID
+    name: String
+    value: String
+    createdAt: String
+    updatedAt: String
   }
+
+  type Meta {
+    count: Int!
+  }
+
+  # NOTE Inputs
+  input SettingInput {
+    name: String
+    value: String
+  }
+
+  input UserInput {
+    name: String
+    email: String @isUnique
+    password: String
+  }
+
+  input IdInput {
+    id: ID!
+  }
+
+  input PaginationInput {
+    limit: Int
+    offset: Int
+  }
+
 `

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { compose, graphql } from 'react-apollo'
 import { statusesQuery, updateStatusQuery, deleteStatusQuery } from 'components/crm/graphql/querues'
-import Notification from 'lib/notification'
+// import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
 
 class View extends Component {
@@ -40,9 +40,9 @@ class View extends Component {
         },
       })
       this.props.refresh()
-      Notification.success("ok")
+      // Notification.success("ok")
     } catch (error) {
-      Notification.error(error)
+      // Notification.error(error)
     }
   }
 
@@ -63,9 +63,9 @@ class View extends Component {
           query: statusesQuery,
         }],
       })
-      Notification.success("ok")
+      // Notification.success("ok")
     } catch (e) {
-      Notification.error(e)
+      // Notification.error(e)
     }
   }
 

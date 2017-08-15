@@ -1,40 +1,39 @@
 import React, { Component } from 'react'
-import { observer } from 'mobx-react'
-import { UIStore } from "stores"
+import { connect } from 'react-redux'
 import { Link } from "lib/nav_link"
 import Login from "./login"
 import Logout from "./logout"
 
 class Header extends Component {
 
-  constructor(props) {
-    super(props)
-    this.toggle = this.toggle.bind(this)
-    this.state = { dropdownOpen: false }
+  state = {
+    dropdownOpen: false
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     })
   }
 
-  sidebarToggle(e) {
+  sidebarToggle = (e) => {
     e.preventDefault()
     document.body.classList.toggle('sidebar-hidden')
   }
 
-  mobileSidebarToggle(e) {
+  mobileSidebarToggle = (e) => {
     e.preventDefault()
     document.body.classList.toggle('sidebar-mobile-show')
   }
 
-  asideToggle(e) {
+  asideToggle = (e) => {
     e.preventDefault()
     document.body.classList.toggle('aside-menu-hidden')
   }
 
   render() {
+    const { login } = this.props
+
     return (
       <header className="app-header navbar">
         <button
@@ -56,23 +55,16 @@ class Header extends Component {
           </li>
 
           <li className="nav-item px-3">
-            <Link
-              href="/dasboard"
-              className="nav-link"
-            >Dashboard</Link>
-          </li>
-          <li className="nav-item px-3">
-            <a className="nav-link">Users</a>
-          </li>
-          <li className="nav-item px-3">
-            <a className="nav-link">Settings</a>
+            { login ?  <Link className="nav-link" href="settings">Settings</Link> : null }
           </li>
         </ul>
 
         <ul className="nav navbar-nav ml-auto">
 
           <li className="nav-item d-md-down-none">
-            <a className="nav-link"><i className="icon-bell"></i><span className="badge badge-pill badge-danger">5</span></a>
+            <a className="nav-link">
+              <i className="icon-bell" />
+            </a>
           </li>
 
           <li className="nav-item d-md-down-none">
@@ -83,7 +75,7 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
-          { UIStore.login ?  <Logout {...this.props}/> : <Login /> }
+          { login ?  <Logout {...this.props}/> : <Login /> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>
@@ -97,4 +89,11 @@ class Header extends Component {
   }
 }
 
-export default observer(Header)
+const mapStateToProps = (state) => {
+  return {
+    perPage: state.settings.perPage,
+    login: state.settings.login,
+  }
+}
+
+export default connect(mapStateToProps)(Header)

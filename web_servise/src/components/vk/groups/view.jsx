@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
-import Notification from 'lib/notification'
+// import Notification from 'actions/notification'
 import { deleteGroupQuery } from 'components/vk/graphql/querues'
 
 class View extends Component {
@@ -36,9 +36,9 @@ class View extends Component {
         variables: { input: { id: object.id } }
       })
       this.props.refetch()
-      Notification.success("destroy")
+      // Notification.success("destroy")
     } catch (error) {
-      Notification.error(error)
+      // Notification.error(error)
     }
 
   }

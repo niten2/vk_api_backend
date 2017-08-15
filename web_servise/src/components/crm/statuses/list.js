@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+// import Notification from 'actions/notification'
 import { graphql } from 'react-apollo'
-import Notification from 'lib/notification'
-import Pagination from 'components/shared/pagination'
 import { statusesQuery } from 'components/crm/graphql/querues'
+import Pagination from 'components/shared/pagination'
 import StatusView from './view'
 
 class ClientList extends Component {
@@ -12,10 +12,10 @@ class ClientList extends Component {
     statusesQuery: PropTypes.object.isRequired,
   }
 
-  componentWillReceiveProps(props) {
-    let error = props.statusesQuery.error
-    if (error) { Notification.error(error.message) }
-  }
+  // componentWillReceiveProps(props) {
+    // let error = props.statusesQuery.error
+    // if (error) { Notification.error(error.message) }
+  // }
 
   render() {
     const { page } = this.props.match.params

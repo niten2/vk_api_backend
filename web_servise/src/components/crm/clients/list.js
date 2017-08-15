@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import Notification from 'lib/notification'
 import { clientsQuery } from 'components/crm/graphql/querues'
+import Notification from 'actions/notification'
 import ClientView from './view'
 import Spinner from 'components/shared/spinner'
 import Page500 from 'components/shared/page500'
@@ -52,7 +52,6 @@ class Clients extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { page } = this.props.match.params
     let { loading, error, clients, refetch, meta } = this.props.clientsQuery
 
