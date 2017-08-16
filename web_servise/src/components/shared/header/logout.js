@@ -20,6 +20,8 @@ class Logout extends Component {
   }
 
   render() {
+    const { name } = this.props
+
     return (
       <li className="nav-item">
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -32,7 +34,7 @@ class Logout extends Component {
             aria-expanded={this.state.dropdownOpen}
           >
             <img src={Avatar} className="img-avatar" alt="admin@bootstrapmaster.com"/>
-            <span className="d-md-down-none">User name</span>
+            <span className="d-md-down-none">{name}</span>
           </button>
 
           <DropdownMenu className="dropdown-menu-right">

@@ -33,7 +33,8 @@ export const resolvers = {
 
   RootMutation: {
     updateUser: async (_, args, context) => {
-      const user = await User.findById(args.id)
+      console.log(context)
+      const user = await User.findById(context.payload.user_id)
       return await user.update(args.input)
     },
 

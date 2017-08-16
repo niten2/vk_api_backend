@@ -1,9 +1,12 @@
 import Notification from 'actions/notification'
 import authProvider from "lib/auth_provider"
 import { push } from 'react-router-redux'
+import { userQuery } from 'components/auth/graphql/private/querues'
+import { apolloFetchAuthPrivate } from "lib/apollo_fetch"
 
 export const LOGOUT = "LOGOUT"
 export const LOGIN = "LOGIN"
+export const CONFIG = "CONFIG"
 
 export const changePerPage = (perPage) => ({
   type: 'CHANGE_PER_PAGE',
@@ -21,7 +24,6 @@ export const handleLogout = () => {
 
 export const handleLogin = (token) => {
   return (dispatch) => {
-    console.log("GET token = ", token)
     authProvider.saveToken(token)
     dispatch(Notification.success("Get token"))
     dispatch(push('/dashboard'))
@@ -29,38 +31,17 @@ export const handleLogin = (token) => {
   }
 }
 
-// export function handleSetting() {
-//   return (dispatch) => {
-//     dispatch({
-//       type: "SETTING_REQUEST"
-//     })
-
-//     dispatch({
-//       type: "SETTING_SUCCES",
-//       payload: {
-//         perPage: 20,
-//         time: "test",
-//         handle: "444",
-//       }
-//     })
-
-
-//     // VK.Auth.login((r) => { // eslint-disable-line no-undef
-//     //   if (r.session) {
-//     //     let username = r.session.user.first_name;
-
-//     //     dispatch({
-//     //       type: LOGIN_SUCCES,
-//     //       payload: username
-//     //     })
-
-//     //   } else {
-//     //     dispatch({
-//     //       type: LOGIN_FAIL,
-//     //       error: true,
-//     //       payload: new Error('Ошибка авторизации')
-//     //     })
-//     //   }
-//     // },4); // запрос прав на доступ к photo
-//   }
-// }
+export const loadConfig = () => {
+  return async(dispatch) => {
+    if (authProvider.hasLogin()) {
+      const result = await apolloFetchAuthPrivate({ query: userQuery })
+      dispatch({
+        payload: {
+          name: result.data.user.name,
+          email: result.data.user.email,
+        },
+        type: CONFIG,
+      })
+    }
+  }
+}

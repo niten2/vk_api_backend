@@ -17,7 +17,7 @@ class LayoutComponent extends React.Component {
       <div className="app">
         <Notifications notifications={notifications || []} />
 
-        <Header />
+        <Header {...this.props}/>
         <div className="app-body">
           <Sidebar {...this.props}/>
           <main className="main">
@@ -34,6 +34,11 @@ class LayoutComponent extends React.Component {
   }
 }
 
-export default connect(
-  state => ({ notifications: state.notifications })
-)(LayoutComponent)
+const mapStateToProps = (state, ownProps) => {
+  return {
+    notifications: state.notifications,
+    settings: state.settings
+  }
+}
+
+export default connect(mapStateToProps)(LayoutComponent)

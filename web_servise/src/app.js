@@ -11,6 +11,7 @@ import {
   LayoutAuthPublic,
   LayoutAuthPrivate
 } from "components/shared/layout/helpers"
+import { loadConfig } from "actions/auth"
 
 // shared
 import Page404 from 'components/shared/page404'
@@ -41,7 +42,9 @@ import Instagram from 'components/instagram'
 import Test from 'components/test'
 
 export default (onUpdate) => {
+
   const store = configureStore()
+  store.dispatch(loadConfig())
 
   return (
     <Provider store={store}>

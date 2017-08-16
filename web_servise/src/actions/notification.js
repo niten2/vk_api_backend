@@ -1,6 +1,7 @@
 // import { connect } from 'react-redux'
-// import { success } from 'actions'
-// this.props.dispatch(success("message"))
+// import Notification from 'actions/notification'
+// this.props.dispatch(Notification.success("message"))
+// this.props.dispatch(Notification.error("message"))
 // export default connect()(Container)
 
 import {

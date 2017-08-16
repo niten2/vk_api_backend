@@ -35,7 +35,6 @@ export const createClient = (url, uriSubscription) => {
   networkInterface.useAfter([{
     applyAfterware({ response }, next) {
       if (response.status === 401) {
-        Notification.error("Server response status 401")
         authProvider.removeToken()
       }
       next()
