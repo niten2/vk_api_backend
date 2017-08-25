@@ -1,41 +1,41 @@
 /_note
 note.js
 
-vk_servise/node_modules
-vk_servise/.env
-vk_servise/db/database.dev.sqlite
-vk_servise/db/csv
+api_gateway/node_modules
+api_gateway/.env
+api_gateway/db/database.dev.sqlite
 
-crm_servise/node_modules
-crm_servise/.env
-crm_servise/.env.development
-crm_servise/db/database.dev.sqlite
-crm_servise/db/csv
+crm_service/node_modules
+crm_service/.env
+crm_service/.env.development
+crm_service/db/database.dev.sqlite
+crm_service/db/csv
 
-insta_servise/node_modules
-insta_servise/.env
+docs/node_modules
+docs/.env.development
 
-auth_servise/node_modules
-auth_servise/.env
-auth_servise/db/database.dev.sqlite
+insta_service/node_modules
+insta_service/.env
 
-mobile_servise/node_modules
-mobile_servise/.env
+mobile/node_modules
+mobile/.env
 
-docs_servise/node_modules
-docs_servise/.env.development
+vk_service/node_modules
+vk_service/.env
+vk_service/db/database.dev.sqlite
+vk_service/db/csv
 
-web_servise/node_modules
-web_servise/coverage
-web_servise/build
-web_servise/.DS_Store
-web_servise/.env
-web_servise/.env.development
-web_servise/.env.production
-web_servise/.env.local
-web_servise/.env.development.local
-web_servise/.env.test.local
-web_servise/.env.production.local
-web_servise/npm-debug.log*
-web_servise/yarn-debug.log*
-web_servise/yarn-error.log*
+web/node_modules
+web/coverage
+web/build
+web/.DS_Store
+web/.env
+web/.env.development
+web/.env.production
+web/.env.local
+web/.env.development.local
+web/.env.test.local
+web/.env.production.local
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
