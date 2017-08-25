@@ -6,9 +6,9 @@ import { ApolloProvider } from 'react-apollo'
 import { createClient } from 'lib/apollo_client'
 import { configureStore } from 'store'
 
-const store = configureStore()
-
 const createLayoutWithApollo = (client) => {
+  const store = configureStore()
+
   return ({component: Component, ...rest}) => {
     return (
       <Route {...rest} render={ matchProps => (

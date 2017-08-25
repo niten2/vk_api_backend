@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
 import { userQuery, updateUserQuery } from 'components/auth/graphql/private/querues'
 import { compose, graphql } from 'react-apollo'
@@ -28,7 +30,7 @@ class Profile extends React.Component {
     this.setState({ user })
 
     let error = props.userQuery.error
-    if (error) { Notification.error(error.message) }
+    if (error) { props.dispatch(Notification.error(error.message)) }
   }
 
   state = {
@@ -49,7 +51,7 @@ class Profile extends React.Component {
 
   updateUser = async () => {
     const { user } = this.state
-    const { updateUserQuery } = this.props
+    const { dispatch, updateUserQuery } = this.props
 
     if (user.password !== user.confirmPassword) {
       this.setState({ errorPassword: true })
@@ -59,14 +61,16 @@ class Profile extends React.Component {
     try {
       await updateUserQuery({
         variables: {
-          name: user.name,
-          email: user.email,
-          password: user.password,
+          input: {
+            name: user.name,
+            email: user.email,
+            password: user.password,
+          }
         }
       })
-      Notification.success("update profile")
+      dispatch(Notification.success("update profile"))
     } catch(error) {
-      Notification.error(error)
+      dispatch(Notification.error(error))
     }
   }
 
@@ -179,7 +183,9 @@ class Profile extends React.Component {
 
 }
 
-export default compose(
-  graphql(userQuery, { name: "userQuery" }),
-  graphql(updateUserQuery, { name: "updateUserQuery" }),
-)(Profile)
+export default connect()(
+  compose(
+    graphql(userQuery, { name: "userQuery" }),
+    graphql(updateUserQuery, { name: "updateUserQuery" }),
+  )(Profile)
+)

@@ -32,7 +32,8 @@ class Header extends Component {
   }
 
   render() {
-    const { login } = this.props
+    const { name, login } = this.props
+    console.log(name)
 
     return (
       <header className="app-header navbar">
@@ -75,7 +76,7 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
-          { login ?  <Logout {...this.props}/> : <Login /> }
+          { login ?  <Logout name={name} {...this.props}/> : <Login/> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>
@@ -89,10 +90,10 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (opt) => {
   return {
-    perPage: state.settings.perPage,
-    login: state.settings.login,
+    perPage: ownProps.settings.perPage,
+    login: ownProps.settings.login,
   }
 }
 

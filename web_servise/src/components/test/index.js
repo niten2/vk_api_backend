@@ -84,11 +84,12 @@ class Container extends React.Component {
 //   notifications: PropTypes.array
 // };
 
-// const mapStateToProps = (state, ownProps) => {
-//   // console.log(state.settings.login)
-//   return {
-//     login: state.settings.login,
-//   }
-// }
+const mapStateToProps = (state, ownProps) => {
+  console.log(3333, state, ownProps)
+  // console.log(state.settings.login)
+  return {
+    // login: state.settings.login,
+  }
+}
 
-export default connect()(Container)
+export default connect(mapStateToProps)(Container)

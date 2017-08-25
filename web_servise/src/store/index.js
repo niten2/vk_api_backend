@@ -10,6 +10,7 @@ export const history = createHistory()
 export const configureStore = (options = {}) => {
   const { state } = options
   const middleware = routerMiddleware(history)
+  // console.log(state)
 
   return createStore(
     reducers,
