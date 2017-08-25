@@ -90,10 +90,10 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (opt) => {
+const mapStateToProps = (props) => {
   return {
-    perPage: ownProps.settings.perPage,
-    login: ownProps.settings.login,
+    perPage: props.settings.perPage,
+    login: props.settings.login,
   }
 }
 

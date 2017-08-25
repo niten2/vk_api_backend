@@ -2,103 +2,102 @@ version: '2'
 services:
 
   # NOTE web
-  web_servise:
+  web:
     tty: true
-    container_name: web
+    container_name: web_container
     build:
-      context: ./web_servise
+      context: ./web
       dockerfile: Dockerfile.development
-    image: web_servise
+    image: web
     ports:
       - "4000:4000"
     command: bash -c "npm run start"
-    env_file: ./web_servise/.env.development
+    env_file: ./web/.env.development
     volumes:
-      - ./web_servise/:/app
+      - ./web/:/app
 
   # NOTE node
-  auth_servise:
+  api_gateway:
     tty: true
-    container_name: auth
+    container_name: api_gateway_container
     build:
-      context: ./auth_servise
+      context: ./api_gateway
       dockerfile: Dockerfile.development
-    image: auth_servise
+    image: api_gateway
     ports:
       - "4001:4001"
     command: bash -c "npm run start"
-    env_file: ./auth_servise/.env
+    env_file: ./api_gateway/.env
     volumes:
-      - ./auth_servise/:/app
+      - ./api_gateway/:/app
 
-  crm_servise:
+  crm_service:
     tty: true
-    container_name: crm
+    container_name: crm_service
     build:
-      context: ./crm_servise
+      context: ./crm_service
       dockerfile: Dockerfile.development
-    image: crm_servise
+    image: crm_service
     ports:
       - "4002:4002"
     command: bash -c "npm run start"
-    env_file: ./crm_servise/.env
+    env_file: ./crm_service/.env
     volumes:
-      - ./crm_servise/:/app
+      - ./crm_service/:/app
 
-  vk_servise:
+  vk_service:
     tty: true
-    container_name: vk
+    container_name: vk_service_container
     build:
-      context: ./vk_servise
+      context: ./vk_service
       dockerfile: Dockerfile.development
-    image: vk_servise
+    image: vk_service
     ports:
       - "4003:4003"
     command: bash -c "npm run start"
-    env_file: ./vk_servise/.env
+    env_file: ./vk_service/.env
     volumes:
-      - ./vk_servise/:/app
+      - ./vk_service/:/app
 
-  insta_servise:
+  insta_service:
     tty: true
-    container_name: insta
+    container_name: insta_service
     build:
-      context: ./insta_servise
+      context: ./insta_service
       dockerfile: Dockerfile.development
-    image: insta_servise
+    image: insta_service
     ports:
       - "4004:4004"
     command: bash -c "npm run start"
-    env_file: ./insta_servise/.env
+    env_file: ./insta_service/.env
     volumes:
-      - ./insta_servise/:/app
+      - ./insta_service/:/app
 
   # NOTE other
-  docs_servise:
+  docs:
     tty: true
-    container_name: docs
+    container_name: docs_container
     build:
-      context: ./docs_servise
+      context: ./docs
       dockerfile: Dockerfile.development
-    image: docs_servise
+    image: docs
     ports:
       - "4005:4005"
     command: bash -c "npm run start"
-    env_file: ./docs_servise/.env.development
+    env_file: ./docs/.env.development
     volumes:
-      - ./docs_servise/:/app
+      - ./docs/:/app
 
-  # mobile_servise:
-  #   container_name: mobile_servise
+  # mobile_service:
+  #   container_name: mobile_service
   #   build:
-  #     context: ./mobile_servise
+  #     context: ./mobile_service
   #     dockerfile: Dockerfile.development
-  #   image: mobile_servise
+  #   image: mobile_service
   #   ports:
   #     - "4005:4005"
   #   command: bash -c "npm run start"
-  #   env_file: ./mobile_servise/.env
+  #   env_file: ./mobile_service/.env
   #   volumes:
-  #     - ./mobile_servise/:/app
-
+  #     - ./mobile_service/:/app
 
