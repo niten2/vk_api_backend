@@ -90,13 +90,10 @@ class Header extends Component {
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
 const mapStateToProps = (opt) => {
-  console.log(opt)
   return {
-    // perPage: ownProps.settings.perPage,
-    // login: ownProps.settings.login,
-    // name: ownProps.settings.name,
+    perPage: ownProps.settings.perPage,
+    login: ownProps.settings.login,
   }
 }
 
