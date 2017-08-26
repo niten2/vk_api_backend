@@ -93,14 +93,27 @@ query user {
   }
 }
 
-mutation JwtTokenCreate {
-  JwtTokenCreate(
-    email: "dfgdfg"
-    password: "dsfsdf"
+mutation createJwtToken {
+  createJwtToken(
+    input {
+      email: "dfgdfg"
+      password: "dsfsdf"
+    }
   ) {
     token
   }
 }
+
+
+mutation createJwtToken {
+  createJwtToken(
+    name: "dsfsdf"
+  ) {
+    token
+  }
+}
+
+
 
 query users {
   users {
@@ -163,6 +176,22 @@ query meta {
    count
   }
 }
+
+
+   mutation m($input: JwtTokenInput!) {
+      createJwtToken(input: $input) {
+        token
+        __typename
+      }
+    }
+
+
+  {
+    "input": {
+      "email": "email@email.com",
+      "password": "1234"
+    }
+  }
 
 
 `

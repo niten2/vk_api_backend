@@ -52,7 +52,7 @@ export const ApiInputs = `
   }
 
   input JwtTokenInput {
-    email: String @isUnique
+    email: String
     password: String
   }
 

@@ -1,4 +1,5 @@
 import { Setting, User } from "api/models"
+import { createJwt } from "api/services/jwt"
 
 const authenticated = (fn) => (parent, args, context, info) => {
   if (context.payload) {
@@ -17,6 +18,7 @@ export const ApiQuery = {
 
   // private
   user: async (_, args, context) => {
+    console.log(context.payload)
     const user_id = context.payload.user_id
     return await User.findById(user_id)
   },
@@ -33,14 +35,18 @@ export const ApiQuery = {
 export const ApiMutation = {
 
   // public
-  createJwtToken: async (root, args) => {
+  createJwtToken: async (_, args) => {
+    const { email, password } = args.input
     const user = await User.findOne({
       where: {
-        email: args.email,
+        email: email,
       }
     })
-    if (user && user.password == args.password) {
+
+    if (user && user.password == password) {
       return { token: createJwt(user) }
+    } else {
+      throw new Error('Email or Password incorrect')
     }
   },
 

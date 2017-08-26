@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import { JwtTokenCreateQuery } from 'components/auth/graphql/public/querues'
+import { createJwtTokenQuery } from 'components/auth/graphql/querues'
 import { Link } from 'lib/nav_link'
 import { connect } from 'react-redux'
 import { handleLogin } from 'actions/auth'
@@ -25,26 +25,22 @@ class Login extends React.Component {
 
   signinUser = async () => {
     const { email, password } = this.state
-    const { dispatch, JwtTokenCreateQuery } = this.props
+    const { dispatch, createJwtTokenQuery } = this.props
 
     try {
-      let response = await JwtTokenCreateQuery({
+      let response = await createJwtTokenQuery({
         variables: {
-          email: email,
-          password: password,
+          input: {
+            email: email,
+            password: password,
+          }
         }
       })
-      if (!response.data.JwtTokenCreate) {
-        dispatch(Notification.error("Email or Password incorrect"))
-        this.setState({ error: true })
-        return null
-      }
 
-      const token = response.data.JwtTokenCreate.token
-      dispatch(handleLogin(token))
-
+      dispatch(handleLogin(response.data.createJwtToken.token))
     } catch(error) {
-      dispatch(Notification.error(error))
+      this.setState({ error: true })
+      dispatch(Notification.error(error.message))
     }
   }
 
@@ -129,6 +125,6 @@ class Login extends React.Component {
 
 export default connect()(
   graphql(
-    JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" },
+    createJwtTokenQuery, { name: "createJwtTokenQuery" },
   )(Login)
 )

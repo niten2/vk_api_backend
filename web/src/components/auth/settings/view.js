@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import { deleteSettingQuery } from 'components/auth/graphql/private/querues'
+import { deleteSettingQuery } from 'components/auth/graphql/querues'
 
 class SettingView extends Component {
 

@@ -1,26 +1,21 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { ApolloProvider } from 'react-apollo'
 import { history, configureStore } from 'store'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
-import {
-  Layout,
-  LayoutCrm,
-  LayoutVk,
-  LayoutInstagram,
-  LayoutAuthPublic,
-  LayoutAuthPrivate
-} from "components/shared/layout/helpers"
-import { loadConfig } from "actions/auth"
+import { configureClient } from 'lib/apollo_client'
+// import { loadConfig } from "actions/auth"
 
 // shared
+import Layout from 'components/shared/layout'
 import Page404 from 'components/shared/page404'
 
 // auth
-import Login from 'components/auth/public/login'
-import Register from 'components/auth/public/register'
-import Profile from 'components/auth/private/profile'
-import Settings from 'components/auth/private/settings/index'
+import Login from 'components/auth/login'
+import Register from 'components/auth/register'
+import Profile from 'components/auth/profile'
+import Settings from 'components/auth/settings'
 
 import Dashboard from 'components/shared/dashboard'
 
@@ -39,49 +34,50 @@ import VkGroups from 'components/vk/groups'
 // insta
 import Instagram from 'components/instagram'
 
-import Test from 'components/test'
-
 export default (onUpdate) => {
 
   const store = configureStore()
-  store.dispatch(loadConfig())
+  const client = configureClient()
+  // store.dispatch(loadConfig())
 
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Switch>
+        <ApolloProvider store={store} client={client}>
 
-          <Layout exact path="/test" name="test" component={Test}/>
+          <Switch>
 
-          <LayoutAuthPublic exact path="/dashboard" name="Dashboard" component={Dashboard}/>
+            <Layout exact path="/dashboard" name="Dashboard" component={Dashboard}/>
 
-          <LayoutAuthPublic exact path="/login" component={Login}/>
-          <LayoutAuthPublic exact path="/register" component={Register}/>
-          <LayoutAuthPrivate exact path="/profile" component={Profile}/>
-          <LayoutAuthPrivate exact path="/settings" component={Settings}/>
+            <Layout exact path="/login" component={Login}/>
+            <Layout exact path="/register" component={Register}/>
+            <Layout exact path="/profile" component={Profile}/>
+            <Layout exact path="/settings" component={Settings}/>
 
-          <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
-          <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
-          <LayoutCrm exact path="/crm/clients/:page" component={Clients}/>
+            <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
+            <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
+            <Layout exact path="/crm/clients/:page" component={Clients}/>
 
-          <LayoutCrm exact path="/crm/clients/new" component={ClientNew} />
-          <LayoutCrm exact path="/crm/clients/update/:id" component={ClientUpdate} />
+            <Layout exact path="/crm/clients/new" component={ClientNew} />
+            <Layout exact path="/crm/clients/update/:id" component={ClientUpdate} />
 
-          <Route exact path='/crm/statuses' render={() => <Redirect to='/crm/statuses/1' />} />
-          <LayoutCrm exact path="/crm/statuses/:page" component={Status}/>
+            <Route exact path='/crm/statuses' render={() => <Redirect to='/crm/statuses/1' />} />
+            <Layout exact path="/crm/statuses/:page" component={Status}/>
 
-          <LayoutVk exact path="/vk" component={Vk}/>
-          <Route exact path='/vk/persons' render={() => <Redirect to='/vk/persons/1' />} />
-          <LayoutVk exact path="/vk/persons/:page" component={VkPersons}/>
-          <Route exact path='/vk/groups' render={() => <Redirect to='/vk/groups/1' />} />
-          <LayoutVk exact path="/vk/groups/:page" component={VkGroups}/>
-          <LayoutVk exact path="/vk/tags" component={VkTags}/>
+            <Layout exact path="/vk" component={Vk}/>
+            <Route exact path='/vk/persons' render={() => <Redirect to='/vk/persons/1' />} />
+            <Layout exact path="/vk/persons/:page" component={VkPersons}/>
+            <Route exact path='/vk/groups' render={() => <Redirect to='/vk/groups/1' />} />
+            <Layout exact path="/vk/groups/:page" component={VkGroups}/>
+            <Layout exact path="/vk/tags" component={VkTags}/>
 
-          <LayoutInstagram exact path="/instagram" component={Instagram}/>
+            <Layout exact path="/instagram" component={Instagram}/>
 
-          <Redirect exact from="/" to="/dashboard"/>
-          <Layout path="*" component={Page404}/>
-        </Switch>
+            <Redirect exact from="/" to="/dashboard"/>
+            <Layout path="*" component={Page404}/>
+          </Switch>
+
+        </ApolloProvider>
       </ConnectedRouter>
     </Provider>
   )
