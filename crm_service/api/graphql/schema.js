@@ -82,15 +82,6 @@ const typeDefs = `
     offset: Int
   }
 
-
-
-
-
-
-
-
-
-
 `
 
 export const schema = makeExecutableSchema({ typeDefs, resolvers })

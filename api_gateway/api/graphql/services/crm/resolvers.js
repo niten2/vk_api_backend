@@ -9,36 +9,22 @@ const fetch = createApolloFetch({ uri })
 
 export const CrmQuery = {
   clients: async (_, args, context, info) => {
-    // console.log(info.fieldNodes[0].name)
-
-    const query = `
-      query clients($pagination: PaginationInput) {
-        clients(pagination: $pagination) {
-          id
-          name
-          number
-          phone
-          note
-          date_birth
-        }
-      }
-    `
-
-    // const variables = {
-    //   pagination: {
-    //     limit: 1
+    // const query = `
+    //   query clients($pagination: PaginationInput) {
+    //     clients(pagination: $pagination) {
+    //       id
+    //       name
+    //       number
+    //       phone
+    //       note
+    //       date_birth
+    //     }
     //   }
-    // }
-
-    // const operationName = "clients"
-
-    const resp = await fetch({ query , args })
-
-    // console.log(resp)
+    // `
+    console.log(context.body)
+    const resp = await fetch(context.body)
+    // const resp = await fetch({ query , args })
     return resp.data.clients
-
-    // const resp = await request('http://localhost:4002/v1', query)
-    // return resp.clients
   },
 
   client: async (_, args) => {
