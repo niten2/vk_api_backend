@@ -76,11 +76,11 @@ services:
   # NOTE other
   docs:
     tty: true
-    container_name: docs_container
+    container_name: docs
     build:
       context: ./docs
       dockerfile: Dockerfile.development
-    image: docs
+    image: docs_image
     ports:
       - "4005:4005"
     command: bash -c "npm run start"

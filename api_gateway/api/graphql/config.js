@@ -1,26 +1,19 @@
 import { formatError } from 'graphql'
 
-import schemaPublic from 'api/graphql/public/schema'
-import schemaPrivate from 'api/graphql/private/schema'
+import schema from 'api/graphql/schema'
 
 const formatErrorCustom = error => {
+   // formatError: (err) => ({ message: err.message, status: err.status }),
   const data = formatError(error)
   const { originalError } = error
   data.field = originalError && originalError.field
-  return data;
+  return data
 }
 
-export const buildOptionsPublic = async (req, res) => {
+export const buildOptions = (req, res) => {
   return {
-    schema: schemaPublic,
+    schema: schema,
     formatError: formatErrorCustom,
-  }
-}
-
-export const buildOptionsPrivate = async (req, res) => {
-  return {
     context: { payload: req.payload },
-    schema: schemaPrivate,
-    formatError: formatErrorCustom,
   }
 }
