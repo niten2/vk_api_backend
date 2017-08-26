@@ -1,6 +1,44 @@
+// const graphqlHTTP = require('express-graphql');
+// import { request } from 'graphql-request'
+
+import { createApolloFetch } from 'apollo-fetch'
+
+const uri = 'http://localhost:4002/v1'
+const fetch = createApolloFetch({ uri })
+
+
 export const CrmQuery = {
-  clients: async (_, args) => {
-    console.log(12222)
+  clients: async (_, args, context, info) => {
+    // console.log(info.fieldNodes[0].name)
+
+    const query = `
+      query clients($pagination: PaginationInput) {
+        clients(pagination: $pagination) {
+          id
+          name
+          number
+          phone
+          note
+          date_birth
+        }
+      }
+    `
+
+    // const variables = {
+    //   pagination: {
+    //     limit: 1
+    //   }
+    // }
+
+    // const operationName = "clients"
+
+    const resp = await fetch({ query , args })
+
+    // console.log(resp)
+    return resp.data.clients
+
+    // const resp = await request('http://localhost:4002/v1', query)
+    // return resp.clients
   },
 
   client: async (_, args) => {

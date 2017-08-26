@@ -24,6 +24,10 @@ services:
       context: ./api_gateway
       dockerfile: Dockerfile.development
     image: api_gateway
+    links:
+      - crm_service
+      - vk_service
+      - insta_service
     ports:
       - "4001:4001"
     command: bash -c "npm run start"
@@ -47,7 +51,7 @@ services:
 
   vk_service:
     tty: true
-    container_name: vk_service_container
+    container_name: vk
     build:
       context: ./vk_service
       dockerfile: Dockerfile.development
@@ -61,7 +65,7 @@ services:
 
   insta_service:
     tty: true
-    container_name: insta_service
+    container_name: insta
     build:
       context: ./insta_service
       dockerfile: Dockerfile.development

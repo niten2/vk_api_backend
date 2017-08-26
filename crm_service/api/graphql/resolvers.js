@@ -5,13 +5,17 @@ export const resolvers = {
 
   RootQuery: {
     clients: async (root, args) => {
-      return await Client.findAll({
+      console.log(11111)
+      console.log(args)
+      const z = await Client.findAll({
         include: {
           model: Status,
         },
         offset: args.pagination && args.pagination.offset,
         limit: args.pagination && args.pagination.limit,
       })
+      // console.log(z)
+      return z
     },
 
     client: async (root, args) => {

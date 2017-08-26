@@ -7,16 +7,19 @@ export default (app) => {
   app.get('/', (req, res) => (
     res.json({
       servise: "crm_servise",
-      version: 'current version /v2 with graphql'
+      version: 'current version /v1 with graphql'
     })
   ))
 
-  app.use('/v2', bodyParser.json(), graphqlExpress({
-    schema
-  }))
+  app.use('/v1',
+    bodyParser.json(),
+    graphqlExpress({
+      schema
+    })
+  )
 
-  app.use('/v2', graphiqlExpress({
-    endpointURL: '/v2'
+  app.use('/v1', graphiqlExpress({
+    endpointURL: '/graphql'
   }))
 
 }

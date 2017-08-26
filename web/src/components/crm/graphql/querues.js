@@ -15,11 +15,11 @@ export const clientsQuery = gql`
         name
       }
     }
-    meta(name: "Client") {
-      count
-    }
   }
 `
+    // meta(name: "Client") {
+    //   count
+    // }
 
 export const clientQuery = gql`
   query client(
