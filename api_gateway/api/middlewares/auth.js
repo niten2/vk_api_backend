@@ -8,7 +8,6 @@ export default (params) => ([
 
       if (token) {
         return verifyJwt(token, (err, payload) => {
-          // console.log(payload)
           if (!err) { req.payload = payload }
           next()
         })

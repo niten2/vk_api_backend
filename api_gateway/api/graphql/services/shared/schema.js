@@ -29,4 +29,12 @@ export const SharedInputs = `
     names: [String]
   }
 
+  input IdInput {
+    id: ID!
+  }
+
+  input PaginationInput {
+    limit: Int
+    offset: Int
+  }
 `

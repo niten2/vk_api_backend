@@ -55,13 +55,4 @@ export const ApiInputs = `
     email: String
     password: String
   }
-
-  input IdInput {
-    id: ID!
-  }
-
-  input PaginationInput {
-    limit: Int
-    offset: Int
-  }
 `
