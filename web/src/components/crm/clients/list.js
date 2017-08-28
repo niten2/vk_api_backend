@@ -102,6 +102,12 @@ class Clients extends Component {
                   </tbody>
                 </table>
 
+                <Pagination
+                  href="/crm/clients"
+                  count={meta.count.Client}
+                  currentPage={parseInt(page, 10)}
+                  perPage={PER_PAGE}
+                />
 
               </div>
             </div>
@@ -112,14 +118,6 @@ class Clients extends Component {
     )
   }
 }
-
-                // <Pagination
-                //   href="/crm/clients"
-                //   count={meta.count}
-                //   currentPage={parseInt(page, 10)}
-                //   perPage={PER_PAGE}
-                // />
-
 
 const PER_PAGE = 10
 

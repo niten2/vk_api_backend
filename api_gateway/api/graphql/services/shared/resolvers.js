@@ -1,26 +1,52 @@
 import { Setting, User } from "api/models"
+import { CrmFetch } from "api/services/fetch"
+import { lensProp, set, pipe, assocPath, merge, reduce } from "ramda"
+
+const queryMeta = (model) => {
+  return {
+    query: `
+      query meta {
+        meta(input: { names: ["${model}"]}) {
+         count {
+           ${model}
+         }
+        }
+      }
+    `
+  }
+}
 
 export const SharedQuery = {
-  meta: async (_, args) => {
+  meta: async (_, args, context) => {
     const { names } = args.input
+    let count = {}
 
-    const Classes = {
-      "Setting": Setting,
-      "User": User,
-    }
+    await Promise.all(
+      names.map(async (name) => {
+        const AuthModels = {
+          "Setting": Setting,
+          "User": User,
+        }
 
-    // console.log(names)
+        const CrmModels = [
+          "Client",
+          "Status"
+        ]
 
-    const count = await names.reduce (async (acc, name) => {
-      const model = Classes[name]
-      if (model) { acc[name] = await model.count() }
-      return acc
-    }, {})
+        const model = AuthModels[name]
+        if (model) {
+          count[name] = await model.count()
+        }
 
-    return {
-      count: count
-    }
+        if (CrmModels.includes(name)) {
+          let response = await CrmFetch(queryMeta(name))
+          count[name] = response.data.meta.count[name]
+        }
 
+      })
+    )
+
+    return { count }
   },
 }
 

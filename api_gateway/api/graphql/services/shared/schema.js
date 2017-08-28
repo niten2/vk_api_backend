@@ -21,6 +21,8 @@ export const SharedModels = `
   type Count {
     User: Int
     Setting: Int
+    Client: Int
+    Status: Int
   }
 `
 

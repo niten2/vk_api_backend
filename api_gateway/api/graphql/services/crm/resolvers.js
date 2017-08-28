@@ -1,68 +1,58 @@
 // const graphqlHTTP = require('express-graphql');
-// import { request } from 'graphql-request'
-
-import { createApolloFetch } from 'apollo-fetch'
-
-const uri = 'http://localhost:4002/v1'
-const fetch = createApolloFetch({ uri })
+import { CrmFetch } from "api/services/fetch"
 
 
 export const CrmQuery = {
   clients: async (_, args, context, info) => {
-    // const query = `
-    //   query clients($pagination: PaginationInput) {
-    //     clients(pagination: $pagination) {
-    //       id
-    //       name
-    //       number
-    //       phone
-    //       note
-    //       date_birth
-    //     }
-    //   }
-    // `
-    console.log(context.body)
-    const resp = await fetch(context.body)
-    // const resp = await fetch({ query , args })
-    return resp.data.clients
+    const response = await CrmFetch(context.body)
+    return response.data.clients
   },
 
-  client: async (_, args) => {
-    console.log(1)
+  client: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.client
   },
 
-  statuses: async (_, args) => {
-    console.log(1)
+  statuses: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.statuses
   },
 
-  status: async (root, args) => {
-    console.log(1)
+  status: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 }
 
 export const CrmMutation = {
-  createClient: async (root, args) => {
-    console.log(1)
+  createClient: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 
-  updateClient: async (root, args) => {
-    console.log(1)
+  updateClient: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 
-  deleteClient: async (root, { id }) => {
-    console.log(1)
+  deleteClient: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 
-  createStatus: async (root, args) => {
-    console.log(1)
+  createStatus: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 
-  updateStatus: async (root, args) => {
-    console.log(1)
+  updateStatus: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 
-  deleteStatus: async (root, args) => {
-    console.log(1)
+  deleteStatus: async (_, args, context, info) => {
+    const response = await CrmFetch(context.body)
+    return response.data.status
   },
 }
 

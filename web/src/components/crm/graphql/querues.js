@@ -15,11 +15,13 @@ export const clientsQuery = gql`
         name
       }
     }
+    meta(input: { names: ["Client"] }) {
+      count {
+        Client
+      }
+    }
   }
 `
-    // meta(name: "Client") {
-    //   count
-    // }
 
 export const clientQuery = gql`
   query client(

@@ -172,7 +172,14 @@ variables: {
 
 
 query meta {
-  meta(input: { names: ["dfsdf", "zz"]}) {
+  meta(input: { names: ["Client"]}) {
+   count
+  }
+}
+
+
+query m {
+  meta(name: "Client") {
    count
   }
 }

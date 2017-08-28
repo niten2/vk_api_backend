@@ -7,4 +7,8 @@ export default {
   env: process.env.NODE_ENV,
 
   jwt_secret_key: process.env.JWT_SECRET_KEY,
+
+  crmUri: process.env.CRM_URI,
+  vkUri: process.env.VK_URI,
+  instaUri: process.env.INSTA_URI,
 }

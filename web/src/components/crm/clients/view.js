@@ -30,7 +30,11 @@ class ClientView extends Component {
 
     try {
       await deleteClientQuery({
-        variables: { id: object.id },
+        variables: {
+          input: {
+            id: object.id
+          }
+        },
       })
       refetch()
     } catch (error) {
