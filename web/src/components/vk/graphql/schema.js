@@ -1,4 +1,4 @@
-export const typeDefs = `
+export const models = `
   type Person {
     id: ID
     uid: String
@@ -29,9 +29,8 @@ export const typeDefs = `
     createdAt: String
     updatedAt: String
   }
-
-  # NOTE Inputs
-
+`
+const inputs = `
   input GroupInput {
     name: String
     members_count: String
@@ -69,5 +68,5 @@ export const typeDefs = `
     limit: Int
     offset: Int
   }
-
 `
+export const typeDefs = models + inputs

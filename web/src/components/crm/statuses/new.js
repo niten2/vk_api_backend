@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-// import Notification from 'actions/notification'
+import Notification from 'actions/notification'
+import { connect } from 'react-redux'
 import { compose, graphql } from 'react-apollo'
-import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
+// import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
+import { createStatusQuery } from 'components/crm/graphql/querues'
 import { InputField } from 'components/shared/default_components'
 
 class NewStatus extends Component {
@@ -23,7 +25,7 @@ class NewStatus extends Component {
   handleCreate = async (e) => {
     e.preventDefault()
     const { status } = this.state
-    const { createStatusQuery, statusesQuery } = this.props
+    const { dispatch, createStatusQuery } = this.props
 
     try {
       await createStatusQuery({
@@ -32,12 +34,14 @@ class NewStatus extends Component {
             name: status.name,
           }
         },
+        // refetchQueries: [{
+        //   query: statusesQuery,
+        // }],
       })
-      await statusesQuery.refetch()
       this.setState({ status: { name: "" } })
-      // Notification.success("ok")
-    } catch (e) {
-      // Notification.error(e)
+      dispatch(Notification.success("ok"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
@@ -54,9 +58,8 @@ class NewStatus extends Component {
   }
 
   render() {
-    console.log(this.props)
     let { status, attributes } = this.state
-    console.log(this.state.status)
+
     return (
       <div className="col-lg-6">
 
@@ -99,11 +102,13 @@ class NewStatus extends Component {
 
 }
 
-export default compose(
-  graphql(createStatusQuery, {
-    name: "createStatusQuery",
-  }),
-  graphql(statusesQuery, {
-    name: "statusesQuery"
-  }),
-)(NewStatus)
+export default connect()(
+  compose(
+    graphql(createStatusQuery, {
+      name: "createStatusQuery",
+    }),
+    // graphql(statusesQuery, {
+    //   name: "statusesQuery"
+    // }),
+  )(NewStatus)
+)

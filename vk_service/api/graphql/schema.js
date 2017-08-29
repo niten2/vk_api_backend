@@ -1,22 +1,16 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import { resolvers } from './resolvers'
 
-const typeDefs = `
-  schema {
-    query: RootQuery
-    mutation: RootMutation
-    subscription: RootSubscription
-  }
-
-  # Root
-  type RootQuery {
+const query = `
+  type Query {
     persons(pagination: PaginationInput): [Person]!
     groups(pagination: PaginationInput): [Group]!
     tags(filter: TagFilterInput, skip: Int, first: Int): [Tag!]!
     meta(name: String!): Meta
   }
-
-  type RootMutation {
+`
+const mutation = `
+  type Mutation {
     createPerson(input: PersonInput!): Person
     updatePerson(input: PersonInput!): Person
     deletePerson(input: IdInput!): Person
@@ -29,8 +23,9 @@ const typeDefs = `
     updateTag(input: TagInput!): Tag
     deleteTag(input: IdInput!): Tag
   }
+`
 
-  # Models
+const models = `
   type Person {
     id: ID
 
@@ -68,9 +63,9 @@ const typeDefs = `
   type Meta {
     count: Int!
   }
+`
 
-  # NOTE Inputs
-
+const inputs = `
   input PersonInput {
     uid: String
     first_name: String
@@ -109,12 +104,10 @@ const typeDefs = `
     limit: Int
     offset: Int
   }
+`
 
-
-
-
-
-  type RootSubscription {
+const subscription = `
+  type Subscription {
     Group(filter: GroupSubscriptionFilter): GroupSubscriptionPayload
   }
 
@@ -132,68 +125,7 @@ const typeDefs = `
     UPDATED
     DELETED
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 `
 
-const schema = makeExecutableSchema({ typeDefs, resolvers })
-export default schema
-
-//   type Group {
-//     id: ID
-//     name: String
-//   }
-
-//   type Tag {
-//     id: ID
-//     name: String
-//   }
-
-//   type Mutation {
-
-//     createPerson(
-//       uid: String
-//       first_name: String
-//       last_name: String
-//       followers_count: String
-//       sex: String
-//       city: String
-//       bdate: String
-//       crop_photo_url: String
-//       status: String
-//       createdAt: String
-//       updatedAt: String
-//     ): Person
-
-//     deletePerson(
-//       id: ID!
-//     ): Person
-
-//   }
-
+const typeDefs = query + mutation + models + inputs + subscription
+export default makeExecutableSchema({ typeDefs, resolvers })

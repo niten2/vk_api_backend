@@ -6,136 +6,132 @@ import { PubSub } from 'graphql-subscriptions'
 
 const pubsub = new PubSub()
 
-const Classes = {
-  "Person": Person,
-  "Group": Group,
-}
-
-export const resolvers = {
-
-  RootQuery: {
-    persons: async (root, args) => {
-      let { limit, offset } = args.pagination
-      return await Person.findAll({
-        limit: limit,
-        offset: offset,
-      })
-    },
-    groups: async (root, args, context) => {
-      let { limit, offset } = args.pagination
-      return await Group.findAll({
-        limit: limit,
-        offset: offset,
-      })
-    },
-    tags: async (root, args, context) => {
-      if (args.filter && args.filter.name) {
-        const objects = await Tag.findAll({
-          where: {
-            name: {
-              $like: `%${args.filter.name}%`
-            }
+const Query = {
+  persons: async (root, args) => {
+    return await Person.findAll({
+      offset: args.pagination && args.pagination.offset,
+      limit: args.pagination && args.pagination.limit,
+    })
+  },
+  groups: async (root, args, context) => {
+    return await Group.findAll({
+      offset: args.pagination && args.pagination.offset,
+      limit: args.pagination && args.pagination.limit,
+    })
+  },
+  tags: async (root, args, context) => {
+    if (args.filter && args.filter.name) {
+      const objects = await Tag.findAll({
+        where: {
+          name: {
+            $like: `%${args.filter.name}%`
           }
-        })
-
-        return objects
-
-      } else {
-        return await Tag.findAll()
-      }
-
-    },
-    meta: async (root, args) => {
-      const model = Classes[args.name]
-      if (model) {
-        const count = await model.count()
-        return {
-          count: count
-        }
-      }
-    },
-  },
-
-  RootMutation: {
-    createPerson: async (_, args, context) => {
-      const attributes = merge(
-        args.input,
-        { user_id: context.payload.user_id }
-      )
-      const object = await Person.create(attributes)
-
-      pubsub.publish('Person', {
-        Person: {
-          mutation: 'CREATED', node: object
         }
       })
 
-      return object
-    },
+      return objects
 
-    updatePerson: async (_, args, context) => {
-      console.log(11111, "updatePerson")
-    },
-
-    deletePerson: async (_, args, context) => {
-      return await Person.destroy({ where: { id: args.input.id } })
-    },
-
-
-    createGroup: async (_, args, context) => {
-      const attributes = merge(
-        args.input,
-        // { user_id: context.payload.user_id }
-        { user_id: 1 }
-      )
-      const object = await Group.create(attributes)
-
-      await pubsub.publish('Group', {
-        Group: {
-          mutation: 'CREATED', node: object, test: 33333333333333,
-        }
-      })
-
-      return object
-    },
-
-    updateGroup: async (_, args, context) => {
-      console.log(11111, "updateGroup")
-    },
-
-    deleteGroup: async (_, args, context) => {
-      return await Group.destroy({ where: { id: args.input.id } })
-    },
-
-
-    createTag: async (_, args, context) => {
-      const attributes = merge(
-        args.input,
-        { user_id: context.payload.user_id }
-      )
-      const object = await Tag.create(attributes)
-      return object
-    },
-
-    updateTag: async (_, args, context) => {
-      console.log(11111, "updateGroup")
-    },
-
-    deleteTag: async (_, args, context) => {
-      return await Tag.destroy({ where: { id: args.input.id } })
-    },
-
-
+    } else {
+      return await Tag.findAll()
+    }
 
   },
+  meta: async (root, args) => {
+    const { name } = args.input
+    let count
 
-  RootSubscription: {
-    Group: {
-      subscribe: () => {
-        console.log(11111111111111111111111111111, "RootSubscription")
-        pubsub.asyncIterator('Group')
-      }
-    },
+    const Models = {
+      "Person": Person,
+      "Tag": Tag,
+      "Group": Group,
+    }
+
+    const model = Models[name]
+
+    if (model) {
+      count = await model.count()
+    }
+
+    return { count }
   },
-
 }
+
+const Mutation = {
+  createPerson: async (_, args, context) => {
+    const attributes = merge(
+      args.input,
+      { user_id: context.payload.user_id }
+    )
+    const object = await Person.create(attributes)
+
+    pubsub.publish('Person', {
+      Person: {
+        mutation: 'CREATED', node: object
+      }
+    })
+
+    return object
+  },
+
+  updatePerson: async (_, args, context) => {
+    throw new Error("updatePerson")
+  },
+
+  deletePerson: async (_, args, context) => {
+    return await Person.destroy({ where: { id: args.input.id } })
+  },
+
+
+  createGroup: async (_, args, context) => {
+    const attributes = merge(
+      args.input,
+      // { user_id: context.payload.user_id }
+      { user_id: 1 }
+    )
+    const object = await Group.create(attributes)
+
+    await pubsub.publish('Group', {
+      Group: {
+        mutation: 'CREATED', node: object, test: 33333333333333,
+      }
+    })
+
+    return object
+  },
+
+  updateGroup: async (_, args, context) => {
+    throw new Error("updateGroup")
+  },
+
+  deleteGroup: async (_, args, context) => {
+    return await Group.destroy({ where: { id: args.input.id } })
+  },
+
+
+  createTag: async (_, args, context) => {
+    const attributes = merge(
+      args.input,
+      { user_id: context.payload.user_id }
+    )
+    const object = await Tag.create(attributes)
+    return object
+  },
+
+  updateTag: async (_, args, context) => {
+    throw new Error("update Tag")
+  },
+
+  deleteTag: async (_, args, context) => {
+    return await Tag.destroy({ where: { id: args.input.id } })
+  },
+}
+
+const Subscription = {
+  Group: {
+    subscribe: () => {
+      pubsub.asyncIterator('Group')
+    }
+  },
+}
+
+export const resolvers = { Query, Mutation, Subscription }

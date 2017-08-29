@@ -1,42 +1,87 @@
-export const modelsApi = `
-  type User {
-    id: ID
-    name: String
-    email: String @isUnique
-    password: String
-  }
+export const VkQuery = `
+  persons(pagination: PaginationInput): [Person]
+  groups(pagination: PaginationInput): [Group]
+  tags(filter: TagFilterInput, skip: Int, first: Int): [Tag]
+`
 
-  type Setting {
+export const VkMutation = `
+  createPerson(input: PersonInput!): Person
+  updatePerson(input: PersonInput!): Person
+  deletePerson(input: IdInput!): Person
+
+  createGroup(input: GroupInput!): Group
+  updateGroup(input: GroupInput!): Group
+  deleteGroup(input: IdInput!): Group
+
+  createTag(input: TagInput!): Tag
+  updateTag(input: TagInput!): Tag
+  deleteTag(input: IdInput!): Tag
+`
+
+export const VkModels = `
+  type Person {
     id: ID
-    name: String
-    value: String
+
+    uid: String
+    first_name: String
+    last_name: String
+    followers_count: String
+    sex: String
+    city: String
+    bdate: String
+    crop_photo_url: String
+    status: String
+    user_id: Int
+
     createdAt: String
     updatedAt: String
   }
 
-  type Meta {
-    count: Int!
+  type Group {
+    id: ID
+    name: String
+    members_count: String
+    note: String
+    createdAt: String
+    updatedAt: String
+  }
+
+  type Tag {
+    id: ID
+    name: String
+    status: String
+    kind: String
   }
 `
 
-export const inputsApi = `
-  input SettingInput {
+export const VkInputs = `
+  input PersonInput {
+    uid: String
+    first_name: String
+    last_name: String
+    followers_count: String
+    sex: String
+    city: String
+    bdate: String
+    crop_photo_url: String
+    status: String
+  }
+
+  input GroupInput {
     name: String
-    value: String
+    members_count: String
+    note: String
   }
 
-  input UserInput {
+  input TagInput {
     name: String
-    email: String @isUnique
-    password: String
+    status: String
+    kind: String
   }
 
-  input IdInput {
-    id: ID!
-  }
-
-  input PaginationInput {
-    limit: Int
-    offset: Int
+  input TagFilterInput {
+    OR: [TagFilterInput!]
+    name: String
+    status: String
   }
 `

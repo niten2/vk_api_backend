@@ -30,18 +30,19 @@ const Query = {
   },
 
   meta: async (root, args) => {
-    const { names } = args.input
+    const { name } = args.input
+    let count
 
-    const Classes = {
+    const Models = {
       "Status": Status,
       "Client": Client,
     }
 
-    const count = await names.reduce (async (acc, name) => {
-      const model = Classes[name]
-      if (model) { acc[name] = await model.count() }
-      return acc
-    }, {})
+    const model = Models[name]
+
+    if (model) {
+      count = await model.count()
+    }
 
     return { count }
   },

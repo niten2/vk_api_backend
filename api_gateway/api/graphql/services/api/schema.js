@@ -1,18 +1,14 @@
 export const ApiQuery = `
-  # public
   users: [User]
 
-  # private
   user: User
   settings(pagination: PaginationInput): [Setting]!
 `
 
 export const ApiMutation = `
-  # public
   createUser(input: UserInput!): User
   createJwtToken(input: JwtTokenInput!): JwtToken
 
-  # pirvate
   updateUser(input: UserInput!): User
   createSetting(input: SettingInput!): Setting
   updateSetting(input: SettingInput!): Setting

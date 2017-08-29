@@ -54,11 +54,11 @@ export default (onUpdate) => {
             <Layout exact path="/profile" component={Profile}/>
             <Layout exact path="/settings" component={Settings}/>
 
+            <Layout exact path="/crm/clients/new" component={ClientNew} />
             <Route exact path='/crm' render={() => <Redirect to='/crm/clients/1' />} />
             <Route exact path='/crm/clients' render={() => <Redirect to='/crm/clients/1' />} />
             <Layout exact path="/crm/clients/:page" component={Clients}/>
 
-            <Layout exact path="/crm/clients/new" component={ClientNew} />
             <Layout exact path="/crm/clients/update/:id" component={ClientUpdate} />
 
             <Route exact path='/crm/statuses' render={() => <Redirect to='/crm/statuses/1' />} />

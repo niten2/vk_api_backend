@@ -173,7 +173,10 @@ variables: {
 
 query meta {
   meta(input: { names: ["Client"]}) {
-   count
+   count: {
+     Client
+
+   }
   }
 }
 
@@ -183,6 +186,14 @@ query m {
    count
   }
 }
+
+query m {
+  meta(name: "Client") {
+   count
+
+  }
+}
+
 
 
    mutation m($input: JwtTokenInput!) {

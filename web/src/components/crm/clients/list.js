@@ -104,7 +104,7 @@ class Clients extends Component {
 
                 <Pagination
                   href="/crm/clients"
-                  count={meta.count.Client}
+                  count={meta.count}
                   currentPage={parseInt(page, 10)}
                   perPage={PER_PAGE}
                 />

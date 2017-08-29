@@ -43,7 +43,7 @@ const models = `
   }
 
   type Meta {
-    count: Count
+    count: Int
   }
 
   type Count {
@@ -72,7 +72,7 @@ const inputs = `
   }
 
   input MetaInput {
-    names: [String]
+    name: String
   }
 
   input IdInput {
@@ -86,5 +86,4 @@ const inputs = `
 `
 
 const typeDefs = query + mutation + models + inputs
-
-export const schema = makeExecutableSchema({ typeDefs, resolvers })
+export default makeExecutableSchema({ typeDefs, resolvers })

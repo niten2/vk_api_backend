@@ -18,7 +18,7 @@ export const personsQuery = gql`
       createdAt
       updatedAt
     }
-    meta(name: "Person") {
+    meta(input: { name: "Person" }) {
       count
     }
   }
@@ -58,7 +58,7 @@ export const groupsQuery = gql`
       createdAt
       updatedAt
     }
-    meta(name: "Group") {
+    meta(input: { name: "Group" }) {
       count
     }
   }

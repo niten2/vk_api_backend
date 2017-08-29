@@ -15,10 +15,8 @@ export const clientsQuery = gql`
         name
       }
     }
-    meta(input: { names: ["Client"] }) {
-      count {
-        Client
-      }
+    meta(input: { name: "Client" }) {
+      count
     }
   }
 `
@@ -72,7 +70,7 @@ export const statusesQuery = gql`
       id
       name
     }
-    meta(name: "Status") {
+    meta(input: { name: "Status" }) {
       count
     }
   }

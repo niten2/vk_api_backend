@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import Notification from 'actions/notification'
@@ -20,7 +21,7 @@ class ClientNew extends Component {
 
   handleCreate = async (e) => {
     e.preventDefault()
-    const { createClientQuery } = this.props
+    const { dispatch, createClientQuery } = this.props
     const { client } = this.state
 
     try {
@@ -38,9 +39,9 @@ class ClientNew extends Component {
           query: clientsQuery,
         }],
       })
-      Notification.success("ok")
-    } catch (e) {
-      Notification.error(e)
+      dispatch(Notification.success("create"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
@@ -57,7 +58,7 @@ class ClientNew extends Component {
   }
 
   render() {
-    console.log(111)
+
     return (
       <div className="animated fadeIn">
 
@@ -161,6 +162,8 @@ class ClientNew extends Component {
 
 }
 
-export default graphql(createClientQuery, {
-  name: "createClientQuery"
-})(ClientNew)
+export default connect()(
+  graphql(createClientQuery, {
+    name: "createClientQuery"
+  })(ClientNew)
+)

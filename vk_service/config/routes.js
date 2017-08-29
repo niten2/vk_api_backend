@@ -14,11 +14,7 @@ export default (app) => {
     })
   ))
 
-  app.use(
-    '/v1',
-    AuthMiddleware(),
-    graphqlExpress(buildOptions)
-  )
+  app.use('/v1', graphqlExpress(buildOptions))
 
   app.use(
     '/v1',
