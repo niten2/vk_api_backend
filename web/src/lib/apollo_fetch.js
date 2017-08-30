@@ -1,6 +1,6 @@
 // import { LayoutAuthPrivate } from "lib/layout_helper"
-import settings from "lib/settings"
 import { createApolloFetch } from 'apollo-fetch'
+import settings from "lib/settings"
 import authProvider from "lib/auth_provider"
 
 const middleware = (req, next) => {

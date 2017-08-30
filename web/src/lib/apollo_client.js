@@ -1,7 +1,7 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
-// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 import settings from "lib/settings"
 import authProvider from 'lib/auth_provider'
+// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 
 export const configureClient = () => {
   // let networkInterface
