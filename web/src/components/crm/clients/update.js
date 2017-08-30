@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  statusesQuery,
-  clientsQuery,
-  clientQuery,
-  updateClientQuery
-} from 'components/crm/graphql/querues'
+import { connect } from 'react-redux'
+import { statusesQuery, clientsQuery, clientQuery, updateClientQuery } from 'components/crm/graphql/querues'
 import { Link } from 'lib/nav_link'
 import { compose, graphql } from 'react-apollo'
 import Notification from 'actions/notification'
@@ -48,7 +44,7 @@ class Update extends Component {
   handleUpdate = async (e) => {
     e.preventDefault()
     const { client } = this.state
-    const { updateClientQuery } = this.props
+    const { dispatch, updateClientQuery } = this.props
 
     try {
       await updateClientQuery({
@@ -67,9 +63,9 @@ class Update extends Component {
           query: clientsQuery,
         }],
       })
-      Notification.success("update")
-    } catch (error) {
-      Notification.error(error)
+      dispatch(Notification.success("update"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
@@ -219,17 +215,19 @@ class Update extends Component {
 
 }
 
-export default compose(
-  graphql(clientQuery, {
-    name: "clientQuery",
-    options: (props) => ({
-      variables: { id: props.match.params.id }
-    })
-  }),
-  graphql(updateClientQuery, {
-    name: "updateClientQuery"
-  }),
-  graphql(statusesQuery, {
-    name: "statusesQuery"
-  }),
-)(Update)
+export default connect()(
+  compose(
+    graphql(clientQuery, {
+      name: "clientQuery",
+      options: (props) => ({
+        variables: { id: props.match.params.id }
+      })
+    }),
+    graphql(updateClientQuery, {
+      name: "updateClientQuery"
+    }),
+    graphql(statusesQuery, {
+      name: "statusesQuery"
+    }),
+  )(Update)
+)

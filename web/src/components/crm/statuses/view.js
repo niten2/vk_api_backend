@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { compose, graphql } from 'react-apollo'
+import { connect } from 'react-redux'
 import { statusesQuery, updateStatusQuery, deleteStatusQuery } from 'components/crm/graphql/querues'
-// import Notification from 'actions/notification'
+import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
 
 class View extends Component {
@@ -29,7 +30,7 @@ class View extends Component {
   }
 
   handleDestroy = async () => {
-    const { object, deleteStatusQuery } = this.props
+    const { dispatch, refresh, object, deleteStatusQuery } = this.props
 
     try {
       await deleteStatusQuery({
@@ -39,17 +40,17 @@ class View extends Component {
           }
         },
       })
-      this.props.refresh()
-      // Notification.success("ok")
-    } catch (error) {
-      // Notification.error(error)
+      refresh()
+      dispatch(Notification.success("destroy"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
   handleUpdate = async (e) => {
     e.preventDefault()
     const { status } = this.state
-    const { updateStatusQuery } = this.props
+    const { dispatch, updateStatusQuery } = this.props
 
     try {
       await updateStatusQuery({
@@ -63,9 +64,9 @@ class View extends Component {
           query: statusesQuery,
         }],
       })
-      // Notification.success("ok")
-    } catch (e) {
-      // Notification.error(e)
+      dispatch(Notification.success("update"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
@@ -106,7 +107,9 @@ class View extends Component {
 
 }
 
-export default compose(
-  graphql(updateStatusQuery, {name: "updateStatusQuery"}),
-  graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),
-)(View)
+export default connect()(
+  compose(
+    graphql(updateStatusQuery, {name: "updateStatusQuery"}),
+    graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),
+  )(View)
+)

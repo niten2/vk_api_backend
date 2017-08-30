@@ -1,28 +1,20 @@
-import {
-  makeExecutableSchema,
-} from 'graphql-tools'
-
+import { makeExecutableSchema } from 'graphql-tools'
 import { resolvers } from './resolvers'
 
-const typeDefs = `
-
-  schema {
-    query: RootQuery
-    mutation: RootMutation
-  }
-
-  # Root
-  type RootQuery {
+const query = `
+  type Query {
     clients(pagination: PaginationInput): [Client]
     client(id: ID!): Client
 
     statuses(pagination: PaginationInput): [Status]
     status(id: ID!): Status
 
-    meta(name: String): Meta
+    meta(input: MetaInput!): Meta
   }
+`
 
-  type RootMutation {
+const mutation = `
+  type Mutation {
     createClient(input: ClientInput!): Client
     updateClient(id: ID!, input: ClientInput!): Client
     deleteClient(input: IdInput!): Client
@@ -31,7 +23,9 @@ const typeDefs = `
     updateStatus(id: ID!, input: StatusInput!): Status
     deleteStatus(input: IdInput!): Status
   }
+`
 
+const models = `
   type Client {
     id: ID
     name: String
@@ -49,12 +43,16 @@ const typeDefs = `
   }
 
   type Meta {
-    count: Int!
+    count: Int
   }
 
+  type Count {
+    Client: Int
+    Status: Int
+  }
+`
 
-  # NOTE Inputs
-
+const inputs = `
   input ClientInput {
     name: String
     number: String
@@ -73,6 +71,10 @@ const typeDefs = `
     status_id: String
   }
 
+  input MetaInput {
+    name: String
+  }
+
   input IdInput {
     id: ID!
   }
@@ -81,16 +83,7 @@ const typeDefs = `
     limit: Int
     offset: Int
   }
-
-
-
-
-
-
-
-
-
-
 `
 
-export const schema = makeExecutableSchema({ typeDefs, resolvers })
+const typeDefs = query + mutation + models + inputs
+export default makeExecutableSchema({ typeDefs, resolvers })

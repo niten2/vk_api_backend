@@ -7,7 +7,7 @@ export const options = {
 }
 
 // export const endpoint = 'http://localhost:4001/v2'
-export const endpoint = 'http://localhost:4003/v2'
+export const endpoint = 'http://localhost:4001/v1'
 // export const endpoint = process.env.REACT_APP_ENDPOINT
 
 export const defaultQuery = `
@@ -93,14 +93,27 @@ query user {
   }
 }
 
-mutation JwtTokenCreate {
-  JwtTokenCreate(
-    email: "dfgdfg"
-    password: "dsfsdf"
+mutation createJwtToken {
+  createJwtToken(
+    input {
+      email: "dfgdfg"
+      password: "dsfsdf"
+    }
   ) {
     token
   }
 }
+
+
+mutation createJwtToken {
+  createJwtToken(
+    name: "dsfsdf"
+  ) {
+    token
+  }
+}
+
+
 
 query users {
   users {
@@ -156,6 +169,47 @@ variables: {
     status: "test",
   }
 }
+
+
+query meta {
+  meta(input: { names: ["Client"]}) {
+   count: {
+     Client
+
+   }
+  }
+}
+
+
+query m {
+  meta(name: "Client") {
+   count
+  }
+}
+
+query m {
+  meta(name: "Client") {
+   count
+
+  }
+}
+
+
+
+   mutation m($input: JwtTokenInput!) {
+      createJwtToken(input: $input) {
+        token
+        __typename
+      }
+    }
+
+
+  {
+    "input": {
+      "email": "email@email.com",
+      "password": "1234"
+    }
+  }
 
 
 `

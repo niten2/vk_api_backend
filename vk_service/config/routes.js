@@ -9,21 +9,15 @@ export default (app) => {
 
   app.get('/', (req, res) => (
     res.json({
-      servise: "vk_servise",
-      endpoints: {
-        private: '/v2 ',
-      }
+      servise: "vk_service",
+      version: 'current version /v1 with graphql'
     })
   ))
 
-  app.use(
-    '/v2',
-    AuthMiddleware(),
-    graphqlExpress(buildOptions)
-  )
+  app.use('/v1', graphqlExpress(buildOptions))
 
   app.use(
-    '/v2',
+    '/v1',
     graphiqlExpress({
       endpointURL: '/graphql',
       subscriptionsEndpoint: `ws://localhost:${settings.port}/subscriptions`,

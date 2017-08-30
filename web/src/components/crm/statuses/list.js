@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import Notification from 'actions/notification'
 import { graphql } from 'react-apollo'
 import { statusesQuery } from 'components/crm/graphql/querues'
 import Pagination from 'components/shared/pagination'
 import StatusView from './view'
+// import Notification from 'actions/notification'
 
 class ClientList extends Component {
 
@@ -79,10 +79,10 @@ export default graphql(statusesQuery,
   {
     name: "statusesQuery",
     options: (props) => {
-      console.log(props)
       const limit = PER_PAGE
       const page = parseInt(props.match.params.page, 10)
       const offset = (page - 1) * limit
+
       return {
         variables: {
           pagination: { limit, offset }

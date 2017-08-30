@@ -4,17 +4,15 @@ install
 
   - npm i -g nodaemon
 
-
-
 Servises
 
-- Auth (node)
-- Crm (node)
-- Vk (node)
-- Insta (node)
-- Web app (react)
+- api_gateway (node)
+- crm_service (node)
+- vk_service (node)
+- insta_service (node)
+- Web (react)
 - Docs (documetation graphql)
-- Mobile app (react native)
+- Mobile (react native)
 
 
 ## default ports on local machine

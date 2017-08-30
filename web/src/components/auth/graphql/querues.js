@@ -1,5 +1,23 @@
 import { gql } from 'react-apollo'
 
+export const createUserQuery = gql`
+  mutation m($input: UserInput!) {
+    createUser(input: $input) {
+      id
+    }
+    errors
+  }
+`
+
+export const createJwtTokenQuery = gql`
+  mutation createJwtToken($input: JwtTokenInput!) {
+    createJwtToken(input: $input) {
+      token
+    }
+  }
+`
+
+
 export const userQuery = gql`
   query user {
     user {

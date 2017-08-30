@@ -1,42 +1,25 @@
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import bodyParser from 'body-parser'
-import settings from 'config/settings'
-
 import AuthMiddleware from 'api/middlewares/auth'
-import { buildOptionsPublic, buildOptionsPrivate } from 'api/graphql/config'
-
+import { buildOptions } from 'api/graphql/config'
 
 export default (app) => {
 
   app.get('/', (req, res) => (
     res.json({
-      servise: "auth_servise",
-      endpoints: {
-        private: '/v2 ',
-        public: '/v2/public',
-      }
+      servise: "api_gateway",
+      endpoint: '/v1',
     })
   ))
 
-  app.use('/v2/private',
+  app.use('/v1',
     bodyParser.json(),
     AuthMiddleware(),
-    graphqlExpress(buildOptionsPrivate)
+    graphqlExpress(buildOptions)
   )
 
-  app.use(
-    '/v2/private',
-    graphiqlExpress({ endpointURL: '/graphql' })
-  )
-
-  app.use('/v2/public',
-    bodyParser.json(),
-    graphqlExpress(buildOptionsPublic)
-  )
-
-  app.use(
-    '/v2/public',
-    graphiqlExpress({ endpointURL: '/graphql' })
-  )
+  app.use('/v1', graphiqlExpress({
+    endpointURL: '/graphql'
+  }))
 
 }

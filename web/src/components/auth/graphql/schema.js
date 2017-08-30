@@ -1,5 +1,4 @@
-export const typeDefs = `
-
+const models = `
   type User {
     id: ID
     name: String
@@ -19,7 +18,17 @@ export const typeDefs = `
     count: Int!
   }
 
-  # NOTE Inputs
+  type JwtToken {
+    token: String
+  }
+
+`
+
+const inputs = `
+  input IdInput {
+    id: ID!
+  }
+
   input SettingInput {
     name: String
     value: String
@@ -31,13 +40,19 @@ export const typeDefs = `
     password: String
   }
 
-  input IdInput {
-    id: ID!
-  }
-
   input PaginationInput {
     limit: Int
     offset: Int
   }
 
+  input JwtTokenInput {
+    email: String
+    password: String
+  }
+
+`
+
+export const typeDefs = `
+  ${models}
+  ${inputs}
 `

@@ -1,26 +1,29 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
+// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
+import settings from "lib/settings"
 import authProvider from 'lib/auth_provider'
 
-export const createClient = (url, uriSubscription) => {
-  let networkInterface
+export const configureClient = () => {
+  // let networkInterface
 
-  if (uriSubscription) {
-    const wsClient = new SubscriptionClient(uriSubscription, {
-      reconnect: true,
-      connectionParams: {
-        Authorization: authProvider.fetchToken(),
-      },
-    })
-    networkInterface = addGraphQLSubscriptions(
-      createNetworkInterface({ uri: url }),
-      wsClient
-    )
-  } else {
-    networkInterface = createNetworkInterface({
-      uri: url,
-    })
-  }
+  // if (uriSubscription) {
+    // const wsClient = new SubscriptionClient(uriSubscription, {
+    //   reconnect: true,
+    //   connectionParams: {
+    //     Authorization: authProvider.fetchToken(),
+    //   },
+    // })
+    // networkInterface = addGraphQLSubscriptions(
+    //   createNetworkInterface({ uri: url }),
+    //   wsClient
+    // )
+  // } else {
+    // let networkInterface = createNetworkInterface({
+    //   uri: url,
+    // })
+  // }
+
+  let networkInterface = createNetworkInterface({ uri: settings.urlBackend })
 
   networkInterface.use([{
     applyMiddleware(req, next) {

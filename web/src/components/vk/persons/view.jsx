@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import Notification from 'actions/notification'
+import { connect } from 'react-redux'
+import Notification from 'actions/notification'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import { deletePersonQuery } from 'components/vk/graphql/querues'
@@ -35,16 +36,16 @@ class View extends Component {
   // }
 
   handleDestroy = async () => {
-    const { object, deletePersonQuery } = this.props
+    const { dispatch, object, deletePersonQuery } = this.props
 
     try {
       await deletePersonQuery({
         variables: { input: { id: object.id } }
       })
       this.props.refetch()
-      // Notification.success("destroy")
-    } catch (error) {
-      // Notification.error(error)
+      dispatch(Notification.success("destroy"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
 
   }
@@ -76,6 +77,8 @@ class View extends Component {
 
 }
 
-export default graphql(
-  deletePersonQuery, { name: "deletePersonQuery"}
-)(View)
+export default connect()(
+  graphql(
+    deletePersonQuery, { name: "deletePersonQuery"}
+  )(View)
+)

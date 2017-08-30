@@ -1,7 +1,7 @@
 import Notification from 'actions/notification'
 import authProvider from "lib/auth_provider"
 import { push } from 'react-router-redux'
-import { userQuery } from 'components/auth/graphql/private/querues'
+import { userQuery } from 'components/auth/graphql/querues'
 import { apolloFetchAuthPrivate } from "lib/apollo_fetch"
 
 export const LOGOUT = "LOGOUT"

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { settingQuery } from 'components/auth/graphql/private/querues'
+import { settingQuery } from 'components/auth/graphql/querues'
 import { compose, graphql } from 'react-apollo'
 import Spinner from 'components/shared/spinner'
 import Page401 from 'components/shared/page401'

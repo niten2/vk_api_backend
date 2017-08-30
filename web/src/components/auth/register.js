@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { compose, graphql } from 'react-apollo'
+import { createUserQuery, createJwtTokenQuery } from 'components/auth/graphql/querues'
 import Notification from 'actions/notification'
 import authProvider from "lib/auth_provider"
 import { set, lensProp } from 'ramda'
-import { UserCreateQuery, JwtTokenCreateQuery } from 'components/auth/graphql/public/querues'
 import { Link } from 'lib/nav_link'
 
 class CreateUser extends Component {
@@ -27,7 +27,7 @@ class CreateUser extends Component {
 
   createUser = async () => {
     const { user } = this.state
-    const { UserCreateQuery, JwtTokenCreateQuery } = this.props
+    const { createUserQuery, createJwtTokenQuery } = this.props
 
     if (user.password !== user.confirmPassword) {
       this.setState({ errorPassword: true })
@@ -35,14 +35,14 @@ class CreateUser extends Component {
     }
 
     try {
-      await UserCreateQuery({
+      await createUserQuery({
         variables: {
           email: user.email,
           password: user.password,
         }
       })
 
-      let response = await JwtTokenCreateQuery({
+      let response = await createJwtTokenQuery({
         variables: {
           email: user.email,
           password: user.password,
@@ -152,6 +152,6 @@ class CreateUser extends Component {
 }
 
 export default compose(
-  graphql(UserCreateQuery, { name: "UserCreateQuery" }),
-  graphql(JwtTokenCreateQuery, { name: "JwtTokenCreateQuery" }),
+  graphql(createUserQuery, { name: "createUserQuery" }),
+  graphql(createJwtTokenQuery, { name: "createJwtTokenQuery" }),
 )(CreateUser)

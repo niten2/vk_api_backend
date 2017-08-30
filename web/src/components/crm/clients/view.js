@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import { deleteClientQuery } from 'components/crm/graphql/querues'
-// import Notification from 'actions/notification'
+import Notification from 'actions/notification'
 
 class ClientView extends Component {
 
@@ -26,15 +27,20 @@ class ClientView extends Component {
   }
 
   handleDestroy = async () => {
-    const { refetch, object, deleteClientQuery } = this.props
+    const { dispatch, refetch, object, deleteClientQuery } = this.props
 
     try {
       await deleteClientQuery({
-        variables: { id: object.id },
+        variables: {
+          input: {
+            id: object.id
+          }
+        },
       })
       refetch()
-    } catch (error) {
-      // Notification.error(error)
+      dispatch(Notification.success("update"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
 
   }
@@ -73,6 +79,8 @@ class ClientView extends Component {
 
 }
 
-export default graphql(
-  deleteClientQuery, { name: "deleteClientQuery"}
-)(ClientView)
+export default connect()(
+  graphql(
+    deleteClientQuery, { name: "deleteClientQuery"}
+  )(ClientView)
+)

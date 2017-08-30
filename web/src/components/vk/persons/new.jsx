@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import Notification from 'actions/notification'
+import { connect } from 'react-redux'
+import Notification from 'actions/notification'
 import { graphql } from 'react-apollo'
 import { createPersonQuery } from 'components/vk/graphql/querues'
 
@@ -55,7 +56,7 @@ class New extends Component {
 
   handleCreate = async (e) => {
     e.preventDefault()
-    const { createPersonQuery, refetch } = this.props
+    const { dispatch, createPersonQuery, refetch } = this.props
     const { person } = this.state
 
     try {
@@ -65,9 +66,9 @@ class New extends Component {
         },
       })
       refetch()
-      // Notification.success("ok")
-    } catch (e) {
-      // Notification.error(e)
+      dispatch(Notification.success("create person"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
@@ -147,4 +148,6 @@ class New extends Component {
 
 }
 
-export default graphql(createPersonQuery, { name: "createPersonQuery" })(New)
+export default connect()(
+  graphql(createPersonQuery, { name: "createPersonQuery" })(New)
+)
