@@ -53,9 +53,12 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-resolver": "^1.1.0",
     "bunyan": "^1.8.10",
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0",
     "dockerode": "^2.5.0",
     "helmet": "^3.8.1",
     "joi": "^10.6.0",
+    "mocha": "^3.5.0",
     "node-docker-monitor": "^1.0.10",
     "nodejs-dashboard": "^0.4.1",
     "nodemon": "^1.11.0"
