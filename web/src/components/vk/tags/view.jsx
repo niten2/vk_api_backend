@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import Notification from 'actions/notification'
+import { connect } from 'react-redux'
+import Notification from 'actions/notification'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
 import { deleteTagQuery } from 'components/vk/graphql/querues'
@@ -23,16 +24,16 @@ class View extends Component {
   }
 
   handleDestroy = async () => {
-    const { object, deleteTagQuery } = this.props
+    const { dispatch, object, deleteTagQuery } = this.props
 
     try {
       await deleteTagQuery({
         variables: { input: { id: object.id } },
       })
       this.props.refetch()
-      // Notification.success("destroy")
-    } catch (error) {
-      // Notification.error(error)
+      dispatch(Notification.success("destroy tag"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
 
   }
@@ -58,13 +59,14 @@ class View extends Component {
             <i className="pointer icon-ban" />
           </div>
         </td>
-
       </tr>
     )
   }
 
 }
 
-export default graphql(
-  deleteTagQuery, { name: "deleteTagQuery"}
-)(View)
+export default connect()(
+  graphql(
+    deleteTagQuery, { name: "deleteTagQuery"}
+  )(View)
+)

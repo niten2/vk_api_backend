@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-// import Notification from 'actions/notification'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { graphql, withApollo } from 'react-apollo'
 // import { createTagQuery, tagsQuery } from 'components/vk/graphql/querues'
 import { createTagQuery } from 'components/vk/graphql/querues'
+import Notification from 'actions/notification'
 
 const InputField = (props) => {
   return (
@@ -61,7 +62,7 @@ class New extends Component {
 
   handleCreate = async (e) => {
     e.preventDefault()
-    const { createTagQuery, refetch } = this.props
+    const { dispatch, createTagQuery, refetch } = this.props
     const { group } = this.state
 
     try {
@@ -72,9 +73,9 @@ class New extends Component {
       })
       refetch()
       this.setState({ group: {} })
-      // Notification.success("ok")
-    } catch (e) {
-      // Notification.error(e)
+      dispatch(Notification.success("create tag"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
   }
 
@@ -155,6 +156,8 @@ class New extends Component {
 
 }
 
-export default graphql(
-  createTagQuery, { name: "createTagQuery" }
-)(withApollo(New))
+export default connect()(
+  graphql(
+    createTagQuery, { name: "createTagQuery" }
+  )(withApollo(New))
+)

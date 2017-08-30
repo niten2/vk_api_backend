@@ -6,7 +6,7 @@ const query = `
     persons(pagination: PaginationInput): [Person]!
     groups(pagination: PaginationInput): [Group]!
     tags(filter: TagFilterInput, skip: Int, first: Int): [Tag!]!
-    meta(name: String!): Meta
+    meta(input: MetaInput!): Meta
   }
 `
 const mutation = `
@@ -61,7 +61,7 @@ const models = `
   }
 
   type Meta {
-    count: Int!
+    count: Int
   }
 `
 
@@ -94,6 +94,10 @@ const inputs = `
     OR: [TagFilterInput!]
     name: String
     status: String
+  }
+
+  input MetaInput {
+    name: String
   }
 
   input IdInput {

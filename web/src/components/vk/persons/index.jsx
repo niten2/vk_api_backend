@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 import { personsQuery } from 'components/vk/graphql/querues'
 import Spinner from 'components/shared/spinner'
+import Notification from 'actions/notification'
 import Page500 from 'components/shared/page500'
 import Pagination from 'components/shared/pagination'
 import PersonView from './view'
@@ -33,12 +35,14 @@ class Person extends Component {
     const { page } = this.props.match.params
     const { meta, loading, error, persons, refetch } = this.props.personsQuery
     const { attributes } = this.state
+    const { dispatch } = this.props
 
     if (loading ) {
       return <Spinner />
     }
 
     if (error) {
+      dispatch(Notification.error(error.message))
       return <Page500 />
     }
 
@@ -97,18 +101,21 @@ class Person extends Component {
 }
 
 const PER_PAGE = 10
-export default graphql(personsQuery,
-  {
-    name: "personsQuery",
-    options: (props) => {
-      const limit = PER_PAGE
-      const page = parseInt(props.match.params.page, 10)
-      const offset = (page - 1) * limit
-      return {
-        variables: {
-          pagination: { limit, offset }
+
+export default connect()(
+    graphql(personsQuery,
+    {
+      name: "personsQuery",
+      options: (props) => {
+        const limit = PER_PAGE
+        const page = parseInt(props.match.params.page, 10)
+        const offset = (page - 1) * limit
+        return {
+          variables: {
+            pagination: { limit, offset }
+          }
         }
       }
     }
-  }
-)(Person)
+  )(Person)
+)

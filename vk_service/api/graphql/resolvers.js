@@ -81,7 +81,6 @@ const Mutation = {
     return await Person.destroy({ where: { id: args.input.id } })
   },
 
-
   createGroup: async (_, args, context) => {
     const attributes = merge(
       args.input,

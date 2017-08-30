@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 import { Link } from 'lib/nav_link'
-// import Notification from 'actions/notification'
+import Notification from 'actions/notification'
 import { deleteGroupQuery } from 'components/vk/graphql/querues'
 
 class View extends Component {
@@ -29,16 +30,16 @@ class View extends Component {
   // }
 
   handleDestroy = async () => {
-    const { object, deleteGroupQuery } = this.props
+    const { dispatch, object, deleteGroupQuery } = this.props
 
     try {
       await deleteGroupQuery({
         variables: { input: { id: object.id } }
       })
       this.props.refetch()
-      // Notification.success("destroy")
-    } catch (error) {
-      // Notification.error(error)
+      dispatch(Notification.success("destroy group"))
+    } catch (err) {
+      dispatch(Notification.error(err.message))
     }
 
   }
@@ -70,6 +71,8 @@ class View extends Component {
 
 }
 
-export default graphql(
-  deleteGroupQuery, { name: "deleteGroupQuery"}
-)(View)
+export default connect()(
+  graphql(
+    deleteGroupQuery, { name: "deleteGroupQuery"}
+  )(View)
+)
