@@ -1,0 +1,3 @@
+echo "Initialize directories"
+cd ./api_gateway;
+npm run tests
