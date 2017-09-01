@@ -8,10 +8,9 @@ const authenticated = (fn) => (parent, args, context, info) => {
   throw new Error('User is not authenticated')
 }
 
-
 export const ApiQuery = {
   // public
-  users: async (root, args) => {
+  users: async (_, args, context) => {
     const users = await User.findAll()
     return users
   },

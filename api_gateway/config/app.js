@@ -1,11 +1,7 @@
 import express from 'express'
 import bunyan from 'bunyan'
-
-import settings from 'config/settings'
-import middlewares from 'api/middlewares'
-import models from 'api/models'
-// import resourses from 'api/resourses'
 import routes from 'config/routes'
+import settings from 'config/settings'
 
 export default class App {
 
@@ -13,12 +9,10 @@ export default class App {
     if (settings.env != "test" && !this.log) {
       this.log = this.getLogger()
     }
+
     Object.assign(this, params)
 
     this.app = express()
-    this.settings = settings
-    this.middlewares = middlewares(this)
-
     routes(this.app)
 
     if (settings.env != "test") {
@@ -38,10 +32,7 @@ export default class App {
   }
 
   initLogSetup() {
-    if (this.middlewares) {
-      this.log.trace('middlewares', Object.keys(this.middlewares))
-    }
-    this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
+    this.log.info(`App ${settings.name} running on port ${settings.port}`)
   }
 
   getLogger(params) {

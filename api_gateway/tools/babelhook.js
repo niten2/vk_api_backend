@@ -4,7 +4,7 @@ require("babel-core/register")({
 
   sourceMaps: true,
 
-  extensions: [".jsx", ".js"],
+  extensions: [".js"],
 
   plugins: [
     "babel-polyfill",
