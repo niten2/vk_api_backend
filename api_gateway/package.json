@@ -1,5 +1,13 @@
 {
   "name": "api_gateway",
+  "description": "description",
+  "version": "1.0.0",
+  "main": "./tools/run.js",
+  "author": "niten2",
+  "license": "ISC",
+  "keywords": [
+    "node"
+  ],
   "scripts": {
     "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",

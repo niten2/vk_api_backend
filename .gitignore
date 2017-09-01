@@ -3,6 +3,7 @@ note.js
 
 api_gateway/node_modules
 api_gateway/.env
+api_gateway/.env.test
 api_gateway/db/database.dev.sqlite
 
 crm_service/node_modules
