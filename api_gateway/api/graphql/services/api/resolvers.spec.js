@@ -7,8 +7,8 @@ import { createJwt } from "api/services/jwt"
 
 describe('api resolvers', () => {
   beforeEach(async () => {
-    await User.destroy({where: {}})
-    await Setting.destroy({where: {}})
+    await User.destroy({where: {}, truncate: true})
+    await Setting.destroy({where: {}, truncate: true})
   })
 
   describe('users', () => {
@@ -62,27 +62,26 @@ describe('api resolvers', () => {
       expect(() => ApiQuery.settings(null, {}, {})).to.throw(Error)
     })
   })
-
 })
 
 describe('api mutations', () => {
-  beforeEach(async () => {
-    await User.destroy({where: {}})
-    await Setting.destroy({where: {}})
-  })
 
   describe('createJwtToken', async () => {
+    beforeEach(async () => {
+      await User.destroy({where: {}, truncate: true})
+      await Setting.destroy({where: {}, truncate: true})
+    })
+
     it("valid email and password", async () => {
       let user = await User.create(user_fixtures)
-      let args = { input: { email: user_fixtures.email, password: user_fixtures.password } }
+      let args = { input: { email: user.email, password: user.password } }
       let resp = await ApiMutation.createJwtToken(null, args, {})
-      // console.log(resp)
-      expect(resp.token).to.eq("string")
+      expect(resp.token).to.be.a("String")
     })
 
     it("password incorrect", async () => {
       let user = await User.create(user_fixtures)
-      let args = { input: { email: user_fixtures.email, password: "test" } }
+      let args = { input: { email: user_fixtures.email, password: "invalid password" } }
        try {
         await ApiMutation.createJwtToken(null, args, {})
       } catch(err) {
@@ -93,7 +92,8 @@ describe('api mutations', () => {
     it("user not found", async () => {
       let args = { input: { email: user_fixtures.email, password: user_fixtures.password } }
        try {
-        await ApiMutation.createJwtToken(null, args, {})
+        let z = await ApiMutation.createJwtToken(null, args, {})
+         console.log(z)
       } catch(err) {
         expect(err.message).to.eq('Email or Password incorrect')
       }

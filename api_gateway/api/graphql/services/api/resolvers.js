@@ -41,12 +41,11 @@ export const ApiMutation = {
         }
       })
 
-      if (user && user.password == password) {
-        // return { token: createJwt(user) }
-        return { token: "string" }
-      } else {
+      if (user.password !== password) {
         throw new Error('Email or Password incorrect')
       }
+
+      return { token: createJwt(user) }
     } catch (err) {
       throw new Error('Email or Password incorrect')
     }
