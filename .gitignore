@@ -5,6 +5,7 @@ api_gateway/node_modules
 api_gateway/.env
 api_gateway/.env.test
 api_gateway/db/database.dev.sqlite
+api_gateway/db/database.test.sqlite
 
 crm_service/node_modules
 crm_service/.env

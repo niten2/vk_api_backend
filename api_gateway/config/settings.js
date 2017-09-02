@@ -6,7 +6,7 @@ if (process.env.NODE_ENV == "test") {
 
 const getStorage = () => {
   if (process.env.NODE_ENV == "test") {
-    return "./db/database.dev.sqlite"
+    return "./db/database.test.sqlite"
   }
 
   return "./db/database.dev.sqlite"
