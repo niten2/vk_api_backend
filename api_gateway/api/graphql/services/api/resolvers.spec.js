@@ -5,6 +5,7 @@ import isAuthenticated from "api/middlewares/jwt"
 
 // nt api/graphql/services/api/resolvers.spec.js
 
+// console.log(process.env)
 
 describe('api resolvers', () => {
 

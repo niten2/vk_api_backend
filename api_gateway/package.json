@@ -8,9 +8,6 @@
   "keywords": [
     "node"
   ],
-  "engines": {
-    "node": "8.0.0"
-  },
   "scripts": {
     "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
