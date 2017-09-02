@@ -26,8 +26,8 @@ describe('api resolvers', () => {
     // console.log(resp)
 
 
-    // expect(111).to.be.a('string')
-    expect("str").to.be.a('string')
+    expect(111).to.be.a('string')
+    // expect("str").to.be.a('string')
 
 
 
