@@ -2,8 +2,6 @@ import { Setting, User } from "api/models"
 import { createJwt } from "api/services/jwt"
 
 const authenticated = (fn) => (parent, args, context, info) => {
-  console.log(1111)
-  console.log(context)
   if (context.payload) {
     return fn(parent, args, context, info);
   }
@@ -18,17 +16,17 @@ export const ApiQuery = {
   },
 
   // private
-  user: async (_, args, context) => {
+  user: authenticated(async (_, args, context) => {
     const user_id = context.payload.user_id
     return await User.findById(user_id)
-  },
+  }),
 
-  settings: async (root, args) => {
+  settings: authenticated(async (root, args, context) => {
     return await Setting.findAll({
       offset: args.pagination && args.pagination.offset,
       limit: args.pagination && args.pagination.limit,
     })
-  },
+  }),
 
 }
 

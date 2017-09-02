@@ -1,14 +1,16 @@
 import chai, { expect } from 'chai'
 import { ApiQuery } from "./resolvers"
-import { User } from "api/models"
-import { user_fixtures } from "spec/fixtures"
+import { User, Setting } from "api/models"
+import { user_fixtures, setting_fixtures } from "spec/fixtures"
 
 describe('api resolvers', () => {
+  beforeEach(async () => {
+    await User.destroy({where: {}})
+    await Setting.destroy({where: {}})
+  })
 
   describe('users', () => {
-
     beforeEach(async () => {
-      await User.destroy({where: {}})
       await User.create(user_fixtures)
     })
 
@@ -18,24 +20,45 @@ describe('api resolvers', () => {
       expect(users[0].name).to.have.eq(user_fixtures.name)
       expect(users[0].email).to.have.eq(user_fixtures.email)
     })
-
   })
 
   describe('user', () => {
     let user, context
 
     beforeEach(async () => {
-      await User.destroy({where: {}})
       user = await User.create(user_fixtures)
       context = { payload: { user_id: user.id } }
     })
 
-    it("user", async () => {
+    it("with payload", async () => {
       let user = await ApiQuery.user(null, null, context)
       expect(user.name).to.eq(user_fixtures.name)
       expect(user.email).to.eq(user_fixtures.email)
     })
 
+    it("without payload", async () => {
+      expect(() => ApiQuery.user(null, null, {})).to.throw(Error)
+    })
+  })
+
+  describe('settings', () => {
+    let settings, context
+
+    beforeEach(async () => {
+      await Setting.create(setting_fixtures)
+      context = { payload: { user_id: 1 } }
+    })
+
+    it("with payload", async () => {
+      settings = await ApiQuery.settings(null, {}, context)
+      expect(settings).to.be.an('array').lengthOf(1)
+      expect(settings[0].name).to.have.eq(setting_fixtures.name)
+      expect(settings[0].value).to.have.eq(setting_fixtures.value)
+    })
+
+    it("without payload", async () => {
+      expect(() => ApiQuery.settings(null, {}, {})).to.throw(Error)
+    })
   })
 
 })
