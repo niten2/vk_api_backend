@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai'
-import { ApiQuery } from "./resolvers"
+// import { ApiQuery } from "./resolvers"
 
 // nt api/graphql/services/api/resolvers.spec.js
 
@@ -10,6 +10,11 @@ describe('api resolvers', () => {
     // console.log(ApiQuery.users)
 
 
+    console.log(111)
+    console.log(111)
+    console.log(111)
+    console.log(111)
+    console.log(111)
     console.log(111)
 
     // let resp = await ApiQuery.users()

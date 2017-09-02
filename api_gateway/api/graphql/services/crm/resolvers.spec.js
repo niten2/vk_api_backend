@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai'
-import { ApiQuery } from "./resolvers"
+// import { ApiQuery } from "./resolvers"
 
 // nt api/graphql/services/api/resolvers.spec.js
 
