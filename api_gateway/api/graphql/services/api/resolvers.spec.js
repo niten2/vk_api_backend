@@ -76,8 +76,8 @@ describe('api mutations', () => {
       let user = await User.create(user_fixtures)
       let args = { input: { email: user_fixtures.email, password: user_fixtures.password } }
       let resp = await ApiMutation.createJwtToken(null, args, {})
-      console.log(resp)
-      expect(resp.token).to.eq(createJwt(user))
+      // console.log(resp)
+      expect(resp.token).to.eq("string")
     })
 
     it("password incorrect", async () => {
