@@ -4,7 +4,10 @@ cd api_gateway
 npm run tests
 cd ..
 
+cd crm_service
+npm run tests
+cd ..
 
-
-echo "end"
+cd vk_service
+npm run tests
 

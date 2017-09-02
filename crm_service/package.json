@@ -1,32 +1,36 @@
 {
-  "name": "crm_servise",
+  "name": "api_gateway",
+  "description": "description",
+  "version": "1.0.0",
+  "main": "./tools/run.js",
+  "author": "niten2",
+  "license": "ISC",
+  "keywords": [
+    "node"
+  ],
   "scripts": {
     "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
     "console": "node --require ./tools/babelhook ./tools/console.js",
-    "db:migrate": "node_modules/.bin/sequelize db:migrate --migrations-path=db/migrations",
-    "db:migration": "node_modules/.bin/sequelize migration:create --migrations-path=db/migrations",
-    "db:seed": "node_modules/.bin/sequelize db:seed:all --seeders-path=db/seeders",
-    "db:seed:csv": "node --require ./tools/babelhook ./api/services/parseCsv/index.js",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
+    "db:migration": "node_modules/.bin/sequelize migration:create",
+    "db:seed": "node_modules/.bin/sequelize db:seed:all",
     "db:drop": "rm -rf db/database.dev.sqlite",
+    "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
-    "parse:test": "node --require ./tools/babelhook api/services/parseTests.js",
-    "test": "mocha test --inspect-brk --require ./tools/babelhook",
-    "testing": "nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js"
+    "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
+    "tests": "NODE_ENV=test node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register $(find api -name '*.spec.js')",
+    "test": "NODE_ENV=test nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register"
   },
   "dependencies": {
     "babyparse": "^0.4.6",
     "body-parser": "~1.12.4",
     "bunyan": "^1.8.10",
     "cors": "^2.8.3",
-    "dotenv": "^1.1.0",
     "express": "~4.12.4",
-    "express-async-router": "^0.1.12",
-    "express-bunyan-logger": "^1.3.1",
     "graphql": "^0.10.3",
-    "graphql-server-express": "^0.9.0",
     "graphql-tools": "^1.0.0",
-    "nodemon": "^1.10.2",
     "ramda": "^0.23.0",
     "ramda-fantasy": "^0.8.0",
     "sequelize": "^3.30.2",
@@ -35,10 +39,17 @@
   },
   "devDependencies": {
     "babel": "^6.23.0",
-    "babel-cli": "^6.24.1",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-resolver": "^1.1.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "babel-resolver": "^1.1.0",
-    "debug": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz"
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
+    "database-cleaner": "^1.2.0",
+    "dotenv": "^4.0.0",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0"
   }
 }
