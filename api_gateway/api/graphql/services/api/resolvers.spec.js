@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 // import { ApiQuery } from "./resolvers"
-// import { Setting, User } from "api/models"
-import isAuthenticated from "api/middlewares/jwt"
+// import { Setting, User } from "/api/models"
+import isAuthenticated from "/api/middlewares/jwt"
 
 // nt api/graphql/services/api/resolvers.spec.js
 
