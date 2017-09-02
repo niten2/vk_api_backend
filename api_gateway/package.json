@@ -18,9 +18,8 @@
     "db:seed:client": "node --require ./tools/babelhook ./api/services/clients/createClientForCSV.js",
     "db:drop": "rm -rf db/database.dev.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
-    "tests": "NODE_ENV=test node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register $(find api -name '*.spec.js')",
+    "tests": "node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register api/graphql/services/api/resolvers.spec.js",
     "test": "NODE_ENV=test nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register",
-    "testing": "NODE_ENV=test nodemon --exec mocha test --inspect-brk --require tools/babelhook test/testing.js",
     "dashboard": "nodemon --exec 'nodejs-dashboard babel-node' src/index.js"
   },
   "dependencies": {
