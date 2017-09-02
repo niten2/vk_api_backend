@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 // import { ApiQuery } from "./resolvers"
 // import { Setting, User } from "/api/models"
-import isAuthenticated from "/api/middlewares/jwt"
+import isAuthenticated from "api/middlewares/jwt"
 
 // nt api/graphql/services/api/resolvers.spec.js
 
@@ -18,7 +18,7 @@ describe('api resolvers', () => {
     console.log(111)
     console.log(111)
     console.log(111)
-    console.log(isAuthenticated)
+    // console.log(isAuthenticated)
 
     throw new Error("test")
     // let resp = await ApiQuery.users()

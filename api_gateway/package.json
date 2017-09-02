@@ -23,6 +23,7 @@
     "dashboard": "nodemon --exec 'nodejs-dashboard babel-node' src/index.js"
   },
   "dependencies": {
+    "babel-plugin-resolver": "^1.1.0",
     "jsonwebtoken": "^7.4.3",
     "ramda": "^0.24.1"
   },

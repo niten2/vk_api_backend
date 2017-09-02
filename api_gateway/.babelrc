@@ -2,11 +2,7 @@
   "presets": ["es2015", "stage-3"],
   "plugins": [
     ["babel-polyfill"],
-    [
-      "module-alias", [
-        { "src": "./", "expose": "" },
-      ]
-    ]
+    ["resolver", {"resolveDirs": ["./"]}]
   ]
 }
 
