@@ -1,4 +1,24 @@
+nvm use stable
+
 echo "Initialize directories"
+
+cd api_gateway
+cp .env.sample .env
+npm install
+cd ..
+
+cd crm_service
+cp .env.sample .env
+npm install
+cd ..
+
+cd vk_service
+cp .env.sample .env
+npm install
+cd ..
+
+
+echo "run tests"
 
 cd api_gateway
 npm run tests
@@ -10,4 +30,3 @@ cd ..
 
 cd vk_service
 npm run tests
-
