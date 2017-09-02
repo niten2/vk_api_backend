@@ -5,7 +5,11 @@ if (process.env.NODE_ENV == "test") {
 }
 
 const getStorage = () => {
-  return process.env.NODE_ENV == "test" ? ":memory:" : "./db/database.dev.sqlite"
+  if (process.env.NODE_ENV == "test") {
+    return "./db/database.dev.sqlite"
+  }
+
+  return "./db/database.dev.sqlite"
 }
 
 export default {

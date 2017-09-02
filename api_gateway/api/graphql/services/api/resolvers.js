@@ -11,7 +11,7 @@ const authenticated = (fn) => (parent, args, context, info) => {
 export const ApiQuery = {
   // public
   users: async (_, args, context) => {
-    const users = await User.findAll()
+    const users = await User.findAll({ raw: true })
     return users
   },
 

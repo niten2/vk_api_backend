@@ -11,27 +11,30 @@
   "scripts": {
     "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "console": "node --require ./tools/babelhook ./tools/console.js",
-    "db:migrate": "node_modules/.bin/sequelize db:migrate --migrations-path=db/migrations",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
     "db:migration": "node_modules/.bin/sequelize migration:create --migrations-path=db/migrations",
     "db:seed": "node_modules/.bin/sequelize db:seed:all --seeders-path=db/seeders",
     "db:drop": "rm -rf db/database.dev.sqlite",
+    "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
+    "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
     "tests": "NODE_ENV=test node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register $(find api -name '*.spec.js')",
     "test": "NODE_ENV=test nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register"
   },
   "dependencies": {
+    "apollo-fetch": "^0.6.0",
+    "apollo-server-express": "^1.0.4",
     "body-parser": "~1.17.2",
+    "bunyan": "^1.8.10",
     "cors": "^2.8.1",
+    "express": "^4.12.4",
+    "graphql-tools": "^1.1.0",
     "jsonwebtoken": "^7.4.3",
     "ramda": "^0.24.1",
     "sequelize": "^4.8.0",
     "sequelize-cli": "^2.5.1",
-    "sqlite": "^2.3.0",
-    "bunyan": "^1.8.10",
-    "express": "^4.12.4",
-    "graphql-tools": "^1.1.0",
-    "apollo-fetch": "^0.6.0",
-    "apollo-server-express": "^1.0.4"
+    "sqlite": "^2.3.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",
