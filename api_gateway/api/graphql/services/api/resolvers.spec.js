@@ -1,7 +1,9 @@
 import chai, { expect } from 'chai'
-import { ApiQuery } from "./resolvers"
+import chaiAsPromised from "chai-as-promised"
+import { ApiMutation, ApiQuery } from "./resolvers"
 import { User, Setting } from "api/models"
 import { user_fixtures, setting_fixtures } from "spec/fixtures"
+import { createJwt } from "api/services/jwt"
 
 describe('api resolvers', () => {
   beforeEach(async () => {
@@ -59,6 +61,64 @@ describe('api resolvers', () => {
     it("without payload", async () => {
       expect(() => ApiQuery.settings(null, {}, {})).to.throw(Error)
     })
+  })
+
+})
+
+describe('api mutations', () => {
+  beforeEach(async () => {
+    await User.destroy({where: {}})
+    await Setting.destroy({where: {}})
+  })
+
+  describe('createJwtToken', async () => {
+    it("valid email and password", async () => {
+      let user = await User.create(user_fixtures)
+      let args = { input: { email: user_fixtures.email, password: user_fixtures.password } }
+      let resp = await ApiMutation.createJwtToken(null, args, {})
+      expect(resp.token).to.eq(createJwt(user))
+    })
+
+    it("password incorrect", async () => {
+      let user = await User.create(user_fixtures)
+      let args = { input: { email: user_fixtures.email, password: "test" } }
+       try {
+        await ApiMutation.createJwtToken(null, args, {})
+      } catch(err) {
+        expect(err.message).to.eq('Email or Password incorrect')
+      }
+    })
+
+    it("user not found", async () => {
+      let args = { input: { email: user_fixtures.email, password: user_fixtures.password } }
+       try {
+        await ApiMutation.createJwtToken(null, args, {})
+      } catch(err) {
+        expect(err.message).to.eq('Email or Password incorrect')
+      }
+    })
+  })
+
+  describe('createUser', () => {
+    it("create user", async () => {
+      let args = { input: { name: user_fixtures.name, email: user_fixtures.email, password: user_fixtures.password } }
+      let user = await ApiMutation.createUser(null, args, {})
+      expect(user.name).to.eq(user_fixtures.name)
+      expect(user.email).to.eq(user_fixtures.email)
+      expect(user.password).to.eq(user_fixtures.password)
+    })
+  })
+
+  describe('updateUser', () => {
+    // # TODO
+  })
+
+  describe('createSetting', () => {
+    // # TODO
+  })
+
+  describe('updateSetting', () => {
+    // # TODO
   })
 
 })

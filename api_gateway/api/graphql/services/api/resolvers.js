@@ -32,29 +32,31 @@ export const ApiQuery = {
 
 export const ApiMutation = {
 
-  // public
   createJwtToken: async (_, args) => {
     const { email, password } = args.input
-    const user = await User.findOne({
-      where: {
-        email: email,
-      }
-    })
+    try {
+      const user = await User.findOne({
+        where: {
+          email: email,
+        }
+      })
 
-    if (user && user.password == password) {
-      return { token: createJwt(user) }
-    } else {
+      if (user && user.password == password) {
+        return { token: createJwt(user) }
+      } else {
+        throw new Error('Email or Password incorrect')
+      }
+    } catch (err) {
       throw new Error('Email or Password incorrect')
     }
   },
 
   createUser: async (root, args) => {
-    const user = await User.create({
-      email: args.email,
-      password: args.password,
+    return await User.create({
+      name: args.input.name,
+      email: args.input.email,
+      password: args.input.password,
     })
-
-    return user
   },
 
 
