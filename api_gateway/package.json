@@ -8,6 +8,9 @@
   "keywords": [
     "node"
   ],
+  "engines": {
+    "node": "8.0.0"
+  },
   "scripts": {
     "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "seed": "node --require ./tools/babelhook ./db/seed.js",
@@ -24,6 +27,7 @@
   },
   "dependencies": {
     "babel-plugin-resolver": "^1.1.0",
+    "check-node-version": "^2.1.0",
     "jsonwebtoken": "^7.4.3",
     "ramda": "^0.24.1"
   },
