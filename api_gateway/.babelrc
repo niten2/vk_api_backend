@@ -1,7 +1,14 @@
 {
   "presets": ["es2015", "stage-3"],
   "plugins": [
-    ["babel-polyfill"]
+    ["babel-polyfill"],
+    ["module-resolver", {
+    "root": ["./"],
+      "alias": {
+        "test": "./test",
+        "underscore": "lodash"
+      }
+    }]
   ]
 }
 
