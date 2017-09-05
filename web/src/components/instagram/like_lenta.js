@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-
-import { requestLikeLenta } from "lib/requests"
 import { Button } from 'reactstrap'
+// import { requestLikeLenta } from "lib/requests"
 // import Notification from 'actions/notification'
 
 export default class FollowExplore extends Component {
 
   async handeClick () {
-    try {
-      await requestLikeLenta({ quit: 'true' })
-      // Notification.success("ready")
-    } catch (err) {
-      // Notification.error(err)
-    }
+    console.log("handeClick")
+    // try {
+    //   await requestLikeLenta({ quit: 'true' })
+    //   // Notification.success("ready")
+    // } catch (err) {
+    //   // Notification.error(err)
+    // }
   }
 
   render() {

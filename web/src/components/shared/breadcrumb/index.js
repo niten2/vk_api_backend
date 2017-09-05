@@ -1,9 +1,8 @@
 import React from 'react'
-// import { Route, Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
-// import { Breadcrumb, BreadcrumbItem } from 'reactstrap'
 import { Breadcrumb } from 'reactstrap'
-// import routes from '../../routes'
+// import { Route, Link } from 'react-router-dom'
+// import { Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 // const findRouteName = url => routes[url]
 // const findRouteName = url => null
@@ -41,7 +40,8 @@ import { Breadcrumb } from 'reactstrap'
 //   return null
 // }
 
-const Breadcrumbs = ({ ...rest, location : { pathname }, match }) => {
+// const Breadcrumbs = ({ ...rest, location : { pathname }, match }) => {
+const Breadcrumbs = ({ ...rest  }) => {
   // const paths = getPaths(pathname)
   // const i = 0
   // const items = paths.map((path, i) => <Route key={i++} path={path} component={BreadcrumbsItem} />)
