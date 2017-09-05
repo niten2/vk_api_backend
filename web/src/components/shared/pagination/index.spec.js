@@ -1,24 +1,19 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { mount } from 'enzyme'
 import App from './index'
 import chai from 'chai'
-import chaiEnzyme from 'chai-enzyme'
-import { MemoryRouter } from 'react-router-dom'
 
+import { MemoryRouter } from 'react-router-dom'
+import chaiEnzyme from 'chai-enzyme'
 chai.use(chaiEnzyme())
 
 
 it('renders without crashing', () => {
-  // shallow(<App />);
   const currentPage = 1
   const perPage = 2
   const count = 4
   const href = "/test"
-
-  // const context = { router: { isActive: (a, b) => true } };
-  // console.log(context)
-  // const renderedComponent = shallow(<NavLink to="/home" />);
-
 
   const wrapper = mount(<MemoryRouter><App
     currentPage={currentPage}
@@ -28,6 +23,15 @@ it('renders without crashing', () => {
     currentPage={currentPage}
   /></MemoryRouter>)
 
-  console.log(wrapper.debug());
+  // console.log(wrapper.debug());
 
+  // const ul = <ul className="pagination">
+
+  // expect(wrapper.contains(ul)).toEqual(true);
+
+  // expect(sum(1, 2)).toEqual(3);
+
+  // const div = document.createElement('div');
+  // const z = ReactDOM.render(<MemoryRouter><App /></MemoryRouter>, div);
+  // console.log(z)
 })
