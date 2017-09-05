@@ -1,4 +1,4 @@
-echo "Initialize directories"
+echo "initialize directories"
 
 nvm use stable
 

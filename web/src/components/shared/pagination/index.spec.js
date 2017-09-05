@@ -8,12 +8,31 @@ import { MemoryRouter } from 'react-router-dom'
 import chaiEnzyme from 'chai-enzyme'
 chai.use(chaiEnzyme())
 
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
+
+const currentPage = 1
+const perPage = 2
+const count = 4
+const href = "/test"
+
+storiesOf('test', module).add('with text', () => (
+  <App
+    currentPage={currentPage}
+    perPage={perPage}
+    count={count}
+    href={href}
+    currentPage={currentPage}
+  />
+))
+
+
 
 it('renders without crashing', () => {
-  const currentPage = 1
-  const perPage = 2
-  const count = 4
-  const href = "/test"
+  // const currentPage = 1
+  // const perPage = 2
+  // const count = 4
+  // const href = "/test"
 
   const wrapper = mount(<MemoryRouter><App
     currentPage={currentPage}
