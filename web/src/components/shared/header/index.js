@@ -96,4 +96,5 @@ const mapStateToProps = (props) => {
   }
 }
 
+console.log(mapStateToProps)
 export default connect(mapStateToProps)(Header)

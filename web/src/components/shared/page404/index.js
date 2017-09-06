@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Page404 extends Component {
   render() {
     return (
-      <div className="app flex-row">
+      <div className="app flex-row align-items-center">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-6">
@@ -27,4 +27,4 @@ class Page404 extends Component {
   }
 }
 
-export default Page404;
+export default Page404

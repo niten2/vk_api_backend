@@ -1,11 +1,12 @@
-process.env.NODE_PATH = "src/"
-
 import { configure } from '@storybook/react'
 
+import "../public/css/font-awesome.css"
+import "../public/css/style.css"
+
+const req = require.context('../src/components', true, /\.stories\.js$/)
+
 function loadStories() {
-  // require('../src/stories');
-  require('../src/components/shared/page401/index.stories.js')
-  // require('../src/components/shared/pagination/index.stories.js')
+  req.keys().forEach((filename) => req(filename))
 }
 
 configure(loadStories, module)
