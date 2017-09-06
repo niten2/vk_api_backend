@@ -1,24 +1,28 @@
-echo "initialize directories"
+echo "initialize"
 
 nvm use stable
 
 cd api_gateway
 cp .env.sample .env
 npm install
+npm run db:migrate:test
 cd ..
 
 cd crm_service
 cp .env.sample .env
 npm install
+npm run db:migrate:test
 cd ..
 
 cd vk_service
 cp .env.sample .env
 npm install
+npm run db:migrate:test
 cd ..
 
 cd web
 npm install
+npm run db:migrate:test
 cd ..
 
 
@@ -26,18 +30,7 @@ cd ..
 
 echo "run tests"
 
-cd api_gateway
-npm run tests
-cd ..
-
-cd crm_service
-npm run tests
-cd ..
-
-cd vk_service
-npm run tests
-cd ..
-
-cd web
-CI=true npm test
-cd ..
+cd api_gateway ; npm run tests ; cd ..
+cd crm_service ; npm run tests ; cd ..
+cd vk_service ; npm run tests ; cd ..
+cd web ; CI=true npm test ; cd ..
