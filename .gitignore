@@ -3,7 +3,6 @@ note.js
 
 api_gateway/node_modules
 api_gateway/.env
-api_gateway/.env.test
 api_gateway/db/database.dev.sqlite
 api_gateway/db/database.test.sqlite
 
@@ -11,13 +10,13 @@ crm_service/node_modules
 crm_service/.env
 crm_service/.env.development
 crm_service/db/database.dev.sqlite
+crm_service/db/database.test.sqlite
 crm_service/db/csv
-
-docs/node_modules
-docs/.env.development
 
 insta_service/node_modules
 insta_service/.env
+insta_service/db/database.dev.sqlite
+insta_service/db/database.test.sqlite
 
 mobile/node_modules
 mobile/.env
@@ -25,7 +24,11 @@ mobile/.env
 vk_service/node_modules
 vk_service/.env
 vk_service/db/database.dev.sqlite
+vk_service/db/database.test.sqlite
 vk_service/db/csv
+
+docs/node_modules
+docs/.env.development
 
 web/node_modules
 web/coverage
