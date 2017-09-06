@@ -38,7 +38,6 @@
     "sqlite": "^2.3.0"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-resolver": "^1.1.0",
     "babel-polyfill": "^6.26.0",
