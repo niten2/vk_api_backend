@@ -22,11 +22,10 @@ cd ..
 
 cd web
 npm install
-npm run db:migrate:test
 cd ..
 
 
-
+--------
 
 echo "run tests"
 
