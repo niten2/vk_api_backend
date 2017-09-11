@@ -28,9 +28,9 @@ describe('handleLogout', () => {
   // })
 
   it('dispatch Notification', () => {
-    // const mockFunc = jest.fn();
+    const mockFunc = jest.fn();
     // handleLogout()(mockFunc)
-    // expect(mockFunc).toBeCalled()
+    expect(mockFunc).toBeCalled()
 
     // expect(mockFunc).toBeCalledWith(Notification.success("Logout"));
     // myMock(Notification.success("Logout"))
@@ -38,8 +38,8 @@ describe('handleLogout', () => {
     // expect(authProvider.token()).toBeNull()
 
 
-    let z = requireAll(require.context("..", true, /.story\.js?$/))
-    console.log(z)
+    // let z = requireAll(require.context("..", true, /.story\.js?$/))
+    // console.log(z)
 
 
 
