@@ -60,21 +60,22 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props)
-
     this.toggle = this.toggle.bind(this)
-    this.state = {
-      dropdownOpen: false
-    }
+  }
+
+  state = {
+    dropdownOpen: false
   }
 
   toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    })
+    this.setState({ dropdownOpen: !this.state.dropdownOpen })
   }
 
 
   render() {
+
+    console.log(111)
+
     return (
       <div className="animated fadeIn">
         <div className="row">
@@ -82,24 +83,39 @@ class Dashboard extends Component {
           <div className="col-sm-6 col-lg-3">
             <div className="card card-inverse card-primary">
               <div className="card-block pb-0">
+
                 <div className="btn-group float-right">
-                  <Dropdown isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }) }}>
-                    <button onClick={() => { this.setState({ card1: !this.state.card1 }) }} className="btn btn-transparent active dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded={this.state.card1}>
+                  <Dropdown
+                    isOpen={this.state.card1}
+                    toggle={() => { this.setState({ card1: !this.state.card1 }) }}
+                  >
+                    <button
+                      onClick={() => { this.setState({ card1: !this.state.card1 }) }}
+                      className="btn btn-transparent active dropdown-toggle p-0"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded={this.state.card1}
+                    >
                       <i className="icon-settings"></i>
                     </button>
+
                     <DropdownMenu>
                       <DropdownItem>Action</DropdownItem>
                       <DropdownItem>Another action</DropdownItem>
                       <DropdownItem>Something else here</DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
+
                 </div>
+
                 <h4 className="mb-0">9.823</h4>
                 <p>Members online</p>
               </div>
+
               <div className="chart-wrapper px-3">
                 <Line data={cardChartData1} options={cardChartOpts1} height={70}/>
               </div>
+
             </div>
           </div>
 

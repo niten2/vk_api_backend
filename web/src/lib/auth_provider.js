@@ -1,3 +1,4 @@
+// import authProvider from "lib/auth_provider"
 const AUTH_SESSION_STORAGE_KEY = 'smm-crm-system'
 
 class AuthProvider {

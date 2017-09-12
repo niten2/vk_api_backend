@@ -2,7 +2,9 @@
 
 install
 
-  - npm i -g nodaemon
+- install docker
+- docker-compose build
+- docker-compose up
 
 Servises
 

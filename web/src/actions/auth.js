@@ -7,6 +7,7 @@ import { apolloFetchAuthPrivate } from "lib/apollo_fetch"
 export const LOGOUT = "LOGOUT"
 export const LOGIN = "LOGIN"
 export const CONFIG = "CONFIG"
+export const CHANGE_PER_PAGE = "CHANGE_PER_PAGE"
 
 export const changePerPage = (perPage) => ({
   type: 'CHANGE_PER_PAGE',
@@ -17,8 +18,8 @@ export const handleLogout = () => {
   return (dispatch) => {
     authProvider.removeToken()
     dispatch(Notification.success("Logout"))
-    dispatch(push('/dashboard'))
-    dispatch({ type: LOGOUT })
+    // dispatch(push('/dashboard'))
+    // dispatch({ type: LOGOUT })
   }
 }
 
