@@ -1,6 +1,5 @@
-echo "initialize"
-
 nvm use stable
+npm i npm@latest
 
 cd api_gateway
 cp .env.sample .env
@@ -27,9 +26,18 @@ cd ..
 
 --------
 
-echo "run tests"
+cd api_gateway
+npm run tests
+cd ..
 
-cd api_gateway ; npm run tests ; cd ..
-cd crm_service ; npm run tests ; cd ..
-cd vk_service ; npm run tests ; cd ..
-cd web ; CI=true npm test ; cd ..
+cd crm_service
+npm run tests
+cd ..
+
+cd vk_service
+npm run tests
+cd ..
+
+cd web
+CI=true npm test
+cd ..
