@@ -6,6 +6,7 @@ export class Link extends Component {
   render() {
     let { className, href, children } = this.props
 
+    // console.log(111)
     return (
       <LinkRouter
         className={ className }

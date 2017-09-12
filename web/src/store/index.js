@@ -7,10 +7,8 @@ import { logger } from 'middleware'
 
 export const history = createHistory()
 
-export const configureStore = (options = {}) => {
-  const { state } = options
+export const configureStore = (state) => {
   const middleware = routerMiddleware(history)
-  // console.log(state)
 
   return createStore(
     reducers,

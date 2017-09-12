@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-import { requestFollowExplore } from "lib/requests"
 import { Button } from 'reactstrap'
+// import { requestFollowExplore } from "lib/requests"
 // import Notification from 'actions/notification'
 
-export default class FollowExplore extends Component {
+class FollowExplore extends Component {
 
   async handeClick () {
-    try {
-      await requestFollowExplore({ quit: 'true' })
-      Notification.success("ready")
-    } catch (err) {
-      // Notification.error(err)
-    }
+    console.log("handeClick")
+    // try {
+    //   // await requestFollowExplore({ quit: 'true' })
+    //   Notification.success("ready")
+    // } catch (err) {
+    //   // Notification.error(err)
+    // }
   }
 
   render() {
@@ -24,3 +25,4 @@ export default class FollowExplore extends Component {
 
 }
 
+export default FollowExplore

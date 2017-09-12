@@ -8,55 +8,55 @@ const authenticated = (fn) => (parent, args, context, info) => {
   throw new Error('User is not authenticated')
 }
 
-
 export const ApiQuery = {
   // public
-  users: async (root, args) => {
-    const users = await User.findAll()
+  users: async (_, args, context) => {
+    const users = await User.findAll({ raw: true })
     return users
   },
 
   // private
-  user: async (_, args, context) => {
-    console.log(context.payload)
+  user: authenticated(async (_, args, context) => {
     const user_id = context.payload.user_id
     return await User.findById(user_id)
-  },
+  }),
 
-  settings: async (root, args) => {
+  settings: authenticated(async (root, args, context) => {
     return await Setting.findAll({
       offset: args.pagination && args.pagination.offset,
       limit: args.pagination && args.pagination.limit,
     })
-  },
+  }),
 
 }
 
 export const ApiMutation = {
 
-  // public
   createJwtToken: async (_, args) => {
     const { email, password } = args.input
-    const user = await User.findOne({
-      where: {
-        email: email,
-      }
-    })
+    try {
+      const user = await User.findOne({
+        where: {
+          email: email,
+        }
+      })
 
-    if (user && user.password == password) {
+      if (user.password !== password) {
+        throw new Error('Email or Password incorrect')
+      }
+
       return { token: createJwt(user) }
-    } else {
+    } catch (err) {
       throw new Error('Email or Password incorrect')
     }
   },
 
   createUser: async (root, args) => {
-    const user = await User.create({
-      email: args.email,
-      password: args.password,
+    return await User.create({
+      name: args.input.name,
+      email: args.input.email,
+      password: args.input.password,
     })
-
-    return user
   },
 
 
