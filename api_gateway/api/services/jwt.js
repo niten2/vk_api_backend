@@ -2,6 +2,10 @@ import jsonwebtoken from 'jsonwebtoken'
 import settings from 'config/settings'
 
 export const createJwt = (user) => {
+  if (!settings.jwt_secret_key) {
+    throw new Error('Jwt Secret Key should be present')
+  }
+
   return jsonwebtoken.sign(
     {
       user_id: user.id,

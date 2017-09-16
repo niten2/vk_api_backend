@@ -1,2 +1,2 @@
-import App from "config/app"
-new App().run()
+import app, { listen } from "config/app"
+listen(app)

@@ -16,7 +16,6 @@ export default (context) => ([
       })
     }
     next()
-
   },
 
 ])

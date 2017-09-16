@@ -11,10 +11,10 @@ const middleware = (req, next) => {
   next()
 }
 
-const apolloFetchAuthPrivate = createApolloFetch({ uri: settings.uriAuthServisePrivate })
+const apolloFetch = createApolloFetch({ uri: settings.urlBackend })
 
-apolloFetchAuthPrivate.use(middleware)
+apolloFetch.use(middleware)
 
 export {
-  apolloFetchAuthPrivate,
+  apolloFetch,
 }

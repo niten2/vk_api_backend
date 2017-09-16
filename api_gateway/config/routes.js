@@ -1,21 +1,23 @@
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
-import bodyParser from 'body-parser'
+
+// import bodyParser from 'body-parser'
+// import cors from 'cors'
 import AuthMiddleware from 'api/middlewares/auth'
+// import AccessLogger from 'api/middlewares/access_logger'
 import { buildOptions } from 'api/graphql/config'
 
 export default (app) => {
 
-  app.get('/', (req, res) => (
+  app.get('/', (req, res) => {
     res.json({
       servise: "api_gateway",
       endpoint: '/v1',
     })
-  ))
+  })
 
   app.use('/v1',
-    bodyParser.json(),
     AuthMiddleware(),
-    graphqlExpress(buildOptions)
+    graphqlExpress(buildOptions),
   )
 
   app.use('/v1', graphiqlExpress({
