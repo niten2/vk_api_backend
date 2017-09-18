@@ -75,7 +75,7 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
-          { login ?  <Logout name={name} {...this.props}/> : <Login/> }
+          { login ?  <Logout {...this.props} /> : <Login {...this.props} /> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>
@@ -91,8 +91,8 @@ class Header extends Component {
 
 const mapStateToProps = (props) => {
   return {
-    perPage: props.settings.perPage,
     login: props.settings.login,
+    name: props.settings.name,
   }
 }
 

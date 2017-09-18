@@ -18,8 +18,8 @@ export const handleLogout = () => {
   return (dispatch) => {
     authProvider.removeToken()
     dispatch(Notification.success("Logout"))
-    // dispatch(push('/dashboard'))
-    // dispatch({ type: LOGOUT })
+    dispatch(push('/dashboard'))
+    dispatch({ type: LOGOUT })
   }
 }
 
