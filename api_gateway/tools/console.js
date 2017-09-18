@@ -9,7 +9,7 @@ let replServer = Repl.start({
 
 replServer.context.app = app
 replServer.context.models = app.models
-replServer.context.context = app.this()
+// replServer.context.context = app.this()
 
 models.ItemTag.findAll().then(response => {
   console.log(response)

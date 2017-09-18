@@ -1,10 +1,6 @@
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
-
-// import bodyParser from 'body-parser'
-// import cors from 'cors'
-import AuthMiddleware from 'api/middlewares/auth'
-// import AccessLogger from 'api/middlewares/access_logger'
 import { buildOptions } from 'api/graphql/config'
+import AuthMiddleware from 'api/middlewares/auth'
 
 export default (app) => {
 
