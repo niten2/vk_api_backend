@@ -1,7 +1,7 @@
 import schema from 'api/graphql/schema'
 import { expect } from 'chai'
 import { User, Setting } from "api/models"
-import { user_fixtures, setting_fixtures } from "spec/fixtures"
+import { user_fixtures } from "spec/support/fixtures"
 
 const createUser = schema._typeMap.Mutation.getFields().createUser.resolve
 

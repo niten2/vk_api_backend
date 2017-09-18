@@ -1,6 +1,6 @@
 import express from 'express'
 import bunyan from 'bunyan'
-import routes from 'config/routes'
+import initRoutes from 'config/routes'
 import settings from 'config/settings'
 
 import bodyParser from 'body-parser'
@@ -25,7 +25,8 @@ app.use((req, res, next) => {
 app.use(cors())
 app.use(bodyParser.json())
 app.use(AccessLogger())
-routes(app)
+
+initRoutes(app)
 
 export const listen = async (app) => {
   if (!settings.isEnvTest) {

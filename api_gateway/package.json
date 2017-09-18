@@ -9,7 +9,7 @@
     "node"
   ],
   "scripts": {
-    "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "nodemon --exec node --harmony ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
@@ -27,7 +27,6 @@
     "apollo-server-express": "^1.0.4",
     "body-parser": "~1.17.2",
     "bunyan": "^1.8.10",
-    "bunyan-middleware": "^0.8.0",
     "cors": "^2.8.1",
     "express": "^4.12.4",
     "graphql": "^0.11.2",
@@ -46,13 +45,9 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.1",
-    "chai-as-promised": "^7.1.1",
-    "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.1",
     "supertest": "^3.0.0"
   }
 }
