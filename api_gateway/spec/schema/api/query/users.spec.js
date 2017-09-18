@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import schema from 'api/graphql/schema'
 import { User, Setting } from "api/models"
-import { user_fixtures, setting_fixtures } from "spec/fixtures"
+import { user_fixtures } from "spec/support/fixtures"
 import { createJwt } from "api/services/jwt"
 
 let query = schema._typeMap.Query.getFields()

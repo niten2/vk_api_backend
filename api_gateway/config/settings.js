@@ -1,6 +1,5 @@
 if (process.env.NODE_ENV == "test") {
-  require('dotenv')
-  .config({ path: ".env.test" })
+  require('dotenv').config({ path: ".env.test" })
 } else {
   require('dotenv').config()
 }
@@ -9,7 +8,6 @@ const getStorage = () => {
   if (process.env.NODE_ENV == "test") {
     return "./db/database.test.sqlite"
   }
-
   return "./db/database.dev.sqlite"
 }
 
