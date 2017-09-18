@@ -1,10 +1,8 @@
-import chai, { expect } from 'chai'
-import request from 'supertest'
+import { expect } from 'chai'
 
 describe('middlewares', () => {
 
   xit("jwt", async () => {
-    console.log("test")
 
   })
 

@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-// import { valid_user } from "spec/fixtures"
+import { valid_user } from "spec/support/fixtures"
 
 describe('Models', () => {
 
