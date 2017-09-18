@@ -1,22 +1,21 @@
+import dotenv from 'dotenv'
+
+let path
+
 if (process.env.NODE_ENV == "test") {
-  require('dotenv').config({ path: ".env.test" })
+  path = `.env.${process.env.NODE_ENV}`
 } else {
-  require('dotenv').config()
+  path = ".env"
 }
 
-const getStorage = () => {
-  if (process.env.NODE_ENV == "test") {
-    return "./db/database.test.sqlite"
-  }
-  return "./db/database.dev.sqlite"
-}
+dotenv.config({ path })
 
 export default {
   name: "api_gateway",
   env: process.env.NODE_ENV,
   isEnvTest: process.env.NODE_ENV == "test",
+  storage: `./db/database.${process.env.NODE_ENV}.sqlite`,
   port: process.env.PORT || 3000,
-  storage: getStorage(),
   jwt_secret_key: process.env.JWT_SECRET_KEY,
   crmUri: process.env.CRM_URI,
   vkUri: process.env.VK_URI,
