@@ -9,7 +9,7 @@
     "node"
   ],
   "scripts": {
-    "start": "nodemon --exec node --harmony --require ./tools/babelhook ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "nodemon --exec node --harmony ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
@@ -19,7 +19,7 @@
     "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
-    "tests": "NODE_ENV=test node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register $(find api -name '*.spec.js')",
+    "tests": "NODE_ENV=test node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register ./**/*.spec.js",
     "test": "NODE_ENV=test nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register"
   },
   "dependencies": {
@@ -45,9 +45,9 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.1",
-    "chai-as-promised": "^7.1.1",
     "dotenv": "^4.0.0",
     "mocha": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
   }
 }

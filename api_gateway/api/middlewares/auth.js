@@ -15,5 +15,4 @@ export default (params) => ([
     }
     next()
   }
-
 ])

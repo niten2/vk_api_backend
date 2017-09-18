@@ -2,20 +2,18 @@ import { Setting, User } from "api/models"
 import { createJwt } from "api/services/jwt"
 
 const authenticated = (fn) => (parent, args, context, info) => {
-  if (context.payload) {
+  if (context.payload.user_id) {
     return fn(parent, args, context, info);
   }
   throw new Error('User is not authenticated')
 }
 
 export const ApiQuery = {
-  // public
   users: async (_, args, context) => {
     const users = await User.findAll({ raw: true })
     return users
   },
 
-  // private
   user: authenticated(async (_, args, context) => {
     const user_id = context.payload.user_id
     return await User.findById(user_id)
@@ -27,7 +25,6 @@ export const ApiQuery = {
       limit: args.pagination && args.pagination.limit,
     })
   }),
-
 }
 
 export const ApiMutation = {

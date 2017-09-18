@@ -53,4 +53,3 @@ export const CrmInputs = `
     status_id: String
   }
 `
-

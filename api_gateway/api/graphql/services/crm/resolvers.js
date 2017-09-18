@@ -1,6 +1,4 @@
-// const graphqlHTTP = require('express-graphql');
 import { CrmFetch } from "api/services/fetch"
-
 
 export const CrmQuery = {
   clients: async (_, args, context, info) => {

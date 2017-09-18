@@ -2,7 +2,6 @@ import { VkFetch } from "api/services/fetch"
 
 export const VkQuery = {
   persons: async (_, args, context, info) => {
-    console.log(111)
     const response = await VkFetch(context.body)
     if (response.errors) { throw new Error(response.errors[0].message) }
     return response.data.persons
