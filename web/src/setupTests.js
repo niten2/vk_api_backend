@@ -29,9 +29,4 @@ class LocalStorageMock {
   }
 }
 
-global.localStorage = new LocalStorageMock;
-
-
-
-// global.localStorage = localStorageMock
-
+global.localStorage = new LocalStorageMock
