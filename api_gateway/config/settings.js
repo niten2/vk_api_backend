@@ -15,6 +15,7 @@ const getStorage = () => {
 export default {
   name: "api_gateway",
   env: process.env.NODE_ENV,
+  isEnvTest: process.env.NODE_ENV == "test",
   port: process.env.PORT || 3000,
   storage: getStorage(),
   jwt_secret_key: process.env.JWT_SECRET_KEY,

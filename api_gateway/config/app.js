@@ -16,7 +16,7 @@ const logger = bunyan.createLogger({
 })
 
 app.use((req, res, next) => {
-  if (settings.env != "test") {
+  if (!settings.isEnvTest) {
     req.log = logger
   }
   next()
@@ -28,7 +28,7 @@ app.use(AccessLogger())
 routes(app)
 
 export const listen = async (app) => {
-  if (settings.env != "test") {
+  if (!settings.isEnvTest) {
     logger.info(`App ${settings.name} running on port ${settings.port}`)
   }
   return app.listen(settings.port)

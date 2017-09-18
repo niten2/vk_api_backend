@@ -2,7 +2,7 @@ import chai, { expect } from 'chai'
 import request from 'supertest'
 import { User, Setting } from "api/models"
 import { graphqlQuery } from 'spec/support/helper'
-import { listen, close, app } from "config/app"
+import app, { listen } from "config/app"
 
 describe('requests', () => {
 
