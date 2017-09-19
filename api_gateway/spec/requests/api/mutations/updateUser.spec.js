@@ -10,6 +10,7 @@ describe('api mutations', () => {
   let user
 
   before(async () => {
+    await User.destroy({where: {}, truncate: true})
     server = await listen(app)
     user = await User.create(user_fixtures)
   })
@@ -18,15 +19,14 @@ describe('api mutations', () => {
     await server.close()
   })
 
-  beforeEach(async () => {
-    await User.destroy({where: {}, truncate: true})
-  })
 
   it('query users', async () => {
     const query = `
       mutation updateUser($input: UserInput!) {
         updateUser(input: $input) {
           id
+          name
+          email
           __typename
         }
       }
@@ -34,13 +34,23 @@ describe('api mutations', () => {
 
     const variables = {
       input: {
-        name: "test"
+        name: "test",
+        email: "test@test.com",
       }
     }
 
     let response = await graphqlQuery(query, variables, user)
 
-    console.log(response)
-    // expect(response).to.deep.include({ data: {users: []}})
+    expect(response).to.deep.include({
+      data: {
+        updateUser: {
+          id: user.id.toString(),
+          name: variables.input.name,
+          email: variables.input.email,
+          __typename: "User",
+        }
+      }
+    })
+
   })
 })
