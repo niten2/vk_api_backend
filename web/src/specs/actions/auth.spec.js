@@ -1,12 +1,11 @@
 import React from 'react'
-import { handleLogout, changePerPage } from './auth'
+import { handleLogout, changePerPage } from 'actions/auth'
 import authProvider from "lib/auth_provider"
 import Notification from 'actions/notification'
 
-function requireAll(requireContext) {
+const requireAll(requireContext) => {
   return requireContext.keys().map(requireContext)
 }
-
 
 // it('changePerPage', () => {
 //   const perPage = 10
@@ -39,12 +38,7 @@ describe('handleLogout', () => {
 
 
     // let z = requireAll(require.context("..", true, /.story\.js?$/))
-    // console.log(z)
-
-
 
   })
-
-
 
 })
