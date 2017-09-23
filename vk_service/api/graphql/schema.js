@@ -132,4 +132,5 @@ const subscription = `
 `
 
 const typeDefs = query + mutation + models + inputs + subscription
+
 export default makeExecutableSchema({ typeDefs, resolvers })

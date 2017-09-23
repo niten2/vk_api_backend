@@ -1,18 +1,24 @@
 import { Person, Tag, Group } from "api/models"
-import { createJwt } from "api/services/jwt"
 import { GraphQLObjectType } from 'graphql-tools'
 import { merge } from 'ramda'
 import { PubSub } from 'graphql-subscriptions'
 
 const pubsub = new PubSub()
 
+const authenticated = (fn) => (parent, args, context, info) => {
+  if (context.user_id) {
+    return fn(parent, args, context, info);
+  }
+  throw new Error('User is not authenticated')
+}
+
 const Query = {
-  persons: async (root, args) => {
+  persons: authenticated(async (_, args, context, info) => {
     return await Person.findAll({
       offset: args.pagination && args.pagination.offset,
       limit: args.pagination && args.pagination.limit,
     })
-  },
+  }),
   groups: async (root, args, context) => {
     return await Group.findAll({
       offset: args.pagination && args.pagination.offset,

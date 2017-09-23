@@ -2,7 +2,6 @@ import express from 'express'
 import bunyan from 'bunyan'
 import initRoutes from 'config/routes'
 import settings from 'config/settings'
-
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import AccessLogger from 'api/middlewares/access_logger'

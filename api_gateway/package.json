@@ -46,7 +46,9 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.1",
     "dotenv": "^4.0.0",
+    "fetch-mock": "^5.12.2",
     "mocha": "^3.5.0",
+    "nock": "^9.0.19",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0"
   }
