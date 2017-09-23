@@ -34,10 +34,7 @@ class Profile extends React.Component {
   }
 
   state = {
-    user: {
-      // password: '1234',
-      // confirmPassword: "12342",
-    },
+    user: {},
     errorPassword: false,
   }
 
@@ -59,7 +56,7 @@ class Profile extends React.Component {
     }
 
     try {
-      await updateUserQuery({
+      let response = await updateUserQuery({
         variables: {
           input: {
             name: user.name,
@@ -73,7 +70,6 @@ class Profile extends React.Component {
       dispatch(Notification.error(error))
     }
   }
-
 
   render () {
     const { user, errorPassword } = this.state

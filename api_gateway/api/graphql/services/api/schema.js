@@ -24,6 +24,8 @@ export const ApiModels = `
     name: String
     email: String @isUnique
     password: String
+    createdAt: String
+    updatedAt: String
   }
 
   type Setting {

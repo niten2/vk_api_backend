@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Notification from 'actions/notification'
+import { connect } from 'react-redux'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import { deleteSettingQuery } from 'components/auth/graphql/querues'
@@ -21,7 +23,7 @@ class SettingView extends Component {
   }
 
   handleDestroy = async () => {
-    const { refetch, object, deleteSettingQuery } = this.props
+    const { dispatch, refetch, object, deleteSettingQuery } = this.props
 
     try {
       await deleteSettingQuery({
@@ -29,7 +31,7 @@ class SettingView extends Component {
       })
       refetch()
     } catch (error) {
-      // Notification.error(error)
+      dispatch(Notification.error(error))
     }
 
   }
@@ -62,6 +64,8 @@ class SettingView extends Component {
 
 }
 
-export default graphql(
-  deleteSettingQuery, { name: "deleteSettingQuery"}
-)(SettingView)
+export default connect()(
+  graphql(
+    deleteSettingQuery, { name: "deleteSettingQuery"}
+  )(SettingView)
+)

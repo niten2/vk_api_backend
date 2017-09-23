@@ -1,9 +1,23 @@
 import { createApolloFetch } from 'apollo-fetch'
 import settings from 'config/settings'
+import { createJwt } from "api/services/jwt"
 
-const uri = `http://localhost:${settings.port}/v1`
-const apolloFetch = createApolloFetch({ uri })
+export const graphqlQuery = (query, variables, user) => {
 
-export const graphqlQuery = (query) => {
-  return apolloFetch({ query })
+  const uri = `http://localhost:${settings.port}/v1`
+  const apolloFetch = createApolloFetch({ uri })
+
+  if (user) {
+    apolloFetch.use(({ request, options }, next) => {
+      if (!options.headers) {
+        options.headers = {}
+      }
+      options.headers['authorization'] = `Token ${createJwt(user)}`
+
+      next()
+    })
+  }
+
+  return apolloFetch({ query, variables })
 }
+

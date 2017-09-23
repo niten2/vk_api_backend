@@ -5,7 +5,7 @@ import { history, configureStore } from 'store'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import { configureClient } from 'lib/apollo_client'
-// import { loadConfig } from "actions/auth"
+import { loadConfig } from "actions/auth"
 
 // shared
 import Layout from 'components/shared/layout'
@@ -38,7 +38,7 @@ export default (onUpdate) => {
 
   const store = configureStore()
   const client = configureClient()
-  // store.dispatch(loadConfig())
+  store.dispatch(loadConfig())
 
   return (
     <Provider store={store}>

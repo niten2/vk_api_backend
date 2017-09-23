@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { shallow } from 'enzyme'
-import App from './app'
+import App from 'app'
 // import Page404 from 'components/shared/page404'
 
 it('renders without crashing', () => {

@@ -2,7 +2,7 @@ import { Setting, User } from "api/models"
 import { createJwt } from "api/services/jwt"
 
 const authenticated = (fn) => (parent, args, context, info) => {
-  if (context.payload.user_id) {
+  if (context.payload && context.payload.user_id) {
     return fn(parent, args, context, info);
   }
   throw new Error('User is not authenticated')
@@ -56,11 +56,10 @@ export const ApiMutation = {
     })
   },
 
-
-  // private
+  // NOTE private
   updateUser: authenticated(async (_, args, context) => {
     const user = await User.findById(context.payload.user_id)
-    return await user.update(args.input)
+    return user.update(args.input)
   }),
 
   createSetting: async (_, args, context) => {

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export default function isAuthenticated(req, res, next) {
+export default isAuthenticated(req, res, next) => {
   var token = req.body.token || req.query.token || req.headers['token'];
 
   if (token) {

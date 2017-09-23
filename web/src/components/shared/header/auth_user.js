@@ -39,7 +39,9 @@ class Logout extends Component {
 
           <DropdownMenu className="dropdown-menu-right">
 
-            <DropdownItem header className="text-center"><strong>Settings</strong></DropdownItem>
+            <DropdownItem header className="text-center">
+              <strong>Settings</strong>
+            </DropdownItem>
 
             <Link href="/profile">
               <DropdownItem>
@@ -47,7 +49,15 @@ class Logout extends Component {
               </DropdownItem>
             </Link>
 
-            <DropdownItem onClick={this.logout}><i className="fa fa-lock"></i> Logout</DropdownItem>
+            <Link href="/settings">
+              <DropdownItem>
+                <i className="fa fa-user" /> Settings
+              </DropdownItem>
+            </Link>
+
+            <DropdownItem onClick={this.logout}>
+              <i className="fa fa-lock" /> Logout
+            </DropdownItem>
 
           </DropdownMenu>
         </Dropdown>

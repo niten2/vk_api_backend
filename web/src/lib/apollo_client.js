@@ -1,48 +1,31 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
-// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 import settings from "lib/settings"
 import authProvider from 'lib/auth_provider'
 
+const addToken = {
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {}
+    }
+    req.options.headers.authorization = authProvider.fetchToken()
+    next()
+  }
+}
+
+const removeToken = {
+  applyAfterware({ response }, next) {
+    if (response.status === 401) {
+      authProvider.removeToken()
+    }
+    next()
+  }
+}
+
 export const configureClient = () => {
-  // let networkInterface
+  const networkInterface = createNetworkInterface({ uri: settings.urlBackend })
 
-  // if (uriSubscription) {
-    // const wsClient = new SubscriptionClient(uriSubscription, {
-    //   reconnect: true,
-    //   connectionParams: {
-    //     Authorization: authProvider.fetchToken(),
-    //   },
-    // })
-    // networkInterface = addGraphQLSubscriptions(
-    //   createNetworkInterface({ uri: url }),
-    //   wsClient
-    // )
-  // } else {
-    // let networkInterface = createNetworkInterface({
-    //   uri: url,
-    // })
-  // }
-
-  let networkInterface = createNetworkInterface({ uri: settings.urlBackend })
-
-  networkInterface.use([{
-    applyMiddleware(req, next) {
-      if (!req.options.headers) {
-        req.options.headers = {}
-      }
-      req.options.headers.authorization = authProvider.fetchToken()
-      next()
-    }
-  }])
-
-  networkInterface.useAfter([{
-    applyAfterware({ response }, next) {
-      if (response.status === 401) {
-        authProvider.removeToken()
-      }
-      next()
-    }
-  }])
+  networkInterface.use([ addToken ])
+  networkInterface.useAfter([ removeToken ])
 
   return new ApolloClient({
     networkInterface: networkInterface,
