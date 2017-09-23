@@ -45,7 +45,6 @@ class Login extends React.Component {
   }
 
   render () {
-
     let { error } = this.state
 
     return (
