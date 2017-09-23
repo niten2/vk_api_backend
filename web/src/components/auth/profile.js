@@ -65,13 +65,11 @@ class Profile extends React.Component {
           }
         }
       })
-      console.log(response.data.updateUser)
       dispatch(Notification.success("update profile"))
     } catch(error) {
       dispatch(Notification.error(error))
     }
   }
-
 
   render () {
     const { user, errorPassword } = this.state
