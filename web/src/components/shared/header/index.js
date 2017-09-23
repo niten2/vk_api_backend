@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from "lib/nav_link"
 import Login from "./login"
-import Logout from "./logout"
+import AuthUser from "./auth_user"
 
 class Header extends Component {
 
@@ -32,7 +31,7 @@ class Header extends Component {
   }
 
   render() {
-    const { name, login } = this.props
+    const { login } = this.props
 
     return (
       <header className="app-header navbar">
@@ -55,7 +54,6 @@ class Header extends Component {
           </li>
 
           <li className="nav-item px-3">
-            { login ?  <Link className="nav-link" href="settings">Settings</Link> : null }
           </li>
         </ul>
 
@@ -75,7 +73,7 @@ class Header extends Component {
             <a className="nav-link"><i className="icon-location-pin"></i></a>
           </li>
 
-          { login ?  <Logout {...this.props} /> : <Login {...this.props} /> }
+          { login ?  <AuthUser {...this.props} /> : <Login {...this.props} /> }
 
           <li className="nav-item d-md-down-none">
             <button className="nav-link navbar-toggler aside-menu-toggler" type="button" onClick={this.asideToggle}>

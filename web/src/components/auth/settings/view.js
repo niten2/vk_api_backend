@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Notification from 'actions/notification'
 import { connect } from 'react-redux'
-import { error, success } from 'actions/notification'
-
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
 import { deleteSettingQuery } from 'components/auth/graphql/querues'
@@ -32,7 +31,7 @@ class SettingView extends Component {
       })
       refetch()
     } catch (error) {
-      dispatch(error(error))
+      dispatch(Notification.error(error))
     }
 
   }

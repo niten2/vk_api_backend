@@ -31,27 +31,35 @@ describe('handleLogout', () => {
 
 describe('handleLogin', () => {
   it('should return correct result', async () => {
+    const response = {
+      data: {
+        user: {
+          name: 'world',
+          email: 'test@test.com'
+        }
+      }
+    }
     let token = "12345"
     let dispatch = spy()
+    let args = {
+      payload: {
+        name: response.data.user.name,
+        email: response.data.user.email,
+      },
+      type: CONFIG,
+    }
+    mockResponse(response)
     let result = await handleLogin(token)(dispatch)
 
     expect(localStorage.getToken()).toBe(token)
     expect(dispatch.calledWith(match.has("message", "Get token"))).toBe(true)
     expect(dispatch.calledWith(push('/dashboard'))).toBe(true)
     expect(dispatch.calledWith({ type: LOGIN })).toBe(true)
+    expect(dispatch.calledWith(args)).toBe(true)
   })
 })
 
 describe('loadConfig', () => {
-
-  const result = {
-    data: {
-      user: {
-        name: 'world',
-        email: 'test@test.com'
-      }
-    }
-  }
 
   let dispatch = spy()
 
@@ -61,19 +69,41 @@ describe('loadConfig', () => {
   })
 
   it('with token', async () => {
-		localStorage.setToken("12345")
-    mockResponse(result)
-
-    let res = await loadConfig()(dispatch)
+    const response = {
+      data: {
+        user: {
+          name: 'world',
+          email: 'test@test.com'
+        }
+      }
+    }
     let args = {
       payload: {
-        name: result.data.user.name,
-        email: result.data.user.email,
+        name: response.data.user.name,
+        email: response.data.user.email,
       },
       type: CONFIG,
     }
+    mockResponse(response)
+		localStorage.setToken("12345")
+    let res = await loadConfig()(dispatch)
 
     expect(dispatch.calledWith(args)).toBe(true)
+  })
+
+  it('with invalid token', async () => {
+    let response = {
+      data: {
+        user: null
+      }
+    }
+		localStorage.setToken("12345")
+    mockResponse(response)
+    await loadConfig()(dispatch)
+
+    expect(dispatch.calledWith(match.has("message", "Token Invalid"))).toBe(true)
+    expect(localStorage.getToken()).toBe(undefined)
+    expect(dispatch.calledWith(push('/login'))).toBe(true)
   })
 
   it('without token', async () => {
@@ -82,4 +112,3 @@ describe('loadConfig', () => {
   })
 
 })
-

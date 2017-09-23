@@ -9,5 +9,3 @@ storiesOf('header', module)
   .addDecorator(story => withRouter(story()))
   .add('with login', () => (withProvider(<App />, stateIsLogin)))
   .add('without login', () => (withProvider(<App />)))
-
-
