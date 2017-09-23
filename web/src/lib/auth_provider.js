@@ -1,5 +1,5 @@
 // import authProvider from "lib/auth_provider"
-const AUTH_SESSION_STORAGE_KEY = 'smm-crm-system'
+import settings from "lib/settings"
 
 class AuthProvider {
 
@@ -16,23 +16,23 @@ class AuthProvider {
   }
 
   fetchToken() {
-    const token = this.storage && this.storage.getItem(AUTH_SESSION_STORAGE_KEY)
+    const token = this.storage && this.storage.getItem(settings.auth_session_storage_key)
     return `Bearer ${token}`
   }
 
   token() {
-    const token = this.storage && this.storage.getItem(AUTH_SESSION_STORAGE_KEY)
+    const token = this.storage && this.storage.getItem(settings.auth_session_storage_key)
     return token
   }
 
   saveToken(token) {
     if (!this.storage || !token) { return null }
-    this.storage.setItem(AUTH_SESSION_STORAGE_KEY, token)
+    this.storage.setItem(settings.auth_session_storage_key, token)
   }
 
   removeToken() {
     if (!this.storage) return null
-    this.storage.removeItem(AUTH_SESSION_STORAGE_KEY)
+    this.storage.removeItem(settings.auth_session_storage_key)
   }
 
   hasLogin() {

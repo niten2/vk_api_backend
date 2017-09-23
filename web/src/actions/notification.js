@@ -3,7 +3,6 @@
 // this.props.dispatch(Notification.success("message"))
 // this.props.dispatch(Notification.error("message"))
 // export default connect()(Container)
-
 import {
   success as successNotification,
   error as errorNotification,

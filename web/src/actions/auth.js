@@ -2,7 +2,8 @@ import Notification from 'actions/notification'
 import authProvider from "lib/auth_provider"
 import { push } from 'react-router-redux'
 import { userQuery } from 'components/auth/graphql/querues'
-import { apolloFetchAuthPrivate } from "lib/apollo_fetch"
+import { apolloFetch } from "lib/apollo_fetch"
+import { test } from "specs/support"
 
 export const LOGOUT = "LOGOUT"
 export const LOGIN = "LOGIN"
@@ -35,14 +36,17 @@ export const handleLogin = (token) => {
 export const loadConfig = () => {
   return async(dispatch) => {
     if (authProvider.hasLogin()) {
-      const result = await apolloFetchAuthPrivate({ query: userQuery })
-      dispatch({
+      const result = await apolloFetch({ query: userQuery })
+
+      const args = {
         payload: {
           name: result.data.user.name,
           email: result.data.user.email,
         },
         type: CONFIG,
-      })
+      }
+
+      dispatch(args)
     }
   }
 }

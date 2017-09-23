@@ -1,32 +1,41 @@
 import 'jest-enzyme'
-
-// const localStorageMock = {
-//   getItem: jest.fn(),
-//   setItem: jest.fn(),
-//   clear: jest.fn()
-// }
+import jestFetchMock from 'jest-fetch-mock'
+import settings from 'lib/settings'
 
 class LocalStorageMock {
   constructor() {
-    this.store = {};
+    this.store = {}
   }
 
   clear() {
-    console.log(111)
-    this.store = {};
+    this.store = {}
   }
 
   getItem(key) {
-    return this.store[key] || null;
+    return this.store[key] || null
   }
 
   setItem(key, value) {
-    this.store[key] = value.toString();
+    this.store[key] = value.toString()
   }
 
   removeItem(key) {
-    delete this.store[key];
+    delete this.store[key]
+  }
+
+  setToken(value) {
+    this.store[settings.auth_session_storage_key] = value.toString()
+  }
+
+  getToken() {
+    return this.store[settings.auth_session_storage_key]
   }
 }
 
 global.localStorage = new LocalStorageMock
+
+global.fetch = jestFetchMock
+
+global.mockResponse = (args) => {
+  jestFetchMock.mockResponse(JSON.stringify(args))
+}
