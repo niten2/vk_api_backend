@@ -1,7 +1,9 @@
 import express from 'express'
-import bunyan from 'bunyan'
 import initRoutes from 'config/routes'
+import bunyan from 'bunyan'
 import settings from 'config/settings'
+
+import AccessLogger from 'api/middlewares/access_logger'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
@@ -22,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(AccessLogger())
 
 initRoutes(app)
 

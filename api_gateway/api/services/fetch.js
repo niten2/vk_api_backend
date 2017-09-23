@@ -1,6 +1,4 @@
-// import { apolloFetch } from "lib/layout_helper"
 import settings from "config/settings"
-// import authProvider from "lib/auth_provider"
 import { createApolloFetch } from 'apollo-fetch'
 
 const addToken = (req, next) => {
@@ -8,11 +6,15 @@ const addToken = (req, next) => {
     req.options.headers = {}
   }
 
-  req.options.headers.user_id = req.request.user_id
-  req.request = req.request.body
+  if (req.request.user_id) {
+    req.options.headers.user_id = req.request.user_id
+  }
+
+  if (req.request.body) {
+    req.request = req.request.body
+  }
+
   next()
 }
 
-export const VkFetch = createApolloFetch({ uri: settings.vkUri })
-
-VkFetch.use(addToken)
+export const VkFetch = createApolloFetch({ uri: settings.vkUri }).use(addToken)

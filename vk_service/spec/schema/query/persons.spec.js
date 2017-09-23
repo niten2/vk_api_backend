@@ -14,7 +14,7 @@ describe('query persons', () => {
 
   beforeEach(async () => {
     await Person.create(person_fixtures)
-    context = { payload: { user_id: 1 } }
+    context = { user_id: 1 }
   })
 
   it("with payload", async () => {
