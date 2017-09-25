@@ -1,5 +1,5 @@
 {
-  "name": "vk_service",
+  "name": "api_gateway",
   "description": "description",
   "version": "1.0.0",
   "main": "./tools/run.js",
@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "start": "nodemon --exec node --harmony ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
-    "console": "node --require ./tools/babelhook ./tools/console.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
     "db:migration": "node_modules/.bin/sequelize migration:create",
@@ -23,21 +22,24 @@
     "test": "NODE_ENV=test nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register"
   },
   "dependencies": {
-    "apollo-fetch": "^0.6.0",
     "apollo-server-express": "^1.0.4",
-    "body-parser": "~1.17.2",
+    "babyparse": "^0.4.6",
+    "body-parser": "~1.12.4",
     "bunyan": "^1.8.10",
-    "cors": "^2.8.1",
-    "express": "^4.12.4",
-    "graphql": "^0.11.2",
-    "graphql-subscriptions": "^0.5.1",
+    "cors": "^2.8.3",
+    "express": "~4.12.4",
+    "graphql": "^0.10.5",
+    "graphql-subscriptions": "^0.4.4",
     "graphql-tools": "^1.1.0",
-    "jsonwebtoken": "^7.4.3",
-    "ramda": "^0.24.1",
-    "sequelize": "^4.8.0",
+    "ramda": "^0.23.0",
+    "ramda-fantasy": "^0.8.0",
+    "sequelize": "^3.30.2",
     "sequelize-cli": "^2.5.1",
     "sqlite": "^2.3.0",
-    "vk-io": "^3.2.0"
+    "sqlite3": "^3.1.12",
+    "subscriptions-transport-ws": "^0.8.1",
+    "vk-auth": "^1.0.6",
+    "vk-io": "^3.1.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -48,10 +50,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.1",
     "dotenv": "^4.0.0",
-    "fetch-mock": "^5.12.2",
     "mocha": "^3.5.0",
-    "nock": "^9.0.19",
-    "nodemon": "^1.11.0",
-    "supertest": "^3.0.0"
+    "nodemon": "^1.11.0"
   }
 }

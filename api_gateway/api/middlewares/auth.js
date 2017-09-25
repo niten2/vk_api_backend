@@ -8,7 +8,10 @@ export default (params) => ([
 
       if (token) {
         return verifyJwt(token, (err, payload) => {
-          if (!err) { req.payload = payload }
+          if (!err) {
+            req.payload = payload
+            req.user_id = payload.user_id
+          }
           next()
         })
       }

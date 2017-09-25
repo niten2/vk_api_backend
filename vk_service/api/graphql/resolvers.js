@@ -6,10 +6,10 @@ import { PubSub } from 'graphql-subscriptions'
 const pubsub = new PubSub()
 
 const authenticated = (fn) => (parent, args, context, info) => {
-  if (context.user_id) {
+  // if (context.user_id) {
     return fn(parent, args, context, info)
-  }
-  throw new Error('User is not authenticated')
+  // }
+  // throw new Error('User is not authenticated')
 }
 
 const Query = {
@@ -66,7 +66,7 @@ const Mutation = {
   createPerson: async (_, args, context) => {
     const attributes = merge(
       args.input,
-      { user_id: context.payload.user_id }
+      { user_id: context.user_id }
     )
     const object = await Person.create(attributes)
 
@@ -90,8 +90,7 @@ const Mutation = {
   createGroup: async (_, args, context) => {
     const attributes = merge(
       args.input,
-      // { user_id: context.payload.user_id }
-      { user_id: 1 }
+      { user_id: context.user_id }
     )
     const object = await Group.create(attributes)
 
@@ -116,7 +115,7 @@ const Mutation = {
   createTag: async (_, args, context) => {
     const attributes = merge(
       args.input,
-      { user_id: context.payload.user_id }
+      { user_id: context.user_id }
     )
     const object = await Tag.create(attributes)
     return object

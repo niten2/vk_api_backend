@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
 import { Link } from 'lib/nav_link'
-import Avatar from "./avatar.jpg"
 import { handleLogout } from 'actions/auth'
+import { Dropdown, DropdownMenu, DropdownItem } from 'reactstrap'
+import Avatar from "./avatar.jpg"
 
 class Logout extends Component {
 

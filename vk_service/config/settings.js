@@ -14,6 +14,7 @@ export default {
   name: "vk_service",
   storage: `./db/database.${process.env.NODE_ENV}.sqlite`,
   env: process.env.NODE_ENV,
+  isEnvTest: process.env.NODE_ENV == "test",
   port: process.env.PORT || 3000,
   vkAppId: process.env.VK_APP_ID,
   vkAppSecret: process.env.VK_APP_SECRET,

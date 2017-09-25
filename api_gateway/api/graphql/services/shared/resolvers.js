@@ -30,13 +30,13 @@ export const SharedQuery = {
     }
 
     if (CrmModels.includes(name)) {
-      let response = await CrmFetch(context.body)
+      let response = await CrmFetch(context)
       if (response.errors) { throw new Error(response.errors[0].message) }
       count = await response.data.meta.count
     }
 
     if (VkModels.includes(name)) {
-      let response = await VkFetch(context.body)
+      let response = await VkFetch(context)
       if (response.errors) { throw new Error(response.errors[0].message) }
       count = await response.data.meta.count
     }
