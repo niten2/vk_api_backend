@@ -6,10 +6,10 @@ import { PubSub } from 'graphql-subscriptions'
 const pubsub = new PubSub()
 
 const authenticated = (fn) => (parent, args, context, info) => {
-  // if (context.user_id) {
+  if (context.user_id) {
     return fn(parent, args, context, info)
-  // }
-  // throw new Error('User is not authenticated')
+  }
+  throw new Error('User is not authenticated')
 }
 
 const Query = {

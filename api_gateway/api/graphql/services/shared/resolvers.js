@@ -1,5 +1,5 @@
 import { Setting, User } from "api/models"
-import { VkFetch, CrmFetch } from "api/services/fetch"
+import { redirectVk, redirectCrm } from "api/services/fetch"
 import { lensProp, set, pipe, assocPath, merge, reduce } from "ramda"
 
 export const SharedQuery = {
@@ -30,15 +30,13 @@ export const SharedQuery = {
     }
 
     if (CrmModels.includes(name)) {
-      let response = await CrmFetch(context)
-      if (response.errors) { throw new Error(response.errors[0].message) }
-      count = await response.data.meta.count
+      let response = await redirectCrm(context)
+      count = response.data.meta.count
     }
 
     if (VkModels.includes(name)) {
-      let response = await VkFetch(context)
-      if (response.errors) { throw new Error(response.errors[0].message) }
-      count = await response.data.meta.count
+      const response = await redirectVk(context)
+      count = response.data.meta.count
     }
 
     if (count != 0 && !count) { throw new Error("name model not found") }

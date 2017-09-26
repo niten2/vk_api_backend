@@ -17,8 +17,4 @@ const addHeader = ({ request, options }, next) => {
   next()
 }
 
-export const graphqlQuery = (context) => {
-  const fetch = createApolloFetch({ uri }).use(addHeader)
-  let request = Object.assign({}, context.body, { user: context.user })
-  return fetch(request)
-}
+export const graphqlQuery = createApolloFetch({ uri }).use(addHeader)
