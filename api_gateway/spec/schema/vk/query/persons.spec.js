@@ -5,7 +5,7 @@ import nock from "nock"
 
 const persons = schema._typeMap.Query.getFields().persons
 
-describe('query settings', () => {
+describe('spec/schema/vk/query/persons.spec.js', () => {
 
   it("with payload", async () => {
     let context = {
@@ -21,7 +21,7 @@ describe('query settings', () => {
       }
     }
 
-    var scope = nock(settings.vkUri, {
+    nock(settings.vkUri, {
       reqheaders: {
         'user_id': `${context.user_id}`,
       }
@@ -35,8 +35,16 @@ describe('query settings', () => {
     expect(response).to.include(data.data.persons)
   })
 
-  it.only("without payload", async () => {
-    // let z = await persons.resolve(null, {}, {})
-    // expect(() => persons.resolve(null, {}, {})).to.throw(Error)
+  it("without payload", async () => {
+    const data = { data: { persons: { data: "data" } } }
+    nock(settings.vkUri, {
+      reqheaders: {}
+    }).post(
+      "",
+      {}
+    ).reply(201, data)
+
+    let response = await persons.resolve(null, {}, {})
+    expect(response).to.include(data.data.persons)
   })
 })

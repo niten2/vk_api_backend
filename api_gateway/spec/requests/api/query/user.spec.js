@@ -5,7 +5,7 @@ import { graphqlQuery } from 'spec/support'
 import { user_fixtures } from "spec/support/fixtures"
 import app, { listen } from "config/app"
 
-describe('api query', () => {
+describe('requests/api/query/user.spec.js', () => {
   let server
   let user
 

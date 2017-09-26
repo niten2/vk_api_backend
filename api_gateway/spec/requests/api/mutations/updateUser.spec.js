@@ -1,11 +1,10 @@
-import chai, { expect } from 'chai'
-import request from 'supertest'
-import { User, Setting } from "api/models"
-import { graphqlQuery } from 'spec/support/helper'
-import { user_fixtures } from "spec/support/fixtures"
+import { expect } from 'chai'
 import app, { listen } from "config/app"
+import { User, Setting } from "api/models"
+import { graphqlQuery } from 'spec/support'
+import { user_fixtures } from "spec/support/fixtures"
 
-describe('api mutations', () => {
+describe('requests/api/mutations/updateUser.spec.js', () => {
   let server
   let user
 
@@ -20,7 +19,7 @@ describe('api mutations', () => {
   })
 
 
-  it('query users', async () => {
+  it('should return response', async () => {
     const query = `
       mutation updateUser($input: UserInput!) {
         updateUser(input: $input) {
@@ -39,7 +38,7 @@ describe('api mutations', () => {
       }
     }
 
-    let response = await graphqlQuery(query, variables, user)
+    let response = await graphqlQuery({ query, variables, user })
 
     expect(response).to.deep.include({
       data: {
@@ -51,6 +50,6 @@ describe('api mutations', () => {
         }
       }
     })
-
   })
+
 })

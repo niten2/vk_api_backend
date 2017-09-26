@@ -8,6 +8,7 @@ const addUserId = ({ request, options }, next) => {
 
   if (request.user_id) {
     options.headers["user_id"] = `${request.user_id}`
+    delete request.user_id
   }
 
   next()
