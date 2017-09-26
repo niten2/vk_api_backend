@@ -56,7 +56,7 @@ class Profile extends React.Component {
     }
 
     try {
-      let response = await updateUserQuery({
+      await updateUserQuery({
         variables: {
           input: {
             name: user.name,

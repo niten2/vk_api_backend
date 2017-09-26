@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "babyparse": "^0.4.6",
+    "apollo-server-express": "^1.0.4",
     "body-parser": "~1.12.4",
     "bunyan": "^1.8.10",
     "cors": "^2.8.3",

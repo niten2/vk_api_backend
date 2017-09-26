@@ -62,33 +62,33 @@ services:
   #   volumes:
   #     - ./insta_service/:/app
 
-  # web:
-  #   tty: true
-  #   container_name: web
-  #   build:
-  #     context: ./web
-  #     dockerfile: Dockerfile.development
-  #   image: crm_web
-  #   ports:
-  #     - "4000:4000"
-  #   command: bash -c "npm run start"
-  #   env_file: ./web/.env.development
-  #   volumes:
-  #     - ./web/:/app
+  web:
+    tty: true
+    container_name: web
+    build:
+      context: ./web
+      dockerfile: Dockerfile.development
+    image: crm_web
+    ports:
+      - "4000:4000"
+    command: bash -c "npm run start"
+    env_file: ./web/.env.development
+    volumes:
+      - ./web/:/app
 
-  # docs:
-  #   tty: true
-  #   container_name: docs
-  #   build:
-  #     context: ./docs
-  #     dockerfile: Dockerfile.development
-  #   image: crm_docs
-  #   ports:
-  #     - "4005:4005"
-  #   command: bash -c "npm run start"
-  #   env_file: ./docs/.env.development
-  #   volumes:
-  #     - ./docs/:/app
+  docs:
+    tty: true
+    container_name: docs
+    build:
+      context: ./docs
+      dockerfile: Dockerfile.development
+    image: crm_docs
+    ports:
+      - "4005:4005"
+    command: bash -c "npm run start"
+    env_file: ./docs/.env.development
+    volumes:
+      - ./docs/:/app
 
   # mobile_service:
   #   container_name: mobile_service
