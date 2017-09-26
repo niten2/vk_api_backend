@@ -1,7 +1,6 @@
 export const CrmQuery = `
   clients(pagination: PaginationInput): [Client]
   client(id: ID!): Client
-
   statuses(pagination: PaginationInput): [Status]
   status(id: ID!): Status
 `

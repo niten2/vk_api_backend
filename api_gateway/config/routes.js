@@ -6,7 +6,7 @@ export default (app) => {
 
   app.get('/', (req, res) => {
     res.json({
-      servise: "api_gateway",
+      servise: "crm",
       endpoint: '/v1',
     })
   })

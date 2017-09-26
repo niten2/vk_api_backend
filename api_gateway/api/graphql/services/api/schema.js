@@ -1,5 +1,4 @@
 export const ApiQuery = `
-  users: [User]
   user: User
   settings(pagination: PaginationInput): [Setting]!
 `
