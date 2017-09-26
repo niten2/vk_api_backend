@@ -13,21 +13,21 @@ const addUserId = ({ request, options }, next) => {
   next()
 }
 
+const getArgs = (context) => {
+  return Object.assign({}, context.body, { user_id: context.user_id })
+}
+
 const fetchVk = createApolloFetch({ uri: settings.vkUri }).use(addUserId)
 const fetchCrm = createApolloFetch({ uri: settings.crmUri }).use(addUserId)
 
 export const redirectVk = async (context) => {
-  console.log(context)
-  let args = Object.assign({}, context.body, { user_id: context.user_id })
-  const response = await fetchVk(args)
+  const response = await fetchVk(getArgs(context))
   if (response.errors) { throw new Error(response.errors[0].message) }
   return response
 }
 
 export const redirectCrm = async (context) => {
-  console.log(context)
-  let args = Object.assign({}, context.body, { user_id: context.user_id })
-  const response = await fetchCrm(args)
+  const response = await fetchCrm(getArgs(context))
   if (response.errors) { throw new Error(response.errors[0].message) }
   return response
 }
