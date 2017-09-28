@@ -8,14 +8,14 @@ export default class Instagram extends Component {
 
   render() {
     return (
-      <Layout>
+      <div>
         <br />
         <FollowExplore />
         <br />
         <br />
         <LikeLenta />
         <br />
-      </Layout>
+      </div>
     )
   }
 
