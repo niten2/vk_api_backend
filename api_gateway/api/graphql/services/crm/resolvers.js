@@ -49,7 +49,7 @@ export const CrmMutation = {
   },
 
   deleteStatus: async (_, args, context, info) => {
-    const response = await redirectCrm(context.body)
+    const response = await redirectCrm(context)
     return response.data.status
   },
 }

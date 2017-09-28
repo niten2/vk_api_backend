@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-
-import Layout from 'components/shared/layout'
 import FollowExplore from './follow_explore'
 import LikeLenta from './like_lenta'
 

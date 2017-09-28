@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize'
-import Settings from 'config/settings'
+import settings from 'config/settings'
 
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: "sqlite",
@@ -10,7 +10,13 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     idle: 10000
   },
 
-  storage: Settings.storage,
+  storage: settings.storage,
+
+  logging: () => {
+    if (settings.isEnvTest) {
+      return false
+    }
+  },
 })
 
 export default sequelize

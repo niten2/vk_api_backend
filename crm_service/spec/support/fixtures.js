@@ -1,4 +1,4 @@
-// import { } from "test/fixtures"
+// import { } from "spec/support/fixtures"
 
 export const status_fixtures = {
   name: "test",

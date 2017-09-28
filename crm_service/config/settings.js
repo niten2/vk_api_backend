@@ -1,20 +1,19 @@
-if (process.env.NODE_ENV == "test") {
-  require('dotenv').config({ path: ".env.sample" })
-} else {
-  require('dotenv').config()
-}
+import dotenv from 'dotenv'
 
-const getStorage = () => {
+const getPath = () => {
   if (process.env.NODE_ENV == "test") {
-    return "./db/database.test.sqlite"
+    return `.env.${process.env.NODE_ENV}`
+  } else {
+    return ".env"
   }
-
-  return "./db/database.dev.sqlite"
 }
+
+dotenv.config({ path: getPath() })
 
 export default {
   name: "crm service",
   port: process.env.PORT || 3000,
+  storage: `./db/database.${process.env.NODE_ENV}.sqlite`,
   env: process.env.NODE_ENV,
-  storage: getStorage(),
+  isEnvTest: process.env.NODE_ENV == "test",
 }

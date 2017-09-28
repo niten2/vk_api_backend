@@ -1,5 +1,5 @@
-import { expect } from 'chai'
 import schema from 'api/graphql/schema'
+import { expect } from 'chai'
 import settings from "config/settings"
 import nock from "nock"
 

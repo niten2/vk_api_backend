@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import Notification from 'actions/notification'
 import { connect } from 'react-redux'
 import { compose, graphql } from 'react-apollo'
-// import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
-import { createStatusQuery } from 'components/crm/graphql/querues'
+import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
 import { InputField } from 'components/shared/default_components'
 
 class NewStatus extends Component {
@@ -25,7 +24,7 @@ class NewStatus extends Component {
   handleCreate = async (e) => {
     e.preventDefault()
     const { status } = this.state
-    const { dispatch, createStatusQuery } = this.props
+    const { dispatch, createStatusQuery, statusesQuery } = this.props
 
     try {
       await createStatusQuery({
@@ -34,9 +33,9 @@ class NewStatus extends Component {
             name: status.name,
           }
         },
-        // refetchQueries: [{
-        //   query: statusesQuery,
-        // }],
+        refetchQueries: [{
+          query: statusesQuery,
+        }],
       })
       this.setState({ status: { name: "" } })
       dispatch(Notification.success("ok"))
@@ -107,8 +106,8 @@ export default connect()(
     graphql(createStatusQuery, {
       name: "createStatusQuery",
     }),
-    // graphql(statusesQuery, {
-    //   name: "statusesQuery"
-    // }),
+    graphql(statusesQuery, {
+      name: "statusesQuery"
+    }),
   )(NewStatus)
 )
