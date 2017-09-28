@@ -16,7 +16,7 @@
     "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
     "db:migration": "node_modules/.bin/sequelize migration:create",
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
-    "db:drop": "rm -rf db/database.dev.sqlite",
+    "db:drop": "rm -rf db/database.development.sqlite",
     "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
