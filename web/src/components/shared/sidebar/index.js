@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 const activeRoute = (routeName, props) => {
@@ -118,7 +119,9 @@ const Instagram = (props) => {
 
 class Sidebar extends Component {
   render() {
+    let { login } = this.props
     const pathname = this.props.children.props.location.pathname
+
     return (
       <div className="sidebar">
         <nav className="sidebar-nav">
@@ -138,9 +141,14 @@ class Sidebar extends Component {
               Services
             </li>
 
-            <Crm pathname={pathname}/>
-            <Vk pathname={pathname} />
-            <Instagram pathname={pathname} />
+            { login ?
+                <div>
+                  <Crm pathname={pathname}/>
+                  <Vk pathname={pathname} />
+                  <Instagram pathname={pathname} />
+                </div>
+              : null
+            }
 
           </ul>
         </nav>
@@ -149,4 +157,10 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar
+const mapStateToProps = (props) => {
+  return {
+    login: props.settings.login,
+  }
+}
+
+export default connect(mapStateToProps)(Sidebar)
