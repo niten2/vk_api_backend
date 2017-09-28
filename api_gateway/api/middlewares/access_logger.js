@@ -1,4 +1,4 @@
-function levelFn(data) {
+const levelFn = (data) => {
   if (data.err || data.status >= 500 || data.duration > 10000) {
     return 'error'
   } else if (data.status >= 400 || data.duration > 3000) {
@@ -7,11 +7,12 @@ function levelFn(data) {
   return 'info'
 }
 
-function logFinish(data) {
+const logFinish = (data) => {
   const time = (data.duration || 0).toFixed(3)
   const length = data.length || 0
   return `${data.method} ${data.url} ${data.status} ${time}ms ${length} b`
 }
+
 
 export default (params) => ([
   (req, res, next) => {
@@ -49,9 +50,8 @@ export default (params) => ([
         data.duration = diff[0] * 1e3 + diff[1] * 1e-6
 
         log[levelFn(data)](logFinish(data))
+        log.debug("REQ BODY", req.body)
       }
-
-      if (req.body) { log.debug(req.body) }
 
       res.on('finish', logging)
     }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { statusesQuery, updateStatusQuery, deleteStatusQuery } from 'components/crm/graphql/querues'
 import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
+import { pagination } from "lib/pagination"
 
 class View extends Component {
 
@@ -39,9 +40,14 @@ class View extends Component {
             id: object.id
           }
         },
+        refetchQueries: [{
+          query: statusesQuery, variables: {
+            pagination: pagination(this.props),
+            fetchPolicy: 'network-only',
+          }
+        }],
       })
-      refresh()
-      dispatch(Notification.success("destroy"))
+      dispatch(Notification.success("destroy status"))
     } catch (err) {
       dispatch(Notification.error(err.message))
     }
@@ -61,7 +67,10 @@ class View extends Component {
           }
         },
         refetchQueries: [{
-          query: statusesQuery,
+          query: statusesQuery, variables: {
+            pagination: pagination(this.props),
+            fetchPolicy: 'network-only',
+          }
         }],
       })
       dispatch(Notification.success("update"))
@@ -107,7 +116,13 @@ class View extends Component {
 
 }
 
-export default connect()(
+const mapStateToProps = (props) => {
+  return {
+    perPage: props.settings.perPage,
+  }
+}
+
+export default connect(mapStateToProps)(
   compose(
     graphql(updateStatusQuery, {name: "updateStatusQuery"}),
     graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),
