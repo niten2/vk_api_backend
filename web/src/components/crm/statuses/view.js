@@ -1,22 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Notification from 'actions/notification'
 import { gql, compose, graphql } from 'react-apollo'
 import { connect } from 'react-redux'
-import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
 import { pagination } from "lib/pagination"
-
-const statusesQuery = gql`
-  query statuses($pagination: PaginationInput) {
-    statuses(pagination: $pagination) {
-      id
-      name
-    }
-    meta(input: { name: "Status" }) {
-      count
-    }
-  }
-`
 
 const updateStatusQuery = gql`
   mutation updateStatus($id: ID!, $input: StatusInput!) {
@@ -88,12 +76,6 @@ class View extends Component {
             name: status.name,
           }
         },
-        // refetchQueries: [{
-        //   query: statusesQuery, variables: {
-        //     pagination: pagination(this.props),
-        //     fetchPolicy: 'network-only',
-        //   }
-        // }],
       })
       dispatch(Notification.success("update"))
     } catch (err) {
@@ -146,7 +128,6 @@ const mapStateToProps = (props) => {
 
 export default connect(mapStateToProps)(
   compose(
-    // graphql(statusesQuery, {name: "statusesQuery"}),
     graphql(updateStatusQuery, {name: "updateStatusQuery"}),
     graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),
   )(View)

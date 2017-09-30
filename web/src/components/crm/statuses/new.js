@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
 import Notification from 'actions/notification'
 import { connect } from 'react-redux'
-import { graphql } from 'react-apollo'
-import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
+import { gql, graphql } from 'react-apollo'
 import { InputField } from 'components/shared/default_components'
 import { pagination } from "lib/pagination"
+
+const statusesQuery = gql`
+  query statuses($pagination: PaginationInput) {
+    statuses(pagination: $pagination) {
+      id
+      name
+    }
+    meta(input: { name: "Status" }) {
+      count
+    }
+  }
+`
+const createStatusQuery = gql`
+  mutation createStatus($input: StatusInput!) {
+    createStatus(input: $input) {
+      id
+    }
+  }
+`
 
 class NewStatus extends Component {
 

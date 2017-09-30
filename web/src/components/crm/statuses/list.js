@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-// import { graphql } from 'react-apollo'
 import { gql, graphql } from 'react-apollo'
-// import { statusesQuery } from 'components/crm/graphql/querues'
 import Pagination from 'components/shared/pagination'
 import StatusView from './view'
 import Notification from 'actions/notification'
@@ -46,9 +44,7 @@ class ClientList extends Component {
     }
 
     return (
-
       <div className="col-lg-6">
-        <button onClick={() => refetch()}> sdfsdf </button>
         <div className="card">
           <div className="card-header">
             <i className="fa fa-align-justify"></i> Status
