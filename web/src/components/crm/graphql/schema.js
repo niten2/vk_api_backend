@@ -1,46 +1,46 @@
-export const typeDefs = `
+// export const typeDefs = `
 
-  type Client {
-    id: ID
-    name: String
-    number: String
-    phone: String
-    note: String
-    date_birth: String
-    status: Status
-  }
+//   type Client {
+//     id: ID
+//     name: String
+//     number: String
+//     phone: String
+//     note: String
+//     date_birth: String
+//     status: Status
+//   }
 
-  type Status {
-    id: ID
-    name: String
-  }
+//   type Status {
+//     id: ID
+//     name: String
+//   }
 
-  type Meta {
-    count: Int!
-  }
+//   type Meta {
+//     count: Int!
+//   }
 
-  # NOTE Inputs
+//   # NOTE Inputs
 
-  input ClientInput {
-    name: String
-    number: String
-    phone: String
-    note: String
-    date_birth: String
-    status_id: String
-  }
+//   input ClientInput {
+//     name: String
+//     number: String
+//     phone: String
+//     note: String
+//     date_birth: String
+//     status_id: String
+//   }
 
-  input StatusInput {
-    name: String
-  }
+//   input StatusInput {
+//     name: String
+//   }
 
-  input IdInput {
-    id: ID!
-  }
+//   input IdInput {
+//     id: ID!
+//   }
 
-  input PaginationInput {
-    limit: Int
-    offset: Int
-  }
+//   input PaginationInput {
+//     limit: Int
+//     offset: Int
+//   }
 
-`
+// `

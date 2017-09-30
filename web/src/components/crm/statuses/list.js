@@ -1,12 +1,25 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { graphql } from 'react-apollo'
-import { statusesQuery } from 'components/crm/graphql/querues'
+// import { graphql } from 'react-apollo'
+import { gql, graphql } from 'react-apollo'
+// import { statusesQuery } from 'components/crm/graphql/querues'
 import Pagination from 'components/shared/pagination'
 import StatusView from './view'
 import Notification from 'actions/notification'
 import { pagination } from "lib/pagination"
+
+const statusesQuery = gql`
+  query statuses($pagination: PaginationInput) {
+    statuses(pagination: $pagination) {
+      id
+      name
+    }
+    meta(input: { name: "Status" }) {
+      count
+    }
+  }
+`
 
 class ClientList extends Component {
 
@@ -35,6 +48,7 @@ class ClientList extends Component {
     return (
 
       <div className="col-lg-6">
+        <button onClick={() => refetch()}> sdfsdf </button>
         <div className="card">
           <div className="card-header">
             <i className="fa fa-align-justify"></i> Status
@@ -90,7 +104,6 @@ export default connect(mapStateToProps)(
     options: (props) => {
       return {
         variables: { pagination: pagination(props) },
-        fetchPolicy: 'network-only'
       }
     }
   })(ClientList)

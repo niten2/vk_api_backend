@@ -46,7 +46,7 @@ export const ApiMutation = {
   },
 
   updateUser: authenticated(async (_, args, context) => {
-    const user = await User.findById(context.payload.user_id)
+    const user = await User.findById(context.user_id)
     return user.update(args.input)
   }),
 

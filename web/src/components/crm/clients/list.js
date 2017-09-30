@@ -124,6 +124,7 @@ const PER_PAGE = 10
 export default graphql(clientsQuery, {
   name: "clientsQuery",
   options: (props) => {
+
     const limit = PER_PAGE
     const page = parseInt(props.match.params.page, 10)
     const offset = (page - 1) * limit

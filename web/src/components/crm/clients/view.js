@@ -42,7 +42,6 @@ class ClientView extends Component {
     } catch (err) {
       dispatch(Notification.error(err.message))
     }
-
   }
 
   render() {

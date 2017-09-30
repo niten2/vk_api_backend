@@ -81,7 +81,6 @@ const Mutation = {
   },
 
   deleteStatus: async (_, args, context, info) => {
-    console.log(args)
     await Status.destroy({
       where: {
         id: args.input.id

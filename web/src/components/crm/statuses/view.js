@@ -1,11 +1,38 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { compose, graphql } from 'react-apollo'
+import { gql, compose, graphql } from 'react-apollo'
 import { connect } from 'react-redux'
-import { statusesQuery, updateStatusQuery, deleteStatusQuery } from 'components/crm/graphql/querues'
 import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
 import { pagination } from "lib/pagination"
+
+const statusesQuery = gql`
+  query statuses($pagination: PaginationInput) {
+    statuses(pagination: $pagination) {
+      id
+      name
+    }
+    meta(input: { name: "Status" }) {
+      count
+    }
+  }
+`
+
+const updateStatusQuery = gql`
+  mutation updateStatus($id: ID!, $input: StatusInput!) {
+    updateStatus(id: $id, input: $input) {
+      id
+    }
+  }
+`
+
+const deleteStatusQuery = gql`
+  mutation deleteStatus($input: IdInput!) {
+    deleteStatus(input: $input) {
+      id
+    }
+  }
+`
 
 class View extends Component {
 
@@ -40,13 +67,8 @@ class View extends Component {
             id: object.id
           }
         },
-        refetchQueries: [{
-          query: statusesQuery, variables: {
-            pagination: pagination(this.props),
-            fetchPolicy: 'network-only',
-          }
-        }],
       })
+      refresh()
       dispatch(Notification.success("destroy status"))
     } catch (err) {
       dispatch(Notification.error(err.message))
@@ -66,12 +88,12 @@ class View extends Component {
             name: status.name,
           }
         },
-        refetchQueries: [{
-          query: statusesQuery, variables: {
-            pagination: pagination(this.props),
-            fetchPolicy: 'network-only',
-          }
-        }],
+        // refetchQueries: [{
+        //   query: statusesQuery, variables: {
+        //     pagination: pagination(this.props),
+        //     fetchPolicy: 'network-only',
+        //   }
+        // }],
       })
       dispatch(Notification.success("update"))
     } catch (err) {
@@ -124,6 +146,7 @@ const mapStateToProps = (props) => {
 
 export default connect(mapStateToProps)(
   compose(
+    // graphql(statusesQuery, {name: "statusesQuery"}),
     graphql(updateStatusQuery, {name: "updateStatusQuery"}),
     graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),
   )(View)

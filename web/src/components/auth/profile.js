@@ -1,13 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { gql, compose, graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import Notification from 'actions/notification'
 import { set, lensProp } from 'ramda'
-import { userQuery, updateUserQuery } from 'components/auth/graphql/querues'
-import { compose, graphql } from 'react-apollo'
+import { updateProfile } from "actions/auth"
 import Spinner from 'components/shared/spinner'
 import Page401 from 'components/shared/page401'
 import Page500 from 'components/shared/page500'
+
+const userQuery = gql`
+  query user {
+    user {
+      name
+      email
+    }
+  }
+`
+
+const updateUserQuery = gql`
+  mutation updateUser($input: UserInput!) {
+    updateUser(input: $input) {
+      id
+      name
+      email
+    }
+  }
+`
 
 const ErrorMessage = (
   <div>
@@ -50,13 +69,13 @@ class Profile extends React.Component {
     const { user } = this.state
     const { dispatch, updateUserQuery } = this.props
 
-    if (user.password !== user.confirmPassword) {
-      this.setState({ errorPassword: true })
-      return null
-    }
+    // if (user.password !== user.confirmPassword) {
+    //   this.setState({ errorPassword: true })
+    //   return null
+    // }
 
     try {
-      await updateUserQuery({
+      let result = await updateUserQuery({
         variables: {
           input: {
             name: user.name,
@@ -65,6 +84,8 @@ class Profile extends React.Component {
           }
         }
       })
+      let { name, email } = result.data.updateUser
+      dispatch(updateProfile({ name, email }))
       dispatch(Notification.success("update profile"))
     } catch(error) {
       dispatch(Notification.error(error))
