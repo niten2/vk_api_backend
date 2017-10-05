@@ -196,23 +196,22 @@ query m {
 
 
 
-   mutation m($input: JwtTokenInput!) {
-      createJwtToken(input: $input) {
-        token
-        __typename
-      }
-    }
-
-
-  {
-    "input": {
-      "email": "email@email.com",
-      "password": "1234"
-    }
+mutation m($input: JwtTokenInput!) {
+  createJwtToken(input: $input) {
+    token
+    __typename
   }
+}
 
 
 `
+
+  // {
+  //   "input": {
+  //     "email": "email@email.com",
+  //     "password": "1234"
+  //   }
+  // }
 
 // query ($username: String = "GovSchwarzenegger"){
 //   tags {
@@ -236,30 +235,30 @@ query m {
 // }
 
 
-query persons($pagination: PaginationInput) {
-      persons(pagination: $pagination) {
-        id
-        first_name
-        uid
-        first_name
-        last_name
-        followers_count
-        sex
-        city
-        bdate
-        crop_photo_url
-        status
-        createdAt
-        updatedAt
-        __typename
-      }
-    }
+// query persons($pagination: PaginationInput) {
+//       persons(pagination: $pagination) {
+//         id
+//         first_name
+//         uid
+//         first_name
+//         last_name
+//         followers_count
+//         sex
+//         city
+//         bdate
+//         crop_photo_url
+//         status
+//         createdAt
+//         updatedAt
+//         __typename
+//       }
+//     }
 
 
-query m {
-    meta(input: {name: "Person"}) {
-      count
-      __typename
-    }
-  }
+// query m {
+//     meta(input: {name: "Person"}) {
+//       count
+//       __typename
+//     }
+//   }
 
