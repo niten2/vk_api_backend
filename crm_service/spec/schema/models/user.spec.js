@@ -3,7 +3,7 @@ import schema from "api/graphql/schema"
 
 const User = schema._typeMap.User
 
-describe('Models', () => {
+xdescribe(__filename, () => {
   it('User', () => {
     expect(User.getFields()).to.have.property('id')
     expect(User.getFields()).to.have.property('name')

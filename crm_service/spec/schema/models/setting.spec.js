@@ -3,7 +3,7 @@ import schema from "api/graphql/schema"
 
 const Setting = schema._typeMap.Setting
 
-describe('Models', () => {
+xdescribe(__filename, () => {
   it('Setting', () => {
     expect(Setting.getFields()).to.have.property('id')
     expect(Setting.getFields()).to.have.property('name')

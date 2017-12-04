@@ -5,7 +5,7 @@ import { status_fixtures } from "spec/support/fixtures"
 
 const deleteStatus = schema._typeMap.Mutation.getFields().deleteStatus.resolve
 
-describe('spec/schema/mutations/deleteStatus.spec.js', () => {
+xdescribe(__filename, () => {
 
   beforeEach(async () => {
     await Status.destroy({where: {}, truncate: true})
