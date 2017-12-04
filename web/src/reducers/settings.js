@@ -1,4 +1,4 @@
-import { CONFIG, LOGOUT, LOGIN } from 'actions/auth'
+import { CONST } from 'actions/auth'
 import { pipe, assocPath } from 'ramda'
 import authProvider from "lib/auth_provider"
 
@@ -12,16 +12,16 @@ const defaultState = {
 
 const settings = (state = defaultState, action) => {
   switch (action.type) {
-    case 'CHANGE_PER_PAGE':
+    case CONST.CHANGE_PER_PAGE:
       return [
         ...state,
         {
           perPage: action.perPage,
         }
       ]
-    case LOGOUT:
+    case CONST.LOGOUT:
       return assocPath(['login'])(false)(state)
-    case CONFIG:
+    case CONST.UPDATE_PROFILE:
       const { name, email } = action.payload
 
       return pipe(
@@ -29,7 +29,7 @@ const settings = (state = defaultState, action) => {
         assocPath(['email'])(email),
       )(state)
 
-    case LOGIN:
+    case CONST.LOGIN:
       return assocPath(['login'])(true)(state)
     default:
       return state

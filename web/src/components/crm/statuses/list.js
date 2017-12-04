@@ -1,10 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { graphql } from 'react-apollo'
-import { statusesQuery } from 'components/crm/graphql/querues'
+import { connect } from 'react-redux'
+import { gql, graphql } from 'react-apollo'
 import Pagination from 'components/shared/pagination'
 import StatusView from './view'
-// import Notification from 'actions/notification'
+import Notification from 'actions/notification'
+import { pagination } from "lib/pagination"
+
+const statusesQuery = gql`
+  query statuses($pagination: PaginationInput) {
+    statuses(pagination: $pagination) {
+      id
+      name
+    }
+    meta(input: { name: "Status" }) {
+      count
+    }
+  }
+`
 
 class ClientList extends Component {
 
@@ -12,14 +25,15 @@ class ClientList extends Component {
     statusesQuery: PropTypes.object.isRequired,
   }
 
-  // componentWillReceiveProps(props) {
-    // let error = props.statusesQuery.error
-    // if (error) { Notification.error(error.message) }
-  // }
+  componentWillReceiveProps(props) {
+    let error = props.statusesQuery.error
+    if (error) { Notification.error(error.message) }
+  }
 
   render() {
+    const { perPage } = this.props
     const { page } = this.props.match.params
-    let { meta, loading, error, statuses, refetch } = this.props.statusesQuery
+    const { meta, loading, error, statuses, refetch } = this.props.statusesQuery
 
     if (loading ) {
       return <p className="text-center">Loading ...</p>
@@ -30,7 +44,6 @@ class ClientList extends Component {
     }
 
     return (
-
       <div className="col-lg-6">
         <div className="card">
           <div className="card-header">
@@ -50,6 +63,7 @@ class ClientList extends Component {
 
                 { statuses.map( (object, index) =>
                   <StatusView
+                    {...this.props}
                     key={index}
                     object={object}
                     refresh={() => refetch()}
@@ -63,7 +77,7 @@ class ClientList extends Component {
               href="/crm/statuses"
               count={meta.count}
               currentPage={parseInt(page, 10)}
-              perPage={PER_PAGE}
+              perPage={perPage}
             />
 
           </div>
@@ -74,20 +88,19 @@ class ClientList extends Component {
   }
 }
 
-const PER_PAGE = 10
-export default graphql(statusesQuery,
-  {
+const mapStateToProps = (props) => {
+  return {
+    perPage: props.settings.perPage,
+  }
+}
+
+export default connect(mapStateToProps)(
+  graphql(statusesQuery, {
     name: "statusesQuery",
     options: (props) => {
-      const limit = PER_PAGE
-      const page = parseInt(props.match.params.page, 10)
-      const offset = (page - 1) * limit
-
       return {
-        variables: {
-          pagination: { limit, offset }
-        }
+        variables: { pagination: pagination(props) },
       }
     }
-  }
-)(ClientList)
+  })(ClientList)
+)

@@ -6,7 +6,7 @@ import { user_fixtures } from "spec/support/fixtures"
 const updateUser = schema._typeMap.Mutation.getFields().updateUser.resolve
 let user
 
-describe('mutations createUser', () => {
+xdescribe(__filename, () => {
   beforeEach(async () => {
     await User.destroy({where: {}, truncate: true})
     user = await User.create(user_fixtures)

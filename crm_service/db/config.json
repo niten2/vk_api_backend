@@ -2,7 +2,7 @@
 
   "development": {
     "dialect": "sqlite",
-    "storage": "db/database.dev.sqlite",
+    "storage": "db/database.development.sqlite",
     "seederStorage": "sequelize",
     "autoMigrateOldSchema": true
   },

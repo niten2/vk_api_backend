@@ -1,10 +1,10 @@
-import chai, { expect } from 'chai'
+import { expect } from 'chai'
 import request from 'supertest'
-import { User, Setting } from "api/models"
-import { graphqlQuery } from 'spec/support/helper'
 import app, { listen } from "config/app"
+import { User, Setting } from "api/models"
+import { graphqlQuery } from 'spec/support'
 
-describe('requests', () => {
+describe('requests/index.spec.js', () => {
 
   it("GET /", async () => {
     await request(app)
@@ -16,35 +16,6 @@ describe('requests', () => {
         servise: "api_gateway",
         endpoint: '/v1',
       })
-  })
-
-  describe('graphql', () => {
-    let server
-
-    before(async () => {
-      server = await listen(app)
-    })
-
-    after(async () => {
-      await server.close()
-    })
-
-    beforeEach(async () => {
-      await User.destroy({where: {}, truncate: true})
-      await Setting.destroy({where: {}, truncate: true})
-    })
-
-    it('query users', async () => {
-      const query = `{
-        users {
-          name
-          email
-        }
-      }`
-
-      let response = await graphqlQuery(query)
-      expect(response).to.deep.include({ data: {users: []}})
-    })
   })
 
 })

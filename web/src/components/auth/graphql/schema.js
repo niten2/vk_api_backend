@@ -1,58 +1,58 @@
-const models = `
-  type User {
-    id: ID
-    name: String
-    email: String @isUnique
-    password: String
-  }
+// const models = `
+//   type User {
+//     id: ID
+//     name: String
+//     email: String @isUnique
+//     password: String
+//   }
 
-  type Setting {
-    id: ID
-    name: String
-    value: String
-    createdAt: String
-    updatedAt: String
-  }
+//   type Setting {
+//     id: ID
+//     name: String
+//     value: String
+//     createdAt: String
+//     updatedAt: String
+//   }
 
-  type Meta {
-    count: Int!
-  }
+//   type Meta {
+//     count: Int!
+//   }
 
-  type JwtToken {
-    token: String
-  }
+//   type JwtToken {
+//     token: String
+//   }
 
-`
+// `
 
-const inputs = `
-  input IdInput {
-    id: ID!
-  }
+// const inputs = `
+//   input IdInput {
+//     id: ID!
+//   }
 
-  input SettingInput {
-    name: String
-    value: String
-  }
+//   input SettingInput {
+//     name: String
+//     value: String
+//   }
 
-  input UserInput {
-    name: String
-    email: String @isUnique
-    password: String
-  }
+//   input UserInput {
+//     name: String
+//     email: String @isUnique
+//     password: String
+//   }
 
-  input PaginationInput {
-    limit: Int
-    offset: Int
-  }
+//   input PaginationInput {
+//     limit: Int
+//     offset: Int
+//   }
 
-  input JwtTokenInput {
-    email: String
-    password: String
-  }
+//   input JwtTokenInput {
+//     email: String
+//     password: String
+//   }
 
-`
+// `
 
-export const typeDefs = `
-  ${models}
-  ${inputs}
-`
+// export const typeDefs = `
+//   ${models}
+//   ${inputs}
+// `

@@ -28,7 +28,6 @@ const mutation = `
 const models = `
   type Person {
     id: ID
-
     uid: String
     first_name: String
     last_name: String
@@ -39,7 +38,6 @@ const models = `
     crop_photo_url: String
     status: String
     user_id: Int
-
     createdAt: String
     updatedAt: String
   }
@@ -132,4 +130,5 @@ const subscription = `
 `
 
 const typeDefs = query + mutation + models + inputs + subscription
+
 export default makeExecutableSchema({ typeDefs, resolvers })

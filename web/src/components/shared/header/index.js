@@ -59,20 +59,6 @@ class Header extends Component {
 
         <ul className="nav navbar-nav ml-auto">
 
-          <li className="nav-item d-md-down-none">
-            <a className="nav-link">
-              <i className="icon-bell" />
-            </a>
-          </li>
-
-          <li className="nav-item d-md-down-none">
-            <a className="nav-link"><i className="icon-list"></i></a>
-          </li>
-
-          <li className="nav-item d-md-down-none">
-            <a className="nav-link"><i className="icon-location-pin"></i></a>
-          </li>
-
           { login ?  <AuthUser {...this.props} /> : <Login {...this.props} /> }
 
           <li className="nav-item d-md-down-none">

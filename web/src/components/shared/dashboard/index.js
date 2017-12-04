@@ -73,9 +73,6 @@ class Dashboard extends Component {
 
 
   render() {
-
-    console.log(111)
-
     return (
       <div className="animated fadeIn">
         <div className="row">

@@ -1,10 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { compose, graphql } from 'react-apollo'
-import { connect } from 'react-redux'
-import { statusesQuery, updateStatusQuery, deleteStatusQuery } from 'components/crm/graphql/querues'
 import Notification from 'actions/notification'
+import { gql, compose, graphql } from 'react-apollo'
+import { connect } from 'react-redux'
 import { set, lensProp } from 'ramda'
+import { pagination } from "lib/pagination"
+
+const updateStatusQuery = gql`
+  mutation updateStatus($id: ID!, $input: StatusInput!) {
+    updateStatus(id: $id, input: $input) {
+      id
+    }
+  }
+`
+
+const deleteStatusQuery = gql`
+  mutation deleteStatus($input: IdInput!) {
+    deleteStatus(input: $input) {
+      id
+    }
+  }
+`
 
 class View extends Component {
 
@@ -41,7 +57,7 @@ class View extends Component {
         },
       })
       refresh()
-      dispatch(Notification.success("destroy"))
+      dispatch(Notification.success("destroy status"))
     } catch (err) {
       dispatch(Notification.error(err.message))
     }
@@ -60,9 +76,6 @@ class View extends Component {
             name: status.name,
           }
         },
-        refetchQueries: [{
-          query: statusesQuery,
-        }],
       })
       dispatch(Notification.success("update"))
     } catch (err) {
@@ -107,7 +120,13 @@ class View extends Component {
 
 }
 
-export default connect()(
+const mapStateToProps = (props) => {
+  return {
+    perPage: props.settings.perPage,
+  }
+}
+
+export default connect(mapStateToProps)(
   compose(
     graphql(updateStatusQuery, {name: "updateStatusQuery"}),
     graphql(deleteStatusQuery, {name: "deleteStatusQuery"}),

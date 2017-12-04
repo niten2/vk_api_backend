@@ -1,6 +1,4 @@
 export const ApiQuery = `
-  users: [User]
-
   user: User
   settings(pagination: PaginationInput): [Setting]!
 `
@@ -8,7 +6,6 @@ export const ApiQuery = `
 export const ApiMutation = `
   createUser(input: UserInput!): User
   createJwtToken(input: JwtTokenInput!): JwtToken
-
   updateUser(input: UserInput!): User
   createSetting(input: SettingInput!): Setting
   updateSetting(input: SettingInput!): Setting

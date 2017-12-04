@@ -1,60 +1,37 @@
 import express from 'express'
 import bunyan from 'bunyan'
-
+import initRoutes from 'config/routes'
 import settings from 'config/settings'
-import middlewares from 'api/middlewares'
-import models from 'api/models'
-import resourses from 'api/resourses'
-import routes from 'config/routes'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import AccessLogger from 'api/middlewares/access_logger'
 
-export default class App {
+const app = express()
 
-  constructor(params = {}) {
-    if (settings.env != "test" && !this.log) {
-      this.log = this.getLogger()
-    }
-    Object.assign(this, params)
+const logger = bunyan.createLogger({
+  name: 'app',
+  src: true,
+  level: 'trace',
+})
 
-    this.app = express()
-    this.settings = settings
-    this.resourses = resourses(this)
-    this.middlewares = middlewares(this)
-
-    routes(this.app)
-
-    if (settings.env != "test") {
-      this.initLogSetup()
-    }
-
+app.use((req, res, next) => {
+  if (!settings.isEnvTest) {
+    req.log = logger
   }
+  next()
+})
 
-  async run() {
-    if (settings.env == "development") {
-      return new Promise((resolve) => {
-        this.app.listen(settings.port, () => {
-          resolve(this)
-        })
-      })
-    }
+app.use(cors())
+app.use(bodyParser.json())
+app.use(AccessLogger())
+
+initRoutes(app)
+
+export const listen = async (app) => {
+  if (!settings.isEnvTest) {
+    logger.info(`App ${settings.name} running on port ${settings.port}`)
   }
-
-  initLogSetup() {
-    if (this.middlewares) {
-      this.log.trace('middlewares', Object.keys(this.middlewares))
-    }
-    this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
-  }
-
-  getLogger(params) {
-    return bunyan.createLogger(Object.assign({
-      name: 'app',
-      src: true,
-      level: 'trace',
-    }, params))
-  }
-
-  this() {
-    return this
-  }
-
+  return app.listen(settings.port)
 }
+
+export default app

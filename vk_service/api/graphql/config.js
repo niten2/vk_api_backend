@@ -5,7 +5,7 @@ export const buildOptions = (req, res) => {
     schema: schema,
     formatError: (err) => ({ message: err.message, status: err.status }),
     context: {
-      payload: req.payload,
+      user_id: req.user_id,
       body: req.body,
     },
   }

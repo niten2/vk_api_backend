@@ -4,14 +4,21 @@ import { push } from 'react-router-redux'
 import { userQuery } from 'components/auth/graphql/querues'
 import { apolloFetch } from "lib/apollo_fetch"
 
-export const LOGOUT = "LOGOUT"
-export const LOGIN = "LOGIN"
-export const CONFIG = "CONFIG"
-export const CHANGE_PER_PAGE = "CHANGE_PER_PAGE"
+export const CONST = {
+  LOGOUT: "LOGOUT",
+  LOGIN: "LOGIN",
+  CHANGE_PER_PAGE: "CHANGE_PER_PAGE",
+  UPDATE_PROFILE: "UPDATE_PROFILE",
+}
 
 export const changePerPage = (perPage) => ({
-  type: 'CHANGE_PER_PAGE',
+  type: CONST.CHANGE_PER_PAGE,
   perPage: perPage,
+})
+
+export const updateProfile = (options) => ({
+  type: CONST.UPDATE_PROFILE,
+  payload: options,
 })
 
 export const handleLogout = () => {
@@ -19,7 +26,7 @@ export const handleLogout = () => {
     authProvider.removeToken()
     dispatch(Notification.success("Logout"))
     dispatch(push('/dashboard'))
-    dispatch({ type: LOGOUT })
+    dispatch({ type: CONST.LOGOUT })
   }
 }
 
@@ -28,7 +35,7 @@ export const handleLogin = (token) => {
     authProvider.saveToken(token)
     dispatch(Notification.success("Get token"))
     dispatch(push('/dashboard'))
-    dispatch({ type: LOGIN })
+    dispatch({ type: CONST.LOGIN })
     await loadConfig()(dispatch)
   }
 }
@@ -44,7 +51,7 @@ export const loadConfig = () => {
             name: result.data.user.name,
             email: result.data.user.email,
           },
-          type: CONFIG,
+          type: CONST.UPDATE_PROFILE,
         }
         dispatch(args)
       } else {

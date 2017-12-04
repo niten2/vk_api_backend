@@ -1,33 +1,32 @@
 version: '2'
 services:
 
-
-  # NOTE node
   api_gateway:
     tty: true
-    container_name: api_gateway
+    container_name: api
     build:
       context: ./api_gateway
       dockerfile: Dockerfile.development
-    image: api_gateway_crm
+    image: crm_api
     links:
       - crm_service
-      - vk_service
-      - insta_service
+      # - vk_service
+      # - insta_service
     ports:
       - "4001:4001"
     command: bash -c "npm run start"
+    # command: bash -c "/bin/bash"
     env_file: ./api_gateway/.env
     volumes:
       - ./api_gateway/:/app
 
   crm_service:
     tty: true
-    container_name: crm_service
+    container_name: crm
     build:
       context: ./crm_service
       dockerfile: Dockerfile.development
-    image: crm_service_image
+    image: crm_crm
     ports:
       - "4002:4002"
     command: bash -c "npm run start"
@@ -37,11 +36,11 @@ services:
 
   vk_service:
     tty: true
-    container_name: vk_service
+    container_name: vk
     build:
       context: ./vk_service
       dockerfile: Dockerfile.development
-    image: vk_service_crm
+    image: crm_vk
     ports:
       - "4003:4003"
     command: bash -c "npm run start"
@@ -49,19 +48,19 @@ services:
     volumes:
       - ./vk_service/:/app
 
-  insta_service:
-    tty: true
-    container_name: insta_service
-    build:
-      context: ./insta_service
-      dockerfile: Dockerfile.development
-    image: insta_service_crm
-    ports:
-      - "4004:4004"
-    command: bash -c "npm run start"
-    env_file: ./insta_service/.env
-    volumes:
-      - ./insta_service/:/app
+  # insta_service:
+  #   tty: true
+  #   container_name: insta
+  #   build:
+  #     context: ./insta_service
+  #     dockerfile: Dockerfile.development
+  #   image: crm_insta
+  #   ports:
+  #     - "4004:4004"
+  #   command: bash -c "npm run start"
+  #   env_file: ./insta_service/.env
+  #   volumes:
+  #     - ./insta_service/:/app
 
   web:
     tty: true
@@ -69,7 +68,7 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile.development
-    image: web_crm
+    image: crm_web
     ports:
       - "4000:4000"
     command: bash -c "npm run start"
@@ -77,14 +76,13 @@ services:
     volumes:
       - ./web/:/app
 
-  # NOTE other
   docs:
     tty: true
     container_name: docs
     build:
       context: ./docs
       dockerfile: Dockerfile.development
-    image: docs_crm
+    image: crm_docs
     ports:
       - "4005:4005"
     command: bash -c "npm run start"

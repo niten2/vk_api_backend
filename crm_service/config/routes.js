@@ -1,21 +1,19 @@
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
-import bodyParser from 'body-parser'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { buildOptions } from 'api/graphql/config'
-console.log(buildOptions)
+import AuthMiddleware from 'api/middlewares/auth'
 
 export default (app) => {
 
-  app.get('/', (req, res) => (
+  app.get('/', (req, res) => {
     res.json({
-      servise: "crm_servise",
-      version: 'current version /v1 with graphql',
+      servise: "api_gateway",
       endpoint: '/v1',
     })
-  ))
+  })
 
   app.use('/v1',
-    bodyParser.json(),
-    graphqlExpress(buildOptions)
+    AuthMiddleware(),
+    graphqlExpress(buildOptions),
   )
 
   app.use('/v1', graphiqlExpress({

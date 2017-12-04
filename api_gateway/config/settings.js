@@ -1,14 +1,14 @@
 import dotenv from 'dotenv'
 
-let path
-
-if (process.env.NODE_ENV == "test") {
-  path = `.env.${process.env.NODE_ENV}`
-} else {
-  path = ".env"
+const getPath = () => {
+  if (process.env.NODE_ENV == "test") {
+    return `.env.${process.env.NODE_ENV}`
+  } else {
+    return ".env"
+  }
 }
 
-dotenv.config({ path })
+dotenv.config({ path: getPath() })
 
 export default {
   name: "api_gateway",

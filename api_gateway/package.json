@@ -9,18 +9,18 @@
     "node"
   ],
   "scripts": {
-    "start": "nodemon --exec node --harmony ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "node_modules/.bin/nodemon --exec node --harmony ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
     "db:migration": "node_modules/.bin/sequelize migration:create",
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
-    "db:drop": "rm -rf db/database.dev.sqlite",
+    "db:drop": "rm -rf db/database.development.sqlite",
     "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
     "tests": "NODE_ENV=test node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register ./**/*.spec.js",
-    "test": "NODE_ENV=test nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register"
+    "test": "NODE_ENV=test node_modules/.bin/nodemon node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-register"
   },
   "dependencies": {
     "apollo-fetch": "^0.6.0",
@@ -30,6 +30,7 @@
     "cors": "^2.8.1",
     "express": "^4.12.4",
     "graphql": "^0.11.2",
+    "graphql-request": "^1.3.6",
     "graphql-tools": "^1.1.0",
     "jsonwebtoken": "^7.4.3",
     "ramda": "^0.24.1",
@@ -46,7 +47,9 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.1",
     "dotenv": "^4.0.0",
+    "fetch-mock": "^5.12.2",
     "mocha": "^3.5.0",
+    "nock": "^9.0.19",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0"
   }

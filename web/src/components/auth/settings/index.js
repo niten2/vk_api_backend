@@ -51,8 +51,8 @@ class Setting extends React.Component {
                       { attributes.map((attribute, index) =>
                         <th key={index} className="text-center">{ attribute }</th>
                       )}
-                      <th className="text-center">Delete</th>
                       <th className="text-center">Update</th>
+                      <th className="text-center">Delete</th>
                     </tr>
                   </thead>
                   <tbody>

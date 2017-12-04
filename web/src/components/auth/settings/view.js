@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Notification from 'actions/notification'
+import { gql } from 'react-apollo'
 import { connect } from 'react-redux'
 import { Link } from 'lib/nav_link'
 import { graphql } from 'react-apollo'
-import { deleteSettingQuery } from 'components/auth/graphql/querues'
+
+const deleteSettingQuery = gql`
+  mutation deleteSetting($input: IdInput!) {
+    deleteSetting(input: $input) {
+      id
+    }
+  }
+`
 
 class SettingView extends Component {
 
@@ -46,18 +54,15 @@ class SettingView extends Component {
           <td key={index}>{ object[attribute] }</td>
         )}
 
+        <td>
+          <button className="btn">Update</button>
+        </td>
+
         <td >
           <div className="text-center" onClick={this.handleDestroy}>
             <i className="pointer icon-ban" />
           </div>
         </td>
-
-        <td>
-          <Link href={`/crm/clients/update/${object.id}`}>
-            <i className="pointer icon-folder" />
-          </Link>
-        </td>
-
       </tr>
     )
   }

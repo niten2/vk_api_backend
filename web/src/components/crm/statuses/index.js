@@ -9,7 +9,7 @@ class Status extends Component {
         <div className="row">
 
           <List {...this.props}/>
-          <New />
+          <New {...this.props}/>
 
         </div>
       </div>

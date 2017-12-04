@@ -1,94 +1,38 @@
 import express from 'express'
+import initRoutes from 'config/routes'
 import bunyan from 'bunyan'
-
 import settings from 'config/settings'
-import middlewares from 'api/middlewares'
-import models from 'api/models'
-import resourses from 'api/resourses'
-import routes from 'config/routes'
 
-import schema from 'api/graphql/schema'
+import AccessLogger from 'api/middlewares/access_logger'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 
-import { createServer } from 'http'
-import { SubscriptionServer } from 'subscriptions-transport-ws'
-import { execute, subscribe } from 'graphql'
+const app = express()
 
-export default class App {
+const logger = bunyan.createLogger({
+  name: 'app',
+  src: true,
+  level: 'trace',
+})
 
-  constructor(params = {}) {
-    if (settings.env != "test" && !this.log) {
-      this.log = this.getLogger()
-    }
-    Object.assign(this, params)
-
-    this.app = express()
-    this.settings = settings
-    this.resourses = resourses(this)
-    this.middlewares = middlewares(this)
-    routes(this.app)
-
-    if (settings.env != "test") {
-      this.initLogSetup()
-    }
-
+app.use((req, res, next) => {
+  if (!settings.isEnvTest) {
+    req.log = logger
   }
+  next()
+})
 
-  async run() {
+app.use(cors())
+app.use(bodyParser.json())
+app.use(AccessLogger())
 
-    // console.log(111)
-    const server = createServer(this.app)
+initRoutes(app)
 
-    // console.log(server)
-
-    // console.log(schema)
-
-    server.listen(settings.port, () => {
-      new SubscriptionServer(
-        { execute, subscribe, schema },
-        { server, path: '/subscriptions' },
-      )
-    })
-
-    // if (settings.env == "development") {
-    //   return new Promise((resolve) => {
-    //     this.app.listen(settings.port, () => {
-
-    //       new SubscriptionServer(
-    //         { execute, subscribe, schema },
-    //         { server: this.app, path: '/subscriptions'},
-    //       )
-    //       console.log(`Hackernews GraphQL server running on port ${PORT}.`)
-
-    //       // resolve(this)
-    //     })
-    //   })
-    // }
+export const listen = async (app) => {
+  if (!settings.isEnvTest) {
+    logger.info(`App ${settings.name} running on port ${settings.port}`)
   }
-
-  initLogSetup() {
-    // if (this.middlewares) {
-    //   this.log.trace('middlewares', Object.keys(this.middlewares))
-    // }
-    // if (this.models) {
-      // console.log(Object.keys(models))
-      // this.log.trace('models', models)
-    // }
-    // if (this.resourses) {
-    //   this.log.trace('resourses', Object.keys(this.resourses))
-    // }
-    this.log.info(`App ${this.settings.name} running on port ${this.settings.port}`)
-  }
-
-  getLogger(params) {
-    return bunyan.createLogger(Object.assign({
-      name: 'app',
-      src: true,
-      level: 'trace',
-    }, params))
-  }
-
-  this() {
-    return this
-  }
-
+  return app.listen(settings.port)
 }
+
+export default app

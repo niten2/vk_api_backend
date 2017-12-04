@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
 import Notification from 'actions/notification'
 import { connect } from 'react-redux'
-import { compose, graphql } from 'react-apollo'
-// import { createStatusQuery, statusesQuery } from 'components/crm/graphql/querues'
-import { createStatusQuery } from 'components/crm/graphql/querues'
+import { gql, graphql } from 'react-apollo'
 import { InputField } from 'components/shared/default_components'
+import { pagination } from "lib/pagination"
+
+const statusesQuery = gql`
+  query statuses($pagination: PaginationInput) {
+    statuses(pagination: $pagination) {
+      id
+      name
+    }
+    meta(input: { name: "Status" }) {
+      count
+    }
+  }
+`
+const createStatusQuery = gql`
+  mutation createStatus($input: StatusInput!) {
+    createStatus(input: $input) {
+      id
+    }
+  }
+`
 
 class NewStatus extends Component {
 
@@ -34,9 +52,11 @@ class NewStatus extends Component {
             name: status.name,
           }
         },
-        // refetchQueries: [{
-        //   query: statusesQuery,
-        // }],
+        refetchQueries: [{
+          query: statusesQuery, variables: {
+            pagination: pagination(this.props)
+          }
+        }],
       })
       this.setState({ status: { name: "" } })
       dispatch(Notification.success("ok"))
@@ -102,13 +122,14 @@ class NewStatus extends Component {
 
 }
 
-export default connect()(
-  compose(
-    graphql(createStatusQuery, {
-      name: "createStatusQuery",
-    }),
-    // graphql(statusesQuery, {
-    //   name: "statusesQuery"
-    // }),
-  )(NewStatus)
+const mapStateToProps = (props) => {
+  return {
+    perPage: props.settings.perPage,
+  }
+}
+
+export default connect(mapStateToProps)(
+  graphql(createStatusQuery, {
+    name: "createStatusQuery",
+  })(NewStatus)
 )
