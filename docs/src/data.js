@@ -6,18 +6,16 @@ export const options = {
   }
 }
 
-// export const endpoint = 'http://localhost:4001/v2'
 export const endpoint = 'http://localhost:4001/v1'
-// export const endpoint = process.env.REACT_APP_ENDPOINT
 
 export const defaultQuery = `
 
-# mutation addClient {
-#   addClient(name: "1234", number: "66666") {
-#     name
-#     number
-#   }
-# }
+mutation addClient {
+ addClient(name: "1234", number: "66666") {
+   name
+   number
+ }
+}
 
 query clients {
   clients {
@@ -262,3 +260,9 @@ mutation m($input: JwtTokenInput!) {
 //     }
 //   }
 
+
+// mutation createJwtToken($input: JwtTokenInput!) {
+//   createJwtToken(input: $input) {
+//     token
+//   }
+// }

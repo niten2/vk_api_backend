@@ -1,4 +1,4 @@
-// import authProvider from "lib/auth_provider"
+// import authProvider from "utils/auth_provider"
 import settings from "lib/settings"
 
 class AuthProvider {
