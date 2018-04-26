@@ -1,0 +1,28 @@
+language: node_js
+
+node_js: "8.8.1"
+
+# node_js:
+#   - 'stable'
+#   - '8'
+#   - '6'
+
+env:
+  - CXX=g++-4.8
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+# script:
+  # - npm run lint
+  # - npm run tests
+  # - npm run build --release
+
+notifications:
+  email:
+    on_success: "never"
+    on_failure: "never"
