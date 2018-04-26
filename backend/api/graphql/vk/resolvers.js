@@ -1,4 +1,4 @@
-import { redirectVk } from "api/services/fetch"
+// import { redirectVk } from "api/services/fetch"
 
 export const VkQuery = {
   persons: async (_, args, context, info) => {

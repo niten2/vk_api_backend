@@ -1,80 +1,80 @@
-import { pick } from 'lodash'
-import { User, Tag, ItemTag } from "api/models"
+// import { pick } from 'lodash'
+// import { User, Tag, ItemTag } from "api/models"
 
-const params = function(req) {
-  return pick(req.body, [
-  	'name',
-  	'kind',
-  ])
-}
+// const params = function(req) {
+//   return pick(req.body, [
+//   	'name',
+//   	'kind',
+//   ])
+// }
 
-export default (context) => {
+// export default (context) => {
 
-  const resource = {
+//   const resource = {
 
-    async index(req, res, next) {
-      try {
-        let kind = req.query.kind
-        let tags
+//     async index(req, res, next) {
+//       try {
+//         let kind = req.query.kind
+//         let tags
 
-        if (kind) {
-          tags = await Tag.findAll({
-            include: [{
-              model: User,
-              attributes: [ "id" ],
-            }],
-            where: {
-              kind: req.query.kind
-            },
-          })
-        } else {
-          tags = await Tag.findAll({
-            include: [{
-              model: User,
-              attributes: [ "id" ],
-            }],
-          })
-        }
+//         if (kind) {
+//           tags = await Tag.findAll({
+//             include: [{
+//               model: User,
+//               attributes: [ "id" ],
+//             }],
+//             where: {
+//               kind: req.query.kind
+//             },
+//           })
+//         } else {
+//           tags = await Tag.findAll({
+//             include: [{
+//               model: User,
+//               attributes: [ "id" ],
+//             }],
+//           })
+//         }
 
-        res.json(tags)
-      } catch(error) {
-        res.status(422)
-        res.json({
-          "error": `There was a problem adding the information to the database: ${error}`
-        })
-      }
-    },
+//         res.json(tags)
+//       } catch(error) {
+//         res.status(422)
+//         res.json({
+//           "error": `There was a problem adding the information to the database: ${error}`
+//         })
+//       }
+//     },
 
-    async create(req, res) {
-      try {
-        const tag = await Tag.create(params(req))
-        res.send(tag)
-      } catch(error) {
-        res.status(422).json({"error": error })
-      }
-    },
+//     async create(req, res) {
+//       try {
+//         const tag = await Tag.create(params(req))
+//         res.send(tag)
+//       } catch(error) {
+//         res.status(422).json({"error": error })
+//       }
+//     },
 
-    async update(req, res) {
-      try {
-        const tag = await Tag.create(params(req))
-        res.send(tag)
-      } catch(error) {
-        res.status(422)
-        res.json({"error": error })
-      }
-    },
+//     async update(req, res) {
+//       try {
+//         const tag = await Tag.create(params(req))
+//         res.send(tag)
+//       } catch(error) {
+//         res.status(422)
+//         res.json({"error": error })
+//       }
+//     },
 
-    async destroy(req, res) {
-      try {
-        const tag = await Tag.findById(req.params.id)
-        await tag.destroy()
-        res.status(204).json({ "message": "ok" })
-      } catch(error) {
-        res.status(422).json({"error": error })
-      }
-    },
+//     async destroy(req, res) {
+//       try {
+//         const tag = await Tag.findById(req.params.id)
+//         await tag.destroy()
+//         res.status(204).json({ "message": "ok" })
+//       } catch(error) {
+//         res.status(422).json({"error": error })
+//       }
+//     },
 
-  }
+//   }
 
-  return resource
-}
+//   return resource
+// }

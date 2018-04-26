@@ -5,8 +5,10 @@ export const ApiQuery = `
 
 export const ApiMutation = `
   createUser(input: UserInput!): User
-  createJwtToken(input: JwtTokenInput!): JwtToken
   updateUser(input: UserInput!): User
+
+  createJwtToken(input: JwtTokenInput!): JwtToken
+
   createSetting(input: SettingInput!): Setting
   updateSetting(input: SettingInput!): Setting
 `

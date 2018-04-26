@@ -1,11 +1,11 @@
-import Users from './users'
-import Tags from './tags'
-import Groups from './groups'
+// import Users from './users'
+// import Tags from './tags'
+// import Groups from './groups'
 
-export default function () {
-  return {
-    Users: Users(...arguments),
-    Tags: Tags(...arguments),
-    Groups: Groups(...arguments),
-  }
-}
+// export default function () {
+//   return {
+//     Users: Users(...arguments),
+//     Tags: Tags(...arguments),
+//     Groups: Groups(...arguments),
+//   }
+// }
