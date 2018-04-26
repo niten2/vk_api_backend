@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { ApolloProvider } from 'react-apollo'
-import { history, configureStore } from 'store'
+import { history, configureStore } from './store'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import { configureClient } from 'lib/apollo_client'

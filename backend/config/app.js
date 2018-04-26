@@ -5,14 +5,9 @@ import settings from 'config/settings'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import AccessLogger from 'api/middlewares/access_logger'
+import logger from 'api/services/logger'
 
 const app = express()
-
-const logger = bunyan.createLogger({
-  name: 'app',
-  src: true,
-  level: 'trace',
-})
 
 app.use((req, res, next) => {
   if (!settings.isEnvTest) {

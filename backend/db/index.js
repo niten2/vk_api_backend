@@ -6,18 +6,23 @@ const sequelize = new Sequelize(
   'username',
   'password',
   {
+
     dialect: "sqlite",
+
     pool: {
       max: 5,
       min: 0,
       idle: 10000
     },
+
     storage: settings.storage,
+
     logging: () => {
       if (settings.isEnvTest) {
         return false
       }
     },
+
   }
 )
 
