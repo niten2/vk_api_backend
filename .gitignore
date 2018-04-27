@@ -1,9 +1,11 @@
 vk_ids.txt
 
-backend/node_modules
 backend/.env
+backend/node_modules
 backend/db/database.development.sqlite
 backend/db/database.test.sqlite
+backend/database.dev.sqlite
+backend/database.test.sqlite
 backend/log/*
 
 frontend/node_modules

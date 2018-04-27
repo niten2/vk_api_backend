@@ -19,3 +19,5 @@ npm run db:reset:test
 
 npm run vk:persons:check:friends
 npm run vk:persons:add:friends
+
+npm run jobs

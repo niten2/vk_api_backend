@@ -1,17 +1,21 @@
 import settings from 'config/settings'
 import bunyan from 'bunyan'
 
-// TODO change for tests
+const getStreams = () => {
+  if (settings.isEnvTest) return []
+
+  return [
+    {
+      level: 'trace',
+      stream: process.stdout
+    },
+    {
+      path: process.cwd() + `/log/${settings.env}.log`,
+    },
+  ]
+}
+
 const buildLogger = () => {
-  console.log(process.cwd() + `log/${settings.env}.log`)
-
-  // if (settings.isEnvTest) {
-  //   return {
-  //     info: () => {},
-  //     error: () => {},
-  //   }
-  // }
-
   return bunyan.createLogger({
     name: "logger",
     level: 'trace',
@@ -19,9 +23,7 @@ const buildLogger = () => {
       req: bunyan.stdSerializers.req,
       res: bunyan.stdSerializers.res
     },
-    streams: [{
-        path: process.cwd() + `log/${settings.env}.log`,
-    }]
+    streams: getStreams(),
   })
 }
 

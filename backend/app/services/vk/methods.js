@@ -1,29 +1,40 @@
 import vk from 'config/vk'
+// import { isEmpty } from "ramda"
+import { vkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
+import logger from "app/services/logger"
 
-export const addFriend = async (userId) => {
-  const response = await vk.api.friends.add({
-		user_id: userId,
-	})
+export const addFriend = async (person) => {
+  // NOTE
+  // 1 — заявка на добавление данного пользователя в друзья отправлена;
+  // 2 — заявка на добавление в друзья от данного пользователя одобрена;
+  // 4 — повторная отправка заявки.
+  const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
 
-	console.log(response)
+  if (anyPass([equals(1), equals(2), equals(4)])(res)) {
+    await person.set({ isFriend: true })
+    await person.save()
+  }
+
+  return true
 }
 
-export const andPersonInFriend = async (person) => {
+export const andPersonInFriend = async () => {
+  try {
+		const person = await vkPerson.findOne({ where: { isFriend: false } })
 
-	let res = await addFriend(person.uid)
+    if (!person) {
+			logger.info("users not found")
+    }
 
-  console.log(res)
+		await addFriend(person)
 
-  // const response = await vk.api.friends.add({
-		// user_id: userId,
-	// })
-
-  // await delay(2000)
-	// console.log(response)
+		logger.info(person.uid, "add in friend")
+  } catch (err) {
+		logger.error(err)
+  }
 }
-
 
 export const checkFriend = async (userId) => {
   const response = await vk.api.friends.areFriends({
@@ -45,6 +56,6 @@ export const checkAndSetFriend = async (person) => {
   await person.set({ isFriend })
   await person.save()
 
-  console.log(person.uid, person.isFriend)
+  logger.info("checkAndSetFriend", person.uid, person.isFriend)
   await delay(2000)
 }
