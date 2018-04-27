@@ -1,6 +1,4 @@
-require('babel-register')
+import express from "express"
+import { listen } from "config/app"
 
-const app = require("../config/app").default
-const listen = require("../config/app").listen
-
-listen(app)
+listen(express())

@@ -1,36 +1,64 @@
 module.exports = {
 
-  up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('persons', {
+  up: function (queryInterface, DataType) {
+    return queryInterface.createTable('vk_persons', {
         id: {
-          type: Sequelize.INTEGER,
+          type: DataType.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false
         },
 
-        username: Sequelize.STRING,
-        uid: Sequelize.STRING,
-        first_name: Sequelize.STRING,
-        last_name: Sequelize.STRING,
-        followers_count: Sequelize.STRING,
-        sex: Sequelize.STRING,
-        city: Sequelize.STRING,
-        bdate: Sequelize.STRING,
-        crop_photo_url: Sequelize.STRING,
-        status: Sequelize.STRING,
+        uid: {
+          type: DataType.STRING,
+          allowNull: false,
+          unique: true,
+        },
 
-        user_id: Sequelize.INTEGER,
+        first_name: {
+          type: DataType.STRING,
+          field: 'first_name',
+        },
+
+        last_name: DataType.STRING,
+
+        followers_count: {
+          type: DataType.STRING
+        },
+
+        sex: {
+          type: DataType.STRING
+        },
+
+        city: {
+          type: DataType.STRING
+        },
+
+        bdate: {
+          type: DataType.STRING
+        },
+
+        crop_photo_url: DataType.STRING,
+
+        status: DataType.ENUM('active', 'inactive', "error"),
+
+        isFriend: {
+          type: DataType.BOOLEAN,
+          defaultValue: false,
+        },
+
+        user_id: DataType.INTEGER,
+
         createdAt: {
-          type: Sequelize.DATE,
+          type: DataType.DATE,
           allowNull: false
         },
-        updatedAt: Sequelize.DATE,
+        updatedAt: DataType.DATE,
 
       })
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: function (queryInterface, DataType) {
     return queryInterface.dropTable('users')
   },
 

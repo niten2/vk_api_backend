@@ -2,14 +2,14 @@
 
   "development": {
     "dialect": "sqlite",
-    "storage": "db/database.development.sqlite",
+    "storage": "database.dev.sqlite",
     "seederStorage": "sequelize",
     "autoMigrateOldSchema": true
   },
 
   "test": {
     "dialect": "sqlite",
-    "storage": "db/database.test.sqlite",
+    "storage": "database.test.sqlite",
     "seederStorage": "sequelize",
     "autoMigrateOldSchema": true
   }

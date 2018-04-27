@@ -1,7 +1,7 @@
 module.exports = {
 
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('tags', {
+    return queryInterface.createTable('vk_tags', {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,

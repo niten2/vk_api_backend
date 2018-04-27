@@ -8,20 +8,28 @@ const getPath = () => {
   }
 }
 
+const checkRequiredEnv = (envs) => {
+  envs.map((env) => { if (!process.env[env]) {
+      throw new Error(`process.env.${env} should be exist`)
+    }
+  })
+}
+
 dotenv.config({ path: getPath() })
+
+checkRequiredEnv([
+  "JWT_SECRET_KEY",
+  "VK_TOKEN",
+  "DATABASE_URL",
+])
 
 export default {
   env: process.env.NODE_ENV,
   name: process.env.APP_NAME,
   port: process.env.PORT || 3000,
 
+  databaseUrl: process.env.DATABASE_URL,
+
   isEnvTest: process.env.NODE_ENV == "test",
-
-  storage: `./db/database.${process.env.NODE_ENV}.sqlite`,
-
-  jwt_secret_key: process.env.JWT_SECRET_KEY,
-
-  // crmUri: process.env.CRM_URI,
-  // vkUri: process.env.VK_URI,
-  // instaUri: process.env.INSTA_URI,
+  vkToken: process.env.VK_TOKEN,
 }

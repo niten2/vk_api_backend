@@ -1,32 +1,20 @@
-import express from 'express'
-import bunyan from 'bunyan'
-import initRoutes from 'config/routes'
-import settings from 'config/settings'
-import bodyParser from 'body-parser'
-import cors from 'cors'
-import AccessLogger from 'api/middlewares/access_logger'
-import logger from 'api/services/logger'
+import initRoutes from "config/routes"
+import initMiddlewares from "app/middlewares"
+import settings from "config/settings"
+import logger from "app/services/logger"
 
-const app = express()
-
-app.use((req, res, next) => {
-  if (!settings.isEnvTest) {
-    req.log = logger
-  }
-  next()
-})
-
-app.use(cors())
-app.use(bodyParser.json())
-app.use(AccessLogger())
-
-initRoutes(app)
-
-export const listen = async (app) => {
-  if (!settings.isEnvTest) {
-    logger.info(`App ${settings.name} running on port ${settings.port}`)
-  }
-  return app.listen(settings.port)
+export const initApp = async (app) => {
+  await initMiddlewares(app)
+  await initRoutes(app)
 }
 
-export default app
+export const listen = async (app) => {
+  try {
+    await initApp(app)
+    await app.listen(settings.port)
+
+    logger.info(`App ${settings.name}, running on port ${settings.port}, NODE_ENV ${settings.env}`)
+  } catch (err) {
+    logger.error(err.message)
+  }
+}

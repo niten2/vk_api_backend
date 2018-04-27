@@ -1,6 +1,6 @@
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
-import { buildOptions } from 'api/graphql/config'
-import AuthMiddleware from 'api/middlewares/auth'
+import { buildOptions } from 'app/graphql/config'
+import AuthMiddleware from 'app/middlewares/auth'
 
 export default (app) => {
 
