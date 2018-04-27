@@ -3,11 +3,12 @@ import { cond, includes, pipe, contains, anyPass, equals, prop, propEq, find } f
 // describe('Services', () => {
 
   it("Jwt", () => {
-    const userId = 1959464
+    const userId = 390813606
 
     // console.log(111)
 
-    const response = [ { user_id: 1959464,  } ]
+    const response = [ { user_id: 390813606, friend_status: 1 } ]
+
 
     const checkHaveFriendStatusUserId = pipe(
       find(propEq('user_id', userId)),
@@ -17,6 +18,7 @@ import { cond, includes, pipe, contains, anyPass, equals, prop, propEq, find } f
 
     let z = checkHaveFriendStatusUserId(response)
 
+    console.log(z)
   })
 
 // })

@@ -1,10 +1,10 @@
-/_note
-note.js
+vk_ids.txt
 
 backend/node_modules
 backend/.env
 backend/db/database.development.sqlite
 backend/db/database.test.sqlite
+backend/log/*
 
 frontend/node_modules
 frontend/coverage

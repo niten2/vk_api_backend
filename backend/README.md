@@ -17,5 +17,5 @@ npm run db:drop:test
 npm run db:reset
 npm run db:reset:test
 
-npm run db:vk:load:persons
-npm run vk:persons:friends
+npm run vk:persons:check:friends
+npm run vk:persons:add:friends
