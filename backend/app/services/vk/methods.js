@@ -1,5 +1,4 @@
 import vk from 'config/vk'
-// import { isEmpty } from "ramda"
 import { vkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
@@ -22,24 +21,24 @@ export const addFriend = async (person) => {
 
 export const andPersonInFriend = async () => {
   try {
-		const person = await vkPerson.findOne({ where: { isFriend: false } })
+    const person = await vkPerson.findOne({ where: { isFriend: false } })
 
     if (!person) {
-			logger.info("users not found")
+      logger.info("users not found")
     }
 
-		await addFriend(person)
+    await addFriend(person)
 
-		logger.info(person.uid, "add in friend")
+    logger.info(person.uid, "add in friend")
   } catch (err) {
-		logger.error(err)
+    logger.error(err)
   }
 }
 
 export const checkFriend = async (userId) => {
   const response = await vk.api.friends.areFriends({
-		user_ids: [userId],
-	})
+    user_ids: [userId],
+  })
 
   const checkHaveFriendStatusUserId = pipe(
     find(propEq('user_id', Number.parseInt(userId))),
