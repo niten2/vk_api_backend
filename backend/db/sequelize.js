@@ -8,11 +8,11 @@ const sequelize = new Sequelize(settings.databaseUrl, {
     freezeTableName: true,
   },
 
-  // logging: () => {
-  //   if (settings.isEnvTest) {
-  //     return false
-  //   }
-  // }
+  logging: () => {
+    if (settings.isEnvTest) {
+      return false
+    }
+  }
 })
 
 export const sync = (...args) => sequelize.sync(...args)
