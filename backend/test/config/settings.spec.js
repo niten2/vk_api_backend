@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import settings from "config/settings"
 
-describe('settings', () => {
+xdescribe('settings', () => {
   it("correct vars", async () => {
     expect(settings.name).to.have.eq("api_gateway")
     expect(settings.env).to.have.eq(process.env.NODE_ENV)
