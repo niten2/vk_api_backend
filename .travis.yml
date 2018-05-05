@@ -12,6 +12,10 @@ addons:
     packages:
       - g++-4.8
 
+before_script:
+  - cd ./backend && npm install  && cd ..
+  - cd ./frontend && npm install  && cd ..
+
 script:
   - npm run backend:tests
   - npm run frontend:tests
