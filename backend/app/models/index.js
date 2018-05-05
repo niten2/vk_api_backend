@@ -1,11 +1,11 @@
 import User from './user'
-import vkPerson from './vkPerson'
+import VkPerson from './vkPerson'
 import Setting from './setting'
 
 export {
   User,
   Setting,
-  vkPerson,
+  VkPerson,
 }
 
 // import Person from './person'

@@ -2,7 +2,7 @@ import db from 'db'
 import Sequelize from 'sequelize'
 import Tag from 'api/models/tag'
 import { parseGroup } from "api/services/vk"
-import R from "ramda"
+import { map } from "ramda"
 
 let Group = db.define('groups', {
 
@@ -54,7 +54,7 @@ let Group = db.define('groups', {
 })
 
 Group.createByUrls = async (urls, tagId) => {
-  const promises = await R.map(parseGroup, urls)
+  const promises = await map(parseGroup, urls)
 
   return await Promise.all(
     promises.map(async (promise) => {

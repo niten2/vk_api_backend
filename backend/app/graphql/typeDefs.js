@@ -1,16 +1,16 @@
 const query = `
   type Query {
     me: User
+    vkPersons: [VkPerson]
   }
 `
 
 const mutation = `
   type Mutation {
-    createUser(input: UserCreateInput!): User
+    createUser(input: UserCreateInput!): Token
+    createToken(input: TokenCreateInput!): Token
 
     updateMe(input: MeUpdateInput!): User
-
-    createToken(input: TokenCreateInput!): Token
   }
 `
 
@@ -21,7 +21,15 @@ const models = `
     name: String
     email: String
 
-    role: String
+    createdAt: String
+    updatedAt: String
+  }
+
+  type VkPerson {
+    id: ID
+
+    uid: String
+    isFriend: String
 
     createdAt: String
     updatedAt: String
@@ -43,13 +51,9 @@ const inputs = `
   }
 
   input UserCreateInput {
-    name: String!
+    name: String
     email: String!
-    login: String!
     password: String!
-
-    createdAt: String
-    updatedAt: String
   }
 
   input MeUpdateInput {

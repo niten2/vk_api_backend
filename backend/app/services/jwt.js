@@ -9,7 +9,6 @@ export const createJwt = (user) => {
   return jsonwebtoken.sign(
     {
       user_id: user.id,
-      email: user.email,
     },
     settings.jwt_secret_key,
     {

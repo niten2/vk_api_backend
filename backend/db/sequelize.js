@@ -1,6 +1,14 @@
 import Sequelize, { Op } from 'sequelize'
 import settings from 'config/settings'
 
+const buildLogging = () => {
+  if (settings.isEnvTest) {
+    return false
+  }
+
+  return console.log
+}
+
 const sequelize = new Sequelize(settings.databaseUrl, {
   operatorsAliases: Op,
 
@@ -8,11 +16,7 @@ const sequelize = new Sequelize(settings.databaseUrl, {
     freezeTableName: true,
   },
 
-  logging: () => {
-    if (settings.isEnvTest) {
-      return false
-    }
-  }
+  logging: buildLogging(),
 })
 
 export const sync = (...args) => sequelize.sync(...args)

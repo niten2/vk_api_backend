@@ -1,6 +1,5 @@
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { buildOptions } from 'app/graphql/config'
-import AuthMiddleware from 'app/middlewares/auth'
 
 export default (app) => {
 
@@ -11,13 +10,7 @@ export default (app) => {
     })
   })
 
-  app.use('/v1',
-    AuthMiddleware(),
-    graphqlExpress(buildOptions),
-  )
-
-  app.use('/v1', graphiqlExpress({
-    endpointURL: '/graphql'
-  }))
+  app.use('/v1', graphqlExpress(buildOptions))
+  app.use('/v1', graphiqlExpress({ endpointURL: '/graphql' }))
 
 }
