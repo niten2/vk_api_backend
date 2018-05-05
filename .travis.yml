@@ -13,7 +13,8 @@ addons:
       - g++-4.8
 
 script:
-  - ./.travis.ci.sh
+  - npm run backend:tests
+  - npm run frontend:tests
 
 notifications:
   email:
