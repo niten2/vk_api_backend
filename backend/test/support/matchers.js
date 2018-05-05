@@ -1,7 +1,7 @@
 const user_attr = `
   id
 
-  full_name
+  name
   email
 
   createdAt
@@ -15,9 +15,8 @@ export default {
   user_json: expect.objectContaining({
     id: expect.any(String),
 
-    full_name: expect.any(String),
+    name: expect.any(String),
     email: expect.any(String),
-    password: expect.any(String),
 
     createdAt: expect.any(String),
     updatedAt: expect.any(String),

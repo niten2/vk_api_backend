@@ -3,7 +3,7 @@ import { andPersonInFriend } from "app/services/vk/methods"
 import { getRandomInt } from "app/services/utils"
 
 const buildRule = () => {
-  const number = getRandomInt(5, 10)
+  const number = getRandomInt(50, 59)
 
   let rule = new schedule.RecurrenceRule()
   rule.minute = new schedule.Range(0, 59, number)

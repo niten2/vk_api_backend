@@ -27,6 +27,7 @@ export default {
   env: process.env.NODE_ENV,
   name: process.env.APP_NAME,
   port: process.env.PORT || 3000,
+  jwt_secret_key: process.env.JWT_SECRET_KEY,
 
   databaseUrl: process.env.DATABASE_URL,
 

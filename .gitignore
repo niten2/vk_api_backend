@@ -1,6 +1,7 @@
 vk_ids.txt
 
 backend/.env
+backend/.env.production
 backend/node_modules
 backend/db/database.development.sqlite
 backend/db/database.test.sqlite

@@ -9,7 +9,7 @@
     "node"
   ],
   "scripts": {
-    "start": "node_modules/.bin/nodemon --exec node --harmony ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "start": "NODE_ENV=production babel-node ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "dev": "node_modules/.bin/nodemon --exec babel-node ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "console": "node --require ./tools/babelhook ./tools/console.js",
     "tests": "jest --forceExit --runInBand",
@@ -61,6 +61,7 @@
     "chai": "^4.1.2",
     "dotenv": "^5.0.1",
     "factory": "^1.0.3",
+    "factory-girl": "^5.0.2",
     "faker": "^4.1.0",
     "fetch-mock": "^6.3.0",
     "jest": "^22.4.3",

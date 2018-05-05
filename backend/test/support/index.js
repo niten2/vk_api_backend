@@ -1,8 +1,8 @@
 import express from 'express'
-import factory from "factory"
-import { initApp } from "config/app"
+import factory from "test/factory"
 import execGraphql from "test/support/exec_grapql"
 import matchers from "test/support/matchers"
+import { initApp } from "config/app"
 
 global.factory = factory
 global.app = express()

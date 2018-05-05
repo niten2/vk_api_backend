@@ -20,6 +20,7 @@ export const ApiMutation = {
 
   createJwtToken: async (_, args, context) => {
     const { email, password } = args.input
+
     try {
       const user = await User.findOne({
         where: {

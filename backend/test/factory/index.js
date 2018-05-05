@@ -1,9 +1,9 @@
-import { User } from "app/models"
-import { factory } from "factory-girl"
 import faker from "faker"
+import { factory } from "factory-girl"
+import { User } from "app/models"
 
 factory.define('user', User, {
-  full_name: faker.name.findName,
+  name: faker.name.findName,
   email: faker.internet.email,
   password: faker.internet.password,
 })
