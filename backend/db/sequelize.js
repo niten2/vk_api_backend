@@ -21,6 +21,7 @@ const sequelize = new Sequelize(settings.databaseUrl, {
 })
 
 export const sync = (...args) => sequelize.sync(...args)
+
 export const dropDb = async () => {
   await User.destroy({ where: {}, truncate: true })
   await Setting.destroy({ where: {}, truncate: true })
