@@ -10,6 +10,17 @@ const User = Sequelize.define('users', {
   vk_token: DataType.STRING,
 }, {
 
+  instanceMethods: {
+    // add: async (tag_id) => {
+    //   Tag.create({
+    //     taggable_id: this.id,
+    //     tag_id: tag_id,
+    //     taggable: 'groups',
+    //   })
+    // }
+  },
+
+
 })
 
 export default User

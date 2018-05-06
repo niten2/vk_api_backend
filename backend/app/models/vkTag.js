@@ -14,6 +14,7 @@ let Tag = db.define('tags', {
   kind: Sequelize.ENUM('groups', 'users'),
 
   user_id: Sequelize.INTEGER,
+
 }, {
   freezeTableName: true
 })

@@ -6,27 +6,25 @@ const query = `
   }
 `
 
-xdescribe("valid params given", () => {
+describe("valid params given", () => {
 
-  xit("test", () => {})
+  it("should return user", async () => {
+    let user = await factory.create('user')
 
-  // it('should return user', async () => {
-  //   let user = await factory.create('user')
+    const res = await execGraphql({ query, user })
 
-  //   const res = await execGraphql({ query, user })
-
-  //   expect(res.data.me).toEqual(matchers.user_json)
-  //   expect(res.data.me.id).toEqual(user.id.toString())
-  // })
+    expect(res.data.me).toEqual(matchers.user_json)
+    expect(res.data.me.id).toEqual(user.id.toString())
+  })
 
 })
 
-// describe("wrong params given", () => {
+describe("wrong params given", () => {
 
-//   it('should return error', async () => {
-//     const res = await execGraphql({ query, unauth: true })
+  it('should return error', async () => {
+    const res = await execGraphql({ query, unauth: true })
 
-//     expect(res.errors).toContainEqual(matchers.errors_json)
-//   })
+    expect(res.errors).toContainEqual(matchers.errors_json)
+  })
 
-// })
+})

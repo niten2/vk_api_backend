@@ -5,11 +5,12 @@ import { delay } from "app/services/utils"
 import logger from "app/services/logger"
 
 export const addFriend = async (person) => {
+  const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
+
   // NOTE
   // 1 — заявка на добавление данного пользователя в друзья отправлена;
   // 2 — заявка на добавление в друзья от данного пользователя одобрена;
   // 4 — повторная отправка заявки.
-  const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
 
   if (anyPass([equals(1), equals(2), equals(4)])(res)) {
     await person.set({ isFriend: true })
@@ -28,6 +29,25 @@ export const andPersonInFriend = async () => {
     }
 
     await addFriend(person)
+
+    logger.info(person.uid, "add in friend")
+  } catch (err) {
+    logger.error(err)
+  }
+}
+
+export const andPersonInFriendUser = async (user_id) => {
+  try {
+    if (!user_id) throw new Error("user id not found")
+
+    const person = await vkPerson.findOne({ where: { isFriend: false, user_id } })
+
+    if (!person) {
+      logger.info("users not found")
+    }
+
+    await addFriend(person)
+    await person.update({ addFriendAt: new Date() })
 
     logger.info(person.uid, "add in friend")
   } catch (err) {

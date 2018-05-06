@@ -12,6 +12,7 @@ factory.define('user', User, {
 factory.define('vkPerson', VkPerson, {
   uid: faker.name.findName,
   first_name: faker.name.findName,
+  addFriendAt: faker.date.past,
 })
 
 export default factory

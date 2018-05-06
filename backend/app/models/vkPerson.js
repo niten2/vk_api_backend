@@ -50,6 +50,8 @@ let Person = Sequelize.define('vk_persons', {
 
   user_id: DataType.INTEGER,
 
+  addFriendAt: DataType.DATE,
+
   createdAt: {
     type: DataType.DATE,
     allowNull: false
@@ -70,7 +72,6 @@ let Person = Sequelize.define('vk_persons', {
 
 // User.addTag = async function(tag_id) {
 //   let tag = await Tag.findById(tag_id)
-
 //   if (tag) {
 //     tag.addUser(user, { taggable: "users" })
 //   }

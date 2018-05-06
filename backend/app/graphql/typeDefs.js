@@ -1,7 +1,8 @@
 const query = `
   type Query {
     me: User
-    vkPersons: [VkPerson]
+    settings: [Setting]
+    vkPersons(input: VkPersonsInput): [VkPerson]
   }
 `
 
@@ -40,6 +41,11 @@ const models = `
     user: User
   }
 
+  type Setting {
+    name: String
+    value: String
+  }
+
   type Total {
     total: Float!
   }
@@ -68,6 +74,17 @@ const inputs = `
     email: String!
     password: String!
   }
+
+  input VkPersonsInput {
+    filter: VkPersonsInputFilter
+  }
+
+  input VkPersonsInputFilter {
+    addFriendAt: String
+  }
+
+
+
 `
 
 const typeDefs = query + mutation + models + inputs

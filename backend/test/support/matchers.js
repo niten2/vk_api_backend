@@ -8,9 +8,19 @@ const user_attr = `
   updatedAt
 `
 
+const vkPerson_attr = `
+  id
+
+  uid
+
+  createdAt
+  updatedAt
+`
+
 export default {
 
   user_attr,
+  vkPerson_attr,
 
   user_json: expect.objectContaining({
     id: expect.any(String),
