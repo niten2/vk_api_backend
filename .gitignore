@@ -4,11 +4,10 @@ _old_frontend
 backend/.env
 backend/.env.production
 backend/node_modules
+backend/log/*
 backend/db/database.development.sqlite
 backend/db/database.test.sqlite
-backend/database.dev.sqlite
-backend/database.test.sqlite
-backend/log/*
+backend/db/database.production.sqlite
 
 frontend/node_modules
 frontend/coverage

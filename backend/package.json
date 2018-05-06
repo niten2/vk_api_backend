@@ -19,6 +19,7 @@
     "db:migrate:production": "NODE_ENV=production node_modules/.bin/sequelize db:migrate",
     "db:migration": "node_modules/.bin/sequelize migration:create",
     "db:seed": "babel-node db/seed",
+    "db:seed:production": "NODE_ENV=production babel-node db/seed",
     "db:drop": "rm -rf database.dev.sqlite",
     "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",

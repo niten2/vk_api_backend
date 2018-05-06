@@ -7,6 +7,7 @@ const User = Sequelize.define('users', {
   email: DataType.STRING,
   password: DataType.STRING,
 
+  vk_token: DataType.STRING,
 }, {
 
 })

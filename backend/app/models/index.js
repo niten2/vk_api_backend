@@ -2,17 +2,14 @@ import User from './user'
 import VkPerson from './vkPerson'
 import Setting from './setting'
 
+User.hasMany(VkPerson, { foreignKey: 'user_id', as: 'VkPersons' })
+// VkPerson.belongsTo(User, { foreignKey: 'user_id', targetKey: 'User' })
+
 export {
   User,
   Setting,
   VkPerson,
 }
-
-// import Person from './person'
-// import Group from './group'
-// import Tag from './tag'
-// import ItemTag from './itemTag'
-// // import Client from './client'
 
 // Person.belongsToMany(Tag, {
 //   through: {
@@ -25,41 +22,3 @@ export {
 //   foreignKey: 'taggable_id',
 //   constraints: false,
 // })
-
-// Group.belongsToMany(Tag, {
-//   through: {
-//     model: ItemTag,
-//     unique: false,
-//     scope: {
-//       taggable: 'groups'
-//     },
-//   },
-//   foreignKey: 'taggable_id',
-//   constraints: false,
-// })
-
-// Tag.belongsToMany(Person, {
-//   through: {
-//     model: ItemTag,
-//     unique: false
-//   },
-//   foreignKey: 'tag_id',
-//   constraints: false,
-// })
-
-// Tag.belongsToMany(Group, {
-//   through: {
-//     model: ItemTag,
-//     unique: false
-//   },
-//   foreignKey: 'tag_id',
-//   constraints: false,
-// })
-
-// export {
-//   Person,
-//   Group,
-//   Tag,
-//   ItemTag,
-//   // Client,
-// }

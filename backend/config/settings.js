@@ -1,11 +1,11 @@
 import dotenv from 'dotenv'
 
 const getPath = () => {
-  if (process.env.NODE_ENV == "test") {
-    return `.env.${process.env.NODE_ENV}`
-  } else {
+  if (process.env.NODE_ENV == "development" || !process.env.NODE_ENV) {
     return ".env"
   }
+
+  return `.env.${process.env.NODE_ENV}`
 }
 
 const checkRequiredEnv = (envs) => {
