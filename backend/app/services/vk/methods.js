@@ -1,5 +1,5 @@
 import vk from 'config/vk'
-import { vkPerson } from "app/models"
+import { User, vkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
 import logger from "app/services/logger"

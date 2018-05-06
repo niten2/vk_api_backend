@@ -17,12 +17,15 @@ const getStreams = () => {
 
 const buildLogger = () => {
   return bunyan.createLogger({
-    name: "logger",
+
+    name: settings.env,
     level: 'trace',
+
     serializers: {
       req: bunyan.stdSerializers.req,
       res: bunyan.stdSerializers.res
     },
+
     streams: getStreams(),
   })
 }
