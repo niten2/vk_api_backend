@@ -6,7 +6,8 @@ backend/.env.production
 backend/node_modules
 backend/log/*
 
-backend/database.development.sqlite
+backend/database.dev.sqlite
+backend/database.develompent.sqlite
 backend/database.test.sqlite
 backend/database.production.sqlite
 
