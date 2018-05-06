@@ -1,0 +1,26 @@
+language: node_js
+
+node_js: "8.8.1"
+
+env:
+  - CXX=g++-4.8
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+before_script:
+  - cd ./backend && npm install  && cd ..
+  - cd ./frontend && npm install  && cd ..
+
+script:
+  - npm run backend:tests
+  - npm run frontend:tests
+
+notifications:
+  email:
+    on_success: "never"
+    on_failure: "never"

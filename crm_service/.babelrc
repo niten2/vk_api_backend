@@ -1,8 +1,0 @@
-{
-  "presets": ["es2015", "stage-3"],
-  "plugins": [
-    ["babel-polyfill"],
-    ["resolver", {"resolveDirs": ["./"]}]
-  ]
-}
-
