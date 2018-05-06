@@ -1,5 +1,5 @@
 import vk from 'config/vk'
-import { User, vkPerson } from "app/models"
+import { User, VkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
 import logger from "app/services/logger"
@@ -22,7 +22,7 @@ export const addFriend = async (person) => {
 
 export const andPersonInFriend = async () => {
   try {
-    const person = await vkPerson.findOne({ where: { isFriend: false } })
+    const person = await VkPerson.findOne({ where: { isFriend: false } })
 
     if (!person) {
       logger.info("users not found")
@@ -38,28 +38,36 @@ export const andPersonInFriend = async () => {
 
 export const andPersonInFriendUser = async (user_id) => {
   try {
-    if (!user_id) throw new Error("user id not found")
+    if (!user_id) throw new Error("user_id not found")
 
-    const person = await vkPerson.findOne({ where: { isFriend: false, user_id } })
+    const person = await VkPerson.findOne({
+      where: {
+        isFriend: false,
+        user_id
+      }
+    })
 
     if (!person) {
-      logger.info("users not found")
+      logger.info("vk persons not found")
     }
 
     await addFriend(person)
     await person.update({ addFriendAt: new Date() })
 
-    logger.info(person.uid, "add in friend")
+    logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user_id}`)
+
   } catch (err) {
     logger.error(err)
   }
 }
 
-export const andPersonInFriendFirstUserWithLimit = async (user_id) => {
+export const andPersonInFriendFirstUserWithLimit = async () => {
   const user = await User.findById(1)
 
   if (await user.friendNotEnough()) {
     await andPersonInFriendUser(user.id)
+  } else {
+    logger.info("user id", user.id, "user enough friend")
   }
 }
 

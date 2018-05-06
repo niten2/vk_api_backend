@@ -27,7 +27,7 @@ User.prototype.countTodayFriend = async function() {
 }
 
 User.prototype.friendNotEnough = async function() {
-  return await this.countTodayFriend() >= 25
+  return await this.countTodayFriend() <= 25
 }
 
 

@@ -6,8 +6,8 @@ const buildRule = () => {
   const number = getRandomInt(30, 59)
 
   let rule = new schedule.RecurrenceRule()
-  // rule.minute = new schedule.Range(0, 59, number)
-  rule.minute = new schedule.Range(0, 59, 1)
+
+  rule.minute = new schedule.Range(0, 59, number)
 
   return rule
 }
