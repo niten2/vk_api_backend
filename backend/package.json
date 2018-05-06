@@ -24,6 +24,7 @@
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
     "db:vk:load:persons": "babel-node db/load/persons",
     "jobs": "babel-node app/jobs/index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "jobs:production": "NODE_ENV=production babel-node app/jobs/index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:check:friends": "babel-node app/services/vk/scripts/check_friends.js",
     "vk:persons:add:friends": "babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace"
   },

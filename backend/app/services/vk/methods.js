@@ -55,6 +55,14 @@ export const andPersonInFriendUser = async (user_id) => {
   }
 }
 
+export const andPersonInFriendFirstUserWithLimit = async (user_id) => {
+  const user = await User.findById(1)
+
+  if (await user.friendNotEnough()) {
+    await andPersonInFriendUser(user.id)
+  }
+}
+
 export const checkFriend = async (userId) => {
   const response = await vk.api.friends.areFriends({
     user_ids: [userId],

@@ -3,7 +3,7 @@ import { path } from "ramda"
 import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
-const { Op } = require('sequelize')
+import { Op } from "sequelize"
 
 const Query = {
 

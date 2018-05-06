@@ -15,3 +15,38 @@ describe('relations', () => {
   })
 
 })
+
+describe('instanceMethods', () => {
+
+  describe('coundTodayFriend', () => {
+    it("should return one", async () => {
+      const user = await factory.create("user")
+
+      const vkPerson = await factory.create("vkPerson", {
+        user_id : user.id,
+        addFriendAt: new Date(),
+      })
+
+      let res = await user.countTodayFriend()
+
+      expect(res).toEqual(1)
+    })
+  })
+
+  describe.only('friendNotEnough', () => {
+    it("should return false", async () => {
+      const user = await factory.create("user")
+
+      const vkPerson = await factory.create("vkPerson", {
+        user_id : user.id,
+        addFriendAt: new Date(),
+      })
+
+
+      let res = await user.friendNotEnough()
+
+      expect(res).toEqual(false)
+    })
+  })
+
+})

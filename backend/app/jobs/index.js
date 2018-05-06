@@ -1,5 +1,5 @@
 import schedule from 'node-schedule'
-import { andPersonInFriend } from "app/services/vk/methods"
+import { andPersonInFriendFirstUserWithLimit } from "app/services/vk/methods"
 import { getRandomInt } from "app/services/utils"
 
 const buildRule = () => {
@@ -12,7 +12,7 @@ const buildRule = () => {
 }
 
 const run = async () => {
-  await andPersonInFriend()
+  await andPersonInFriendFirstUserWithLimit()
 }
 
 schedule.scheduleJob(buildRule(), async () => { await run() })
