@@ -5,13 +5,7 @@ const meQuery = gql`
   query {
     me {
       id
-      full_name
-      email
-      login
-      password
-      role
-      phone
-      territory
+      vk_token
     }
   }
 `
@@ -20,22 +14,16 @@ const updateMeQuery = gql`
   mutation updateMe($input: MeUpdateInput!) {
     updateMe(input: $input) {
       id
-      full_name
-      email
-      login
-      password
-      role
-      phone
-      territory
+      vk_token
     }
   }
 `
 
 export const withData = compose(
   graphql<any, any, any>(meQuery, {
-    name: "meQuery"
+    name: "me"
   }),
   graphql<any, any, any>(updateMeQuery, {
-    name: "updateMeQuery"
+    name: "updateMe"
   }),
 )

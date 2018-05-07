@@ -56,7 +56,7 @@ const Mutation = {
   },
 
   updateMe: authenticated(async (root, args, ctx) => {
-    const user = ctx.user
+    const { user } = ctx
 
     await user.set(args.input)
     await user.save()
@@ -73,18 +73,7 @@ const Mutation = {
       throw new Error("user not found")
     }
 
-    if (user.blocked) {
-      throw new Error("user blocked, connect with admin")
-    }
-
-    if (!await user.comparePassword(password)) {
-      await user.addAttempt()
-      throw new Error("wrong password")
-    }
-
     const token = await createJwt(user)
-
-    await user.resetAttempt()
 
     return {
       user,

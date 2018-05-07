@@ -21,6 +21,7 @@ const models = `
 
     name: String
     email: String
+    vk_token: String
 
     createdAt: String
     updatedAt: String
@@ -65,9 +66,8 @@ const inputs = `
   input MeUpdateInput {
     name: String
     email: String
-    login: String
-
     password: String
+    vk_token: String
   }
 
   input TokenCreateInput {
