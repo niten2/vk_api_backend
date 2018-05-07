@@ -18,19 +18,16 @@ const checkRequiredEnv = (envs) => {
 dotenv.config({ path: getPath() })
 
 checkRequiredEnv([
-  "JWT_SECRET_KEY",
-  "VK_TOKEN",
   "DATABASE_URL",
+  "JWT_SECRET_KEY",
 ])
 
 export default {
   env: process.env.NODE_ENV,
-  name: process.env.APP_NAME,
   port: process.env.PORT || 3000,
-  jwt_secret_key: process.env.JWT_SECRET_KEY,
 
+  jwt_secret_key: process.env.JWT_SECRET_KEY,
   databaseUrl: process.env.DATABASE_URL,
 
   isEnvTest: process.env.NODE_ENV == "test",
-  vkToken: process.env.VK_TOKEN,
 }
