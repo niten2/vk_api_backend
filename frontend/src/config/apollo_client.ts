@@ -23,6 +23,7 @@ const errorLink = onError(({ networkError, graphQLErrors, response }) => {
         "user not found",
         "token not valid",
         "access denied: user not found",
+        "access denied: jwt token not valid",
       ]
 
       if (contains(message, messages)) {

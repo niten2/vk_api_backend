@@ -1,18 +1,25 @@
-import vk from 'config/vk'
+// import vk from 'config/vk'
+import { buildVk } from 'config/vk'
 import { User, VkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
 import logger from "app/services/logger"
 
-export const addFriend = async (person) => {
+export const addFriend = async (person, user) => {
+  // console.log(user.vk_token)
+  // console.log(user)
+
+  const vk = buildVk(user.vk_token)
+
   const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
 
   // NOTE
   // 1 — заявка на добавление данного пользователя в друзья отправлена;
   // 2 — заявка на добавление в друзья от данного пользователя одобрена;
   // 4 — повторная отправка заявки.
+  const isValid = anyPass([equals(1), equals(2), equals(4)])
 
-  if (anyPass([equals(1), equals(2), equals(4)])(res)) {
+  if (isValid(res)) {
     await person.set({ isFriend: true })
     await person.save()
   }
@@ -20,30 +27,30 @@ export const addFriend = async (person) => {
   return true
 }
 
-export const andPersonInFriend = async () => {
+// export const andPersonInFriend = async () => {
+//   try {
+//     const person = await VkPerson.findOne({ where: { isFriend: false } })
+
+//     if (!person) {
+//       logger.info("users not found")
+//     }
+
+//     await addFriend(person, user)
+
+//     logger.info(person.uid, "add in friend")
+//   } catch (err) {
+//     logger.error(err)
+//   }
+// }
+
+export const andPersonInFriendUser = async (user) => {
   try {
-    const person = await VkPerson.findOne({ where: { isFriend: false } })
-
-    if (!person) {
-      logger.info("users not found")
-    }
-
-    await addFriend(person)
-
-    logger.info(person.uid, "add in friend")
-  } catch (err) {
-    logger.error(err)
-  }
-}
-
-export const andPersonInFriendUser = async (user_id) => {
-  try {
-    if (!user_id) throw new Error("user_id not found")
+    if (!user) throw new Error("user_id not found")
 
     const person = await VkPerson.findOne({
       where: {
         isFriend: false,
-        user_id
+        user_id: user.id
       }
     })
 
@@ -51,24 +58,31 @@ export const andPersonInFriendUser = async (user_id) => {
       logger.info("vk persons not found")
     }
 
-    await addFriend(person)
+    await addFriend(person, user)
     await person.update({ addFriendAt: new Date() })
 
-    logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user_id}`)
+    logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user.id}`)
 
   } catch (err) {
     logger.error(err)
   }
 }
 
-export const andPersonInFriendFirstUserWithLimit = async () => {
-  const user = await User.findById(1)
+export const andPersonInFriendWithLimit = async () => {
+  const users = await User.findAll()
 
-  if (await user.friendNotEnough()) {
-    await andPersonInFriendUser(user.id)
-  } else {
-    logger.info("user id", user.id, "user enough friend")
-  }
+  await Promise.all(
+    users.map(async (user) => {
+
+      if (await user.isFriendNeed()) {
+        await andPersonInFriendUser(user)
+      } else {
+        logger.info("user id", user.id, "user enough friend")
+      }
+
+    })
+
+  )
 }
 
 export const checkFriend = async (userId) => {
