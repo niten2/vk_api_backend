@@ -1,3 +1,4 @@
+import { contains } from "ramda"
 import { ApolloClient } from "apollo-client"
 import { setContext } from "apollo-link-context"
 import { onError } from 'apollo-link-error'
@@ -17,7 +18,14 @@ const errorLink = onError(({ networkError, graphQLErrors, response }) => {
     graphQLErrors.map(({ message, locations, path }) => {
       console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
 
-      if (message === "user not found" || message === "token not valid") {
+      const messages = [
+        "access denied",
+        "user not found",
+        "token not valid",
+        "access denied: user not found",
+      ]
+
+      if (contains(message, messages)) {
         AuthProvider.removeToken()
         history.push("/")
       }

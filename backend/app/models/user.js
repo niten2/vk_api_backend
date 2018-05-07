@@ -1,8 +1,9 @@
 import moment from "moment"
+import bcrypt from "bcrypt"
 import DataType, { Op } from "sequelize"
 import Sequelize from 'db/sequelize'
 
-const User = Sequelize.define('users', {
+const schema = Sequelize.define('users', {
 
   name: DataType.STRING,
   email: DataType.STRING,
@@ -13,7 +14,20 @@ const User = Sequelize.define('users', {
 }, {
 })
 
-User.prototype.countTodayFriend = async function() {
+schema.hook('beforeSave', async function(user, options) {
+  if (user.changed('password')) user.password = await bcrypt.hash(user.password, 10)
+})
+
+schema.prototype.comparePassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password)
+}
+
+schema.prototype.isFriendNeed = async function() {
+  const countFriend = await this.countTodayFriend()
+  return  25 >= countFriend
+}
+
+schema.prototype.countTodayFriend = async function() {
   let res = await this.getVkPersons({
     where: {
       addFriendAt: {
@@ -26,9 +40,4 @@ User.prototype.countTodayFriend = async function() {
   return res.length
 }
 
-User.prototype.friendNotEnough = async function() {
-  return await this.countTodayFriend() <= 25
-}
-
-
-export default User
+export default schema

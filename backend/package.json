@@ -32,6 +32,7 @@
     "apollo-fetch": "^0.7.0",
     "apollo-server-express": "^1.3.6",
     "babyparse": "^0.4.6",
+    "bcrypt": "^2.0.1",
     "body-parser": "~1.18.2",
     "bunyan": "^1.8.12",
     "cors": "^2.8.4",
