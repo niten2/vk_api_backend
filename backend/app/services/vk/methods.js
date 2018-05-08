@@ -6,9 +6,6 @@ import { delay } from "app/services/utils"
 import logger from "app/services/logger"
 
 export const addFriend = async (person, user) => {
-  // console.log(user.vk_token)
-  // console.log(user)
-
   const vk = buildVk(user.vk_token)
 
   const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
@@ -69,7 +66,11 @@ export const andPersonInFriendUser = async (user) => {
 }
 
 export const andPersonInFriendWithLimit = async () => {
-  const users = await User.findAll()
+  const users = await User.findAll({
+    where: {
+      vk_active: true,
+    }
+  })
 
   await Promise.all(
     users.map(async (user) => {

@@ -34,15 +34,19 @@ class Profile extends React.Component<any, any> {
   public state = {
     me: {
       vk_token: "",
+      vk_active: false,
     },
   }
 
   componentWillReceiveProps(props: any) {
+    console.log(props.me.me)
+
     this.setState({ me: props.me.me })
   }
 
   handleSetState = (e) => {
-    const { name, value } = e.target
+    const { name } = e.target
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     this.setState({ me: set(lensProp(name), value, this.state.me) })
   }
 
@@ -53,6 +57,7 @@ class Profile extends React.Component<any, any> {
       variables: {
         input: {
           vk_token: me.vk_token,
+          vk_active: me.vk_active,
         }
       }
     }
@@ -93,7 +98,7 @@ class Profile extends React.Component<any, any> {
                   <form action="" method="post" encType="multipart/form-data" className="form-horizontal">
 
                     <div className="form-group row">
-                      <label className="col-md-3 form-control-label">Full name</label>
+                      <label className="col-md-3 form-control-label">vk token</label>
                       <div className="col-md-9">
                         <input
                           type="text"
@@ -101,6 +106,20 @@ class Profile extends React.Component<any, any> {
                           name="vk_token"
                           placeholder="vk_token"
                           value={me.vk_token || ""}
+                          onChange={this.handleSetState}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group row">
+                      <label className="col-md-3 form-control-label">vk active</label>
+                      <div className="col-md-9">
+                        <input
+                          type="checkbox"
+                          className="form-control"
+                          name="vk_active"
+                          placeholder="vk_active"
+                          checked={me.vk_active || false}
                           onChange={this.handleSetState}
                         />
                       </div>

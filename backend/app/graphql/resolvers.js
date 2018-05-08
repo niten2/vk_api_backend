@@ -65,9 +65,10 @@ const Mutation = {
   }),
 
   createToken: async (_, args) => {
-    const { login, password } = args.input
+    console.log(111, args)
+    const { email, password } = args.input
 
-    const user = await User.findOne({ login })
+    const user = await User.findOne({ email })
 
     if (!user) {
       throw new Error("user not found")

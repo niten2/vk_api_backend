@@ -6,6 +6,7 @@ const meQuery = gql`
     me {
       id
       vk_token
+      vk_active
     }
   }
 `

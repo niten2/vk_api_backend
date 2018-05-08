@@ -10,6 +10,7 @@ const schema = Sequelize.define('users', {
   password: DataType.STRING,
 
   vk_token: DataType.STRING,
+  vk_active: DataType.BOOLEAN,
 
 }, {
 })
