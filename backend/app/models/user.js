@@ -1,5 +1,5 @@
 import moment from "moment"
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt-nodejs"
 import DataType, { Op } from "sequelize"
 import Sequelize from 'db/sequelize'
 
@@ -13,14 +13,15 @@ const schema = Sequelize.define('users', {
   vk_active: DataType.BOOLEAN,
 
 }, {
+
 })
 
 schema.hook('beforeSave', async function(user, options) {
-  if (user.changed('password')) user.password = await bcrypt.hash(user.password, 10)
+  if (user.changed('password')) user.password = await bcrypt.hashSync(user.password)
 })
 
 schema.prototype.comparePassword = async function(candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password)
+  return await bcrypt.compareSync(candidatePassword, this.password)
 }
 
 schema.prototype.isFriendNeed = async function() {

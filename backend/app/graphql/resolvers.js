@@ -65,13 +65,16 @@ const Mutation = {
   }),
 
   createToken: async (_, args) => {
-    console.log(111, args)
     const { email, password } = args.input
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ where: { email } })
 
     if (!user) {
       throw new Error("user not found")
+    }
+
+    if (!await user.comparePassword(password)) {
+      throw new Error("wrong password")
     }
 
     const token = await createJwt(user)

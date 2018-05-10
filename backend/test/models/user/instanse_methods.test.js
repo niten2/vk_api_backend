@@ -16,7 +16,6 @@ describe('#coundTodayFriend', () => {
 })
 
 describe('#isFriendNeed', () => {
-
   it("should return false", async () => {
     const user = await factory.create("user")
 
@@ -29,15 +28,16 @@ describe('#isFriendNeed', () => {
 
     expect(res).toEqual(true)
   })
-
 })
 
-describe("#comparepassword", () => {
+describe.only("#comparePassword", () => {
   it("should return true", async () => {
     const password = "password"
     let user = await factory.create('user', { password })
 
-    expect(await user.comparePassword(password)).toBeTruthy()
+    let res = await user.comparePassword(password)
+
+    expect(res).toBeTruthy()
   })
 
   it("should return false", async () => {
