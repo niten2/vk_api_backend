@@ -6,6 +6,7 @@ export let fakeUser = {
   login: faker.name.findName(),
   password: faker.internet.password(),
   phone: faker.phone.phoneNumber(),
+  vk_token: faker.internet.password(),
   role: "manager",
 }
 

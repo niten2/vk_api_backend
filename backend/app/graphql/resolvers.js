@@ -85,6 +85,21 @@ const Mutation = {
     }
   },
 
+  createVkFriends: authenticated(async (root, args, ctx) => {
+    console.log(args.input)
+
+    return {
+      message: "ok"
+    }
+    // const { user } = ctx
+
+    // await user.set(args.input)
+    // await user.save()
+
+    // return user
+  }),
+
+
 }
 
 export default { Query, Mutation }

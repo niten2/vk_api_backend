@@ -6,6 +6,9 @@ import UIStore from 'src/store'
 import AuthProvider from "src/config/auth_provider"
 import Header from 'src/components/shared/header'
 import Sidebar from 'src/components/shared/sidebar'
+import Spinner from 'src/components/shared/spinner'
+import Page500 from 'src/components/shared/page500'
+import { withData } from "./queries"
 
 class LayoutComponent extends React.Component<any, any> {
 
@@ -14,10 +17,21 @@ class LayoutComponent extends React.Component<any, any> {
   }
 
   render() {
+    let { me, loading, error } = this.props.meQuery
+
+    if (loading ) {
+      return <Spinner />
+    }
+
+    if (error) {
+      return <Page500 error={error}/>
+    }
+
     return (
       <div className="app">
         <NotificationSystem ref={this.notification} allowHTML={true} />
-        <Header {...this.props}/>
+
+        <Header {...this.props} />
 
         <div className="app-body">
           <Sidebar {...this.props}/>
@@ -35,11 +49,13 @@ class LayoutComponent extends React.Component<any, any> {
   }
 }
 
+const LayoutComponentWithData = withData(LayoutComponent)
+
 export const Layout = ({component: Component, ...rest}) => {
   return (
-    <LayoutComponent>
+    <LayoutComponentWithData>
       <Route {...rest} render={(matchProps) => (<Component {...matchProps} />)} />
-    </LayoutComponent>
+    </LayoutComponentWithData>
   )
 }
 

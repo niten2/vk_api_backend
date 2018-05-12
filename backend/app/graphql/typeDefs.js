@@ -11,6 +11,8 @@ const mutation = `
     createUser(input: UserCreateInput!): Token
     createToken(input: TokenCreateInput!): Token
 
+    createVkFriends(input: CreateVkFriendsInput!): Message
+
     updateMe(input: MeUpdateInput!): User
   }
 `
@@ -51,6 +53,10 @@ const models = `
   type Total {
     total: Float!
   }
+
+  type Message {
+    message: String!
+  }
 `
 
 const inputs = `
@@ -86,8 +92,9 @@ const inputs = `
     addFriendAt: String
   }
 
-
-
+  input CreateVkFriendsInput {
+    ids: String!
+  }
 `
 
 const typeDefs = query + mutation + models + inputs
