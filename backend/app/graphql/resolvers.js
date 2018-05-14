@@ -3,7 +3,7 @@ import { path } from "ramda"
 import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
-import { Op } from "sequelize"
+import Sequelize, { Op } from "sequelize"
 
 const Query = {
 
@@ -24,9 +24,26 @@ const Query = {
       }
     }
 
-    const persons = await user.getVkPersons(options)
+    const vkPersons = await user.getVkPersons(options)
 
-    return persons
+    // TODO
+    // const totalCount = await user.getVkPersons(options).count()
+
+    // let z = await VkPerson.findAll({
+    //     attributes: {
+    //       include: [
+    //         [Sequelize.fn("COUNT", Sequelize.col("VkPerson.id")), "sensorCount"]
+    //       ]
+    //     },
+    //     // include: [{
+    //     //     model: User, attributes: []
+    //     // }]
+    // })
+
+    return {
+      vkPersons,
+      totalCount: 999,
+    }
   }),
 
   me: authenticated(async (root, args, ctx) => {
@@ -86,6 +103,7 @@ const Mutation = {
   },
 
   createVkFriends: authenticated(async (root, args, ctx) => {
+    const { user } = ctx
     let { ids } = args.input
 
     ids = ids.split("\n")
@@ -96,7 +114,7 @@ const Mutation = {
     await Promise.all(
       ids.map(async (id) => {
         try {
-          let person = await VkPerson.create({ uid: id })
+          let person = await VkPerson.create({ uid: id, user_id: user.id })
           persons.push(person)
 
         } catch (err) {

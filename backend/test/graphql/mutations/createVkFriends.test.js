@@ -6,6 +6,7 @@ const query = `
       persons {
         uid
         isFriend
+        user_id
       }
       errors {
         uid
@@ -74,10 +75,12 @@ describe("wrong params given", () => {
     })
 
     it('should return vk person', async () => {
+
       expect(res.data.createVkFriends.persons).toContainEqual(
         expect.objectContaining({
           uid: expect.any(String),
           isFriend: expect.any(Boolean),
+          user_id: user.id,
         })
       )
     })
@@ -91,11 +94,25 @@ describe("wrong params given", () => {
       )
     })
 
-    // it('should create VkPerson', async () => {
-    //   let vkPersons = await VkPerson.findAll()
+    it('should create VkPerson', async () => {
+      let vkPersons = await VkPerson.findAll()
 
-    //   expect(vkPersons).not.toEqual([])
-    // })
+      expect(vkPersons).toContainEqual(
+        expect.objectContaining({
+          uid: "34",
+          isFriend: false,
+          user_id: user.id,
+        })
+      )
+
+      expect(vkPersons).toContainEqual(
+        expect.objectContaining({
+          uid: "56",
+          isFriend: false,
+          user_id: user.id,
+        })
+      )
+    })
   })
 
 })

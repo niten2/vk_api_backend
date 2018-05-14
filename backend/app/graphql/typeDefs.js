@@ -2,7 +2,7 @@ const query = `
   type Query {
     me: User
     settings: [Setting]
-    vkPersons(input: VkPersonsInput): [VkPerson]
+    vkPersons(input: VkPersonsInput): VkPersonWithMeta
   }
 `
 
@@ -35,6 +35,7 @@ const models = `
 
     uid: String
     isFriend: Boolean
+    user_id: Int
 
     createdAt: String
     updatedAt: String
@@ -43,6 +44,11 @@ const models = `
   type UserWithToken {
     user: User
     token: String
+  }
+
+  type VkPersonWithMeta {
+    vkPersons: [VkPerson]
+    totalCount: Int
   }
 
   type VkPersonWithError {
