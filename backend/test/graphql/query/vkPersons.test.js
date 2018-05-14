@@ -3,27 +3,71 @@ import moment from "moment"
 let query = `
   query vkPersons {
     vkPersons {
-      ${matchers.vkPerson_attr}
+      vkPersons {
+        ${matchers.vkPerson_attr}
+      }
+      totalCount
     }
   }
 `
 
 describe("valid params given", () => {
 
-  describe("filter addFriendAt", () => {
+  describe("", () => {
+    let user
+    let vkPerson
+    let res
 
-    query = `
+    beforeEach(async () => {
+      user = await factory.create('user')
+
+      vkPerson = await factory.create('vkPerson', {
+        user_id: user.id,
+        addFriendAt: moment(),
+      })
+
+      const variableValues = {
+        input: {
+          filter: {
+            addFriendAt: moment().toISOString(),
+          }
+        }
+      }
+
+      res = await execGraphql({ query, user, variableValues })
+    })
+
+    it("should return vkPerson", async () => {
+      expect(res.data.vkPersons.vkPersons).toContainEqual(
+        expect.objectContaining({
+          id: vkPerson.id.toString()
+        })
+      )
+    })
+
+    it.only("should return totalCount", async () => {
+      expect(res.data.vkPersons.totalCount).toEqual(expect.any(Number))
+    })
+  })
+
+  describe("filter addFriendAt", () => {
+    let query = `
       query vkPersons($input: VkPersonsInput) {
         vkPersons(input: $input) {
-          ${matchers.vkPerson_attr}
+          vkPersons {
+            ${matchers.vkPerson_attr}
+          }
         }
       }
     `
+    let user
+    let vkPerson
+    let res
 
-    it("should not return vkPerson", async () => {
-      let user = await factory.create('user')
+    beforeEach(async () => {
+      user = await factory.create('user')
 
-      let vkPerson = await factory.create('vkPerson', {
+      vkPerson = await factory.create('vkPerson', {
         user_id: user.id,
         addFriendAt: moment()
       })
@@ -36,9 +80,11 @@ describe("valid params given", () => {
         }
       }
 
-      const res = await execGraphql({ query, user, variableValues })
+      res = await execGraphql({ query, user, variableValues })
+    })
 
-      expect(res.data.vkPersons).toContainEqual(
+    it("should not return vkPerson", async () => {
+      expect(res.data.vkPersons.vkPersons).toContainEqual(
         expect.objectContaining({
           id: vkPerson.id.toString()
         })

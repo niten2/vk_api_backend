@@ -4,10 +4,12 @@ import { graphql } from "react-apollo"
 const vkPersonsQuery = gql`
   query vkPersons {
     vkPersons {
-      id
+      vkPersons {
+        id
 
-      uid
-      isFriend
+        uid
+        isFriend
+      }
     }
   }
 

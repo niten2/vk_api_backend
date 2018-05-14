@@ -48,6 +48,26 @@ class Sidebar extends React.Component<any, any> {
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link
+                to={'/vk_add_new_friends'}
+                className="nav-link"
+                activeClassName="active"
+              >
+                <i className="icon-diamond" /> vk_add_new_friends
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                to={'/profile'}
+                className="nav-link"
+                activeClassName="active"
+              >
+                <i className="icon-diamond" /> profile
+              </Link>
+            </li>
+
 
             <LinkUser />
           </ul>

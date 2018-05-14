@@ -3,7 +3,7 @@ import { path } from "ramda"
 import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
-import { Op } from "sequelize"
+import Sequelize, { Op } from "sequelize"
 
 const Query = {
 
@@ -24,9 +24,26 @@ const Query = {
       }
     }
 
-    const persons = await user.getVkPersons(options)
+    const vkPersons = await user.getVkPersons(options)
 
-    return persons
+    // TODO
+    // const totalCount = await user.getVkPersons(options).count()
+
+    // let z = await VkPerson.findAll({
+    //     attributes: {
+    //       include: [
+    //         [Sequelize.fn("COUNT", Sequelize.col("VkPerson.id")), "sensorCount"]
+    //       ]
+    //     },
+    //     // include: [{
+    //     //     model: User, attributes: []
+    //     // }]
+    // })
+
+    return {
+      vkPersons,
+      totalCount: 999,
+    }
   }),
 
   me: authenticated(async (root, args, ctx) => {
@@ -56,7 +73,7 @@ const Mutation = {
   },
 
   updateMe: authenticated(async (root, args, ctx) => {
-    const user = ctx.user
+    const { user } = ctx
 
     await user.set(args.input)
     await user.save()
@@ -65,32 +82,56 @@ const Mutation = {
   }),
 
   createToken: async (_, args) => {
-    const { login, password } = args.input
+    const { email, password } = args.input
 
-    const user = await User.findOne({ login })
+    const user = await User.findOne({ where: { email } })
 
     if (!user) {
       throw new Error("user not found")
     }
 
-    if (user.blocked) {
-      throw new Error("user blocked, connect with admin")
-    }
-
     if (!await user.comparePassword(password)) {
-      await user.addAttempt()
       throw new Error("wrong password")
     }
 
     const token = await createJwt(user)
-
-    await user.resetAttempt()
 
     return {
       user,
       token,
     }
   },
+
+  createVkFriends: authenticated(async (root, args, ctx) => {
+    const { user } = ctx
+    let { ids } = args.input
+
+    ids = ids.split("\n")
+
+    let persons = []
+    let errors = []
+
+    await Promise.all(
+      ids.map(async (id) => {
+        try {
+          let person = await VkPerson.create({ uid: id, user_id: user.id })
+          persons.push(person)
+
+        } catch (err) {
+          errors.push({
+            uid: id,
+            message: err.message,
+          })
+        }
+      })
+    )
+
+    return {
+      persons,
+      errors,
+    }
+  }),
+
 
 }
 

@@ -6,25 +6,9 @@
 - docker-compose build
 - docker-compose up
 
-## Services
+### Get token vk for example
+https://oauth.vk.com/authorize?client_id=CLIENT_ID&scope=friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,email,notifications,stats,ads,offline,docs,pages,stats,notifications&response_type=token
 
-- api_gateway (node)
-- crm_service (node)
-- vk_service (node)
-- insta_service (node)
-- Web (react)
-- Docs (documentation graphql, react)
-- Mobile (react native)
-
-## Default ports on local machine
-
-### Frontend
-> - WEB_SERVISE=http://localhost:4000
-> - MOBILE_SERVISE=http://localhost:4009
-
-### Backend
-- API_GATEWAY=http://localhost:4001
-
-### Docs
-- DOCS_SERVISE=http://localhost:4005
+### Get token vk for current app
+https://oauth.vk.com/authorize?client_id=5815919&scope=friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,email,notifications,stats,ads,offline,docs,pages,stats,notifications&response_type=token
 

@@ -12,6 +12,7 @@ import SignUp from 'src/components/sign_up'
 import Profile from 'src/components/profile'
 
 import VkPersons from 'src/components/vk_persons'
+import VkAddNewFriends from 'src/components/vk_add_new_friends'
 // import NewUser from 'src/components/users/new'
 // import ShowUser from 'src/components/users/show'
 
@@ -35,6 +36,7 @@ export default () => {
           <PrivateLayout exact={true} path="/dashboard" component={Dashboard}/>
 
           <PrivateLayout exact={true} path="/vk_persons" component={VkPersons}/>
+          <PrivateLayout exact={true} path="/vk_add_new_friends" component={VkAddNewFriends}/>
 
           <PrivateLayout exact={true} path="/profile" component={Profile}/>
 

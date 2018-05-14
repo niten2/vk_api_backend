@@ -5,9 +5,6 @@ const createToken = gql`
   mutation createToken($input: TokenCreateInput!) {
     createToken(input: $input) {
       token
-      user {
-        role
-      }
     }
   }
 `

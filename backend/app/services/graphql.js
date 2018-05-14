@@ -22,4 +22,3 @@ export const authenticated = (fn) => async (parent, args, ctx, info) => {
 
   return fn(parent, args, ctx, info)
 }
-

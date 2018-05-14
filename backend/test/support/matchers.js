@@ -50,9 +50,8 @@ export default {
   }),
 
   user_db: expect.objectContaining({
-    _id: expect.any(Object),
+    id: expect.any(Number),
 
-    full_name: expect.any(String),
     email: expect.any(String),
     password: expect.any(String),
 

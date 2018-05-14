@@ -1,12 +1,13 @@
 import * as React from "react"
 
 interface P {
-  message?: string
+  error?: any
+  message?: any
 }
 
 class Page500 extends React.Component<P, {}> {
   render() {
-    const { message } = this.props
+    const { error } = this.props
 
     return (
       <div className="app flex-row align-items-center">
@@ -18,7 +19,8 @@ class Page500 extends React.Component<P, {}> {
                 <h1 className="float-left display-3 mr-4">500</h1>
                 <h4 className="pt-3">Houston, we have a problem!</h4>
                 <p className="text-muted">The page you are looking for is temporarily unavailable.</p>
-                {message ? <p>{message}</p> : null}
+
+                {error.message ? <p>{error.message}</p> : null}
               </div>
 
             </div>

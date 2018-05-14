@@ -6,55 +6,47 @@ import Page500 from 'src/components/shared/page500'
 import Notification from 'src/config/notification'
 import { withData } from 'src/components/profile/queries'
 
-interface P {
-  meQuery: {
+// interface P {
+//   me: {
+//     me: {
+//       vk_token: string
+//     }
+//     loading: any
+//     error: any
+//   }
+
+//   updateMe: any
+// }
+
+// interface S {
+//   me: {
+//     full_name: string
+//     email: string
+//     login: string
+//     password: string
+//     role: string
+//     phone: string
+//     territory: string
+//   }
+// }
+
+class Profile extends React.Component<any, any> {
+  public state = {
     me: {
-      full_name: string
-      email: string
-      login: string
-      password: string
-      role: string
-      phone: string
-      territory: string
-    }
-    loading: any
-    error: any
-  }
-
-  updateMeQuery: any
-}
-
-interface S {
-  me: {
-    full_name: string
-    email: string
-    login: string
-    password: string
-    role: string
-    phone: string
-    territory: string
-  }
-}
-
-class Profile extends React.Component<P, S> {
-  public state: S = {
-    me: {
-      full_name: "",
-      email: "",
-      login: "",
-      password: "",
-      role: "",
-      phone: "",
-      territory: "",
+      vk_token: "",
+      vk_active: false,
     },
   }
 
-  componentWillReceiveProps(props: P) {
-    this.setState({ me: props.meQuery.me })
+  componentWillReceiveProps(props: any) {
+    console.log(props.me.me)
+
+    this.setState({ me: props.me.me })
   }
 
   handleSetState = (e) => {
-    const { name, value } = e.target
+    const { name } = e.target
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     this.setState({ me: set(lensProp(name), value, this.state.me) })
   }
 
@@ -64,18 +56,14 @@ class Profile extends React.Component<P, S> {
     const options = {
       variables: {
         input: {
-          full_name: me.full_name,
-          email: me.email,
-          login: me.login,
-          role: me.role,
-          phone: me.phone,
-          territory: me.territory,
+          vk_token: me.vk_token,
+          vk_active: me.vk_active,
         }
       }
     }
 
     try {
-      await this.props.updateMeQuery(options)
+      await this.props.updateMe(options)
 
       Notification.success("update profile")
     } catch (err) {
@@ -84,7 +72,7 @@ class Profile extends React.Component<P, S> {
   }
 
   render() {
-    let { loading, error } = this.props.meQuery
+    let { loading, error } = this.props.me
     let { me } = this.state
 
     if (loading) {
@@ -110,56 +98,28 @@ class Profile extends React.Component<P, S> {
                   <form action="" method="post" encType="multipart/form-data" className="form-horizontal">
 
                     <div className="form-group row">
-                      <label className="col-md-3 form-control-label">Full name</label>
+                      <label className="col-md-3 form-control-label">vk token</label>
                       <div className="col-md-9">
                         <input
                           type="text"
                           className="form-control"
-                          name="full_name"
-                          placeholder="full_name"
-                          value={me.full_name || ""}
+                          name="vk_token"
+                          placeholder="vk_token"
+                          value={me.vk_token || ""}
                           onChange={this.handleSetState}
                         />
                       </div>
                     </div>
 
                     <div className="form-group row">
-                      <label className="col-md-3 form-control-label">Login</label>
+                      <label className="col-md-3 form-control-label">vk active</label>
                       <div className="col-md-9">
                         <input
-                          type="text"
+                          type="checkbox"
                           className="form-control"
-                          name="login"
-                          placeholder="login"
-                          value={me.login || ""}
-                          onChange={this.handleSetState}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-group row">
-                      <label className="col-md-3 form-control-label">Email</label>
-                      <div className="col-md-9">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="email"
-                          placeholder="Email"
-                          value={me.email || ""}
-                          onChange={this.handleSetState}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-group row">
-                      <label className="col-md-3 form-control-label">Phone</label>
-                      <div className="col-md-9">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="phone"
-                          placeholder="phone"
-                          value={me.phone || ""}
+                          name="vk_active"
+                          placeholder="vk_active"
+                          checked={me.vk_active || false}
                           onChange={this.handleSetState}
                         />
                       </div>

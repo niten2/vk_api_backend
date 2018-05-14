@@ -11,7 +11,7 @@ interface P {
 }
 
 interface S {
-  login: string
+  email: string
   password: string
   error: string | null
   loading: boolean
@@ -20,7 +20,7 @@ interface S {
 class Login extends React.Component<P, S> {
 
   state = {
-    login: 'admin',
+    email: '',
     password: '12345',
     error: null,
     loading: false,
@@ -36,13 +36,14 @@ class Login extends React.Component<P, S> {
   }
 
   handleLogin = async () => {
-    const { login, password } = this.state
+    const { email, password } = this.state
+    this.setState({ error: null })
 
     const options = {
       variables: {
         input: {
-          login: login,
-          password: password,
+          email,
+          password,
         }
       }
     }
@@ -102,11 +103,11 @@ class Login extends React.Component<P, S> {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Login"
-                        name="login"
+                        placeholder="email"
+                        name="email"
                         onChange={this.handleSetState}
                         onKeyPress={this.handleOnKeyPress}
-                        value={this.state.login}
+                        value={this.state.email}
                       />
                     </div>
 

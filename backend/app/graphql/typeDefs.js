@@ -2,14 +2,16 @@ const query = `
   type Query {
     me: User
     settings: [Setting]
-    vkPersons(input: VkPersonsInput): [VkPerson]
+    vkPersons(input: VkPersonsInput): VkPersonWithMeta
   }
 `
 
 const mutation = `
   type Mutation {
-    createUser(input: UserCreateInput!): Token
-    createToken(input: TokenCreateInput!): Token
+
+    createToken(input: TokenCreateInput!): UserWithToken
+    createUser(input: UserCreateInput!): UserWithToken
+    createVkFriends(input: CreateVkFriendsInput!): VkPersonWithError
 
     updateMe(input: MeUpdateInput!): User
   }
@@ -21,6 +23,8 @@ const models = `
 
     name: String
     email: String
+    vk_token: String
+    vk_active: Boolean
 
     createdAt: String
     updatedAt: String
@@ -30,15 +34,31 @@ const models = `
     id: ID
 
     uid: String
-    isFriend: String
+    isFriend: Boolean
+    user_id: Int
 
     createdAt: String
     updatedAt: String
   }
 
-  type Token {
-    token: String!
+  type UserWithToken {
     user: User
+    token: String
+  }
+
+  type VkPersonWithMeta {
+    vkPersons: [VkPerson]
+    totalCount: Int
+  }
+
+  type VkPersonWithError {
+    persons: [VkPerson]
+    errors: [VkPersonError]
+  }
+
+  type VkPersonError {
+    uid: String
+    message: String
   }
 
   type Setting {
@@ -48,6 +68,10 @@ const models = `
 
   type Total {
     total: Float!
+  }
+
+  type Message {
+    message: String!
   }
 `
 
@@ -65,9 +89,10 @@ const inputs = `
   input MeUpdateInput {
     name: String
     email: String
-    login: String
-
     password: String
+
+    vk_token: String
+    vk_active: Boolean
   }
 
   input TokenCreateInput {
@@ -83,8 +108,9 @@ const inputs = `
     addFriendAt: String
   }
 
-
-
+  input CreateVkFriendsInput {
+    ids: String!
+  }
 `
 
 const typeDefs = query + mutation + models + inputs
