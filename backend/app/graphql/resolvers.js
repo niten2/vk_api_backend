@@ -86,17 +86,18 @@ const Mutation = {
   },
 
   createVkFriends: authenticated(async (root, args, ctx) => {
-    console.log(args.input)
+    let { ids } = args.input
 
-    return {
-      message: "ok"
-    }
-    // const { user } = ctx
+    ids = ids.split("\n")
 
-    // await user.set(args.input)
-    // await user.save()
 
-    // return user
+    let persons = await Promise.all(
+      ids.map(async (id) => {
+        return await VkPerson.create({ uid: id })
+      })
+    )
+
+    return persons
   }),
 
 

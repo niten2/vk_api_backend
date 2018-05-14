@@ -8,10 +8,10 @@ const query = `
 
 const mutation = `
   type Mutation {
-    createUser(input: UserCreateInput!): Token
-    createToken(input: TokenCreateInput!): Token
 
-    createVkFriends(input: CreateVkFriendsInput!): Message
+    createToken(input: TokenCreateInput!): UserWithToken
+    createUser(input: UserCreateInput!): UserWithToken
+    createVkFriends(input: CreateVkFriendsInput!): [VkPerson]
 
     updateMe(input: MeUpdateInput!): User
   }
@@ -34,15 +34,15 @@ const models = `
     id: ID
 
     uid: String
-    isFriend: String
+    isFriend: Boolean
 
     createdAt: String
     updatedAt: String
   }
 
-  type Token {
-    token: String!
+  type UserWithToken {
     user: User
+    token: String
   }
 
   type Setting {
