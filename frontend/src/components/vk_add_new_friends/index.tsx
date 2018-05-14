@@ -1,30 +1,21 @@
 import * as React from 'react'
 import { Input } from 'reactstrap'
 import Notification from 'src/config/notification'
-
-// import Spinner from 'src/components/shared/spinner'
-// import Page500 from 'src/components/shared/page500'
-// import UserView from './view'
+import VkPersonsView from './vkPersons'
+import VkErrorView from './vkErrors'
 import { withData } from './queries'
-
-// interface P {
-//   vkPersonsQuery: {
-//     vkPersons: [object]
-//     loading: any
-//     error: any
-//   }
-// }
 
 class Index extends React.Component<any, any> {
 
   state = {
     ids: [],
+    vkPersons: [],
+    errors: [],
   }
 
   handleSetState = (e) => {
     const { name, value } = e.target
     // let { user } = this.state
-
     // user[name] = value
     this.setState({ ids: value })
   }
@@ -48,9 +39,13 @@ class Index extends React.Component<any, any> {
     }
 
     try {
-      await this.props.createVkFriendsQuery(options)
+      const res = await this.props.createVkFriendsQuery(options)
 
-      this.setState({ ids: [] })
+      const vkPersons = res.data.createVkFriends.persons
+      const errors = res.data.createVkFriends.errors
+
+      this.setState({ ids: [], vkPersons, errors })
+
 
       Notification.success("create friends")
     } catch (err) {
@@ -60,21 +55,7 @@ class Index extends React.Component<any, any> {
 
 
   render() {
-    let { ids } = this.state
-
-    // let { vkPersons, loading, error } = this.props.vkPersonsQuery
-
-    // console.log(this.props.vkPersonsQuery)
-
-    // if (loading ) {
-    //   return <Spinner />
-    // }
-
-    // if (error) {
-    //   return <Page500 />
-    // }
-
-    console.log(this.state)
+    let { ids, vkPersons, errors } = this.state
 
     return (
       <div className="container-fluid">
@@ -118,6 +99,20 @@ class Index extends React.Component<any, any> {
 
                     </div>
                   </form>
+
+                  { vkPersons.map((object, index) =>
+                    <VkPersonsView
+                      key={index}
+                      object={object}
+                    />
+                  )}
+
+                  { errors.map((object, index) =>
+                    <VkErrorView
+                      key={index}
+                      object={object}
+                    />
+                  )}
 
                 </div>
 

@@ -11,7 +11,7 @@ const mutation = `
 
     createToken(input: TokenCreateInput!): UserWithToken
     createUser(input: UserCreateInput!): UserWithToken
-    createVkFriends(input: CreateVkFriendsInput!): [VkPerson]
+    createVkFriends(input: CreateVkFriendsInput!): VkPersonWithError
 
     updateMe(input: MeUpdateInput!): User
   }
@@ -43,6 +43,16 @@ const models = `
   type UserWithToken {
     user: User
     token: String
+  }
+
+  type VkPersonWithError {
+    persons: [VkPerson]
+    errors: [VkPersonError]
+  }
+
+  type VkPersonError {
+    uid: String
+    message: String
   }
 
   type Setting {

@@ -90,14 +90,28 @@ const Mutation = {
 
     ids = ids.split("\n")
 
+    let persons = []
+    let errors = []
 
-    let persons = await Promise.all(
+    await Promise.all(
       ids.map(async (id) => {
-        return await VkPerson.create({ uid: id })
+        try {
+          let person = await VkPerson.create({ uid: id })
+          persons.push(person)
+
+        } catch (err) {
+          errors.push({
+            uid: id,
+            message: err.message,
+          })
+        }
       })
     )
 
-    return persons
+    return {
+      persons,
+      errors,
+    }
   }),
 
 

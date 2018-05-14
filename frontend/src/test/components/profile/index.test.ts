@@ -3,7 +3,7 @@ import fixture from "src/test/__fixtures__/profile/index"
 
 const { mount, getWrapper } = createTestContext({ fixture })
 
-describe("text", async () => {
+xdescribe("text", async () => {
 
   beforeEach(mount)
 

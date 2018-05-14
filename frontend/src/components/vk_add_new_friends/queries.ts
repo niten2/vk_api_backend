@@ -4,7 +4,14 @@ import { compose, graphql } from "react-apollo"
 const createVkFriendsQuery = gql`
   mutation createVkFriends($input: CreateVkFriendsInput!) {
     createVkFriends(input: $input) {
-      message
+      persons {
+        uid
+        isFriend
+      }
+      errors {
+        uid
+        message
+      }
     }
   }
 `
