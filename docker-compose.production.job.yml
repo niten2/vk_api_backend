@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  backend:
+    container_name: smm_crm_system_backend_production_job
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.production.job
+    image: smm_crm_system_backend_production_job_1
+    command: bash -c "npm run jobs:production"
+    env_file: ./backend/.env.production
+    volumes:
+      - ./backend/database.production.sqlite/:/app/database.production.sqlite
+      - ./backend/.env.production/:/app/.env.production
