@@ -3,24 +3,24 @@ services:
 
   backend:
     tty: true
-    container_name: smm_crm_system_backend
+    container_name: smm_crm_system_production_backend
     build:
       context: ./backend
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile.production
     image: smm_crm_system_backend_1
+    command: bash -c "npm run start"
     ports:
       - "3001:3001"
-    command: bash -c "npm run dev"
     env_file: ./backend/.env
     volumes:
       - ./backend/:/app
 
   frontend:
     tty: true
-    container_name: smm_crm_system_frontend
+    container_name: smm_crm_system_production_frontend
     build:
       context: ./frontend
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile.production
     image: smm_crm_system_frontend_1
     command: bash -c "npm run start"
     ports:

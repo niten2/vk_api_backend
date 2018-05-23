@@ -26,7 +26,7 @@ schema.prototype.comparePassword = async function(candidatePassword) {
 
 schema.prototype.isFriendNeed = async function() {
   const countFriend = await this.countTodayFriend()
-  return  25 >= countFriend
+  return 25 >= countFriend
 }
 
 schema.prototype.countTodayFriend = async function() {

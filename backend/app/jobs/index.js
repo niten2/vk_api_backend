@@ -1,6 +1,10 @@
 import schedule from 'node-schedule'
 import { andPersonInFriendWithLimit } from "app/services/vk/methods"
 import { getRandomInt } from "app/services/utils"
+import { loggerJob } from "app/services/logger"
+import settings from 'config/settings'
+
+loggerJob.info(`start job env = ${settings.env}`)
 
 const buildRule = () => {
   const number = getRandomInt(30, 59)
