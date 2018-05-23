@@ -1,5 +1,6 @@
+import { merge, path, prop, last } from "ramda"
 import moment from "moment"
-import { path } from "ramda"
+// import { path } from "ramda"
 import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
@@ -9,40 +10,48 @@ const Query = {
 
   vkPersons: authenticated(async (root, args, ctx) => {
     const { user } = ctx
-    let options = {}
+    const { cursor, limit = 15 } = args.input
+
+    let options = { user_id: user.id }
 
     const addFriendAt = path(["input", "filter", "addFriendAt"], args)
-
     if (addFriendAt) {
-      options = {
+      options = merge({
         where: {
           addFriendAt: {
             [Op.gt]: moment(addFriendAt).add(-1, 'days').toDate(),
             [Op.lt]: moment(addFriendAt).add(1, 'days').toDate(),
           }
         }
-      }
+      }, options)
     }
 
-    const vkPersons = await user.getVkPersons(options)
+    if (cursor) {
+      options = merge({
+        where: {
+          id: {
+            // [Op.gt]: new Date(parseInt(cursor))
+            [Op.gt]: parseInt(cursor)
+          }
+        }
+      }, options)
+    }
 
-    // TODO
-    // const totalCount = await user.getVkPersons(options).count()
+    options.limit = limit || 15
 
-    // let z = await VkPerson.findAll({
-    //     attributes: {
-    //       include: [
-    //         [Sequelize.fn("COUNT", Sequelize.col("VkPerson.id")), "sensorCount"]
-    //       ]
-    //     },
-    //     // include: [{
-    //     //     model: User, attributes: []
-    //     // }]
-    // })
+    let vkPersons = await VkPerson.findAll(options)
+    const count = await VkPerson.count({ user_id: user.id })
+
+    // console.log(cursor)
+    console.log(vkPersons.map((vk) => vk.id))
+
+    const newCursor = prop("id", last(vkPersons))
 
     return {
       vkPersons,
-      totalCount: 999,
+      count,
+      // cursor: newCursor && newCursor.getTime(),
+      cursor: newCursor,
     }
   }),
 
