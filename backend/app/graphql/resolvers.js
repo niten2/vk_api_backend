@@ -124,8 +124,8 @@ const Mutation = {
       ids.map(async (id) => {
         try {
           let person = await VkPerson.create({ uid: id, user_id: user.id })
-          persons.push(person)
 
+          persons.push(person)
         } catch (err) {
           errors.push({
             uid: id,
@@ -140,7 +140,6 @@ const Mutation = {
       errors,
     }
   }),
-
 
 }
 

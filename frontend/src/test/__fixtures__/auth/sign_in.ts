@@ -1,7 +1,7 @@
-import Login from 'src/components/login'
+import SignIn from 'src/components/auth/sign_in'
 
 export default {
-  component: Login,
+  component: SignIn,
   url: "/url",
 
   props: {

@@ -4,6 +4,7 @@ import AuthProvider from "src/config/auth_provider"
 import Link from "src/config/link"
 import { ErrorMessage } from "./components"
 import { withData } from "./queries"
+import { withRouter } from "react-router"
 
 interface P {
   createToken: (options: object) => Promise<any>
@@ -56,7 +57,8 @@ class Login extends React.Component<P, S> {
 
       AuthProvider.saveToken(token)
 
-      this.props.history.push("dashboard")
+
+      this.props.history.push("/")
     } catch (err) {
       this.setState({ loading: false })
       this.setState({ error: err.message })
@@ -154,4 +156,4 @@ class Login extends React.Component<P, S> {
 
 }
 
-export default withData(Login)
+export default withRouter(withData(Login))

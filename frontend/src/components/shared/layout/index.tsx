@@ -63,7 +63,7 @@ export const PrivateLayout = (options: any) => {
   if (AuthProvider.hasLogin()) {
     return Layout(options)
   } else {
-    return <Redirect to="/login" />
+    return <Redirect to="/sign_in" />
   }
 }
 
@@ -71,7 +71,7 @@ export const PrivateLayoutAdmin = (options: any) => {
   if (AuthProvider.hasLogin() && AuthProvider.isAdmin()) {
     return Layout(options)
   } else {
-    return <Redirect to="/dashboard" />
+    return <Redirect to="/" />
   }
 }
 
@@ -79,6 +79,6 @@ export const PrivateLayoutManager = (options: any) => {
   if (AuthProvider.hasLogin() && !AuthProvider.isAdmin()) {
     return Layout(options)
   } else {
-    return <Redirect to="/dashboard" />
+    return <Redirect to="/" />
   }
 }

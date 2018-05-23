@@ -34,7 +34,7 @@ class Header extends React.Component<any, any> {
     AuthProvider.removeToken()
 
     this.props.client.resetStore()
-    this.props.history.push("/login")
+    this.props.history.push("/sign_in")
 
     console.log("LOGOUT")
   }
