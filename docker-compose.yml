@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  backend:
+    tty: true
+    container_name: smm_crm_system_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.development
+    image: smm_crm_system_backend_1
+    ports:
+      - "3001:3001"
+    env_file: ./backend/.env
+    volumes:
+      - ./backend/:/app
+
+  frontend:
+    tty: true
+    container_name: smm_crm_system_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.development
+    image: smm_crm_system_frontend_1
+    ports:
+      - "3000:3000"
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend/:/app
