@@ -3,7 +3,8 @@ import { buildVk } from 'config/vk'
 import { User, VkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
-import logger from "app/services/logger"
+import logger, { loggerJob } from "app/services/logger"
+
 
 export const addFriend = async (person, user) => {
   const vk = buildVk(user.vk_token)
@@ -47,19 +48,24 @@ export const andPersonInFriendUser = async (user) => {
     const person = await VkPerson.findOne({
       where: {
         isFriend: false,
-        user_id: user.id
+        user_id: user.id,
       }
     })
 
     if (!person) {
-      logger.info("vk persons not found")
+      const messageNotFound = `vk persons not found, user.id=${user.id}`
+
+      logger.info(messageNotFound)
+      loggerJob.info(messageNotFound)
     }
 
     await addFriend(person, user)
     await person.update({ addFriendAt: new Date() })
 
-    logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user.id}`)
+    const messageSucces = `person.uid = ${person.uid}, add in friend for user.id = ${user.id}`
 
+    logger.info(messageSucces)
+    loggerJob.info(messageSucces)
   } catch (err) {
     logger.error(err)
   }
@@ -78,7 +84,10 @@ export const andPersonInFriendWithLimit = async () => {
       if (await user.isFriendNeed()) {
         await andPersonInFriendUser(user)
       } else {
-        logger.info("user id", user.id, "user enough friend")
+        const message = `user id, ${user.id}, user enough friend`
+
+        logger.info(message)
+        loggerJob.info(message)
       }
 
     })
