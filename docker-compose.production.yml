@@ -8,6 +8,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.production
     image: smm_crm_system_backend_1
+    command: bash -c "npm run start"
     ports:
       - "3001:3001"
     env_file: ./backend/.env
@@ -21,6 +22,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.production
     image: smm_crm_system_frontend_1
+    command: bash -c "npm run start"
     ports:
       - "3000:3000"
     env_file: ./frontend/.env

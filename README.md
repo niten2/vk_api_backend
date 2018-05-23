@@ -15,9 +15,7 @@
 
 ### production job
 - docker-compose -f docker-compose.production.job.yml build
-
-
-
+- docker-compose -f docker-compose.production.job.yml up
 
 ### Get token vk for example
 https://oauth.vk.com/authorize?client_id=CLIENT_ID&scope=friends,photos,audio,video,docs,notes,pages,status,offers,questions,wall,groups,messages,email,notifications,stats,ads,offline,docs,pages,stats,notifications&response_type=token
