@@ -4,7 +4,8 @@
   "private": false,
   "homepage": "http://niten2.github.io/",
   "scripts": {
-    "start": "react-scripts-ts start",
+    "start": "NODE_ENV=production react-scripts-ts start",
+    "dev": "NODE_ENV=development react-scripts-ts start",
     "build": "react-scripts-ts build",
     "tests": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom src/test",
     "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",

@@ -1,56 +1,48 @@
-import { merge, path, prop, last } from "ramda"
 import moment from "moment"
-// import { path } from "ramda"
+import Sequelize, { Op } from "sequelize"
+import { merge, path, prop, last } from "ramda"
 import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
-import Sequelize, { Op } from "sequelize"
 
 const Query = {
 
   vkPersons: authenticated(async (root, args, ctx) => {
     const { user } = ctx
     const { cursor, limit = 15 } = args.input
-
-    let options = { user_id: user.id }
+    let query = { user_id: user.id }
 
     const addFriendAt = path(["input", "filter", "addFriendAt"], args)
     if (addFriendAt) {
-      options = merge({
+      query = merge({
         where: {
           addFriendAt: {
             [Op.gt]: moment(addFriendAt).add(-1, 'days').toDate(),
             [Op.lt]: moment(addFriendAt).add(1, 'days').toDate(),
           }
         }
-      }, options)
+      }, query)
     }
 
     if (cursor) {
-      options = merge({
+      query = merge({
         where: {
           id: {
-            // [Op.gt]: new Date(parseInt(cursor))
             [Op.gt]: parseInt(cursor)
           }
         }
-      }, options)
+      }, query)
     }
 
-    options.limit = limit || 15
+    query.limit = limit || 15
 
-    let vkPersons = await VkPerson.findAll(options)
+    const vkPersons = await VkPerson.findAll(query)
     const count = await VkPerson.count({ user_id: user.id })
-
-    // console.log(cursor)
-    console.log(vkPersons.map((vk) => vk.id))
-
     const newCursor = prop("id", last(vkPersons))
 
     return {
       vkPersons,
       count,
-      // cursor: newCursor && newCursor.getTime(),
       cursor: newCursor,
     }
   }),
