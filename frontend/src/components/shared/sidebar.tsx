@@ -40,21 +40,31 @@ class Sidebar extends React.Component<any, any> {
 
             <li className="nav-item">
               <Link
-                to={'/vk_persons'}
+                to={'/vk/friends/all'}
                 className="nav-link"
                 activeClassName="active"
               >
-                <i className="icon-diamond" /> vk persons
+                <i className="icon-diamond" /> vk friends all
               </Link>
             </li>
 
             <li className="nav-item">
               <Link
-                to={'/vk_add_new_friends'}
+                to={'/vk/friends/today'}
                 className="nav-link"
                 activeClassName="active"
               >
-                <i className="icon-diamond" /> vk_add_new_friends
+                <i className="icon-diamond" /> vk friends today
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                to={'/vk/friends/new'}
+                className="nav-link"
+                activeClassName="active"
+              >
+                <i className="icon-diamond" /> vk friends new
               </Link>
             </li>
 

@@ -13,7 +13,6 @@ const vkPersonsQuery = gql`
       }
     }
   }
-
 `
 export const withData = graphql<any, any, any>(
   vkPersonsQuery, {
