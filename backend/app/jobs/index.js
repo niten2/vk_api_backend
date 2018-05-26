@@ -22,25 +22,35 @@ const checkAndAddJob = async (user) => {
 const startNewJob = async () => {
   logger.debug(`start new job`)
 
-  const users = await User.findAll({ where: { vk_active: true } })
-
-  await Promise.all(users.map(checkAndAddJob))
+  try {
+    const users = await User.findAll({ where: { vk_active: true } })
+    await Promise.all(users.map(checkAndAddJob))
+  } catch (err) {
+    logger.error(err.message)
+  }
 }
 
 vkFriendsQueue.process(async (job) => {
-  const { data } = job
+  try {
+    const { data } = job
+    const user = await User.findById(data.userId)
 
-  const user = await User.findById(data.userId)
+    await andPersonInFriendUser(user)
 
-  await andPersonInFriendUser(user)
-
-  return { userId: data.userId }
+    return { userId: data.userId }
+  } catch (err) {
+    logger.error(err.message)
+  }
 })
 
 vkFriendsQueue.on('completed', async (job, data) => {
-  const user = await User.findById(data.userId)
+  try {
+    const user = await User.findById(data.userId)
 
-  await checkAndAddJob(user)
+    await checkAndAddJob(user)
+  } catch (err) {
+    logger.error(err.message)
+  }
 })
 
 startNewJob()
