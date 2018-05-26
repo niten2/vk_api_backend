@@ -1,35 +1,36 @@
 version: '3'
 services:
 
-  # backend:
-  #   tty: true
-  #   container_name: smm_crm_system_backend
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.development
-  #   image: smm_crm_system_backend_1
-  #   ports:
-  #     - "3001:3001"
-  #   command: bash -c "npm run dev"
-  #   env_file: ./backend/.env
-  #   volumes:
-  #     - ./backend/:/app
-
-  # frontend:
-  #   tty: true
-  #   container_name: smm_crm_system_frontend
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile.development
-  #   image: smm_crm_system_frontend_1
-  #   command: bash -c "npm run start"
-  #   ports:
-  #     - "3000:3000"
-  #   env_file: ./frontend/.env
-  #   volumes:
-  #     - ./frontend/:/app
-
-  redis:
-    image: redis:4.0.9
+  backend:
+    tty: true
+    container_name: smm_crm_system_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.development
+    image: smm_crm_system_backend_1
     ports:
-      - "6379:6379"
+      - "3001:3001"
+    command: bash -c "npm run dev"
+    env_file: ./backend/.env
+    volumes:
+      - ./backend/:/app
+
+  frontend:
+    tty: true
+    container_name: smm_crm_system_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.development
+    image: smm_crm_system_frontend_1
+    command: bash -c "npm run dev"
+    ports:
+      - "3000:3000"
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend/:/app
+
+  # NOTE use local redis
+  # redis:
+  #   image: redis:4.0.9
+  #   ports:
+  #     - "6379:6379"
