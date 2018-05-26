@@ -21,4 +21,10 @@ const run = async () => {
   await andPersonInFriendWithLimit()
 }
 
-schedule.scheduleJob(buildRule(), async () => { await run() })
+schedule.scheduleJob(buildRule(), async () => {
+  try {
+    await run()
+  } catch (err) {
+    logger.error(err.message)
+  }
+})

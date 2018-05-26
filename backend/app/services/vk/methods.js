@@ -80,14 +80,12 @@ export const andPersonInFriendWithLimit = async () => {
       if (await user.isFriendNeed()) {
         await andPersonInFriendUser(user)
       } else {
-        const message = `user id, ${user.id}, user enough friend`
-
-        logger.info(message)
+        logger.info(`user id, ${user.id}, user enough friend`)
       }
 
     })
-
   )
+
 }
 
 export const checkFriend = async (userId) => {

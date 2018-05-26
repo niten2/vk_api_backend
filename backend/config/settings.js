@@ -2,7 +2,6 @@ import dotenv from 'dotenv'
 
 const getPath = () => {
   if (process.env.NODE_ENV == "development.job") {
-    console.log(111)
     return ".env"
   }
 
@@ -35,8 +34,9 @@ export default {
   env: process.env.NODE_ENV,
   port: process.env.PORT || 3000,
 
+  isEnvTest: process.env.NODE_ENV == "test",
+
   jwt_secret_key: process.env.JWT_SECRET_KEY,
   databaseUrl: process.env.DATABASE_URL,
-
-  isEnvTest: process.env.NODE_ENV == "test",
+  redisUrl: process.env.REDIS_URL || "redis://127.0.0.1:6379",
 }
