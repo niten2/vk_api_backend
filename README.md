@@ -4,7 +4,9 @@
 ## Docker
 
 ### development
-- docker-compose up
+  - docker-compose up
+  - frontend http://localhost:3000
+  - backend http://localhost:3001
 
 ### production
 - docker-compose -f docker-compose.production.yml build
