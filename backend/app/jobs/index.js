@@ -1,30 +1,46 @@
-import schedule from 'node-schedule'
-import { andPersonInFriendWithLimit } from "app/services/vk/methods"
-import { getRandomInt } from "app/services/utils"
+import Queue from "bull"
+import { User, VkPerson } from "app/models"
+import { andPersonInFriendUser } from "app/services/vk/methods"
+import { getRandomInt, minutesToMilliseconds } from "app/services/utils"
+import settings from "config/settings"
 import logger from "app/services/logger"
-import settings from 'config/settings'
 
-logger.info(`start new job`)
+const vkFriendsQueue = new Queue("vk friends", settings.redisUrl)
 
-const buildRule = () => {
-  const number = getRandomInt(30, 59)
+const checkAndAddJob = async (user) => {
+  if (await user.isFriendNeed()) {
+    const delay = getRandomInt(minutesToMilliseconds(30), minutesToMilliseconds(60))
 
-  let rule = new schedule.RecurrenceRule()
+    logger.debug(`add new job, user.id = ${user.id}, DELAY = ${delay}`)
 
-  // rule.minute = new schedule.Range(0, 59, number)
-  rule.minute = new schedule.Range(0, 59, 1)
-
-  return rule
-}
-
-const run = async () => {
-  await andPersonInFriendWithLimit()
-}
-
-schedule.scheduleJob(buildRule(), async () => {
-  try {
-    await run()
-  } catch (err) {
-    logger.error(err.message)
+    vkFriendsQueue.add({ userId: user.id }, { delay })
+  } else {
+    logger.debug(`user id, ${user.id}, user enough friend`)
   }
+}
+
+const startNewJob = async () => {
+  logger.debug(`start new job`)
+
+  const users = await User.findAll({ where: { vk_active: true } })
+
+  await Promise.all(users.map(checkAndAddJob))
+}
+
+vkFriendsQueue.process(async (job) => {
+  const { data } = job
+
+  const user = await User.findById(data.userId)
+
+  await andPersonInFriendUser(user)
+
+  return { userId: data.userId }
 })
+
+vkFriendsQueue.on('completed', async (job, data) => {
+  const user = await User.findById(data.userId)
+
+  await checkAndAddJob(user)
+})
+
+startNewJob()
