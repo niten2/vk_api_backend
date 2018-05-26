@@ -1,6 +1,15 @@
 import dotenv from 'dotenv'
 
 const getPath = () => {
+  if (process.env.NODE_ENV == "development.job") {
+    console.log(111)
+    return ".env"
+  }
+
+  if (process.env.NODE_ENV == "production.job") {
+    return ".env.production"
+  }
+
   if (process.env.NODE_ENV == "development" || !process.env.NODE_ENV) {
     return ".env"
   }

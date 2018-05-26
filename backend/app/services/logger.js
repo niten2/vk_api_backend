@@ -15,20 +15,6 @@ const getStreams = () => {
   ]
 }
 
-const getStreamsJob = () => {
-  if (settings.isEnvTest) return []
-
-  return [
-    {
-      level: 'trace',
-      stream: process.stdout
-    },
-    {
-      path: process.cwd() + `/log/${settings.env}.job.log`,
-    },
-  ]
-}
-
 const buildLogger = () => {
   return bunyan.createLogger({
 
@@ -60,6 +46,5 @@ const buildJobLogger = () => {
 }
 
 const logger = buildLogger()
-export const loggerJob = buildJobLogger()
 
 export default logger
