@@ -1,6 +1,7 @@
 {
   "name": "smm_system",
   "scripts": {
+    "tests": "npm run backend:tests && npm run frontend:tests",
     "backend:tests": "cd ./backend && npm run tests",
     "frontend:tests": "cd ./frontend && npm run tests"
   }

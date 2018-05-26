@@ -1,6 +1,6 @@
 import settings from 'src/config/settings'
 
-describe("", () => {
+xdescribe("", () => {
   it('should return valid values', () => {
     expect(settings).toEqual(
       expect.objectContaining({

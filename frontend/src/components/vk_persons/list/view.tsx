@@ -5,7 +5,7 @@ class ViewUser extends React.Component<any, any> {
 
   state = {
     attributes: [
-      // "id",
+      "id",
       "uid",
       "isFriend",
       // "role",

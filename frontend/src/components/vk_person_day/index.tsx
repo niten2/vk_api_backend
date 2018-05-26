@@ -7,7 +7,9 @@ import { withData } from './queries'
 
 interface P {
   vkPersonsQuery: {
-    vkPersons: [object]
+    vkPersons: {
+      vkPersons: [object]
+    }
     loading: any
     error: any
   }
@@ -18,14 +20,14 @@ class ListUser extends React.Component<P, {}> {
   render() {
     let { vkPersons, loading, error } = this.props.vkPersonsQuery
 
-    // console.log(this.props.vkPersonsQuery)
+    console.log(this.props.vkPersonsQuery)
 
     if (loading ) {
       return <Spinner />
     }
 
     if (error) {
-      return <Page500 />
+      return <Page500 error={error} />
     }
 
     return (
@@ -50,7 +52,7 @@ class ListUser extends React.Component<P, {}> {
                     </thead>
                     <tbody>
 
-                      { vkPersons.map((object, index) =>
+                      { vkPersons.vkPersons.map((object, index) =>
                         <UserView
                           key={index}
                           object={object}

@@ -1,6 +1,6 @@
 import AuthProvider from "src/config/auth_provider"
 
-describe("AuthProvider", () => {
+xdescribe("AuthProvider", () => {
   const token = "token"
   const role = "role"
 

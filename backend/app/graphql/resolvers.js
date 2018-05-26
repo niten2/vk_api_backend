@@ -1,48 +1,49 @@
 import moment from "moment"
-import { path } from "ramda"
+import Sequelize, { Op } from "sequelize"
+import { merge, path, prop, last } from "ramda"
 import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
-import Sequelize, { Op } from "sequelize"
 
 const Query = {
 
   vkPersons: authenticated(async (root, args, ctx) => {
     const { user } = ctx
-    let options = {}
+    const { cursor, limit = 15 } = args.input
+    let query = { user_id: user.id }
 
     const addFriendAt = path(["input", "filter", "addFriendAt"], args)
-
     if (addFriendAt) {
-      options = {
+      query = merge({
         where: {
           addFriendAt: {
             [Op.gt]: moment(addFriendAt).add(-1, 'days').toDate(),
             [Op.lt]: moment(addFriendAt).add(1, 'days').toDate(),
           }
         }
-      }
+      }, query)
     }
 
-    const vkPersons = await user.getVkPersons(options)
+    if (cursor) {
+      query = merge({
+        where: {
+          id: {
+            [Op.gt]: parseInt(cursor)
+          }
+        }
+      }, query)
+    }
 
-    // TODO
-    // const totalCount = await user.getVkPersons(options).count()
+    query.limit = limit || 15
 
-    // let z = await VkPerson.findAll({
-    //     attributes: {
-    //       include: [
-    //         [Sequelize.fn("COUNT", Sequelize.col("VkPerson.id")), "sensorCount"]
-    //       ]
-    //     },
-    //     // include: [{
-    //     //     model: User, attributes: []
-    //     // }]
-    // })
+    const vkPersons = await VkPerson.findAll(query)
+    const count = await VkPerson.count({ user_id: user.id })
+    const newCursor = prop("id", last(vkPersons))
 
     return {
       vkPersons,
-      totalCount: 999,
+      count,
+      cursor: newCursor,
     }
   }),
 
@@ -115,8 +116,8 @@ const Mutation = {
       ids.map(async (id) => {
         try {
           let person = await VkPerson.create({ uid: id, user_id: user.id })
-          persons.push(person)
 
+          persons.push(person)
         } catch (err) {
           errors.push({
             uid: id,
@@ -131,7 +132,6 @@ const Mutation = {
       errors,
     }
   }),
-
 
 }
 
