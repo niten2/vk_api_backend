@@ -15,6 +15,10 @@ services:
       - ./backend/.env.production/:/app/.env.production
       - ./backend/database.production.sqlite/:/app/database.production.sqlite
       - ./backend/log/production.job.log/:/app/log/production.job.log
+    environment:
+      REDIS_URL: redis://redis:6379
+
 
   redis:
+    container_name: smm_crm_system_redis_production_job
     image: redis:4.0.9

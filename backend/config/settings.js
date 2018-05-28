@@ -31,6 +31,7 @@ checkRequiredEnv([
 ])
 
 export default {
+  name: process.env.APP_NAME || "smm_system",
   env: process.env.NODE_ENV,
   port: process.env.PORT || 3000,
 
