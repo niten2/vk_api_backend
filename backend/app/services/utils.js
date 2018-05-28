@@ -14,3 +14,5 @@ export const getTokenFromHeader = (req) => {
 
   return token
 }
+
+export const minutesToMilliseconds = (minutes) => minutes * 60 * 1000

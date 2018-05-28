@@ -1,24 +1,56 @@
-import schedule from 'node-schedule'
-import { andPersonInFriendWithLimit } from "app/services/vk/methods"
-import { getRandomInt } from "app/services/utils"
-import { loggerJob } from "app/services/logger"
-import settings from 'config/settings'
+import Queue from "bull"
+import { User, VkPerson } from "app/models"
+import { andPersonInFriendUser } from "app/services/vk/methods"
+import { getRandomInt, minutesToMilliseconds } from "app/services/utils"
+import settings from "config/settings"
+import logger from "app/services/logger"
 
-loggerJob.info(`start job env = ${settings.env}`)
+const vkFriendsQueue = new Queue("vk friends", settings.redisUrl)
 
-const buildRule = () => {
-  const number = getRandomInt(30, 59)
+const checkAndAddJob = async (user) => {
+  if (await user.isFriendNeed()) {
+    const delay = getRandomInt(minutesToMilliseconds(30), minutesToMilliseconds(60))
 
-  let rule = new schedule.RecurrenceRule()
+    logger.debug(`add new job, user.id = ${user.id}, DELAY = ${delay}`)
 
-  // rule.minute = new schedule.Range(0, 59, number)
-  rule.minute = new schedule.Range(0, 59, 1)
-
-  return rule
+    vkFriendsQueue.add({ userId: user.id }, { delay })
+  } else {
+    logger.debug(`user id, ${user.id}, user enough friend`)
+  }
 }
 
-const run = async () => {
-  await andPersonInFriendWithLimit()
+const startNewJob = async () => {
+  logger.debug(`start new job`)
+
+  try {
+    const users = await User.findAll({ where: { vk_active: true } })
+    await Promise.all(users.map(checkAndAddJob))
+  } catch (err) {
+    logger.error(err.message)
+  }
 }
 
-schedule.scheduleJob(buildRule(), async () => { await run() })
+vkFriendsQueue.process(async (job) => {
+  try {
+    const { data } = job
+    const user = await User.findById(data.userId)
+
+    await andPersonInFriendUser(user)
+
+    return { userId: data.userId }
+  } catch (err) {
+    logger.error(err.message)
+  }
+})
+
+vkFriendsQueue.on('completed', async (job, data) => {
+  try {
+    const user = await User.findById(data.userId)
+
+    await checkAndAddJob(user)
+  } catch (err) {
+    logger.error(err.message)
+  }
+})
+
+startNewJob()

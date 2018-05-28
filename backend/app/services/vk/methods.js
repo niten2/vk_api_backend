@@ -1,10 +1,8 @@
-// import vk from 'config/vk'
 import { buildVk } from 'config/vk'
 import { User, VkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
-import logger, { loggerJob } from "app/services/logger"
-
+import logger from "app/services/logger"
 
 export const addFriend = async (person, user) => {
   const vk = buildVk(user.vk_token)
@@ -12,9 +10,9 @@ export const addFriend = async (person, user) => {
   const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
 
   // NOTE
-  // 1 — заявка на добавление данного пользователя в друзья отправлена;
-  // 2 — заявка на добавление в друзья от данного пользователя одобрена;
-  // 4 — повторная отправка заявки.
+  // 1 — заявка на добавление данного пользователя в друзья отправлена
+  // 2 — заявка на добавление в друзья от данного пользователя одобрена
+  // 4 — повторная отправка заявки
   const isValid = anyPass([equals(1), equals(2), equals(4)])
 
   if (isValid(res)) {
@@ -56,7 +54,6 @@ export const andPersonInFriendUser = async (user) => {
       const messageNotFound = `vk persons not found, user.id=${user.id}`
 
       logger.info(messageNotFound)
-      loggerJob.info(messageNotFound)
     }
 
     await addFriend(person, user)
@@ -65,7 +62,6 @@ export const andPersonInFriendUser = async (user) => {
     const messageSucces = `person.uid = ${person.uid}, add in friend for user.id = ${user.id}`
 
     logger.info(messageSucces)
-    loggerJob.info(messageSucces)
   } catch (err) {
     logger.error(err)
   }
@@ -84,15 +80,12 @@ export const andPersonInFriendWithLimit = async () => {
       if (await user.isFriendNeed()) {
         await andPersonInFriendUser(user)
       } else {
-        const message = `user id, ${user.id}, user enough friend`
-
-        logger.info(message)
-        loggerJob.info(message)
+        logger.info(`user id, ${user.id}, user enough friend`)
       }
 
     })
-
   )
+
 }
 
 export const checkFriend = async (userId) => {

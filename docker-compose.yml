@@ -22,9 +22,15 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.development
     image: smm_crm_system_frontend_1
-    command: bash -c "npm run start"
+    command: bash -c "npm run dev"
     ports:
       - "3000:3000"
     env_file: ./frontend/.env
     volumes:
       - ./frontend/:/app
+
+  # NOTE use local redis
+  # redis:
+  #   image: redis:4.0.9
+  #   ports:
+  #     - "6379:6379"
