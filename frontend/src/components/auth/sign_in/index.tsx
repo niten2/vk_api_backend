@@ -21,7 +21,7 @@ interface S {
 class Login extends React.Component<P, S> {
 
   state = {
-    email: '',
+    email: 'test@test.com',
     password: '12345',
     error: null,
     loading: false,
