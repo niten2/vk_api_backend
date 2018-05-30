@@ -4,30 +4,41 @@ import { graphql } from "react-apollo"
 const subscribeToLog = gql`
   subscription subscribeToLog {
     subscribeToLog {
-      log {
-        id
-      }
+      id
     }
   }
 `
 
-// const usersQuery = gql`
-//   query users($input: UsersInput) {
-//     users(input: $input) {
-//       id
+const logsQuery = gql`
+  query logs {
+    logs {
+      id
+    }
+  }
 
-//       email
-//       login
-//       role
-//     }
-//   }
+`
 
-// `
+const testQuery = gql`
+  query testLog {
+    testLog {
+      message
+    }
+  }
+
+`
 
 export const withData = graphql<any, any, any>(
 
-  subscribeToLog, {
-    name: "usersQuery",
+  // subscribeToLog, {
+  //   name: "usersQuery",
+  // },
+
+  // logsQuery, {
+  //   name: "logsQuery",
+  // },
+
+  testQuery, {
+    name: "testQuery",
   },
 
   // usersQuery, {

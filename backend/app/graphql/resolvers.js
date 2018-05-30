@@ -5,6 +5,18 @@ import { User, VkPerson, Setting } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated } from "app/services/graphql"
 
+import { PubSub } from 'graphql-subscriptions'
+
+export const pubsub = new PubSub()
+
+// export default pubsub
+// import pubsub from "app/graphql/pubsub"
+
+const SOMETHING_CHANGED_TOPIC = 'something_changed'
+const CHANNEL_ADDED_TOPIC = 'newChannel';
+
+
+
 const Query = {
 
   vkPersons: authenticated(async (root, args, ctx) => {
@@ -50,6 +62,7 @@ const Query = {
   me: authenticated(async (root, args, ctx) => {
     const user = await User.findById(ctx.user.id)
 
+
     return user
   }),
 
@@ -57,6 +70,50 @@ const Query = {
     const settings = await Setting.findAll()
 
     return settings
+  }),
+
+  testLog: authenticated(async (root, args, ctx) => {
+    console.log("testLog")
+
+    // console.log(pubsub)
+
+    pubsub.publish(SOMETHING_CHANGED_TOPIC, { subscribeToLog: { id: "1239999999999", name: "4444name" } })
+
+    // pubsub.publish(CHANNEL_ADDED_TOPIC, { channelAdded: { id: "4444", name: "4449494" } });
+    // pubsub.publish(SOMETHING_CHANGED_TOPIC, { id: "4444", name: "4449494" })
+    // pubsub.publish(CHANNEL_ADDED_TOPIC, { id: "4444", name: "4449494" })
+
+
+    return { message: "ok" }
+  }),
+
+  logs: authenticated(async (root, args, ctx) => {
+
+    // setInterval(() => {
+    //   console.log(z, SOMETHING_CHANGED_TOPIC, 111111111111111111111111)
+
+
+    // }, 2000)
+
+    // console.log(z)
+
+
+    const logs = [
+      {
+        id: "123445",
+      },
+      {
+        id: "123445",
+      },
+      {
+        id: "123445",
+      },
+      {
+        id: "123445",
+      },
+    ]
+
+    return logs
   }),
 
 }
@@ -135,4 +192,24 @@ const Mutation = {
 
 }
 
-export default { Query, Mutation }
+const Subscription = {
+  // subscribeToLog: {
+  //   subscribe: () => pubsub.asyncIterator(SOMETHING_CHANGED_TOPIC)
+  // },
+
+  channelAdded: {  // create a channelAdded subscription resolver function.
+    subscribe: () => pubsub.asyncIterator(CHANNEL_ADDED_TOPIC)  // subscribe to changes in a topic
+  },
+
+
+  subscribeToLog(message, variables, context, subscription) {
+    console.log(`Serving subscription for user`, message, variables, context, subscription);
+    return message.entry;
+  }
+
+
+}
+
+// export pubsub
+// export default { Query, Mutation, Subscription }
+export const resolvers = { Query, Mutation, Subscription }

@@ -20,6 +20,11 @@ import { withData } from "./queries"
 
 class Login extends React.Component<any, any> {
 
+
+  componentWillReceiveProps(nextProps: any) {
+    console.log("nextProps", nextProps)
+  }
+
   // state = {
   //   email: 'test@test.com',
   //   password: '12345',
@@ -71,8 +76,16 @@ class Login extends React.Component<any, any> {
   //   }
   // }
 
+
+  handleTest = async () => {
+
+    console.log(111)
+
+    await this.props.testQuery.refetch()
+  }
+
   render () {
-    console.log(this.props.subscribeToLog)
+    console.log(this.props)
 
     // let { error, loading } = this.props
 
@@ -88,8 +101,9 @@ class Login extends React.Component<any, any> {
                 <div className="card p-4">
                   <div className="card-block">
 
-      dsfsdfsdf
+                    dsfsdfsdf
 
+                    <button onClick={this.handleTest}>Button</button>
 
                   </div>
                 </div>
