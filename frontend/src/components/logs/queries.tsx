@@ -9,15 +9,6 @@ const subscribeToLog = gql`
   }
 `
 
-// const logsQuery = gql`
-//   query logs {
-//     logs {
-//       id
-//     }
-//   }
-
-// `
-
 const testQuery = gql`
   query testLog {
     testLog {
@@ -27,8 +18,6 @@ const testQuery = gql`
 `
 
 export const withData = compose (
-// export const withData = graphql<any, any, any>(
-
   graphql<any, any, any>(
     subscribeToLog, {
       name: "subscribeToLog",
@@ -40,24 +29,5 @@ export const withData = compose (
       name: "testQuery",
     },
   ),
-
-  // logsQuery, {
-  //   name: "logsQuery",
-  // },
-
-  // testQuery, {
-  //   name: "testQuery",
-  // },
-
-  // usersQuery, {
-  //   name: "usersQuery",
-  //   options: (props) => ({
-  //     fetchPolicy: "network-only",
-  //     variables: {
-  //       input: {
-  //         role: "manager",
-  //       }
-  //     }
-  //   })
-  // }
 )
+

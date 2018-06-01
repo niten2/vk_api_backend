@@ -12,9 +12,13 @@ export const initApp = async (app) => {
 export const listen = async (app) => {
   try {
     await initApp(app)
+
     await app.listen(settings.port)
 
-    startSubscriptionServer(app)
+
+
+    // startSubscriptionServer(app)
+
 
     logger.info(`App ${settings.name}, running on port ${settings.port}, NODE_ENV ${settings.env}`)
   } catch (err) {

@@ -3,95 +3,41 @@ import { execute, subscribe } from 'graphql'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import settings from 'config/settings'
 import schema from './schema'
-
-// import pubsub from "app/graphql/pubsub"
-
-const PORT = 5000
-
-
-// // const SOMETHING_CHANGED_TOPIC = 'something_changed'
+import logger from 'app/services/logger'
 
 export default (server) => {
+  // const ws = createServer(server)
 
-  const ws = createServer(server);
+  // console.log(ws)
 
-  ws.listen(PORT, () => {
-    console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
+  // ws.listen(settings.ws_port, () => {
+  //   logger.info(`GraphQL subscription server is now running on port ${settings.ws_port}`)
 
-    // Set up the WebSocket for handling GraphQL subscriptions.
-    new SubscriptionServer({
-      execute,
-      subscribe,
-      schema
-    }, {
-      server: ws,
-      path: '/subscriptions',
-    });
-  });
-
-  // const WS_PORT = 5000;
-
-  // // Create WebSocket listener server
-  // const websocketServer = createServer((request, response) => {
-  //   response.writeHead(404);
-  //   response.end();
-  // });
-
-  // // Bind it to port and start listening
-  // websocketServer.listen(WS_PORT, () => console.log(
-  //   `Websocket Server is now running on http://localhost:${WS_PORT}`
-  // ));
-
-  // const subscriptionServer = SubscriptionServer.create(
-  //   {
-  //     schema,
+  //   new SubscriptionServer({
   //     execute,
   //     subscribe,
-  //   },
-  //   {
-  //     server: websocketServer,
-  //     path: '/graphql',
-  //   },
-  // );
+  //     schema
+  //   }, {
+  //     server: ws,
+  //     path: '/v1/subscriptions',
+  //   })
+  // })
 
+  // ws.close()
+
+  if (module.hot) {
+    console.log(11111111111111)
+
+
+      // module.hot.accept('./_subscriptionServer', () => {
+      //     try {
+      //         websocketServer.close()
+      //         subscriptionServer.close()
+      //         createServers()
+      //         console.log('\x1b[32m', `Restarted subscription server`)
+      //     } catch (err) {
+      //         console.error(err)
+      //     }
+      // })
+  }
 }
-
-
-
-
-//   // if (settings.isEnvTest) return
-
-//   // const ws = createServer(server)
-
-//   const ws = createServer((req, res) => {
-//     console.log("888888888888, connect to ws")
-
-//     res.writeHead(404)
-//     res.end()
-//   })
-
-//   let server = ws.listen(WS_PORT, () => {
-//   //   if (!settings.isEnvTest) {
-//   //     console.log(`GraphQL subscription server is now running on ws://localhost:${WS_PORT}/subscriptions`)
-//   //   }
-
-//   //   try {
-//       let z = new SubscriptionServer({
-//         execute,
-//         subscribe,
-//         schema
-//       }, {
-//         server: server,
-//         path: '/subscriptions',
-//       })
-//     // } catch (err) {
-
-//     // }
-
-//   })
-
-
-
-//     pubsub.publish(SOMETHING_CHANGED_TOPIC, { subscribeToLog: { id: "1239999999999" } })
-
-// }

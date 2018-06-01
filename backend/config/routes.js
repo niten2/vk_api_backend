@@ -2,7 +2,6 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { buildOptions } from 'app/graphql/config'
 
 export default (app) => {
-
   app.get('/', (req, res) => {
     res.json({
       servise: "api_gateway",
@@ -12,5 +11,4 @@ export default (app) => {
 
   app.use('/v1', graphqlExpress(buildOptions))
   app.use('/v1', graphiqlExpress({ endpointURL: '/graphql' }))
-
 }

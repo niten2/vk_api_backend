@@ -33,8 +33,8 @@ checkRequiredEnv([
 export default {
   name: process.env.APP_NAME || "smm_system",
   env: process.env.NODE_ENV,
-  port: process.env.PORT || 3000,
-
+  port: process.env.PORT || 3001,
+  ws_port: process.env.WS_PORT || 3002,
   isEnvTest: process.env.NODE_ENV == "test",
 
   jwt_secret_key: process.env.JWT_SECRET_KEY,

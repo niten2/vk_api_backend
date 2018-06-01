@@ -17,17 +17,16 @@ const httpLink = createHttpLink({
   uri: settings.backend_url,
 })
 
-// const uri = "ws://localhost:5000/subscriptions"
-const uri = "ws://localhost:5000/subscriptions"
-
 const wsLink = new WebSocketLink({
-  uri: uri,
+  uri: settings.ws_url,
+
   options: {
     reconnect: true,
     connectionParams: () => {
       return {
         // authorization: token,
-        authorization: "11111111111",
+        Authorization: "11111111111",
+        // Authorization: AuthProvider.fetchToken(),
       }
     },
   },
@@ -69,54 +68,14 @@ const errorLink = onError(({ networkError, graphQLErrors, response }) => {
 
 
 let link = split(
-  // split based on operation type
   ({ query }) => {
-    // const { kind, operation } = getMainDefinition(query)
-    // return kind === 'OperationDefinition' && operation === 'subscription'
-
     const options: any = getMainDefinition(query)
-    console.log(8988888, options)
-
     return options.kind === 'OperationDefinition' && options.operation === 'subscription'
-
   },
   wsLink,
   httpLink,
 )
 
-// const mainLink = authLink.concat(errorLink.concat(httpLink))
-// const mainLink = authLink.concat(errorLink.concat(link))
-
 const mainLink = authLink.concat(link)
 
-
 export default mainLink
-
-
-
-// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
-// import ApolloClient, { createNetworkInterface } from 'apollo-client';
-
-// // Create regular NetworkInterface by using apollo-client's API:
-// const networkInterface = createNetworkInterface({
-//  uri: 'http://localhost:3000' // Your GraphQL endpoint
-// });
-
-// // Create WebSocket client
-// const wsClient = new SubscriptionClient(`ws://localhost:5000/`, {
-//     reconnect: true,
-//     connectionParams: {
-//         // Pass any arguments you want for initialization
-//     }
-// });
-
-// // Extend the network interface with the WebSocket
-// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-//     networkInterface,
-//     wsClient
-// );
-
-// // Finally, create your ApolloClient instance with the modified network interface
-// const apolloClient = new ApolloClient({
-//     networkInterface: networkInterfaceWithSubscriptions
-// });
