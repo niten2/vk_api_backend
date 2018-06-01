@@ -21,10 +21,7 @@ export const logs = authenticated(async (root, args, ctx) => {
 })
 
 export const testLog = authenticated(async (root, args, ctx) => {
-  setInterval(() => {
-    console.log("send publish")
-    pubsub.publish('something_changed', { subscribeToLog: { id: "1239999999999", name: "4444name" } })
-  }, 10000)
+  pubsub.publish(TEST_TOPIC, { subscribeToLog: { id: "1239999999999", name: "4444name" } })
 
   return { message: "ok" }
 })
