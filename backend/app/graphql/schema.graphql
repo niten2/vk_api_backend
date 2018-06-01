@@ -16,7 +16,7 @@ type Mutation {
 }
 
 type Subscription {
-  subscribeToLog: Log
+  subscribeToLog(input: SubscribeToLogInput!): Log
   channelAdded: Log
 }
 
@@ -58,6 +58,10 @@ input VkPersonsInputFilter {
 
 input CreateVkFriendsInput {
   ids: String!
+}
+
+input SubscribeToLogInput {
+  userId: String!
 }
 
 ### MODELS ###

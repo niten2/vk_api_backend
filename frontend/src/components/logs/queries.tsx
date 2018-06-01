@@ -2,8 +2,8 @@ import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
 
 const subscribeToLog = gql`
-  subscription subscribeToLog {
-    subscribeToLog {
+  subscription subscribeToLog($input: SubscribeToLogInput!) {
+    subscribeToLog(input: $input) {
       id
     }
   }
@@ -21,6 +21,14 @@ export const withData = compose (
   graphql<any, any, any>(
     subscribeToLog, {
       name: "subscribeToLog",
+      options: (props) => ({
+        variables: {
+          input: {
+            // TODO change
+            userId: 1,
+          }
+        },
+      }),
     },
   ),
 

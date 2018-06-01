@@ -4,6 +4,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import settings from 'config/settings'
 import schema from './schema'
 import logger from 'app/services/logger'
+import { authenticateOnConnect } from 'app/services/utils'
 
 export default (server) => {
   const ws = createServer(server)
@@ -14,7 +15,8 @@ export default (server) => {
     new SubscriptionServer({
       execute,
       subscribe,
-      schema
+      schema,
+      onConnect: authenticateOnConnect,
     }, {
       server: ws,
       path: '/v1/subscriptions',

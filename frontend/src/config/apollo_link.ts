@@ -24,9 +24,7 @@ const wsLink = new WebSocketLink({
     reconnect: true,
     connectionParams: () => {
       return {
-        // authorization: token,
-        Authorization: "11111111111",
-        // Authorization: AuthProvider.fetchToken(),
+        Authorization: AuthProvider.fetchToken(),
       }
     },
   },
@@ -62,10 +60,9 @@ const errorLink = onError(({ networkError, graphQLErrors, response }) => {
   }
 
   if (networkError) {
-    console.log(`[Network error]: ${networkError}`)
+    console.log(`[Network error]: ${JSON.stringify(networkError)}`)
   }
 })
-
 
 let link = split(
   ({ query }) => {
@@ -76,6 +73,6 @@ let link = split(
   httpLink,
 )
 
-const mainLink = authLink.concat(link)
+const mainLink = authLink.concat(errorLink.concat(link))
 
 export default mainLink
