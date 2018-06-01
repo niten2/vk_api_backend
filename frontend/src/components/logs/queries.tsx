@@ -1,5 +1,5 @@
 import gql from "graphql-tag"
-import { graphql } from "react-apollo"
+import { compose, graphql } from "react-apollo"
 
 const subscribeToLog = gql`
   subscription subscribeToLog {
@@ -9,14 +9,14 @@ const subscribeToLog = gql`
   }
 `
 
-const logsQuery = gql`
-  query logs {
-    logs {
-      id
-    }
-  }
+// const logsQuery = gql`
+//   query logs {
+//     logs {
+//       id
+//     }
+//   }
 
-`
+// `
 
 const testQuery = gql`
   query testLog {
@@ -24,22 +24,30 @@ const testQuery = gql`
       message
     }
   }
-
 `
 
-export const withData = graphql<any, any, any>(
+export const withData = compose (
+// export const withData = graphql<any, any, any>(
 
-  // subscribeToLog, {
-  //   name: "usersQuery",
-  // },
+  graphql<any, any, any>(
+    subscribeToLog, {
+      name: "subscribeToLog",
+    },
+  ),
+
+  graphql<any, any, any>(
+    testQuery, {
+      name: "testQuery",
+    },
+  ),
 
   // logsQuery, {
   //   name: "logsQuery",
   // },
 
-  testQuery, {
-    name: "testQuery",
-  },
+  // testQuery, {
+  //   name: "testQuery",
+  // },
 
   // usersQuery, {
   //   name: "usersQuery",

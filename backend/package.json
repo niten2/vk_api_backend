@@ -25,8 +25,8 @@
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
     "db:vk:load:persons": "babel-node db/load/persons",
-    "job": "NODE_ENV=development.job babel-node app/jobs/index.js | ./node_modules/.bin/bunyan -o short -l trace",
-    "job:production": "NODE_ENV=production.job babel-node app/jobs/index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "job": "NODE_ENV=development.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "job:production": "NODE_ENV=production.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:check:friends": "babel-node app/services/vk/scripts/check_friends.js",
     "vk:persons:add:friends": "babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:add:friends:production": "NODE_ENV=production babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace"

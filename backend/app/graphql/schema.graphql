@@ -5,7 +5,6 @@ type Query {
 
   logs: [Log]
   testLog: Message
-
 }
 
 type Mutation {

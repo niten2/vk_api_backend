@@ -4,30 +4,57 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import settings from 'config/settings'
 import schema from './schema'
 
-import pubsub from "app/graphql/pubsub"
+// import pubsub from "app/graphql/pubsub"
 
 const PORT = 5000
 
 
-const SOMETHING_CHANGED_TOPIC = 'something_changed'
-
+// // const SOMETHING_CHANGED_TOPIC = 'something_changed'
 
 export default (server) => {
 
-const ws = createServer(server);
-ws.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
+  const ws = createServer(server);
 
-  // Set up the WebSocket for handling GraphQL subscriptions.
-  new SubscriptionServer({
-    execute,
-    subscribe,
-    schema
-  }, {
-    server: ws,
-    path: '/subscriptions',
+  ws.listen(PORT, () => {
+    console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
+
+    // Set up the WebSocket for handling GraphQL subscriptions.
+    new SubscriptionServer({
+      execute,
+      subscribe,
+      schema
+    }, {
+      server: ws,
+      path: '/subscriptions',
+    });
   });
-});
+
+  // const WS_PORT = 5000;
+
+  // // Create WebSocket listener server
+  // const websocketServer = createServer((request, response) => {
+  //   response.writeHead(404);
+  //   response.end();
+  // });
+
+  // // Bind it to port and start listening
+  // websocketServer.listen(WS_PORT, () => console.log(
+  //   `Websocket Server is now running on http://localhost:${WS_PORT}`
+  // ));
+
+  // const subscriptionServer = SubscriptionServer.create(
+  //   {
+  //     schema,
+  //     execute,
+  //     subscribe,
+  //   },
+  //   {
+  //     server: websocketServer,
+  //     path: '/graphql',
+  //   },
+  // );
+
+}
 
 
 
@@ -67,4 +94,4 @@ ws.listen(PORT, () => {
 
 //     pubsub.publish(SOMETHING_CHANGED_TOPIC, { subscribeToLog: { id: "1239999999999" } })
 
-}
+// }
