@@ -22,7 +22,7 @@ const Mutation = {
 }
 
 const Subscription = {
-  // subscribeToLog,
+  subscribeToLog,
 }
 
 export default { Query, Mutation, Subscription }
