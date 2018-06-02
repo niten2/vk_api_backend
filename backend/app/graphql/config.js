@@ -11,9 +11,6 @@ export const buildOptions = (req, res) => {
     }),
 
     context: {
-      // payload: req.payload,
-      // user_id: req.payload && req.payload.user_id,
-      // body: req.body,
       token: getTokenFromHeader(req),
     },
   }

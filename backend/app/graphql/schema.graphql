@@ -2,6 +2,9 @@ type Query {
   me: User
   settings: [Setting]
   vkPersons(input: VkPersonsInput): VkPersonWithMeta
+
+  logs: [Log]
+  testLog: Message
 }
 
 type Mutation {
@@ -10,6 +13,11 @@ type Mutation {
   createVkFriends(input: CreateVkFriendsInput!): VkPersonWithError
 
   updateMe(input: MeUpdateInput!): User
+}
+
+type Subscription {
+  subscribeToLog(input: SubscribeToLogInput!): Log
+  channelAdded: Log
 }
 
 ### INPUT ###
@@ -52,6 +60,10 @@ input CreateVkFriendsInput {
   ids: String!
 }
 
+input SubscribeToLogInput {
+  userId: String!
+}
+
 ### MODELS ###
 
 type User {
@@ -64,6 +76,11 @@ type User {
 
   createdAt: String
   updatedAt: String
+}
+
+type Log {
+  id: ID
+  name: String
 }
 
 type VkPerson {
@@ -116,4 +133,5 @@ type Message {
 schema {
 	query: Query
 	mutation: Mutation
+  subscription: Subscription
 }

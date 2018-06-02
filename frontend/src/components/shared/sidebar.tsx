@@ -78,6 +78,16 @@ class Sidebar extends React.Component<any, any> {
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link
+                to={'/logs'}
+                className="nav-link"
+                activeClassName="active"
+              >
+                <i className="icon-diamond" /> logs
+              </Link>
+            </li>
+
 
             <LinkUser />
           </ul>

@@ -1,5 +1,5 @@
 import fs  from "fs"
-import csv from "babyparse"
+import csv from "papaparse"
 
 export const getFile = (path) => {
   return new Promise((resolve, reject) => {

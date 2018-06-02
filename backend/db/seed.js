@@ -1,37 +1,22 @@
 import { User, VkPerson } from "app/models"
 import factory from "test/factory"
+import moment from "moment"
 
-const vk_token = "token"
+const vk_token = "vk_token"
 
 const main = async () => {
   try {
-    const users = await User.findAll()
 
-    const updatePassword = async (user) => {
-      await user.set({ password: "12345" })
-      await user.save()
-    }
+    const user = await factory.create("user", {
+      id: 1,
+      name: "name",
+      email: "test@test.com",
+      password: "12345",
+      vk_token,
+    })
 
-    await Promise.all(
-      await users.map(updatePassword)
-    )
-
-    // const user = await factory.create("user", {
-    //   id: 2,
-    //   name: "name",
-    //   email: "test@email.com",
-    //   password: "12345",
-    //   vk_token,
-    // })
-
-    // const vkPersons = await VkPerson.findAll()
-
-    // const setUserId = async person => {
-    //   person.set({ user_id: 1 })
-    //   await person.save()
-    // }
-
-    // await Promise.all(vkPersons.map(setUserId))
+    const vkPerson1 = await factory.create("vkPerson", { user_id: user.id, addFriendAt: moment().add(-10, "days") })
+    const vkPerson2 = await factory.create("vkPerson", { user_id: user.id, addFriendAt: moment() })
 
   } catch (err) {
     console.log(err)

@@ -19,16 +19,6 @@ const checkAndAddJob = async (user) => {
   }
 }
 
-const startNewJob = async () => {
-  logger.debug(`start new job`)
-
-  try {
-    const users = await User.findAll({ where: { vk_active: true } })
-    await Promise.all(users.map(checkAndAddJob))
-  } catch (err) {
-    logger.error(err.message)
-  }
-}
 
 vkFriendsQueue.process(async (job) => {
   try {
@@ -53,4 +43,13 @@ vkFriendsQueue.on('completed', async (job, data) => {
   }
 })
 
-startNewJob()
+export default async () => {
+  logger.debug(`start new job`)
+
+  try {
+    const users = await User.findAll({ where: { vk_active: true } })
+    await Promise.all(users.map(checkAndAddJob))
+  } catch (err) {
+    logger.error(err.message)
+  }
+}
