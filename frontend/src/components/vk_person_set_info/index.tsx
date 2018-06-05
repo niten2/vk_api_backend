@@ -1,19 +1,31 @@
+import { path, append } from "ramda"
 import * as React from "react"
 import { withData } from "./queries"
 
 class Index extends React.Component<any, any> {
 
+  state = {
+    subscribe: ["1111", "3333"]
+  }
+
   componentWillReceiveProps(nextProps: any) {
-    console.log("nextProps", nextProps)
+    let { subscribe } = this.state
+
+    let message = path(["subscribeToSetInfoVkPersons", "subscribeToSetInfoVkPersons", "message"], nextProps)
+
+    subscribe = append(message, subscribe)
+
+    this.setState({ subscribe })
   }
 
   handleTest = async () => {
-    console.log("handleTest")
-    await this.props.testQuery.refetch()
+    let res = await this.props.setInfoVkPersons()
+      console.log(res)
+
   }
 
   render () {
-    console.log(this.props)
+    let { subscribe } = this.state
 
     return (
       <div className="app flex-row align-items-center">
@@ -27,9 +39,15 @@ class Index extends React.Component<any, any> {
                 <div className="card p-4">
                   <div className="card-block">
 
-                    test log
+                    <button onClick={this.handleTest}>set_users_info</button>
 
-                    <button onClick={this.handleTest}>Button</button>
+                    <ul>
+                      { subscribe.map((object, index) =>
+                        <li key={index}>
+                          {object}
+                        </li>
+                      )}
+                    </ul>
 
                   </div>
                 </div>

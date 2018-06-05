@@ -8,6 +8,10 @@ const vkPersonsQuery = gql`
         id
 
         uid
+        first_name
+        last_name
+        deactivated
+
         isFriend
         createdAt
       }

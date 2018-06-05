@@ -8,7 +8,9 @@ class ViewUser extends React.Component<any, any> {
       "id",
       "uid",
       "isFriend",
-      // "role",
+      "first_name",
+      "last_name",
+      "deactivated",
     ]
   }
 
@@ -20,9 +22,10 @@ class ViewUser extends React.Component<any, any> {
       <tr>
         {
           attributes.map((attribute, index) => {
+
             return (
               <td key={index}>
-                {object[attribute]}
+                {object[attribute].toString()}
               </td>
             )
           })
@@ -35,12 +38,3 @@ class ViewUser extends React.Component<any, any> {
 }
 
 export default ViewUser
-        // <td>
-        //   <Link
-        //     to={`/users/${object.id}`}
-        //   >
-        //     <button className="btn btn-primary">
-        //       Edit
-        //     </button>
-        //   </Link>
-        // </td>

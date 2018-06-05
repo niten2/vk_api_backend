@@ -51,7 +51,10 @@ let Person = Sequelize.define('vk_persons', {
 
   addFriendAt: DataType.DATE,
 
-  deactivated: DataType.BOOLEAN,
+  deactivated: {
+    type: DataType.BOOLEAN,
+    default: false,
+  },
 
   createdAt: {
     type: DataType.DATE,

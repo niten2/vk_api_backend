@@ -1,8 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from 'app/graphql/resolvers'
-import fs from 'fs'
-
-const getTypeDefs = () => { return fs.readFileSync(__dirname + "/schema.graphql").toString() }
-const typeDefs = getTypeDefs()
+import typeDefs from 'app/graphql/typeDefs'
 
 export default makeExecutableSchema({ typeDefs, resolvers })

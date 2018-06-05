@@ -2,7 +2,7 @@ import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
 
 const setInfoVkPersons = gql`
-  subscription setInfoVkPersons {
+  mutation setInfoVkPersons {
     setInfoVkPersons {
       message
     }
@@ -10,7 +10,7 @@ const setInfoVkPersons = gql`
 `
 
 const subscribeToSetInfoVkPersons = gql`
-  query subscribeToSetInfoVkPersons {
+  subscription subscribeToSetInfoVkPersons {
     subscribeToSetInfoVkPersons {
       message
     }
@@ -35,7 +35,7 @@ export const withData = compose (
   graphql<any, any, any>(
     setInfoVkPersons, {
       name: "setInfoVkPersons",
-      skip: true,
+      // skip: true,
     },
   ),
 )

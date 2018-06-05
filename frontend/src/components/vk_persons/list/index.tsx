@@ -88,6 +88,9 @@ class ListUser extends React.Component<any, {}> {
                         <th className="text-center">id</th>
                         <th className="text-center">uid</th>
                         <th className="text-center">isFriend</th>
+                        <th className="text-center">first_name</th>
+                        <th className="text-center">last_name</th>
+                        <th className="text-center">deactivated</th>
                       </tr>
                     </thead>
                     <tbody>

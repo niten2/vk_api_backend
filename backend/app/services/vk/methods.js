@@ -10,8 +10,13 @@ export const infoVkUser = async (user, person) => {
 
   let info = res[0]
 
+  info.uid = info.id
+  delete info.id
+
   if (info.deactivated) {
     info.deactivated = true
+  } else {
+    info.deactivated = false
   }
 
   return info
