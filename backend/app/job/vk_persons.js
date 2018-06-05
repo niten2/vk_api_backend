@@ -8,7 +8,7 @@ import pubsub, { SUBSCRIBE_TO_SET_INFO_VK_PERSONS } from "app/graphql/pubsub"
 
 const vkPersonsQueueProcess = async (job) => {
   try {
-    await delay(500)
+    await delay(1000)
 
     const { vkPersonId, userId } = job.data
     const user = await User.findById(userId)
