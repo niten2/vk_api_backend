@@ -2,6 +2,7 @@ import moment from "moment"
 import bcrypt from "bcrypt-nodejs"
 import DataType, { Op } from "sequelize"
 import Sequelize from 'db/sequelize'
+import { buildVk } from 'config/vk'
 
 const schema = Sequelize.define('users', {
 
@@ -22,6 +23,10 @@ schema.hook('beforeSave', async function(user, options) {
 
 schema.prototype.comparePassword = async function(candidatePassword) {
   return await bcrypt.compareSync(candidatePassword, this.password)
+}
+
+schema.prototype.vkApi = async function() {
+  return buildVk(this.vk_token)
 }
 
 schema.prototype.isFriendNeed = async function() {

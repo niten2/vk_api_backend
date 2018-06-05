@@ -4,6 +4,19 @@ import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
 import logger from "app/services/logger"
 
+export const infoVkUser = async (user, person) => {
+  const vk = await user.vkApi()
+  let res = await vk.api.users.get({ user_ids: [person.uid] })
+
+  let info = res[0]
+
+  if (info.deactivated) {
+    info.deactivated = true
+  }
+
+  return info
+}
+
 export const addFriend = async (person, user) => {
   const vk = buildVk(user.vk_token)
 
@@ -22,22 +35,6 @@ export const addFriend = async (person, user) => {
 
   return true
 }
-
-// export const andPersonInFriend = async () => {
-//   try {
-//     const person = await VkPerson.findOne({ where: { isFriend: false } })
-
-//     if (!person) {
-//       logger.info("users not found")
-//     }
-
-//     await addFriend(person, user)
-
-//     logger.info(person.uid, "add in friend")
-//   } catch (err) {
-//     logger.error(err)
-//   }
-// }
 
 export const andPersonInFriendUser = async (user) => {
   try {

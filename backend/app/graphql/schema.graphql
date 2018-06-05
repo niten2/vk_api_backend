@@ -12,12 +12,14 @@ type Mutation {
   createUser(input: UserCreateInput!): UserWithToken
   createVkFriends(input: CreateVkFriendsInput!): VkPersonWithError
 
+  setInfoVkPersons: Message
+
   updateMe(input: MeUpdateInput!): User
 }
 
 type Subscription {
   subscribeToLog(input: SubscribeToLogInput!): Log
-  channelAdded: Log
+  subscribeToSetInfoVkPersons: Message
 }
 
 ### INPUT ###
