@@ -1,8 +1,8 @@
 import moment from "moment"
 import bcrypt from "bcrypt-nodejs"
-import DataType, { Op } from "sequelize"
+import buildVk from 'config/vk'
 import Sequelize from 'db/sequelize'
-import { buildVk } from 'config/vk'
+import DataType, { Op } from "sequelize"
 
 const schema = Sequelize.define('users', {
 

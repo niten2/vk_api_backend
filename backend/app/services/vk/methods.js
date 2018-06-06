@@ -1,8 +1,7 @@
-import { buildVk } from 'config/vk'
+import logger from "app/services/logger"
 import { User, VkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
-import logger from "app/services/logger"
 
 export const infoVkUser = async (user, person) => {
   const vk = await user.vkApi()
@@ -23,8 +22,7 @@ export const infoVkUser = async (user, person) => {
 }
 
 export const addFriend = async (person, user) => {
-  const vk = buildVk(user.vk_token)
-
+  const vk = await user.vkApi()
   const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
 
   // NOTE

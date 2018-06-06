@@ -1,10 +1,10 @@
+import Queue from "bull"
+import logger from "app/services/logger"
+import pubsub, { SUBSCRIBE_TO_SET_INFO_VK_PERSONS } from "app/graphql/pubsub"
 import { VkPerson, User } from "app/models"
 import { delay } from "app/services/utils"
 import { infoVkUser } from "app/services/vk/methods"
-import logger from "app/services/logger"
-import Queue from "bull"
 import settings from "config/settings"
-import pubsub, { SUBSCRIBE_TO_SET_INFO_VK_PERSONS } from "app/graphql/pubsub"
 
 const vkPersonsQueueProcess = async (job) => {
   try {
@@ -20,11 +20,14 @@ const vkPersonsQueueProcess = async (job) => {
     await vkPerson.save()
 
     const message = `vk person uid = ${vkPerson.uid} updated`
+
     pubsub.publish(SUBSCRIBE_TO_SET_INFO_VK_PERSONS, { subscribeToSetInfoVkPersons: { message } })
+    logger.info(message)
 
   } catch (err) {
-    console.log(err)
+    logger.error(err)
   }
+
 }
 
 const vkPersonsQueue = new Queue("vkPersonsQueue", settings.redisUrl)

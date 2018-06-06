@@ -1,42 +1,23 @@
-import { VkPerson } from "app/models"
+import { VkPerson, User } from "app/models"
 import { infoVkUser } from "app/services/vk/methods"
-import { User } from "app/models"
-import sinon from "sinon"
-
-const mockVkApi = {
-  api: {
-    users: {
-      get: () => {
-        return [{
-          first_name: "first_name",
-          last_name: "last_name",
-        }]
-      }
-    }
-  }
-}
 
 describe('test', () => {
-  let mockSend
   let user
+  let vkPerson
 
   beforeEach(async () => {
-    user = await factory.build("user", { vk_token: "" })
-
-    mockSend = sinon.stub(user, 'vkApi').returns(mockVkApi)
-  })
-
-  afterEach(() => {
-    mockSend.restore()
+    user = await factory.build("user")
+    vkPerson = await factory.build("vkPerson")
   })
 
   it("should return info", async () => {
-    const person = await factory.build("vkPerson", { uid: "id210536011" })
-    let res = await infoVkUser(user, person)
+    let res = await infoVkUser(user, vkPerson)
 
     expect(res).toEqual({
+      uid: "id",
       first_name: "first_name",
       last_name: "last_name",
+      deactivated: false,
     })
   })
 

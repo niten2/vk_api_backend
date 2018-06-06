@@ -15,36 +15,14 @@ const getStreams = () => {
   ]
 }
 
-const buildLogger = () => {
-  return bunyan.createLogger({
+export default bunyan.createLogger({
+  name: settings.env,
+  level: 'trace',
 
-    name: settings.env,
-    level: 'trace',
+  serializers: {
+    req: bunyan.stdSerializers.req,
+    res: bunyan.stdSerializers.res
+  },
 
-    serializers: {
-      req: bunyan.stdSerializers.req,
-      res: bunyan.stdSerializers.res
-    },
-
-    streams: getStreams(),
-  })
-}
-
-const buildJobLogger = () => {
-  return bunyan.createLogger({
-
-    name: settings.env,
-    level: 'trace',
-
-    serializers: {
-      req: bunyan.stdSerializers.req,
-      res: bunyan.stdSerializers.res
-    },
-
-    streams: getStreamsJob(),
-  })
-}
-
-const logger = buildLogger()
-
-export default logger
+  streams: getStreams(),
+})
