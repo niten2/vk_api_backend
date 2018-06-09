@@ -1,5 +1,9 @@
 # Smm Crm System
----
+
+## Application can:
+
+  - automatic addition to friends in VK
+  - get info about user VK
 
 ## Docker
 
