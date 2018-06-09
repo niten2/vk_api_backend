@@ -5,7 +5,7 @@ export default `
     vkPersons(input: VkPersonsInput): VkPersonWithMeta
 
     logs: [Log]
-    testLog: Message
+    analytic: Analytic
   }
 
   type Mutation {
@@ -133,6 +133,9 @@ export default `
 
   type Message {
     message: String!
+  }
+
+  type Analytic {
   }
 
   ### SCHEMA ###
