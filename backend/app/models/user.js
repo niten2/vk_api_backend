@@ -3,6 +3,7 @@ import bcrypt from "bcrypt-nodejs"
 import buildVk from 'config/vk'
 import Sequelize from 'db/sequelize'
 import DataType, { Op } from "sequelize"
+import VkPerson from "./vkPerson"
 
 const schema = Sequelize.define('users', {
 
@@ -32,6 +33,18 @@ schema.prototype.vkApi = async function() {
 schema.prototype.isFriendNeed = async function() {
   const countFriend = await this.countTodayFriend()
   return 25 >= countFriend
+}
+
+schema.prototype.hasDesiredFriends = async function() {
+  const person = await VkPerson.findOne({
+    where: {
+      isFriend: false,
+      deactivated: false,
+      user_id: this.id,
+    }
+  })
+
+  return person != null || person != undefined
 }
 
 schema.prototype.countTodayFriend = async function() {

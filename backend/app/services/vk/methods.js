@@ -46,22 +46,20 @@ export const andPersonInFriendUser = async (user) => {
     const person = await VkPerson.findOne({
       where: {
         isFriend: false,
+        deactivated: false,
         user_id: user.id,
       }
     })
 
     if (!person) {
-      const messageNotFound = `vk persons not found, user.id=${user.id}`
-
-      logger.info(messageNotFound)
+      logger.info(`vk persons not found, user.id=${user.id}`)
+      return
     }
 
     await addFriend(person, user)
     await person.update({ addFriendAt: new Date() })
 
-    const messageSucces = `person.uid = ${person.uid}, add in friend for user.id = ${user.id}`
-
-    logger.info(messageSucces)
+    logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user.id}`)
   } catch (err) {
     logger.error(err)
   }
@@ -85,7 +83,6 @@ export const andPersonInFriendWithLimit = async () => {
 
     })
   )
-
 }
 
 export const checkFriend = async (userId) => {

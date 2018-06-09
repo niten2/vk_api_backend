@@ -30,7 +30,7 @@ describe('#isFriendNeed', () => {
   })
 })
 
-describe.only("#comparePassword", () => {
+describe("#comparePassword", () => {
   it("should return true", async () => {
     const password = "password"
     let user = await factory.create('user', { password })
@@ -46,5 +46,24 @@ describe.only("#comparePassword", () => {
     let user = await factory.create('user', { password })
 
     expect(await user.comparePassword(other_string)).toBeFalsy()
+  })
+})
+
+describe("#hasDesiredFriends", () => {
+  it("should return true", async () => {
+    let user = await factory.create('user')
+    let vkPerson = await factory.create('vkPerson', { user_id: user.id, isFriend: false, deactivated: false })
+
+    let res = await user.hasDesiredFriends()
+
+    expect(res).toBeTruthy()
+  })
+
+  it("should return false", async () => {
+    let user = await factory.create('user')
+
+    let res = await user.hasDesiredFriends()
+
+    expect(res).toEqual(false)
   })
 })

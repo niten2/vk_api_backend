@@ -1,3 +1,3 @@
-import VkFriendsJob  from "./vk_friends"
+import { startVkFriendsJob }  from "app/services/job/vkFriendsQueue"
 
-VkFriendsJob()
+startVkFriendsJob()
