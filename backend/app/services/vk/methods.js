@@ -40,27 +40,30 @@ export const addFriend = async (person, user) => {
 }
 
 export const andPersonInFriendUser = async (user) => {
-  try {
-    if (!user) throw new Error("user_id not found")
+  if (!user) throw new Error("user_id not found")
 
-    const person = await VkPerson.findOne({
-      where: {
-        isFriend: false,
-        deactivated: false,
-        user_id: user.id,
-      }
-    })
-
-    if (!person) {
-      logger.info(`vk persons not found, user.id=${user.id}`)
-      return
+  const person = await VkPerson.findOne({
+    where: {
+      isFriend: false,
+      deactivated: false,
+      error: null,
+      user_id: user.id,
     }
+  })
 
+  if (!person) {
+    logger.info(`vk persons not found, user.id=${user.id}`)
+    return
+  }
+
+  try {
     await addFriend(person, user)
     await person.update({ addFriendAt: new Date() })
 
     logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user.id}`)
   } catch (err) {
+    await person.update({ error: true, error_message: err.message })
+
     logger.error(err)
   }
 }
@@ -86,9 +89,7 @@ export const andPersonInFriendWithLimit = async () => {
 }
 
 export const checkFriend = async (userId) => {
-  const response = await vk.api.friends.areFriends({
-    user_ids: [userId],
-  })
+  const response = await vk.api.friends.areFriends({ user_ids: [userId] })
 
   const checkHaveFriendStatusUserId = pipe(
     find(propEq('user_id', Number.parseInt(userId))),

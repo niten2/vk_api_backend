@@ -48,6 +48,12 @@ let Person = Sequelize.define('vk_persons', {
     defaultValue: false,
   },
 
+  error: {
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  },
+
+  error_message: DataType.STRING,
 
   addFriendAt: DataType.DATE,
 
