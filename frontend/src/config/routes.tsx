@@ -17,6 +17,8 @@ import Profile from 'src/components/profile'
 import VkFriendsAll from 'src/pages/vk/friends_all'
 import VkFriendsToday from 'src/pages/vk/friends_today'
 import VkFriendNew from 'src/pages/vk/new'
+import VkSetUsersInfo from 'src/pages/vk/set_users_info'
+
 import Log from 'src/pages/log'
 
 export default () => {
@@ -34,6 +36,7 @@ export default () => {
           <PrivateLayout exact={true} path="/vk/friends/all" component={VkFriendsAll}/>
           <PrivateLayout exact={true} path="/vk/friends/today" component={VkFriendsToday}/>
           <PrivateLayout exact={true} path="/vk/friends/new" component={VkFriendNew}/>
+          <PrivateLayout exact={true} path="/vk/friends/set_users_info" component={VkSetUsersInfo}/>
 
           <PrivateLayout exact={true} path="/profile" component={Profile}/>
           <PrivateLayout exact={true} path="/logs" component={Log}/>

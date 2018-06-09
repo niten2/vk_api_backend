@@ -3,7 +3,7 @@ import settings from "config/settings"
 import { User, Setting, VkPerson } from "app/models"
 
 const buildLogging = () => {
-  if (settings.isEnvTest) {
+  if (settings.isEnvTest || settings.isEnvProd) {
     return false
   }
 

@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile.production
     image: smm_crm_system_backend_production_job_1
     env_file: ./backend/.env.production
-    command: bash -c "npm run job:production"
+    command: bash -c "npm run job:prod"
     links:
       - redis
     volumes:

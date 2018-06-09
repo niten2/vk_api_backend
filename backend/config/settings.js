@@ -36,6 +36,7 @@ export default {
   port: process.env.PORT || 3001,
   ws_port: process.env.WS_PORT || 3002,
   isEnvTest: process.env.NODE_ENV == "test",
+  isEnvProd: process.env.NODE_ENV == "production" || process.env.NODE_ENV == "production.job",
 
   jwt_secret_key: process.env.JWT_SECRET_KEY,
   databaseUrl: process.env.DATABASE_URL,

@@ -26,10 +26,12 @@
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
     "db:vk:load:persons": "babel-node db/load/persons",
     "job": "NODE_ENV=development.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
-    "job:production": "NODE_ENV=production.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "job:prod": "NODE_ENV=production.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:check:friends": "babel-node app/services/vk/scripts/check_friends.js",
     "vk:persons:add:friends": "babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
-    "vk:persons:add:friends:production": "NODE_ENV=production babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace"
+    "vk:persons:add:friends:prod": "NODE_ENV=production babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "log": "cat log/development.job.log | bunyan -o short -l trace",
+    "log:prod": "cat log/production.job.log | bunyan -o short -l trace"
   },
   "dependencies": {
     "apollo-fetch": "^0.7.0",
@@ -71,6 +73,7 @@
     "mocha": "^5.1.1",
     "nock": "^9.2.5",
     "nodemon": "1.5.0",
+    "sinon": "^5.1.1",
     "supertest": "^3.0.0"
   }
 }

@@ -1,12 +1,28 @@
-import { buildVk } from 'config/vk'
+import logger from "app/services/logger"
 import { User, VkPerson } from "app/models"
 import { cond, pipe, anyPass, equals, prop, propEq, find } from 'ramda'
 import { delay } from "app/services/utils"
-import logger from "app/services/logger"
+
+export const infoVkUser = async (user, person) => {
+  const vk = await user.vkApi()
+  let res = await vk.api.users.get({ user_ids: [person.uid] })
+
+  let info = res[0]
+
+  info.uid = info.id
+  delete info.id
+
+  if (info.deactivated) {
+    info.deactivated = true
+  } else {
+    info.deactivated = false
+  }
+
+  return info
+}
 
 export const addFriend = async (person, user) => {
-  const vk = buildVk(user.vk_token)
-
+  const vk = await user.vkApi()
   const res = await vk.api.friends.add({ user_id: Number.parseInt(person.uid) })
 
   // NOTE
@@ -23,22 +39,6 @@ export const addFriend = async (person, user) => {
   return true
 }
 
-// export const andPersonInFriend = async () => {
-//   try {
-//     const person = await VkPerson.findOne({ where: { isFriend: false } })
-
-//     if (!person) {
-//       logger.info("users not found")
-//     }
-
-//     await addFriend(person, user)
-
-//     logger.info(person.uid, "add in friend")
-//   } catch (err) {
-//     logger.error(err)
-//   }
-// }
-
 export const andPersonInFriendUser = async (user) => {
   try {
     if (!user) throw new Error("user_id not found")
@@ -46,22 +46,20 @@ export const andPersonInFriendUser = async (user) => {
     const person = await VkPerson.findOne({
       where: {
         isFriend: false,
+        deactivated: false,
         user_id: user.id,
       }
     })
 
     if (!person) {
-      const messageNotFound = `vk persons not found, user.id=${user.id}`
-
-      logger.info(messageNotFound)
+      logger.info(`vk persons not found, user.id=${user.id}`)
+      return
     }
 
     await addFriend(person, user)
     await person.update({ addFriendAt: new Date() })
 
-    const messageSucces = `person.uid = ${person.uid}, add in friend for user.id = ${user.id}`
-
-    logger.info(messageSucces)
+    logger.info(`person.uid = ${person.uid}, add in friend for user.id = ${user.id}`)
   } catch (err) {
     logger.error(err)
   }
@@ -85,7 +83,6 @@ export const andPersonInFriendWithLimit = async () => {
 
     })
   )
-
 }
 
 export const checkFriend = async (userId) => {
