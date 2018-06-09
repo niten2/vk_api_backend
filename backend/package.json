@@ -30,6 +30,7 @@
     "vk:persons:check:friends": "babel-node app/services/vk/scripts/check_friends.js",
     "vk:persons:add:friends": "babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:add:friends:prod": "NODE_ENV=production babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
+    "log": "cat log/development.job.log | bunyan -o short -l trace",
     "log:prod": "cat log/production.job.log | bunyan -o short -l trace"
   },
   "dependencies": {
