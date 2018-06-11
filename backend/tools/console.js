@@ -14,7 +14,5 @@ models.VkPerson.findAll({
     deactivated: false || null,
   }
 }).then(res => {
-  console.log(11111111)
   console.log(res)
-  console.log(11111111)
 })

@@ -76,7 +76,7 @@ export const andPersonInFriendWithLimit = async () => {
     users.map(async (user) => {
 
       if (await user.isFriendNeed()) {
-        await  ndPersonInFriendUser(user)
+        await andPersonInFriendUser(user)
       } else {
         logger.info(`user id, ${user.id}, user enough friend`)
       }
