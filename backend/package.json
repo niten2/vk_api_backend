@@ -12,7 +12,8 @@
   "scripts": {
     "start": "NODE_ENV=production babel-node ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
     "dev": "node_modules/.bin/nodemon --exec babel-node ./tools/run.js | ./node_modules/.bin/bunyan -o short -l trace",
-    "console": "node --require ./tools/babelhook ./tools/console.js",
+    "console": "babel-node ./tools/console.js",
+    "console:prod": "NODE_ENV=production babel-node ./tools/console.js",
     "tests": "jest --forceExit --runInBand",
     "test": "jest --watch --runInBand",
     "db:migrate": "node_modules/.bin/sequelize db:migrate && NODE_ENV=test node_modules/.bin/sequelize db:migrate && NODE_ENV=production node_modules/.bin/sequelize db:migrate",
@@ -24,7 +25,7 @@
     "db:drop:test": "rm -rf db/database.test.sqlite",
     "db:reset": "npm run db:drop; npm run db:migrate; npm run db:seed;",
     "db:reset:test": "npm run db:drop:test; npm run db:migrate:test",
-    "db:vk:load:persons": "babel-node db/load/persons",
+    "db:vk:load:persons": "NODE_ENV=production babel-node db/scripts/load_persons_file.js",
     "job": "NODE_ENV=development.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "job:prod": "NODE_ENV=production.job babel-node app/job/index.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:check:friends": "babel-node app/services/vk/scripts/check_friends.js",

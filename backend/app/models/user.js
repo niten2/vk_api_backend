@@ -39,7 +39,7 @@ schema.prototype.hasDesiredFriends = async function() {
   const person = await VkPerson.findOne({
     where: {
       isFriend: false,
-      deactivated: false,
+      deactivated: false || null,
       user_id: this.id,
     }
   })

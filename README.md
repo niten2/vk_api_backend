@@ -12,13 +12,13 @@
   - frontend http://localhost:3000
   - backend http://localhost:3001
 
-### production
-- docker-compose -f docker-compose.production.yml build
-- docker-compose -f docker-compose.production.yml up
-
 ### production job
 - docker-compose -f docker-compose.production.job.yml build
 - docker-compose -f docker-compose.production.job.yml up
+
+### production
+- docker-compose -f docker-compose.production.yml build
+- docker-compose -f docker-compose.production.yml up
 
 ### Backend
 ---

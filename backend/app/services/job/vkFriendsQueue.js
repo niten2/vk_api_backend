@@ -56,7 +56,8 @@ export const vkFriendsQueueOnCompleted = async (job, data) => {
 
 // NOTE private
 const addNewJob = async (user) => {
-  const delay = getRandomInt(minutesToMilliseconds(30), minutesToMilliseconds(60))
+  // const delay = getRandomInt(minutesToMilliseconds(30), minutesToMilliseconds(60))
+  const delay = 4000
 
   logger.debug(`add new job, user.id = ${user.id}, DELAY = ${delay}`)
 

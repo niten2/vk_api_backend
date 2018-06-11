@@ -18,7 +18,6 @@ services:
     environment:
       REDIS_URL: redis://redis:6379
 
-
   redis:
     container_name: smm_crm_system_redis_production_job
     image: redis:4.0.9
