@@ -1,15 +1,18 @@
 import Repl from "repl"
-import App from "config/app"
-
-const app = new App
+import * as models from "app/models"
 
 let replServer = Repl.start({
   prompt: "Node > ",
 })
 
-replServer.context.app = app
-replServer.context.models = app.models
+replServer.context.models = models
 
-models.ItemTag.findAll().then(response => {
-  console.log(response)
+models.VkPerson.findAll({
+  where: {
+    user_id: 1,
+    isFriend: false,
+    deactivated: false || null,
+  }
+}).then(res => {
+  console.log(res)
 })

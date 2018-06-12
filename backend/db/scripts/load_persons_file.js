@@ -1,4 +1,4 @@
-import { vkPerson } from "app/models"
+import { VkPerson } from "app/models"
 import { getFile } from "app/services/files"
 
 const main = async () => {
@@ -9,11 +9,11 @@ const main = async () => {
       ids.split("\n").filter((id) => id !== "").map(async (id) => {
 
         try {
-          await vkPerson.create({ uid: id })
+          await VkPerson.create({ uid: id, user_id: 1 })
           console.log(`vkPerson create ${id}`)
         } catch (err) {
           console.log("--------------")
-          console.log(id, err)
+          console.log(id, err.message)
         }
 
       })
