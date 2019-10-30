@@ -57,7 +57,7 @@
     "moment": "^2.22.1",
     "papaparse": "^4.4.0",
     "ramda": "^0.25.0",
-    "sequelize": "^4.37.7",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^4.0.0",
     "sqlite": "^2.9.1",
     "subscriptions-transport-ws": "^0.9.9",
