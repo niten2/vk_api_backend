@@ -11,7 +11,9 @@
     "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
     "cosmos": "cosmos",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "jest": {
     "moduleNameMapper": {
@@ -54,7 +56,8 @@
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
-    "subscriptions-transport-ws": "^0.9.9"
+    "subscriptions-transport-ws": "^0.9.9",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/faker": "^4.1.2",
@@ -100,5 +103,6 @@
     "react-test-renderer": "^16.4.0",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
-  }
+  },
+  "snyk": true
 }
