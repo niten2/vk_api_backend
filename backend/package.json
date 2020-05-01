@@ -31,7 +31,9 @@
     "vk:persons:add:friends": "babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
     "vk:persons:add:friends:prod": "NODE_ENV=production babel-node app/services/vk/scripts/add_friend.js | ./node_modules/.bin/bunyan -o short -l trace",
     "log": "cat log/development.job.log | bunyan -o short -l trace",
-    "log:prod": "cat log/production.job.log | bunyan -o short -l trace"
+    "log:prod": "cat log/production.job.log | bunyan -o short -l trace",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "apollo-fetch": "^0.7.0",
@@ -61,7 +63,8 @@
     "sequelize-cli": "^4.0.0",
     "sqlite": "^2.9.1",
     "subscriptions-transport-ws": "^0.9.9",
-    "vk-io": "^4.0.0-beta.6"
+    "vk-io": "^4.0.0-beta.6",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -75,5 +78,6 @@
     "nodemon": "1.5.0",
     "sinon": "^5.1.1",
     "supertest": "^3.0.0"
-  }
+  },
+  "snyk": true
 }
