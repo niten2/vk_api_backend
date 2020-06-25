@@ -45,7 +45,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.18.2",
     "bull": "^3.4.2",
-    "bunyan": "^1.8.12",
+    "bunyan": "^1.8.13",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
