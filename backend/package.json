@@ -55,7 +55,7 @@
     "graphql-tools": "^3.0.1",
     "jsonwebtoken": "^8.2.1",
     "moment": "^2.22.1",
-    "papaparse": "^4.4.0",
+    "papaparse": "^5.2.0",
     "ramda": "^0.25.0",
     "sequelize": "^4.37.7",
     "sequelize-cli": "^4.0.0",
