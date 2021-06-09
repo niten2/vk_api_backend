@@ -54,7 +54,7 @@
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.3.0",
-    "subscriptions-transport-ws": "^0.9.9"
+    "subscriptions-transport-ws": "^0.9.19"
   },
   "devDependencies": {
     "@types/faker": "^4.1.2",
